@@ -1,8 +1,24 @@
 # SWEng
-University of York, Department of Electronic Engineering, MEng Year Three, Software Engineering Project.
+*University of York, Deptartment of Electronic Engineering, Third Year MEng, Software Engineering Project*
 
-## About
+## Task
+>   “Produce a piece of interactive software to play back multimedia presentations on a PC and/or tablet”
+>
+>   * MMPE - MultiMedia Presentation Environment
+>   * “Slide-show” format 
+>       * e.g. a competitor to Microsoft PowerPoint
+>       * see spec for more examples
+>   * *Emphasis* on live and/or interaction 
+>       * Talks
+>       * Sales demos
+>       * Your own final presentation!
 
-## Team
-* **@zwrawr** (Zak West)
-
+## Members
+- Vipra Chowdhary (vc622)
+- Joshua Danks-Smith (jjds502)
+- Harry Eddis-Webb (hjew501)
+- Ruth Herd (rh1271)
+- Laurence Martin (lm1370)
+- Tanisha Mascarenhas (tmm522)
+- Luke Roberts (lr870)
+- Zak West @zwrawr
