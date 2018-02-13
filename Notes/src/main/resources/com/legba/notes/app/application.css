@@ -1,0 +1,12 @@
+/*
+ * Reference for all the -fx- styles
+ * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#text
+ */
+
+.legbaName {
+	-fx-fill: springgreen;
+}
+
+.root {
+    -fx-background-color:deepskyblue;    
+}

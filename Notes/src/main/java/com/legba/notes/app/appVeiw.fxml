@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:id="root" fx:controller="com.legba.notes.app.AppController" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@application.css" prefWidth="800" prefHeight="600">
+	
+	<fx:define>
+		<Font fx:id="TITLE_FONT" size="18"/>
+		<Font fx:id="NORMAL_FONT" size="12"/>
+	</fx:define>
+	
+	<top>
+		<HBox fx:id="topbar_root">
+				<Text styleClass="legbaName" font="$TITLE_FONT">Legba Notes</Text>
+		</HBox>
+	</top>
+	
+	
+	<!-- CONTENT -->
+	<center>
+		<SplitPane>
+		    <items>
+		    	<!-- Video or Slides reference material -->
+				<VBox fx:id="reference_root" spacing="10">
+				
+					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text>Lorem ipsum dolor sit amet</Text>
+					
+				</VBox>
+				
+				<!-- Notes Contents -->
+				<VBox fx:id="notes_root" spacing="10">
+				
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					
+				</VBox>
+		    </items> 
+		</SplitPane>
+	</center>
+</BorderPane>
+
