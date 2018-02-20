@@ -1,8 +1,10 @@
 package com.legba.notes.elements;
 
+//Bitmap Image Element (JPEGs supported)
+//Other formats not guaranteed support
 public class Image extends Element {
 
-
+	//Image also has a position
 	public Position position;
 	
 	public Image(String path) {
@@ -14,7 +16,7 @@ public class Image extends Element {
 		this.setPath(path);
 		
 	}
-	
+	//The local filepath of the media file
 	public String getPath() {
 		return (String)this.getAttribute("path");
 
