@@ -1,4 +1,4 @@
-# SWEng
+﻿# SWEng
 *University of York, Deptartment of Electronic Engineering, Third Year MEng, Software Engineering Project*
 
 ## Task
@@ -17,7 +17,7 @@
 - Vipra Chowdhary (vc622)
 - Joshua Danks-Smith (jjds502)
 - Harry Eddis-Webb (hjew501)
-- Ruth Herd (rh1271)
+- Ruth Herd @ruth.herd
 - Laurence Martin @lm1370
 - Tanisha Mascarenhas @tmm522
 - Luke Roberts @lr870
