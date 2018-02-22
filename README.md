@@ -16,7 +16,7 @@
 ## Members
 - Vipra Chowdhary (vc622)
 - Joshua Danks-Smith (jjds502)
-- Harry Eddis-Webb (hjew501)
+- Harry Eddis-Webb @hjew501
 - Ruth Herd @ruth.herd
 - Laurence Martin @lm1370
 - Tanisha Mascarenhas @tmm522
