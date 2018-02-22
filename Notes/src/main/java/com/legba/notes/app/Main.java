@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
+
 public class Main extends Application {
 	
 	static AppController appController;
@@ -24,8 +25,12 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 	
+	
 	public static void main(String[] args) {
 		launch(args);
 
 	}
+	
+	
+
 }

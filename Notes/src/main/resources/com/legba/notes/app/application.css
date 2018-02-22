@@ -4,9 +4,18 @@
  */
 
 .legbaName {
-	-fx-fill: springgreen;
+	
 }
 
 .root {
-    -fx-background-color:deepskyblue;    
+ 
+}
+
+.button {
+	-fx-background-color:ff7f50;
+}
+
+.menuButton {
+	
+	
 }

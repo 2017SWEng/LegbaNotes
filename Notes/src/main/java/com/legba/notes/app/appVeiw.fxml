@@ -18,23 +18,35 @@
 		<Font fx:id="NORMAL_FONT" size="12"/>
 	</fx:define>
 	
+	
+	<!-- MENU BAR -->
+	
+	
+	<!-- Menu bar to be applied across all screens, apart from login screen -->
+	<!-- Coded by: jjds502, 1st iteration 22/02/2018 -->
+	
 	<top>
 		<HBox fx:id="topbar_root">
-				<Text styleClass="legbaName" font="$TITLE_FONT">Legba Notes</Text>
+				<Button text="Home" onAction="#handleHomeButtonAction"/>
 		</HBox>
 	</top>
 	
 	
 	<!-- CONTENT -->
+	
 	<center>
 		<SplitPane>
 		    <items>
+		    
+		    	
+		    
 		    	<!-- Video or Slides reference material -->
 				<VBox fx:id="reference_root" spacing="10">
 				
 					<Text>Lorem ipsum dolor sit amet</Text>
 					<Text>Lorem ipsum dolor sit amet</Text>
 					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text fx:id="actiontarget"/>
 					
 				</VBox>
 				

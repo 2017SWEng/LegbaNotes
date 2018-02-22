@@ -22,6 +22,12 @@ public class AppController {
 	@FXML
 	private HBox topbar_root;
 	
+	@FXML private Text actiontarget;
+    
+    @FXML protected void handleHomeButtonAction(ActionEvent event) {
+        actiontarget.setText("Home button pressed");
+    }
+	
 	public void initialize() {
 
     }
