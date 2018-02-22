@@ -1,6 +1,6 @@
 ﻿# SWEng
 *University of York, Deptartment of Electronic Engineering, Third Year MEng, Software Engineering Project*
-
+"Legba Notes - Collaborative note taking tool"
 ## Task
 >   “Produce a piece of interactive software to play back multimedia presentations on a PC and/or tablet”
 >
