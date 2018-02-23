@@ -1,8 +1,10 @@
-package com.legba.notes.elements;
+package com.legba.notes.app;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.legba.notes.elements.Image;
 
 public class ImageTest {
 
