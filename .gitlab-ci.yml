@@ -1,0 +1,30 @@
+image: kaiwinter/docker-java8-maven
+
+stages:
+  - build
+  - test
+
+maven_jar:
+  stage: build
+  script:
+    - echo "[+] Building Project Jar With Maven"
+    - cd Notes
+    - mvn jfx:jar
+    - echo "[-] Building Jar Done"
+
+maven_native:
+  stage: build
+  script:
+    - echo "[+] Building Project Native With Maven"
+    - cd Notes
+    - mvn jfx:native
+    - echo "[-] Building Native Done"
+
+maven_test:
+  stage: test
+  script:
+    - echo "[+] Testing Project"
+    - cd Notes
+    - mvn test
+    - echo "[-] Finished Testing"
+
