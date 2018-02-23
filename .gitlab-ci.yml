@@ -1,0 +1,27 @@
+image: maven:3-jdk-7
+
+stages:
+  - build
+  - test
+
+maven_jar:
+  stage: build
+  script:
+    - echo "[+] Building Project Jar With Maven"
+    - mvn jfx:jar
+    - echo "[-] Building Jar Done"
+
+maven_native:
+  stage: build
+  script:
+    - echo "[+] Building Project Native With Maven"
+    - mvn jfx:native
+    - echo "[-] Building Native Done"
+
+maven_test:
+  stage: test
+  script:
+    - echo "[+] Testing Project"
+    - mvn test
+    - echo "[-] Finished Testing"
+
