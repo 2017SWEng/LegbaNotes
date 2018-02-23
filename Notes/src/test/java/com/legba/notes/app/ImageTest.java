@@ -1,8 +1,9 @@
-package com.legba.notes.elements;
-
-import static org.junit.Assert.*;
+package com.legba.notes.app;
 
 import org.junit.Test;
+import org.junit.Assert;
+
+import com.legba.notes.elements.Image;
 
 public class ImageTest {
 
@@ -11,7 +12,7 @@ public class ImageTest {
 		Image img = new Image("Some Path");
 		String test = img.getPath();
 	
-		assertEquals("These Paths match?", "Some Path", test);
+		Assert.assertEquals("These Paths match?", "Some Path", test);
 	}
 
 	@Test
@@ -19,7 +20,7 @@ public class ImageTest {
 		Image img = new Image("Some Path");
 		
 		img.setPath("Different Path");
-		assertEquals("The Path has Changed", "Different Path", img.getPath());
+		Assert.assertEquals("The Path has Changed", "Different Path", img.getPath());
 	}
 
 }
