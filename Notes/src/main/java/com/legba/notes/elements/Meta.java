@@ -10,6 +10,10 @@ public class Meta extends Element {
 	
 	private String value;
 	
+	protected Meta() {
+		super();
+	}
+	
 	public Meta(String key, String value) {
 		super();
 		

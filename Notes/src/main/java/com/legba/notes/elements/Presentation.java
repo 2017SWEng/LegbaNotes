@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -31,14 +32,14 @@ public class Presentation extends Element implements Colorable,Formatable,Render
 	
 	private Integer size;
 	
-	private List<Meta> Metas;
-	private List<Slide> Slides;
+	private List<Meta> Meta;
+	private List<Slide> Slide;
 	
 	public Presentation() {
 		super();
 
-		this.Metas=new ArrayList<Meta>();
-		this.Slides=new ArrayList<Slide>();
+		this.Meta=new ArrayList<Meta>();
+		this.Slide=new ArrayList<Slide>();
 	}
 
 	@Override
@@ -47,43 +48,45 @@ public class Presentation extends Element implements Colorable,Formatable,Render
 		return null;
 	}
 	
-	public void setSlides(List<Slide> slides) {
-		this.Slides.clear();
-		this.Slides.addAll(slides);
+	public void setSlide(List<Slide> slide) {
+		this.Slide.clear();
+		this.Slide.addAll(slide);
 	}
 	
-	public List<Slide> getSlides() {
-		return this.Slides;
+	@XmlElement(name="Slide")
+	public List<Slide> getSlide() {
+		return this.Slide;
 	}
 	
 	
 	public void addSlide(Slide slide) {
-		this.Slides.add(slide);
+		this.Slide.add(slide);
 	}
 	
 	public Slide getSlide(int index) {
-		if(index < this.Slides.size()) {
-			return this.Slides.get(index);
+		if(index < this.Slide.size()) {
+			return this.Slide.get(index);
 		}
 		return null;
 	}
 	
-	public void setMetas(List<Meta> metas) {
-		this.Metas.clear();
-		this.Metas.addAll(metas);
+	public void setMeta(List<Meta> meta) {
+		this.Meta.clear();
+		this.Meta.addAll(meta);
 	}
 	
-	public List<Meta> getMetas() {
-		return this.Metas;
+	@XmlElement(name="Meta")
+	public List<Meta> getMeta() {
+		return this.Meta;
 	}
 	
 	public void addMeta(Meta meta) {
-		this.Metas.add(meta);
+		this.Meta.add(meta);
 	}
 	
 	public Meta getMeta(int index) {
-		if(index < this.Metas.size()) {
-			return this.Metas.get(index);
+		if(index < this.Meta.size()) {
+			return this.Meta.get(index);
 		}
 		return null;
 	}
