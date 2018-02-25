@@ -1,23 +1,20 @@
 package com.legba.notes.elements;
 
-import com.legba.notes.elements.Element;
-//Rich text element
-public class Text extends Element {
+import com.legba.notes.elements.base.*;
 
-	public Formats format;
-	public Colors colors;
-	public Transition transition;
-	public Position position;
+import javafx.scene.Node;
+
+//Rich text element
+public class Text extends PositionableTransitionableColorableFormatableElement implements Renderable{
 	
-	//Constructor with parameters format, color, transition and position
 	public Text() {
 		super("text");
-		
-		//Optional for text element
-		this.format = new Formats((Element)this);
-		this.colors = new Colors((Element)this);
-		this.transition = new Transition((Element)this);
-		this.position = new Position((Element)this);
+	}
+
+	@Override
+	public Node render() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

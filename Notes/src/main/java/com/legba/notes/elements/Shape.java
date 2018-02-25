@@ -1,18 +1,19 @@
 package com.legba.notes.elements;
 
-public class Shape extends Element {
+import com.legba.notes.elements.base.*;
 
-	public Position position;
-	public Colors colors;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+
+public class Shape extends ColorablePositionableElement implements Renderable{
+	
+	private String type;
+	private int stroke;
 	
 	//Constructor with parameters position, shape and type
 	public Shape(String type) {
 		super("shape");
 
-		//Optional for Element 'Shape'
-		this.position = new Position((Element)this);
-		this.colors = new Colors((Element)this);
-		
 		//Required by Element 'Shape'
 		this.setType(type);
 		
@@ -20,7 +21,7 @@ public class Shape extends Element {
 	
 	//Returns type of shape
 	public String getType() {
-		return (String)this.getAttribute("type");
+		return this.type;
 
 	}
 	
@@ -30,18 +31,24 @@ public class Shape extends Element {
 		if(type != "ellipse" && type != "rectangle" && type != "line") {
 			return;
 		}
-		this.setAttribute("type", type);
+		this.type=type;
 	}
 	
 	//Returns pixel width of border on shape
 	public int getStroke() {
-		return (int)this.getAttribute("stroke");
+		return this.stroke;
 
 	}
 	
 	//Sets pixel width of border on shape
-	public void setStroke(String stroke) {
-		this.setAttribute("stroke", stroke);
+	public void setStroke(int stroke) {
+		this.stroke=stroke;
 	}
 
+	@Override
+	public Node render() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

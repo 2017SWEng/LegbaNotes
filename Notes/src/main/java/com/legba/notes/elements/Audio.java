@@ -1,29 +1,36 @@
 package com.legba.notes.elements;
 
-public class Audio extends Element {
+import com.legba.notes.elements.base.*;
+
+import javafx.scene.Node;
+
+public class Audio extends PathablePositionableElement implements Renderable{
 
 
-	public Position position;
-	
 	public Audio(String path) {
 		super("audio");
 
-
-		this.position = new Position((Element)this);
-		
 		this.setPath(path);
 		
 	}
 	
-	public String getPath() {
-		return (String)this.getAttribute("path");
-
+	@Override
+	protected boolean isValidPath(String path) {
+		
+		if (
+			path.length() > 0 && 
+			path.endsWith(".wav")
+		) {
+			return true;
+		}
+		
+		return false;
 	}
 
-	public void setPath(String path) {
-		//TODO:: check if this is a path before setting it
-		this.setAttribute("path", path);
+	@Override
+	public Node render() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
 
 }
