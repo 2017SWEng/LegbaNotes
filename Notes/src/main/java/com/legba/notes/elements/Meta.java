@@ -1,7 +1,12 @@
 package com.legba.notes.elements;
 
+import com.legba.notes.elements.base.Element;
+
 public class Meta extends Element {
 
+	private String key;
+	private String value;
+	
 	public Meta(String key, String value) {
 		super("meta");
 		
@@ -12,20 +17,20 @@ public class Meta extends Element {
 
 	
 	public String getKey() {
-		return (String)this.getAttribute("key");
+		return (String)this.key;
 
 	}
 
 	public void setKey(String key) {
-		this.setAttribute("key", key);
+		this.key=key;
 	}
 	
 	public String getValue() {
-		return (String)this.getAttribute("value");
+		return this.value;
 
 	}
 
 	public void setValue(String value) {
-		this.setAttribute("value", value);
+		this.value=value;
 	}
 }

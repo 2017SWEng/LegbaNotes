@@ -1,18 +1,24 @@
 package com.legba.notes.elements;
 
-public class Slide extends Element{
-	
-	public Formats format;
-	public Colors colors;
-	public Transition transition;
+import com.legba.notes.elements.base.*;
+
+import javafx.scene.Node;
+
+public class Slide extends TransitionableColorableFormatableElement implements Renderable{
+		
 	
 	public Slide() {
 		super("slide");
 		
-		this.format = new Formats((Element)this);
-		this.colors = new Colors((Element)this);
-		this.transition = new Transition((Element)this);
 	}
+
+	@Override
+	public Node render() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 }

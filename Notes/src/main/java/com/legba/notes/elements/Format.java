@@ -1,17 +1,19 @@
 package com.legba.notes.elements;
 
-public class Format extends Element {
+import com.legba.notes.elements.base.*;
+import javafx.scene.Node;
 
-
-	public Formats format;
-	public Colors colors;
+public class Format extends ColorableFormatableElement implements Renderable{
 	
 	public Format() {
 		super("format");
 
-		this.format = new Formats((Element)this);
-		this.colors = new Colors((Element)this);
 	}
 
+	@Override
+	public Node render() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
