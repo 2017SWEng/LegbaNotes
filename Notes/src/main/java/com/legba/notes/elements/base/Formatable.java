@@ -14,25 +14,25 @@ public interface Formatable {
 
 	
 	//Whether the text should be italic.
-	public boolean isItalic();
+	public Boolean getItalic();
 
-	public void setItalic(boolean italic);
+	public void setItalic(Boolean italic);
 
 	
 	//Whether the text should be bold.
-	public boolean isBold();
+	public Boolean getBold();
 
-	public void setBold(boolean bold);
+	public void setBold(Boolean bold);
 
 	
 	//Whether the text should be underlined.
-	public boolean isUnderlined();
+	public Boolean getUnderlined();
 
-	public void setUnderlined(boolean underlined);
+	public void setUnderlined(Boolean underlined);
 
 	
 	//The size (in points)
-	public int getSize();
+	public Integer getSize();
 
-	public void setSize(int size);
+	public void setSize(Integer size);
 }

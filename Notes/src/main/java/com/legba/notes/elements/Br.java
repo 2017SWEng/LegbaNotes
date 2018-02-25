@@ -5,7 +5,7 @@ import com.legba.notes.elements.base.Element;
 public class Br extends Element {
 
 	public Br() {
-		super("br");
+		super();
 	}
 
 }
