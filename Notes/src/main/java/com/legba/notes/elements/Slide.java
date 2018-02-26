@@ -24,7 +24,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	
 	private Boolean bold;
 	
-	private Boolean underlined;
+	private Boolean underline;
 	
 	private Integer size;
 	
@@ -208,26 +208,26 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 
 	@Override
 	@XmlAttribute
-	public Boolean getUnderlined() {
-		return this.underlined;
+	public Boolean getUnderline() {
+		return this.underline;
 	}
 
 
 	@Override
-	public void setUnderlined(Boolean underlined) {
-		this.underlined=underlined;		
+	public void setUnderline(Boolean underline) {
+		this.underline=underline;		
 	}
 
 
 	@Override
 	@XmlAttribute
-	public Integer getSize() {
+	public Integer getTextsize() {
 		return this.size;
 	}
 
 
 	@Override
-	public void setSize(Integer size) {
+	public void setTextsize(Integer size) {
 		this.size=size;		
 	}
 	

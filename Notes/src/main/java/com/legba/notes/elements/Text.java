@@ -24,9 +24,9 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Boolean bold;
 	
-	private Boolean underlined;
+	private Boolean underline;
 	
-	private Integer size;
+	private Integer textsize;
 	
 	public Text() {
 		super();
@@ -73,27 +73,27 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 
 	@Override
 	@XmlAttribute
-	public Boolean getUnderlined() {
-		return this.underlined;
+	public Boolean getUnderline() {
+		return this.underline;
 	}
 
 
 	@Override
-	public void setUnderlined(Boolean underlined) {
-		this.underlined=underlined;		
+	public void setUnderline(Boolean underline) {
+		this.underline=underline;		
 	}
 
 
 	@Override
 	@XmlAttribute
-	public Integer getSize() {
-		return this.size;
+	public Integer getTextsize() {
+		return this.textsize;
 	}
 
 
 	@Override
-	public void setSize(Integer size) {
-		this.size=size;		
+	public void setTextsize(Integer size) {
+		this.textsize=size;		
 	}
 	
 	

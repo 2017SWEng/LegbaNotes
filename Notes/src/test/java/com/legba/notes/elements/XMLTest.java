@@ -33,7 +33,7 @@ Presentation pres1;
         s1.setStart(5);
         
         Text t1 = new Text();
-        t1.setSize(12);
+        t1.setTextsize(12);
         s1.addText(t1);
 
         Video v1 = new Video("./test.mp4");

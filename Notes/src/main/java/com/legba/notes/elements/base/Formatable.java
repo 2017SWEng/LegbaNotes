@@ -26,13 +26,13 @@ public interface Formatable {
 
 	
 	//Whether the text should be underlined.
-	public Boolean getUnderlined();
+	public Boolean getUnderline();
 
-	public void setUnderlined(Boolean underlined);
+	public void setUnderline(Boolean underline);
 
 	
 	//The size (in points)
-	public Integer getSize();
+	public Integer getTextsize();
 
-	public void setSize(Integer size);
+	public void setTextsize(Integer size);
 }
