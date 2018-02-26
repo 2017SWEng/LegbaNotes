@@ -21,6 +21,9 @@ public class Image extends SlideElement implements Pathable,Positionable,Rendera
 	
 	private String path;
 	
+	protected Image() {
+		super();
+	};
 	
 	public Image(String path) {
 		super();

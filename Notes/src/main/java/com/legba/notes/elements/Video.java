@@ -18,6 +18,10 @@ public class Video extends SlideElement implements Pathable,Positionable,Rendera
 	
 	private String path;
 	
+	protected Video() {
+		super();
+	};
+	
 	public Video(String path) {
 		super();
 

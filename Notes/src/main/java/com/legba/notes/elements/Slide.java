@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
@@ -39,6 +40,15 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 		this.slideElements = new ArrayList<SlideElement>();
 	}
 	
+	@XmlElement
+	public List<SlideElement> getSlideElements() {
+		return this.slideElements;
+	}
+	
+	public void setSlideElements(List<SlideElement> slideElements) {
+		this.slideElements.clear();
+		this.slideElements.addAll(slideElements);
+	}
 	
 	public void addSlideElement(SlideElement slideElements) {
 		this.slideElements.add(slideElements);
@@ -54,7 +64,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	
 	@Override
 	@XmlAttribute
-	public int getStart() {
+	public Integer getStart() {
 		return this.start;
 	}
 
@@ -67,7 +77,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 
 	@Override
 	@XmlAttribute
-	public int getDuration() {
+	public Integer getDuration() {
 		return this.duration;
 	}
 

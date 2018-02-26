@@ -18,6 +18,10 @@ public class Audio extends SlideElement implements Pathable,Positionable,Rendera
 	
 	private String path;
 
+	protected Audio() {
+		super();
+	}
+	
 	public Audio(String path) {
 		super();
 

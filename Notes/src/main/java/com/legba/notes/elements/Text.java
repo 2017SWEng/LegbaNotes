@@ -205,7 +205,7 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 	
 	@Override
 	@XmlAttribute
-	public int getStart() {
+	public Integer getStart() {
 		return this.start;
 	}
 
@@ -218,7 +218,7 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 
 	@Override
 	@XmlAttribute
-	public int getDuration() {
+	public Integer getDuration() {
 		return this.duration;
 	}
 

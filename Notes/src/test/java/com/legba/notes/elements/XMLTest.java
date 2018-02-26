@@ -1,6 +1,7 @@
 package com.legba.notes.elements;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,6 +31,13 @@ Presentation pres1;
         Slide s1 = new Slide();
         s1.setDuration(10);
         s1.setStart(5);
+        
+        Text t1 = new Text();
+        t1.setSize(12);
+        s1.addSlideElement(t1);
+
+        Video v1 = new Video("./test.mp4");
+        s1.addSlideElement(v1);
         
         Slide s2 = new Slide();
         s2.setDuration(11);
@@ -61,12 +69,33 @@ Presentation pres1;
 
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		Presentation presentation = (Presentation) jaxbUnmarshaller.unmarshal(file);
+		
+		
+		
 		System.out.println(presentation);
+		
+		
+		JAXBContext jaxbContext2 = JAXBContext.newInstance(Presentation.class);
+		Marshaller jaxbMarshaller = jaxbContext2.createMarshaller();
+
+		// output pretty printed
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		jaxbMarshaller.marshal(presentation, System.out);
+
+		
+		
+		
 		
 		Meta meta1 = presentation.getMeta(0);
 		
 		Assert.assertEquals("Meta author", meta1.getKey(),"author");
 		Assert.assertEquals("Meta author", meta1.getValue(),"Stuart Porter");
+		
+		List<Slide> slides = presentation.getSlide();
+		Assert.assertEquals("Correct number of slides", slides.size(),5);
+		
+		//Assert.assertEquals("First ele is text",slides.get(0).getSlideElement(0).getClass(),Text.class);
 
 	}
 
