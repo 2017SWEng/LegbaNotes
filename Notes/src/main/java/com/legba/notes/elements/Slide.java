@@ -32,38 +32,90 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	
 	private Integer duration;
 	
-	List<SlideElement> slideElements;
+	List<Audio> audios;
+	List<Image> images;
+	List<Shape> shapes;
+	List<Text> texts;
+	List<Video> videos;
 	
 	public Slide() {
 		super();
 		
-		this.slideElements = new ArrayList<SlideElement>();
+		this.audios = new ArrayList<Audio>();
+		this.images = new ArrayList<Image>();
+		this.shapes = new ArrayList<Shape>();
+		this.texts = new ArrayList<Text>();
+		this.videos = new ArrayList<Video>();
 	}
 	
-	@XmlElement
-	public List<SlideElement> getSlideElements() {
-		return this.slideElements;
+	@XmlElement(name="Audio")
+	public List<Audio> getAudios() {
+		return audios;
+	}
+
+	public void setAudios(List<Audio> audios) {
+		this.audios = audios;
 	}
 	
-	public void setSlideElements(List<SlideElement> slideElements) {
-		this.slideElements.clear();
-		this.slideElements.addAll(slideElements);
+	public void addAudio(Audio audio) {
+		this.audios.add(audio);
+	}
+
+	@XmlElement(name="Image")
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
+	public void addAudio(Image image) {
+		this.images.add(image);
+	}
+
+	@XmlElement(name="Shape")
+	public List<Shape> getShapes() {
+		return shapes;
+	}
+
+	public void setShapes(List<Shape> shapes) {
+		this.shapes = shapes;
 	}
 	
-	public void addSlideElement(SlideElement slideElements) {
-		this.slideElements.add(slideElements);
+	public void addShape(Shape shape) {
+		this.shapes.add(shape);
+	}
+
+	@XmlElement(name="Text")
+	public List<Text> getTexts() {
+		return texts;
+	}
+
+	public void setTexts(List<Text> texts) {
+		this.texts = texts;
+	}
+
+	public void addText(Text text) {
+		this.texts.add(text);
 	}
 	
-	public SlideElement getSlideElement(int index) {
-		if(index < this.slideElements.size()) {
-			return this.slideElements.get(index);
-		}
-		return null;
+	@XmlElement(name="Video")
+	public List<Video> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<Video> videos) {
+		this.videos = videos;
 	}
 	
+	public void addVideo(Video video) {
+		this.videos.add(video);
+	}
 	
 	@Override
 	@XmlAttribute
+    @XmlJavaTypeAdapter(StartAdapter.class)
 	public Integer getStart() {
 		return this.start;
 	}

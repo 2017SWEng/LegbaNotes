@@ -160,6 +160,9 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 	@Override
 	@XmlAttribute
 	public Float getWidth() {
+		if (this.x2 == null || this.x == null) {
+			return null;
+		}
 		return this.x2 - this.x;
 	};
 	
@@ -167,6 +170,9 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 	@Override
 	@XmlAttribute
 	public Float getHeight() {
+		if (this.y2 == null || this.y == null) {
+			return null;
+		}
 		return this.y2 - this.y;
 	};
 	
@@ -205,6 +211,7 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 	
 	@Override
 	@XmlAttribute
+    @XmlJavaTypeAdapter(StartAdapter.class)
 	public Integer getStart() {
 		return this.start;
 	}

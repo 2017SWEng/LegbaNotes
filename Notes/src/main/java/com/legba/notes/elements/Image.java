@@ -101,6 +101,9 @@ public class Image extends SlideElement implements Pathable,Positionable,Rendera
 	@Override
 	@XmlAttribute
 	public Float getWidth() {
+		if (this.x2 == null || this.x == null) {
+			return null;
+		}
 		return this.x2 - this.x;
 	};
 	
@@ -108,6 +111,9 @@ public class Image extends SlideElement implements Pathable,Positionable,Rendera
 	@Override
 	@XmlAttribute
 	public Float getHeight() {
+		if (this.y2 == null || this.y == null) {
+			return null;
+		}
 		return this.y2 - this.y;
 	};
 	

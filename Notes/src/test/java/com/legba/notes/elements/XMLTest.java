@@ -34,10 +34,10 @@ Presentation pres1;
         
         Text t1 = new Text();
         t1.setSize(12);
-        s1.addSlideElement(t1);
+        s1.addText(t1);
 
         Video v1 = new Video("./test.mp4");
-        s1.addSlideElement(v1);
+        s1.addVideo(v1);
         
         Slide s2 = new Slide();
         s2.setDuration(11);

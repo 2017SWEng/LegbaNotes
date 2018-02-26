@@ -26,6 +26,10 @@ public class Shape extends SlideElement implements Colorable,Positionable,Render
 	
 	private Float y2;
 	
+	protected Shape() {
+		
+	}
+	
 	//Constructor with parameters position, shape and type
 	public Shape(String type) {
 		super();
@@ -53,13 +57,13 @@ public class Shape extends SlideElement implements Colorable,Positionable,Render
 	
 	//Returns pixel width of border on shape
 	@XmlAttribute
-	public int getStroke() {
+	public Integer getStroke() {
 		return this.stroke;
 
 	}
 	
 	//Sets pixel width of border on shape
-	public void setStroke(int stroke) {
+	public void setStroke(Integer stroke) {
 		this.stroke=stroke;
 	}
 	
