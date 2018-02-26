@@ -8,7 +8,7 @@ import com.legba.notes.elements.base.*;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class Format extends Element implements Colorable,Formatable,Renderable{
+public class Format extends Element implements Colorable,Formatable{
 	
 	private String font;
 	
@@ -119,12 +119,6 @@ public class Format extends Element implements Colorable,Formatable,Renderable{
 	@Override
 	public void setFill(Color fill) {
 		this.color=fill;
-	}
-
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

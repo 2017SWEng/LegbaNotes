@@ -12,7 +12,7 @@ import com.legba.notes.elements.base.*;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class Slide extends Element implements Transitionable,Colorable,Formatable,Renderable{
+public class Slide extends Element implements Transitionable,Colorable,Formatable{
 	
 	private Color color;
 	
@@ -229,12 +229,6 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	@Override
 	public void setSize(Integer size) {
 		this.size=size;		
-	}
-	
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

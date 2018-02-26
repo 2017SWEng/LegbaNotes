@@ -15,7 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 @XmlRootElement(name="Presentation")
-public class Presentation extends Element implements Colorable,Formatable,Renderable{
+public class Presentation extends Element implements Colorable,Formatable{
 
 	
 	private Color color;
@@ -40,12 +40,6 @@ public class Presentation extends Element implements Colorable,Formatable,Render
 
 		this.Meta=new ArrayList<Meta>();
 		this.Slide=new ArrayList<Slide>();
-	}
-
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public void setSlide(List<Slide> slide) {

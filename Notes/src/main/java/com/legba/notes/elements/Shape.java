@@ -5,10 +5,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class Shape extends SlideElement implements Colorable,Positionable,Renderable{
+public class Shape extends SlideElement implements Colorable,Positionable{
 	
 	private String type;
 	
@@ -17,14 +16,6 @@ public class Shape extends SlideElement implements Colorable,Positionable,Render
 	private Color color;
 	
 	private Color fill;
-	
-	private Float x;
-	
-	private Float y;
-	
-	private Float x2;
-	
-	private Float y2;
 	
 	protected Shape() {
 		
@@ -92,77 +83,6 @@ public class Shape extends SlideElement implements Colorable,Positionable,Render
 	@Override
 	public void setFill(Color fill) {
 		this.color=fill;
-	}
-	
-	@Override
-	@XmlAttribute
-	public Float getX() {
-		return this.x;
-	}
-	
-
-	@Override
-	public void setX(Float x) {
-		this.x = x;				
-	}
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getY() {
-		return this.y;
-	}
-	
-
-	@Override
-	public void setY(Float y) {
-		this.y=y;				
-	}
-	
-
-	@Override
-	@XmlAttribute
-	public Float getX2() {
-		return this.x2;
-	}
-	
-
-	@Override
-	public void setX2(Float x2) {
-		this.x2=x2;				
-	}
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getY2() {
-		return this.y2;
-	}
-
-	
-	@Override
-	public void setY2(Float y2) {
-		this.y2=y2;
-	}
-	
-
-	@Override
-	@XmlAttribute
-	public Float getWidth() {
-		return this.x2 - this.x;
-	};
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getHeight() {
-		return this.y2 - this.y;
-	};
-
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

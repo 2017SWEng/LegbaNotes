@@ -5,23 +5,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 //Rich text element
-public class Text extends SlideElement implements Positionable,Transitionable,Colorable,Formatable,Renderable{
+public class Text extends SlideElement implements Transitionable,Colorable,Formatable{
 	
 	private Integer start;
 	
 	private Integer duration;
-	
-	private Float x;
-	
-	private Float y;
-	
-	private Float x2;
-	
-	private Float y2;
 	
 	private Color color;
 	
@@ -105,76 +96,7 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 		this.size=size;		
 	}
 	
-	@Override
-	@XmlAttribute
-	public Float getX() {
-		return this.x;
-	}
 	
-
-	@Override
-	public void setX(Float x) {
-		this.x = x;				
-	}
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getY() {
-		return this.y;
-	}
-	
-
-	@Override
-	public void setY(Float y) {
-		this.y=y;				
-	}
-	
-
-	@Override
-	@XmlAttribute
-	public Float getX2() {
-		return this.x2;
-	}
-	
-
-	@Override
-	public void setX2(Float x2) {
-		this.x2=x2;				
-	}
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getY2() {
-		return this.y2;
-	}
-
-	
-	@Override
-	public void setY2(Float y2) {
-		this.y2=y2;
-	}
-	
-
-	@Override
-	@XmlAttribute
-	public Float getWidth() {
-		if (this.x2 == null || this.x == null) {
-			return null;
-		}
-		return this.x2 - this.x;
-	};
-	
-	
-	@Override
-	@XmlAttribute
-	public Float getHeight() {
-		if (this.y2 == null || this.y == null) {
-			return null;
-		}
-		return this.y2 - this.y;
-	};
 	
 	@Override
 	@XmlAttribute
@@ -203,12 +125,6 @@ public class Text extends SlideElement implements Positionable,Transitionable,Co
 		this.color=fill;
 	}
 
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	@XmlAttribute
     @XmlJavaTypeAdapter(StartAdapter.class)
