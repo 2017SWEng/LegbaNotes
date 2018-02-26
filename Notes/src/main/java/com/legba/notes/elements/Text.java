@@ -1,6 +1,11 @@
 package com.legba.notes.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlMixed;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
@@ -28,8 +33,22 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Integer textsize;
 	
+	private List<String> contents;
+	
 	public Text() {
 		super();
+		
+		this.contents = new ArrayList<String>();
+	}
+	
+	@XmlMixed
+	public List<String> getContents() {
+		return this.contents;
+	}
+
+	public void setContents(List<String> contents) {
+		//TODO:: Check to make sure font is valid
+		this.contents=contents;		
 	}
 	
 	@Override
