@@ -1,13 +1,15 @@
 package com.legba.notes.elements;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
+@XmlRootElement(name="Format")
 public class Format extends Element implements Colorable,Formatable{
 	
 	private String font;
@@ -24,9 +26,20 @@ public class Format extends Element implements Colorable,Formatable{
 	
 	private Color fill;
 	
+	private String text;
+	
 	public Format() {
 		super();
 
+	}
+	
+	@XmlValue
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(String text) {
+		this.text=text;		
 	}
 	
 	@Override
