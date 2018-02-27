@@ -39,13 +39,10 @@ public class Shape extends SlideElement implements Colorable,Positionable{
 	
 	//Sets type of shape
 	public void setType(String type) {
-		System.out.println("Type : " + type);
 		
 		// Only allow valid types to be set
 		if(type.equals("ellipse") || type.equals("rectangle") || type.equals("line")) {
 			this.type=type;
-			System.out.println("Type : written");
-
 		}
 
 	}
