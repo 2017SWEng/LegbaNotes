@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 public class Slide extends Element implements Transitionable,Colorable,Formatable{

@@ -3,8 +3,6 @@ package com.legba.notes.elements;
 import org.junit.Test;
 import org.junit.Assert;
 
-import com.legba.notes.elements.Image;
-
 public class VideoTest {
 
 	@Test

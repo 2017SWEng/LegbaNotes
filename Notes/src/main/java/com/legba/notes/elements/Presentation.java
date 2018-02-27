@@ -8,10 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.legba.notes.elements.base.ColorAdapter;
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 @XmlRootElement(name="Presentation")
