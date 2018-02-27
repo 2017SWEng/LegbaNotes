@@ -80,6 +80,7 @@ Presentation pres1;
 
 		// output pretty printed
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "pws schema.xsd");
 
 		jaxbMarshaller.marshal(presentation, System.out);
 

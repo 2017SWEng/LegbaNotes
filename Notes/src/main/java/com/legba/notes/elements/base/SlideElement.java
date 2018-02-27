@@ -69,7 +69,6 @@ public abstract class SlideElement extends Element implements Positionable{
 	
 
 	@Override
-	@XmlAttribute
 	public Float getWidth() {
 		if (this.x2 == null || this.x == null) {
 			return null;
@@ -79,7 +78,6 @@ public abstract class SlideElement extends Element implements Positionable{
 	
 	
 	@Override
-	@XmlAttribute
 	public Float getHeight() {
 		if (this.y2 == null || this.y == null) {
 			return null;

@@ -31,7 +31,7 @@ public class Shape extends SlideElement implements Colorable,Positionable{
 	}
 	
 	//Returns type of shape
-	@XmlAttribute(required=true)
+	@XmlAttribute
 	public String getType() {
 		return this.type;
 
@@ -39,11 +39,15 @@ public class Shape extends SlideElement implements Colorable,Positionable{
 	
 	//Sets type of shape
 	public void setType(String type) {
+		System.out.println("Type : " + type);
+		
 		// Only allow valid types to be set
-		if(type != "ellipse" && type != "rectangle" && type != "line") {
-			return;
+		if(type.equals("ellipse") || type.equals("rectangle") || type.equals("line")) {
+			this.type=type;
+			System.out.println("Type : written");
+
 		}
-		this.type=type;
+
 	}
 	
 	//Returns pixel width of border on shape
