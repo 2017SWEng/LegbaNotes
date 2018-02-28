@@ -3,6 +3,7 @@ image: kaiwinter/docker-java8-maven
 stages:
   - build
   - test
+  - report
   - deploy
 
 maven_jar:
@@ -28,26 +29,37 @@ maven_test:
     - cd Notes
     - mvn test
     - echo "[-] Finished Testing"
+  artifacts:
+    paths:
+      - Notes/target/surefire-reports/
 
-sloc_build:
+
+reports:
   image: node:4.2.2
-  stage: build
+  stage: report
+  dependencies:
+    - maven_test
   script:
     - cd ./scripts
     - npm install
-    - mkdir -p loc
-    - ./loc.sh > ./loc/report.txt
+    - ./loc.sh
+    - ./test.sh
   artifacts:
     paths:
       - scripts/loc/
+      - scripts/test/
+  only:
+    - master
+
 
 pages:
   stage: deploy
   dependencies:
-    - sloc_build
+    - reports
   script:
     - mkdir -p public/loc/
     - mv scripts/loc/ public/
+    - mv scripts/test/ public/
   artifacts:
     paths:
       - public

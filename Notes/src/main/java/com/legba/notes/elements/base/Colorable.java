@@ -7,18 +7,14 @@ public interface Colorable {
 
 	
 	// The foreground/stroke/text colour.
-	public Color[] getColor();
+	public Color getColor();
 
 	public void setColor(Color col);
 
-	public void setColor(Color col1, Color col2);
-
 	
 	// The background colour.
-	public Color[] getFill();
+	public Color getFill();
 
 	public void setFill(Color fill);
-
-	public void setFill(Color fill1, Color fill2);
 
 }

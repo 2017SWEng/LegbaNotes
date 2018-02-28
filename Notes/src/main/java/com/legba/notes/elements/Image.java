@@ -1,20 +1,24 @@
 package com.legba.notes.elements;
 
+
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
 
 //Bitmap Image Element (JPEGs supported)
 //Other formats not guaranteed support
-public class Image extends PathablePositionableElement implements Renderable{
-
+public class Image extends MultiMediaElement {
+		
+	protected Image() {
+		super();
+	};
+	
 	public Image(String path) {
-		super("image");
+		super();
 
 		this.setPath(path);
 		
 	}
-
+	
 	@Override
 	protected boolean isValidPath(String path) {
 		
@@ -27,11 +31,4 @@ public class Image extends PathablePositionableElement implements Renderable{
 		
 		return false;
 	}
-
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

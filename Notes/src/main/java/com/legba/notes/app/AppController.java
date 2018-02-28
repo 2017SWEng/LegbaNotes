@@ -12,13 +12,13 @@ import javafx.scene.text.Text;
 public class AppController {
 	
 	@FXML
-    private BorderPane root;
+	private BorderPane root;
 	
 	@FXML
-    private VBox content_root;
+	private VBox content_root;
 	
 	@FXML
-    private VBox reference_root;
+	private VBox reference_root;
 	
 	@FXML
 	private BorderPane topbar_root;
@@ -29,13 +29,13 @@ public class AppController {
 	@FXML
 	private Image Logo;
     
-    @FXML 
-    protected void handleHomeButtonAction(ActionEvent event) {
-        actiontarget.setText("Home button pressed");
-    }
+	@FXML 
+	protected void handleHomeButtonAction(ActionEvent event) {
+		actiontarget.setText("Home button pressed");
+	}
 	
 	public void initialize() {
 		//File file = new File("/Images/Logo-Hozizontal.png");
-	    //Logo = new Image(file.toURI().toString());
-    }
+		//Logo = new Image(file.toURI().toString());
+	}
 }

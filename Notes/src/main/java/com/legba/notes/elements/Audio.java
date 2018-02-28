@@ -1,14 +1,16 @@
 package com.legba.notes.elements;
 
+
 import com.legba.notes.elements.base.*;
 
-import javafx.scene.Node;
+public class Audio extends MultiMediaElement{
 
-public class Audio extends PathablePositionableElement implements Renderable{
-
-
+	protected Audio() {
+		super();
+	}
+	
 	public Audio(String path) {
-		super("audio");
+		super();
 
 		this.setPath(path);
 		
@@ -25,12 +27,6 @@ public class Audio extends PathablePositionableElement implements Renderable{
 		}
 		
 		return false;
-	}
-
-	@Override
-	public Node render() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

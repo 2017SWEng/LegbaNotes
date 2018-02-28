@@ -10,14 +10,14 @@ public interface Transitionable{
 	//   - Negative is wait until trigger
 	//   - Zero is immediate
 	//   - Positive is the number of seconds since the 
-	public int getStart();
+	public Integer getStart();
 	
-	public void setStart(int start);
+	public void setStart(Integer start);
 	
 	
 	//Duration in seconds
-	public int getDuration();
+	public Integer getDuration();
 	
-	public void setDuration(int duration);	
+	public void setDuration(Integer duration);	
 
 }
