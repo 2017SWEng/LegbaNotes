@@ -44,7 +44,7 @@ sloc_build:
 pages:
   stage: deploy
   dependencies:
-    - sloc_report
+    - sloc_build
   script:
     - mv loc/ public/
   artifacts:
