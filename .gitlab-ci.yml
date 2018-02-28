@@ -21,6 +21,9 @@ maven_native:
     - cd Notes
     - mvn jfx:native
     - echo "[-] Building Native Done"
+  only:
+    - release
+
 
 maven_test:
   stage: test
