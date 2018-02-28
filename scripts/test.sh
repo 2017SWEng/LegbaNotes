@@ -28,8 +28,8 @@ echo "Number of test files" >> $REPORT
 echo "--------------------" >> $REPORT
 echo $NUMFILES >> $REPORT
 
-echo "tests	files" > $DATA
-echo "$NUMTEST	$NUMFILES" >> $DATA
+echo "tests , files" > $DATA
+echo "$NUMTEST , $NUMFILES" >> $DATA
 
 echo "===================================="
 echo "=                                  ="
