@@ -47,7 +47,7 @@ pages:
     - sloc_build
   script:
     - mkdir -p public/loc/
-    - mv scripts/loc/ public/loc/
+    - mv scripts/loc/ public/
   artifacts:
     paths:
       - public
