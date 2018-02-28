@@ -6,6 +6,7 @@
 <?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -18,23 +19,46 @@
 		<Font fx:id="NORMAL_FONT" size="12"/>
 	</fx:define>
 	
+	
+	<!-- MENU BAR -->
+	
+	
+	<!-- Menu bar to be applied across all screens, apart from login screen -->
+	<!-- Coded by: jjds502, 1st iteration 22/02/2018 -->
+	
 	<top>
-		<HBox fx:id="topbar_root">
-				<Text styleClass="legbaName" font="$TITLE_FONT">Legba Notes</Text>
-		</HBox>
+		<BorderPane styleClass="headerMenu" fx:id="topbar_root">
+			<left>
+				<Button fx:id="HomeBtn" text="Home" styleClass="headerMenu" onAction="#handleHomeButtonAction"/>
+				
+			</left>	
+			<right>
+				<ImageView  fitHeight="150" preserveRatio="true">
+					<image>
+						<Image url="@Images/Logo-Hozizontal.png"/>
+					</image>
+				</ImageView>
+			</right>
+				
+		</BorderPane>
 	</top>
 	
 	
 	<!-- CONTENT -->
+	
 	<center>
 		<SplitPane>
 		    <items>
+		    
+		    	
+		    
 		    	<!-- Video or Slides reference material -->
 				<VBox fx:id="reference_root" spacing="10">
 				
 					<Text>Lorem ipsum dolor sit amet</Text>
 					<Text>Lorem ipsum dolor sit amet</Text>
 					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text fx:id="actiontarget"/>
 					
 				</VBox>
 				

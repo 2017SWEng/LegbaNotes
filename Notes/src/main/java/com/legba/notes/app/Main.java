@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
+
 public class Main extends Application {
 	
 	static AppController appController;
@@ -17,14 +18,21 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		
+		//Let's set up some aspects of the UI
+		
 		Parent root = FXMLLoader.load(getClass().getResource("appVeiw.fxml"));
 		
+		//appController.initialize();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);
 
 	}
+	
+	
+
 }
