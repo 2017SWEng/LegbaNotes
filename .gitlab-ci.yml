@@ -33,8 +33,8 @@ sloc_build:
   image: node:4.2.2
   stage: build
   script:
-    - npm install sloc
     - cd ./scripts
+    - npm install
     - mkdir -p loc
     - ./loc.sh > ./loc/report.txt
   artifacts:
