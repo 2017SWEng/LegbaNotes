@@ -42,13 +42,15 @@ reports:
   script:
     - cd ./scripts
     - npm install
-    - mkdir -p loc
-    - ./loc.sh > ./loc/report.txt
+    - ./loc.sh
     - ./test.sh
   artifacts:
     paths:
       - scripts/loc/
       - scripts/test/
+  only:
+    - master
+
 
 pages:
   stage: deploy
