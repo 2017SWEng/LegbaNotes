@@ -14,7 +14,7 @@ echo "------------" >> $REPORT
 TESTS=$( grep -ohP "classname=\"([\w.]+)\" name=\"([\w_]+)\""  ./../Notes/target/surefire-reports/*.xml | sed s/classname=\"//g | sed 's/\" name=\"/./g' | sed s/\"/\(\)/g )
 echo "$TESTS" >> $REPORT
 
-NUMTEST=$("$TESTS" | wc -l)
+NUMTEST=$(echo "$TESTS" | wc -l)
 echo "" >> $REPORT
 echo "" >> $REPORT
 echo "Number of tests" >> $REPORT
