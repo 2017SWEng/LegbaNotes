@@ -46,7 +46,8 @@ pages:
   dependencies:
     - sloc_build
   script:
-    - mv loc/ public/
+    - mkdir -p public/loc/
+    - mv scripts/loc/ public/loc/
   artifacts:
     paths:
       - public
