@@ -11,4 +11,4 @@ echo "" >> $REPORT
 echo "" >> $REPORT
 echo "Lines of code by file" >> $REPORT
 ./node_modules/sloc/bin/sloc --details --format cli-table --keys total,source,comment,empty ../Notes/src/ >> $REPORT
-./node_modules/sloc/bin/sloc --details --format csv --keys total,source,comment,empty ../Notes/src/ > $DATA
+./node_modules/sloc/bin/sloc --format csv --keys total,source,comment,empty ../Notes/src/ > $DATA
