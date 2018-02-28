@@ -3,6 +3,7 @@ image: kaiwinter/docker-java8-maven
 stages:
   - build
   - test
+  - deploy
 
 maven_jar:
   stage: build
@@ -27,4 +28,30 @@ maven_test:
     - cd Notes
     - mvn test
     - echo "[-] Finished Testing"
+
+sloc_build:
+  image: node:4.2.2
+  stage: build
+  script:
+    - npm install sloc
+    - cd ./scripts
+    - mkdir -p loc
+    - echo ./loc.sh > ./loc/report.txt
+  artifacts:
+    paths:
+      - loc/
+
+pages:
+  stage: deploy
+  dependencies:
+    - sloc_build
+  script:
+    - mv loc/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master
+
 
