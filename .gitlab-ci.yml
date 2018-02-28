@@ -3,7 +3,6 @@ image: kaiwinter/docker-java8-maven
 stages:
   - build
   - test
-  - report
   - deploy
 
 maven_jar:
@@ -30,8 +29,9 @@ maven_test:
     - mvn test
     - echo "[-] Finished Testing"
 
-sloc_report:
-  stage: report
+sloc_build:
+  image: node:4.2.2
+  stage: build
   script:
     - npm install sloc
     - cd ./scripts
