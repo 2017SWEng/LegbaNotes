@@ -53,7 +53,7 @@ reports:
 pages:
   stage: deploy
   dependencies:
-    - sloc_build
+    - reports
   script:
     - mkdir -p public/loc/
     - mv scripts/loc/ public/
