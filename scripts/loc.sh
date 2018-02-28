@@ -1,7 +1,10 @@
 #!/bin/bash
 
+mkdir -p loc/
+
 REPORT=loc/report.txt
 DATA=loc/data.csv
+
 echo "Lines of Code Analysis" > $REPORT
 echo "" >> $REPORT
 echo "" >> $REPORT
