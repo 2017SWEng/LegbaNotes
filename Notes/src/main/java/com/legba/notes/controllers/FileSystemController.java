@@ -1,10 +1,11 @@
 package com.legba.notes.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -42,26 +43,66 @@ public class FileSystemController {
 		
 	}
 	
-	private Presentation unmarshall(InputStream is){
+	public Presentation loadXmlFile(String path) {
+		
+		File f = new File(path);
+		if (f.exists() && !f.isDirectory()) {
+			
+			try {
+				InputStream s = new FileInputStream(f);
+				return unmarshall(s);
+				
+			} catch (FileNotFoundException | JAXBException e) {
+				e.printStackTrace();
+				System.err.println("Unable to open stream to read file");
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	
+	public boolean saveXmlFile(String path, Presentation p) {
+		File f = new File(path); 
+	
+		try {
+			OutputStream s = new FileOutputStream(f);
+			marshall(p, s);
+			return true;
+		}
+		catch (Exception e) {
+			System.err.println("Unable to save presentaion");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	protected Presentation unmarshall(InputStream is) throws JAXBException{
 		try {
 			Presentation presentation = (Presentation) unmarshaller.unmarshal(is);
 			return presentation;
 		} catch (JAXBException e) {
 			System.err.println("Unable to marshall presentaion");
 			e.printStackTrace();
-			return null;
+			//TODO: make own exception class
+			throw(e);
 		}
+		
 	}
 	
-	private void marshall(Presentation p, OutputStream os){
+	protected void marshall(Presentation p, OutputStream os) throws JAXBException{
 		try {
 			this.marshaller.marshal(p, os);
 		} catch (JAXBException e) {
 			System.err.println("Unable to unmarshall presentaion");
 			e.printStackTrace();
+			//TODO: make own exception class
+			throw(e);
 		}
 		
 	}
+	
 	
 	
 	
