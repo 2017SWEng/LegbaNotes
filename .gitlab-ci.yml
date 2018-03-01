@@ -29,7 +29,7 @@ maven_test:
   stage: test
   script:
     - apt-get -qq update
-    - apt-get install --force-yes xvfb
+    - yes | apt-get install xvfb
     - Xvfb :99
     - DISPLAY=:99
     - echo "[+] Testing Project"
