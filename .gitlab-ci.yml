@@ -28,6 +28,7 @@ maven_native:
 maven_test:
   stage: test
   script:
+    - apt-get -qq update
     - apt-get install --force-yes xvfb
     - Xvfb :99
     - DISPLAY=:99
