@@ -15,7 +15,7 @@
 	/* Style class for the header Menu, should distinguish the 
 	   Menu from the rest of the interface and look sleek and match the color scheme */
 	   
-	-fx-background-color: 535360;
+	-fx-background-color: #fff/* #535360*/;
 	
 	-fx-border-style: solid;
 	-fx-border-color: dodgerblue;
