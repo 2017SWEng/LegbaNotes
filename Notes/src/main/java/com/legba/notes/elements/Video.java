@@ -1,29 +1,31 @@
 package com.legba.notes.elements;
 
-public class Video extends Element {
+import com.legba.notes.elements.base.*;
 
-
-	public Position position;
+public class Video extends MultiMediaElement{
+	
+	protected Video() {
+		super();
+	};
 	
 	public Video(String path) {
-		super("video");
+		super();
 
-
-		this.position = new Position((Element)this);
-		
 		this.setPath(path);
 		
 	}
 	
-	public String getPath() {
-		return (String)this.getAttribute("path");
-
+	@Override
+	protected boolean isValidPath(String path) {
+		
+		if (
+			path.length() > 0 && 
+			(path.endsWith(".mp4") || path.endsWith(".MP4"))
+		) {
+			return true;
+		}
+		
+		return false;
 	}
-
-	public void setPath(String path) {
-		//TODO:: check if this is a path before setting it
-		this.setAttribute("path", path);
-	}
-
 
 }

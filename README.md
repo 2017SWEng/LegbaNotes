@@ -1,6 +1,6 @@
-# SWEng
+﻿# SWEng
 *University of York, Deptartment of Electronic Engineering, Third Year MEng, Software Engineering Project*
-
+"Legba Notes - Collaborative note taking tool"
 ## Task
 >   “Produce a piece of interactive software to play back multimedia presentations on a PC and/or tablet”
 >
@@ -16,9 +16,9 @@
 ## Members
 - Vipra Chowdhary (vc622)
 - Joshua Danks-Smith (jjds502)
-- Harry Eddis-Webb (hjew501)
-- Ruth Herd (rh1271)
-- Laurence Martin (lm1370)
+- Harry Eddis-Webb @hjew501
+- Ruth Herd @ruth.herd
+- Laurence Martin @lm1370
 - Tanisha Mascarenhas @tmm522
 - Luke Roberts @lr870
 - Zak West @zwrawr

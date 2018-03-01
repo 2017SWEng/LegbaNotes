@@ -1,0 +1,73 @@
+image: kaiwinter/docker-java8-maven
+
+stages:
+  - build
+  - test
+  - report
+  - deploy
+
+maven_jar:
+  stage: build
+  script:
+    - echo "[+] Building Project Jar With Maven"
+    - cd Notes
+    - mvn jfx:jar
+    - echo "[-] Building Jar Done"
+
+maven_native:
+  stage: build
+  script:
+    - echo "[+] Building Project Native With Maven"
+    - cd Notes
+    - mvn jfx:native
+    - echo "[-] Building Native Done"
+  only:
+    - release
+
+
+maven_test:
+  stage: test
+  script:
+    - echo "[+] Testing Project"
+    - cd Notes
+    - mvn test
+    - echo "[-] Finished Testing"
+  artifacts:
+    paths:
+      - Notes/target/surefire-reports/
+
+
+reports:
+  image: node:4.2.2
+  stage: report
+  dependencies:
+    - maven_test
+  script:
+    - cd ./scripts
+    - npm install
+    - ./loc.sh
+    - ./test.sh
+  artifacts:
+    paths:
+      - scripts/loc/
+      - scripts/test/
+  only:
+    - master
+
+
+pages:
+  stage: deploy
+  dependencies:
+    - reports
+  script:
+    - mkdir -p public/loc/
+    - mv scripts/loc/ public/
+    - mv scripts/test/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 14 days
+  only:
+    - master
+
+

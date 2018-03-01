@@ -1,31 +1,44 @@
 package com.legba.notes.elements;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
+import com.legba.notes.elements.base.Element;
+
 public class Meta extends Element {
 
+	private String key;
+	
+	private String value;
+	
+	protected Meta() {
+		super();
+	}
+	
 	public Meta(String key, String value) {
-		super("meta");
+		super();
 		
 		this.setKey(key);
 		this.setValue(value);
 		
 	}
 
-	
+	@XmlAttribute(required=true)
 	public String getKey() {
-		return (String)this.getAttribute("key");
+		return (String)this.key;
 
 	}
 
 	public void setKey(String key) {
-		this.setAttribute("key", key);
+		this.key=key;
 	}
 	
+	@XmlAttribute(required=true)
 	public String getValue() {
-		return (String)this.getAttribute("value");
+		return this.value;
 
 	}
 
 	public void setValue(String value) {
-		this.setAttribute("value", value);
+		this.value=value;
 	}
 }

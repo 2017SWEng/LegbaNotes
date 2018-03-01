@@ -1,0 +1,10 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "scripts for legba notes",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sloc": "^0.2.0"
+  }
+}

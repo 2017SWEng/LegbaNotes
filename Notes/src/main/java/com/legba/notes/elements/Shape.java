@@ -1,41 +1,89 @@
 package com.legba.notes.elements;
 
-public class Shape extends Element {
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-	public Position position;
-	public Colors colors;
+import com.legba.notes.elements.base.*;
+
+import javafx.scene.paint.Color;
+
+public class Shape extends SlideElement implements Colorable,Positionable{
 	
-	public Shape(String type) {
-		super("shape");
-
-
-		this.position = new Position((Element)this);
-		this.colors = new Colors((Element)this);
+	private String type;
+	
+	private Integer stroke;
+	
+	private Color color;
+	
+	private Color fill;
+	
+	protected Shape() {
 		
+	}
+	
+	//Constructor with parameters position, shape and type
+	public Shape(String type) {
+		super();
+
+		//Required by Element 'Shape'
 		this.setType(type);
 		
 	}
 	
+	//Returns type of shape
+	@XmlAttribute
 	public String getType() {
-		return (String)this.getAttribute("type");
+		return this.type;
 
-	}
-
-	public void setType(String type) {
-		// Only allow valid types to be set
-		if(type != "ellipse" && type != "rectangle" && type != "line") {
-			return;
-		}
-		this.setAttribute("type", type);
 	}
 	
-	public int getStroke() {
-		return (int)this.getAttribute("stroke");
+	//Sets type of shape
+	public void setType(String type) {
+		
+		// Only allow valid types to be set
+		if(type.equals("ellipse") || type.equals("rectangle") || type.equals("line")) {
+			this.type=type;
+		}
 
 	}
+	
+	//Returns pixel width of border on shape
+	@XmlAttribute
+	public Integer getStroke() {
+		return this.stroke;
 
-	public void setStroke(String stroke) {
-		this.setAttribute("stroke", stroke);
+	}
+	
+	//Sets pixel width of border on shape
+	public void setStroke(Integer stroke) {
+		this.stroke=stroke;
+	}
+	
+	@Override
+    @XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Color getColor() {
+		return this.color;
 	}
 
+
+	@Override
+	public void setColor(Color col) {
+		this.color=col;
+	}
+
+
+	@Override
+    @XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Color getFill() {
+		return this.fill;
+	}
+
+
+	@Override
+	public void setFill(Color fill) {
+		this.color=fill;
+	}
+	
 }
