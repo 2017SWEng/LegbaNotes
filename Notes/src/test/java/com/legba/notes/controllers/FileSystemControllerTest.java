@@ -1,18 +1,15 @@
-package com.legba.notes.elements;
+package com.legba.notes.controllers;
 
-import java.io.File;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class XMLTest {
+import com.legba.notes.elements.*;
+
+public class FileSystemControllerTest {
 
 	
 	
@@ -48,44 +45,27 @@ Presentation pres1;
     }
 	
 	@Test
-	public void test_marshaller() throws JAXBException {
+	public void test_saveload() throws JAXBException {
 
-		JAXBContext jaxbContext = JAXBContext.newInstance(Presentation.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-		// output pretty printed
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		jaxbMarshaller.marshal(this.pres1, System.out);
+		
+		FileSystemController fsc = new FileSystemController();
+		fsc.saveXmlFile("./target/test.xml", this.pres1);
+		
+		Presentation pres2 = fsc.loadXmlFile("./target/test.xml");
+		
+		Assert.assertEquals(pres1.getMeta(0).getKey(), pres2.getMeta(0).getKey());
+		Assert.assertEquals(pres1.getMeta(0).getValue(), pres2.getMeta(0).getValue());
 	
+		//TODO: test the rest of the presentaion
 	
 	}
 	
 	@Test
-	public void test_unmarshaller() throws JAXBException {
+	public void test_load() throws JAXBException {
 
-		File file = new File("./example.pws");
-		JAXBContext jaxbContext = JAXBContext.newInstance(Presentation.class);
 
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		Presentation presentation = (Presentation) jaxbUnmarshaller.unmarshal(file);
-		
-		
-		
-		System.out.println(presentation);
-		
-		
-		JAXBContext jaxbContext2 = JAXBContext.newInstance(Presentation.class);
-		Marshaller jaxbMarshaller = jaxbContext2.createMarshaller();
-
-		// output pretty printed
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "pws schema.xsd");
-
-		jaxbMarshaller.marshal(presentation, System.out);
-
-		
-		
+		FileSystemController fsc = new FileSystemController();		
+		Presentation presentation = fsc.loadXmlFile("./example.pws");		
 		
 		
 		Meta meta1 = presentation.getMeta(0);
