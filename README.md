@@ -14,7 +14,7 @@
 >       * Your own final presentation!
 
 ## Members
-- Vipra Chowdhary (vc622)
+- Vipra Chowdhary @vc622
 - Joshua Danks-Smith (jjds502)
 - Harry Eddis-Webb @hjew501
 - Ruth Herd @ruth.herd
