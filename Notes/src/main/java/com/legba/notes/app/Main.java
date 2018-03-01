@@ -35,7 +35,6 @@ public class Main extends Application {
 		//appController.initialize();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
-		test();
 	}
 	
 	
@@ -43,33 +42,4 @@ public class Main extends Application {
 		launch(args);
 
 	}
-	
-	public void test() {
-		
-		Audio audio = new Audio ("testData/audioTest.wav");
-		AudioRenderer audiorend = new AudioRenderer(); 
-		String audioPath = audio.getPath();
-	    Media sound = new Media(new File(audioPath).toURI().toString());
-	    MediaPlayer mediaPlayer = new MediaPlayer(sound);
-		
-		VBox n = (VBox) audiorend.render(audio);
-		Button btn1 = new Button("play");
-		n.getChildren().add(btn1);
-		if(n!= null)
-			System.out.println("YAY");
-		if (n.getChildren().size()==2)
-			System.out.println("TWO CHILDREN YAY");
-		else
-			System.out.println("TWO CHILDREN NAY");
-		
-		
-		
-		btn1.fire();
-		Status playing = mediaPlayer.getStatus();
-		
-		System.out.println(playing);
-			
-	}
-	
-
 }
