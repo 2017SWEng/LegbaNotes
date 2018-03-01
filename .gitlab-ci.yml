@@ -11,7 +11,7 @@ maven_jar:
   script:
     - echo "[+] Building Project Jar With Maven"
     - cd Notes
-    - mvn jfx:jar -Dmaven.test.skip=true
+    - mvn jfx:jar -B -Dmaven.test.skip=true
     - echo "[-] Building Jar Done"
 
 maven_native:
@@ -19,7 +19,7 @@ maven_native:
   script:
     - echo "[+] Building Project Native With Maven"
     - cd Notes
-    - mvn jfx:native -Dmaven.test.skip=true
+    - mvn jfx:native -B -Dmaven.test.skip=true
     - echo "[-] Building Native Done"
   only:
     - release
@@ -28,13 +28,9 @@ maven_native:
 maven_test:
   stage: test
   script:
-    - apt-get -qq update
-    - yes | apt-get install xvfb
-    - Xvfb :99
-    - DISPLAY=:99
     - echo "[+] Testing Project"
     - cd Notes
-    - mvn test
+    - mvn test -B
     - echo "[-] Finished Testing"
   artifacts:
     paths:

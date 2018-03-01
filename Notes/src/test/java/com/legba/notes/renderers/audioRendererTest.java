@@ -9,6 +9,8 @@ import javax.swing.SwingUtilities;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assume;
+
 
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,12 @@ public class audioRendererTest {
 
 	@Before
 	public void setup() throws InterruptedException {
+		
+		System.out.println("Skipping because OS is not windows : os.name = " + System.getProperty( "os.name" ));
+
+		// Don't run this on the CI, because javafx needs a GUI os to run
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+		
 		// JavaFX is stupid, cannot create a Text item without a scene
 		// Here were using a Swing embed JFX panel to create one
 		// This is totally a hack, but it works so...
@@ -44,6 +52,8 @@ public class audioRendererTest {
 	@Test
 	public void test(){
 		
+		// Don't run this on the CI, because javafx needs a GUI os to run
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 		
 		AudioRenderer audiorend = new AudioRenderer(); 
 		Audio audio = new Audio ("testData/audioTest.wav");
