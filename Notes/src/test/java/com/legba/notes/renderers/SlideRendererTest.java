@@ -1,4 +1,4 @@
-package com.legba.notes.renders;
+package com.legba.notes.renderers;
 
 import static org.junit.Assert.*;
 
