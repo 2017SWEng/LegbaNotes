@@ -18,7 +18,7 @@ import javafx.event.ActionEvent;
  * @author lm1370 tmm522
  *
  */
-public class AudioRenderer {
+public class AudioRenderer implements Renderer<Audio> {
 	
 	/**Returns a vbox object which can then be painted on the screen.
 	 * The Vbox contains 3 children; 
@@ -29,9 +29,8 @@ public class AudioRenderer {
 	 *  The method always returns immediately, whether or not the audio
 	 *  path exists.
 	 * 
-	 * @param 	audio	Filepath data
+	 * @param 	audio	The Audio model class to be rendered.
 	 * @return 	vbox	GUI 
-	 * @see		render	GUI
 	 */
 	public Node render (Audio audio) {
 		

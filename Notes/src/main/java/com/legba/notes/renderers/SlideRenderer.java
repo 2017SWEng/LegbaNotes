@@ -2,24 +2,30 @@ package com.legba.notes.renderers;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javax.swing.plaf.PanelUI;
 
+import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 
 public class SlideRenderer implements Renderer<Slide> {
 
 	VectorRenderer vectorRenderer;
+	AudioRenderer audioRenderer;
 	//TODO: add other renders to this
 
 	
 	public SlideRenderer(){
 		this.vectorRenderer = new VectorRenderer();
+		this.audioRenderer = new AudioRenderer();
 		//TODO: add other renders to this
 	}
 	
-	public SlideRenderer(VectorRenderer vectorRenderer){
+	public SlideRenderer(
+			VectorRenderer vectorRenderer,
+			AudioRenderer audioRenderer
+			){
 		this.vectorRenderer = vectorRenderer;
+		this.audioRenderer = audioRenderer;
 		//TODO: add other renders to this
 	}
 	
@@ -32,6 +38,10 @@ public class SlideRenderer implements Renderer<Slide> {
 
 		for(Shape shape : s.getShapes()){
 			pane.getChildren().add(this.vectorRenderer.render(shape));
+		}
+		
+		for(Audio audio : s.getAudios()){
+			pane.getChildren().add(this.audioRenderer.render(audio));
 		}
 		
 		//TODO: repeat for other renderers

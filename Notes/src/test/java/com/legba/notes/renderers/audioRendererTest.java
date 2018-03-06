@@ -31,8 +31,9 @@ public class audioRendererTest {
 	@Before
 	public void setup() throws InterruptedException {
 		
-		System.out.println("Skipping because OS is not windows : os.name = " + System.getProperty( "os.name" ));
-
+		if (!System.getProperty( "os.name" ).startsWith( "Windows" )){
+			System.out.println("Skipping because OS is not windows : os.name = " + System.getProperty( "os.name" ));
+		}
 		// Don't run this on the CI, because javafx needs a GUI os to run
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 		
