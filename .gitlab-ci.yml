@@ -11,7 +11,7 @@ maven_jar:
   script:
     - echo "[+] Building Project Jar With Maven"
     - cd Notes
-    - mvn jfx:jar
+    - mvn jfx:jar -B -Dmaven.test.skip=true
     - echo "[-] Building Jar Done"
 
 maven_native:
@@ -19,7 +19,7 @@ maven_native:
   script:
     - echo "[+] Building Project Native With Maven"
     - cd Notes
-    - mvn jfx:native
+    - mvn jfx:native -B -Dmaven.test.skip=true
     - echo "[-] Building Native Done"
   only:
     - release
@@ -30,7 +30,7 @@ maven_test:
   script:
     - echo "[+] Testing Project"
     - cd Notes
-    - mvn test
+    - mvn test -B
     - echo "[-] Finished Testing"
   artifacts:
     paths:
