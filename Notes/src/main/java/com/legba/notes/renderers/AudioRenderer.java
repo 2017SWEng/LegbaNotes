@@ -12,9 +12,27 @@ import javafx.scene.media.MediaView;
 
 import java.io.File;
 import javafx.event.ActionEvent;
-
+/**
+ * Class is the renderer for the Audio class.
+ * The class contains 1 method which returns a vbox.  
+ * @author lm1370 tmm522
+ *
+ */
 public class AudioRenderer {
- 
+	
+	/**Returns a vbox object which can then be painted on the screen.
+	 * The Vbox contains 3 children; 
+	 * - Text which displays the retrieved file path
+	 * - Button which when pressed, plays the media
+	 * - Mediaviewer that views the player which plays the media
+	 * <p>
+	 *  The method always returns immediately, whether or not the audio
+	 *  path exists.
+	 * 
+	 * @param 	audio	Filepath data
+	 * @return 	vbox	GUI 
+	 * @see		render	GUI
+	 */
 	public Node render (Audio audio) {
 		
 		// Setup text
@@ -28,7 +46,7 @@ public class AudioRenderer {
         MediaView mediaView = new MediaView(mediaPlayer);
 
 	    // Setup play button
-		Button btn1 = new Button("play");
+		Button btn1 = new Button("Play");
 		//TODO: move this to a controller class
 	    btn1.setOnAction((ActionEvent e) -> {
 	    	mediaPlayer.play();
