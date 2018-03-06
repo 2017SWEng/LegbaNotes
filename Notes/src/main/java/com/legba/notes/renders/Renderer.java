@@ -1,6 +1,6 @@
 package com.legba.notes.renders;
 
-import javax.xml.soap.Node;
+import javafx.scene.Node;
 
 import com.legba.notes.elements.base.Element;
 
