@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="root" fx:controller="com.legba.notes.app.AppController" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@application.css" prefWidth="800" prefHeight="600">
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@application.css" prefWidth="800" prefHeight="600">
 	
 	<fx:define>
 		<Font fx:id="TITLE_FONT" size="18"/>
@@ -25,11 +25,10 @@
 	
 	<!-- Menu bar to be applied across all screens, apart from login screen -->
 	<!-- Coded by: jjds502, 1st iteration 22/02/2018 -->
-	
+
 	<top>
 		<BorderPane styleClass="headerMenu" fx:id="topbar_root">
 			<left>
-				<Button fx:id="HomeBtn" text="Home" styleClass="headerMenu" onAction="#handleHomeButtonAction"/>
 				
 			</left>	
 			<right>

@@ -1,15 +1,13 @@
 package com.legba.notes.app;
 
-import java.io.File;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
-import javafx.scene.shape.*;
 import javafx.scene.image.*;
 import javafx.scene.text.Text;
 
-public class AppController {
+public class AppController{
 	
 	@FXML
 	private BorderPane root;
@@ -29,13 +27,27 @@ public class AppController {
 	@FXML
 	private Image Logo;
     
+	private static AppController instance;
+	
+	private AppController(){
+		// Called before all variable with @FXML have been populated
+	}
+	
+	public static AppController getInstance() {
+		if (instance != null){
+			instance = new AppController();
+		}
+		return instance;
+	}
+	
+	public void initialize() {
+		// Called once all variable with @FXML have been populated
+	}
+	
 	@FXML 
 	protected void handleHomeButtonAction(ActionEvent event) {
 		actiontarget.setText("Home button pressed");
 	}
 	
-	public void initialize() {
-		//File file = new File("/Images/Logo-Hozizontal.png");
-		//Logo = new Image(file.toURI().toString());
-	}
+
 }
