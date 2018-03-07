@@ -12,7 +12,7 @@ import com.legba.notes.elements.Slide;
  * @author zraw500
  *
  */
-public class SlideRenderer implements Renderer<Slide> {
+public class SlideRenderer extends Renderer<Slide> {
 
 	VectorRenderer vectorRenderer;
 	AudioRenderer audioRenderer;

@@ -12,7 +12,7 @@ import javafx.scene.shape.*;
  *
  */
 
-public class VectorRenderer implements Renderer<Shape> {
+public class VectorRenderer extends Renderer<Shape> {
 	
 	/**
 	 * Converts the properties in Shape to the correct type of javafx shape

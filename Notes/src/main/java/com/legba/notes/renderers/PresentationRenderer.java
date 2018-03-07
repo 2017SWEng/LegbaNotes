@@ -12,7 +12,7 @@ import com.legba.notes.elements.Slide;
  * Take a instance of the Presentation class and produces a java fx node tree
  * @author zraw500
  */
-public class PresentationRenderer implements Renderer<Presentation>{
+public class PresentationRenderer extends Renderer<Presentation>{
 
 	SlideRenderer slideRenderer;
 	

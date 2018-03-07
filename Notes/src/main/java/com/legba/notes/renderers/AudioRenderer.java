@@ -18,7 +18,7 @@ import javafx.event.ActionEvent;
  * @author lm1370 tmm522
  *
  */
-public class AudioRenderer implements Renderer<Audio> {
+public class AudioRenderer extends Renderer<Audio> {
 	
 	/**Returns a vbox object which can then be painted on the screen.
 	 * The Vbox contains 3 children; 
