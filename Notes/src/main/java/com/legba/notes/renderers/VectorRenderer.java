@@ -1,9 +1,8 @@
-package com.legba.notes.renders;
+package com.legba.notes.renderers;
 
 import javafx.scene.Node;
 import com.legba.notes.elements.Shape;
 import javafx.scene.shape.*;
-import javafx.scene.paint.Color;
 
 /**
  * 
@@ -13,7 +12,28 @@ import javafx.scene.paint.Color;
  *
  */
 
-public class VectorRenderer {
+public class VectorRenderer extends Renderer<Shape> {
+	
+	/**
+	 * Converts the properties in Shape to the correct type of javafx shape
+	 * If shape is not of type line, ellipse or rectangle then null is returned
+	 * @param shape	Contains position, size, stroke width, stroke colour and fill colour
+	 * @return 		the javafx shape
+	 */
+
+	public Node render(Shape shape) {
+		if (shape.getType() == "line") {
+			return renderLine(shape);
+		}
+		else if(shape.getType() == "ellipse"){
+			return renderEllipse(shape);
+		}
+		else if(shape.getType() == "rectangle"){
+			return renderRectangle(shape);
+		}
+		return null;
+		
+	}
 	
 	/**
 	 * Returns a javafx line that has been created using the properties in elements.Shape
@@ -85,27 +105,5 @@ public class VectorRenderer {
 		}
 		return null;
 	}
-	
-	/**
-	 * Converts the properties in Shape to the correct type of javafx shape
-	 * If shape is not of type line, ellipse or rectangle then null is returned
-	 * @param shape	Contains position, size, stroke width, stroke colour and fill colour
-	 * @return 		the javafx shape
-	 */
-
-	public Node render(Shape shape) {
-		if (shape.getType() == "line") {
-			return renderLine(shape);
-		}
-		else if(shape.getType() == "ellipse"){
-			return renderEllipse(shape);
-		}
-		else if(shape.getType() == "rectangle"){
-			return renderRectangle(shape);
-		}
-		return null;
-		
-	}
-
 
 }

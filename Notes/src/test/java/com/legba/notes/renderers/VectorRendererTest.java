@@ -1,4 +1,4 @@
-package com.legba.notes.renders;
+package com.legba.notes.renderers;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,7 @@ import javafx.scene.shape.*;
 import org.junit.Test;
 
 import com.legba.notes.elements.Shape;
+import com.legba.notes.renderers.VectorRenderer;
 
 public class VectorRendererTest {
 
