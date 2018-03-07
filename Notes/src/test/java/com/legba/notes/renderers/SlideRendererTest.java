@@ -8,7 +8,6 @@ import org.junit.After;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import org.junit.Test;
 
@@ -35,6 +34,7 @@ public class SlideRendererTest {
 	public static void setup() {
 		
 		
+		// Mocked renderes with Simple callbacks to check render fuction was called on children
 		AudioRenderer ar = new mockAudioRenderer(new Runnable() {
 
 			@Override
@@ -49,20 +49,26 @@ public class SlideRendererTest {
 				vectorRenderCalled++;
 			}
 		});
+		//TODO: add other renderers
 		
+		
+		// Create a new sliderenderer using the muck element renderes
 		sr = new SlideRenderer(vr,ar);
 				
+		// Create test slide with one audio element
 		audioSlide = new Slide();
 		audioSlide.addAudio(new Audio("testData/audioTest.wav"));
 		
 		
+		// create test slide with one shape
 		shapeSlide = new Slide();
 		shapeSlide.addShape(new Shape("line"));
 		
+		// create test slide with multiple mixed elements
 		multiSlide = new Slide();
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
-		multiSlide.addShape(new Shape("line"));
+		multiSlide.addShape(new Shape("ellipse"));
 		multiSlide.addShape(new Shape("rectangle"));
 
 	}
@@ -151,6 +157,9 @@ public class SlideRendererTest {
 		assertTrue(audioRenderCalled == 2);
 	}
 	
+	/**
+	 * Testing subclass of audio renderer for mocking/testing purposes
+	 */
 	private static class mockAudioRenderer extends AudioRenderer {
 		
 		Runnable r;
@@ -163,7 +172,10 @@ public class SlideRendererTest {
 		
 		@Override
 		public Node render(Audio audio){
+			// call the callback
 			r.run();
+			
+			// need to return a real node because you cannot add NULL as a child element
 			return new dummyBox("audio");
 			
 		}
@@ -181,19 +193,12 @@ public class SlideRendererTest {
 		
 		@Override
 		public Node render(Shape shape){
+			// call the callback
 			r.run();
 			
-			// Return a dummy Node
+			// need to return a real node because you cannot add NULL as a child element
 			return new dummyBox("shape");
 			
-		}
-	}
-	
-	private static class dummyBox extends VBox {
-		
-		public String name;
-		public dummyBox(String name){
-			this.name = name;
 		}
 	}
 }

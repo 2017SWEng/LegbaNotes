@@ -3,7 +3,6 @@ package com.legba.notes.renderers;
 import javafx.scene.Node;
 import com.legba.notes.elements.Shape;
 import javafx.scene.shape.*;
-import javafx.scene.paint.Color;
 
 /**
  * 
