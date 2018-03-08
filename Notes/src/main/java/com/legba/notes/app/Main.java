@@ -52,11 +52,17 @@ public class Main extends Application {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		Node n = textRenderer.render(text);
+		HBox n = textRenderer.render(text);
 		
-		if(n != null){
+		if(n == null){
+			System.out.println("Node is null");
+		}
+		else {
 			System.out.println("Node not null");
 		}
+		
+		System.out.println(n.getChildren().get(0));
+		
 		
 	}
 	
