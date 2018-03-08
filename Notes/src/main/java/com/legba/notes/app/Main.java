@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -35,13 +36,14 @@ public class Main extends Application {
 		//appController.initialize();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
+		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("Images/NotesVeve-Center.png")));
 	}
-	
 	
 	public static void main(String[] args) {
 		launch(args);
-
 	}
+	
+
 
 	
 
