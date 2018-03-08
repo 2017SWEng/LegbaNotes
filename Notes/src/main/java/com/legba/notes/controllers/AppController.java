@@ -2,7 +2,6 @@ package com.legba.notes.controllers;
 
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
