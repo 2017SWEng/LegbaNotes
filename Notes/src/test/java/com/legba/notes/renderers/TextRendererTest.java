@@ -12,6 +12,8 @@ import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -49,17 +51,31 @@ public class TextRendererTest {
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
 		Text text = new Text();
-		text.setContents(new ArrayList<Object>(
-				Arrays.asList("Hello", "Peter", "Harsh")));
+		text.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
+		
 		text.setBold(true);
+		text.setItalic(true);
+		text.setUnderline(true);
+		
+		text.setColor(javafx.scene.paint.Color.AZURE);
+		text.setFill(javafx.scene.paint.Color.RED);
+		
+		text.setTextsize(15);
+		
+		text.setFont("Verdana");
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		Node n = textRenderer.render(text);
+		HBox n = textRenderer.render(text);
 		
 		if(n != null){
 			System.out.println("Node not null");
 		}
+		
+		for(int i = 0; i<3; i++){
+			System.out.println(n.getChildren().get(i));
+		}
+			
 		
 	}
 
