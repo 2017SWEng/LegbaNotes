@@ -1,4 +1,6 @@
-package com.legba.notes.app;
+package com.legba.notes.models;
+
+import java.util.Observer;
 
 import com.legba.notes.elements.Presentation;
 
@@ -16,7 +18,7 @@ public class AppModel{
 	
 	private AppModel(){
 		// any setup
-		viewMode = ViewMode.HOMEPAGE;
+		viewMode = new ViewMode();
 	}
 	
 	public static AppModel getInstance() {
@@ -41,38 +43,45 @@ public class AppModel{
 	public void setPres(Presentation pres) {
 		
 		// Cannot view a null presentaion
-		if (pres == null && this.viewMode == ViewMode.VEIWING){
-			System.err.println("Presentaion was nulled whilst being veiwed, bailing to homepage");
-			this.viewMode = ViewMode.HOMEPAGE;
+		if (pres == null){
+			System.err.println("Presentaion was nulled\n Going back to home page");
+			this.viewMode.setMode(ViewMode.Mode.HOMEPAGE);
 		}
 		
 		this.pres = pres;
 	}
 
-	public ViewMode getVeiwMode() {
-		return viewMode;
+	public ViewMode.Mode getVeiwMode() {
+		return viewMode.getMode();
 	}
 
-	public void setVeiwMode(ViewMode viewMode) {
+	public void setVeiwMode(ViewMode.Mode viewMode) {
+		
 		
 		// if null is passed default to the homepage
 		if (viewMode == null){
 			System.err.println("AppModel.setVeiwMode was passed null, defaulting to homepage");
-			viewMode = ViewMode.HOMEPAGE;
+			viewMode = ViewMode.Mode.HOMEPAGE;
 		}
 		
+		System.out.println("Setting veiw to " + viewMode.toString());
+
 		// if were not in viewing mode we shouldn't have a presentation open
-		if (viewMode != ViewMode.VEIWING){
+		if (viewMode != ViewMode.Mode.VEIWING){
 			this.pres = null;
 		}
 		
 		// Carn't view a null presentaion
-		if (viewMode != ViewMode.VEIWING && this.pres == null){
+		if (viewMode == ViewMode.Mode.VEIWING && this.pres == null){
 			System.err.println("Trying to enter veiwmode when no presentation is set");
 			return;
 		}
 		
-		this.viewMode = viewMode;
+		this.viewMode.setMode(viewMode);
+	}
+
+	public void addVeiwModeObserver(Observer observer) {
+		this.viewMode.addObserver(observer);		
 	}
 
 	

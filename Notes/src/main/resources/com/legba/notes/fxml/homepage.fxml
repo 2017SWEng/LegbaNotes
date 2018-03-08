@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+
+
+<SplitPane
+	styleClass="homepage"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:id="homepage_root"
+	fx:controller="com.legba.notes.controllers.HomepageController" >
+	<items>
+		    	
+				<VBox spacing="10">
+					<Text>Recent</Text>
+				</VBox>
+				
+				<VBox spacing="10">
+					<Text>Corses</Text>
+				</VBox>
+		    </items> 
+
+</SplitPane>

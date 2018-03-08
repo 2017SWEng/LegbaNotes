@@ -2,6 +2,9 @@ package com.legba.notes.app;
 	
 import java.io.IOException;
 
+import com.legba.notes.controllers.AppController;
+import com.legba.notes.models.AppModel;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -25,13 +28,11 @@ public class Main extends Application {
 		
 		
 		//Let's set up some aspects of the UI
-		Parent root = null;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("appVeiw.fxml"));
-		loader.setRoot(root);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("app.fxml"));
 		loader.setController(appController);
-		Parent parent = loader.load();
+		Parent root = loader.load();
 		
-		primaryStage.setScene(new Scene(parent));
+		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("Images/NotesVeve-Center.png")));
 	}

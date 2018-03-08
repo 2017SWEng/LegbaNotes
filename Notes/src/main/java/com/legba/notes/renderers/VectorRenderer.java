@@ -1,6 +1,8 @@
 package com.legba.notes.renderers;
 
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
+
 import com.legba.notes.elements.Shape;
 import javafx.scene.shape.*;
 
@@ -22,17 +24,31 @@ public class VectorRenderer extends Renderer<Shape> {
 	 */
 
 	public Node render(Shape shape) {
-		if (shape.getType() == "line") {
+		if (isLine(shape)) {
 			return renderLine(shape);
 		}
-		else if(shape.getType() == "ellipse"){
+		else if(isEllipse(shape)){
 			return renderEllipse(shape);
 		}
-		else if(shape.getType() == "rectangle"){
+		else if(isRectangle(shape)){
 			return renderRectangle(shape);
 		}
+		
+		System.err.println("Unknown shape passed to Vector renderer : [" + shape.getType()+"]");
 		return null;
 		
+	}
+	
+	private boolean isLine(Shape shape){
+		return shape.getType().equals("line");
+	}
+	
+	private boolean isEllipse(Shape shape){
+		return shape.getType().equals("ellipse");
+	}
+	
+	private boolean isRectangle(Shape shape){
+		return shape.getType().equals("rectangle");
 	}
 	
 	/**
@@ -43,7 +59,7 @@ public class VectorRenderer extends Renderer<Shape> {
 	 */
 	
 	private Node renderLine (Shape shape){
-		if (shape.getType() == "line") {
+		if (isLine(shape)) {
 			Line line = new Line();
 			line.setStartX(shape.getX());
 			line.setStartY(shape.getY());
@@ -66,16 +82,16 @@ public class VectorRenderer extends Renderer<Shape> {
 	 */
 	
 	private Node renderEllipse (Shape shape){
-		if (shape.getType() == "ellipse"){
+		if (isEllipse(shape)){
 			Ellipse ellipse = new Ellipse();
 			
-			ellipse.setCenterX(shape.getX());
-			ellipse.setCenterY(shape.getY());
-			ellipse.setRadiusX(shape.getX2());
-			ellipse.setRadiusY(shape.getY2());
-			ellipse.setStrokeWidth(shape.getStroke());
-			ellipse.setStroke(shape.getColor());
-			ellipse.setFill(shape.getFill());
+			ellipse.setCenterX(shape.getX() == null ? 0 : shape.getX());
+			ellipse.setCenterY(shape.getY() == null ? 0 : shape.getY());
+			ellipse.setRadiusX(shape.getX2() == null ? 0 : shape.getX2());
+			ellipse.setRadiusY(shape.getY2() == null ? 0 : shape.getY2());
+			ellipse.setStrokeWidth(shape.getStroke() == null ? 0 : shape.getStroke());
+			ellipse.setStroke(shape.getColor() == null ? Color.WHITESMOKE : shape.getColor());
+			ellipse.setFill(shape.getFill() == null ? Color.DARKGRAY : shape.getFill());
 			
 			return (Node) ellipse;
 		}
@@ -90,7 +106,7 @@ public class VectorRenderer extends Renderer<Shape> {
 	 */
 	
 	private Node renderRectangle (Shape shape){
-		if (shape.getType() == "rectangle"){
+		if (isRectangle(shape)){
 			Rectangle rectangle = new Rectangle();
 			
 			rectangle.setX(shape.getX());

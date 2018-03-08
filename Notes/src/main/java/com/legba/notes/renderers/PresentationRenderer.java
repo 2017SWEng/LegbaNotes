@@ -37,7 +37,11 @@ public class PresentationRenderer extends Renderer<Presentation>{
 	 */
 	@Override
 	public Node render(Presentation pres) {
-				
+		
+		if (pres == null){
+			System.err.println("Attempted to render a null presentation");
+		}
+		
 		VBox vbox = new VBox();
 		
 		List<Slide> slide = pres.getSlide();
