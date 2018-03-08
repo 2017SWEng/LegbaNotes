@@ -39,7 +39,51 @@
 					</image>
 				</ImageView>
 			</right>
-				
+			
+			<bottom>
+				<BorderPane>
+					<left>
+						<BorderPane>
+							<top>
+								<ToolBar>
+									<HBox styleClass="segmented-button-bar">
+										<Button text="B"/>
+										<Button text="I"  />
+										<Button text="U"  />
+										<Button text="Size"  />
+										<Button text="Font"  />
+										<Button text="Br"  />
+									</HBox>				
+								</ToolBar>
+							</top>
+							
+							<center>
+								<ToolBar>
+									<HBox styleClass="segmented-button-bar">
+										<Button text="Colour"/>
+										<Button text="Fill"  />
+										<Button text="Start"  />
+										<Button text="Duration"  />
+									</HBox>				
+								</ToolBar>
+							</center>
+						</BorderPane>
+					</left>
+					
+					<right>
+						<ToolBar>
+							<HBox styleClass="segmented-button-bar">
+								<Button text="Button1"/>
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+							</HBox>				
+						</ToolBar>
+					</right>
+				</BorderPane>
+			</bottom>	
 		</BorderPane>
 	</top>
 	
