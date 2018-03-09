@@ -22,7 +22,7 @@ import javafx.scene.media.MediaPlayer.Status;
 
 public class Main extends Application {
 	
-	static AppController appController;
+	static AppController ToolbarController;
 	static AppModel appModel;
 	
 	@Override
@@ -30,7 +30,7 @@ public class Main extends Application {
 		
 		//Let's set up some aspects of the UI
 		
-		Parent root = FXMLLoader.load(getClass().getResource("appVeiw.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("MultimediaToolbar.fxml"));
 		
 		//appController.initialize();
 		primaryStage.setScene(new Scene(root));
