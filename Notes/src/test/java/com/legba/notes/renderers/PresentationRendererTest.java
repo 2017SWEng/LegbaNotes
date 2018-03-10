@@ -12,6 +12,7 @@ import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Slide;
 
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -61,9 +62,12 @@ public class PresentationRendererTest {
 		
 		assertNotNull(n);
 		assertTrue(n instanceof Node);
-		assertTrue(n instanceof VBox);
+		assertTrue(n instanceof ScrollPane);
+				
+		ScrollPane sp = (ScrollPane)n;
+		assertTrue(sp.getContent() instanceof VBox);
 		
-		VBox box = (VBox)n;
+		VBox box = (VBox)sp.getContent();
 		List<Node> children = box.getChildren();
 		
 		assertNotNull(children);
