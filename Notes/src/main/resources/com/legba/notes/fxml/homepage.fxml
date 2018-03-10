@@ -21,10 +21,17 @@
 		    	
 				<VBox spacing="10">
 					<Text>Recent</Text>
+					<Text>Some thing some thing</Text>
+					<Text>EM waves 2</Text>
+					<Text>EM Feilds 19</Text>
 				</VBox>
 				
 				<VBox spacing="10">
 					<Text>Corses</Text>
+					<Text>EM</Text>
+					<Text>Digital Design</Text>
+					<Text>SWEng</Text>
+					<Text>DesCon</Text>
 				</VBox>
 		    </items> 
 

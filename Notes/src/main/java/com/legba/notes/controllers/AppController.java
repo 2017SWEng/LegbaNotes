@@ -12,12 +12,15 @@ import com.legba.notes.models.ViewMode.Mode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 
 public class AppController implements Observer{
 	
 	@FXML
-	private BorderPane root;
+	public BorderPane root;
     
 	private static AppController instance;
 	
@@ -82,6 +85,8 @@ public class AppController implements Observer{
 			}
 		}
 		
+		logNodes(root,0);
+
 	}
 
 	private void updateMode(Mode mode) {
@@ -124,5 +129,35 @@ public class AppController implements Observer{
 		}
 		
 	}
+	
+ 	
+ 	void logNodes(Node root, int depth) {
+		
+		//System.out.println("# "+root.toString());
+		
+		String s = "";
+		for(int i = 0; i < depth; i++) {
+			s += "|\t";
+		}
+		s += "L\t";
 
+		System.out.println(s + root);
+		
+		if (root instanceof SplitPane) {
+			for(Node n : ((SplitPane)root).getItems()) {
+				logNodes(n,depth+1);
+			}
+		}
+		else if (root instanceof ScrollPane) {
+				logNodes(((ScrollPane)root).getContent(),depth+1);
+		}
+		else if (root instanceof Parent) {
+			for(Node n : ((Parent)root).getChildrenUnmodifiable()) {
+				logNodes(n,depth+1);
+			}
+
+		} 
+				
+	}
+	
 }

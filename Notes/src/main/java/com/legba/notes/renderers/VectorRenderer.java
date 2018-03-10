@@ -61,12 +61,12 @@ public class VectorRenderer extends Renderer<Shape> {
 	private Node renderLine (Shape shape){
 		if (isLine(shape)) {
 			Line line = new Line();
-			line.setStartX(shape.getX());
-			line.setStartY(shape.getY());
-			line.setEndX(shape.getX2());
-			line.setEndY(shape.getY2());
-			line.setStrokeWidth(shape.getStroke());
-			line.setStroke(shape.getColor());
+			line.setStartX(shape.getX() == null ? 0 : shape.getX());
+			line.setStartY(shape.getY() == null ? 0 : shape.getY());
+			line.setEndX(shape.getX2() == null ? 10 : shape.getX2());
+			line.setEndY(shape.getY2() == null ? 10 : shape.getY2());
+			line.setStrokeWidth(shape.getStroke() == null ? 2 : shape.getStroke());
+			line.setStroke(shape.getColor() == null ? Color.WHITESMOKE : shape.getColor());
 			
 			
 			return (Node) line;
@@ -85,11 +85,11 @@ public class VectorRenderer extends Renderer<Shape> {
 		if (isEllipse(shape)){
 			Ellipse ellipse = new Ellipse();
 			
-			ellipse.setCenterX(shape.getX() == null ? 0 : shape.getX());
-			ellipse.setCenterY(shape.getY() == null ? 0 : shape.getY());
-			ellipse.setRadiusX(shape.getX2() == null ? 0 : shape.getX2());
-			ellipse.setRadiusY(shape.getY2() == null ? 0 : shape.getY2());
-			ellipse.setStrokeWidth(shape.getStroke() == null ? 0 : shape.getStroke());
+			ellipse.setCenterX(shape.getX() == null ? 0 : shape.getX()+shape.getWidth()/2);
+			ellipse.setCenterY(shape.getY() == null ? 0 : shape.getY()+shape.getHeight()/2);
+			ellipse.setRadiusX(shape.getX2() == null ? 10 : shape.getWidth()/2);
+			ellipse.setRadiusY(shape.getY2() == null ? 10 : shape.getHeight()/2);
+			ellipse.setStrokeWidth(shape.getStroke() == null ? 2 : shape.getStroke());
 			ellipse.setStroke(shape.getColor() == null ? Color.WHITESMOKE : shape.getColor());
 			ellipse.setFill(shape.getFill() == null ? Color.DARKGRAY : shape.getFill());
 			
@@ -109,13 +109,13 @@ public class VectorRenderer extends Renderer<Shape> {
 		if (isRectangle(shape)){
 			Rectangle rectangle = new Rectangle();
 			
-			rectangle.setX(shape.getX());
-			rectangle.setY(shape.getY());
-			rectangle.setWidth(shape.getWidth());
-			rectangle.setHeight(shape.getHeight());
-			rectangle.setStrokeWidth(shape.getStroke());
-			rectangle.setStroke(shape.getColor());
-			rectangle.setFill(shape.getFill());
+			rectangle.setX(shape.getX() == null ? 0 : shape.getX());
+			rectangle.setY(shape.getY() == null ? 0 : shape.getY());
+			rectangle.setWidth(shape.getWidth() == null ? 10 : shape.getWidth());
+			rectangle.setHeight(shape.getHeight() == null ? 10 : shape.getHeight());
+			rectangle.setStrokeWidth(shape.getStroke() == null ? 2 : shape.getStroke());
+			rectangle.setStroke(shape.getColor() == null ? Color.WHITESMOKE : shape.getColor());
+			rectangle.setFill(shape.getFill() == null ? Color.DARKGRAY : shape.getFill());
 			
 			return (Node) rectangle;
 		}

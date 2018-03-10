@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 
 import org.junit.Test;
