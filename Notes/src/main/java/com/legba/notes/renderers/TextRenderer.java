@@ -20,7 +20,7 @@ public class TextRenderer {
 		for (int i=0; i<text.getContents().size(); i++) {
 			words.add(new javafx.scene.text.Text((String) text.getContents().get(i)));
 		}
-		
+		//
 		if(text.getBold() == true && text.getItalic() == true){
 			for (int i = 0; i<words.size(); i++) {
 				words.get(i).setFont(Font.font(text.getFont(), 
