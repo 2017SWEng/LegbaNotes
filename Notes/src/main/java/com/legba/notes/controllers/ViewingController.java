@@ -32,9 +32,14 @@ public class ViewingController {
  	@FXML
     void initialize(){
 		// Called once all variable with @FXML have been populated
+ 		
+ 		// get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
+		
+		// render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
 
+		// display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		

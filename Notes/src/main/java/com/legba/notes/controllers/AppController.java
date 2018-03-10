@@ -2,6 +2,8 @@ package com.legba.notes.controllers;
 
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,6 +30,10 @@ public class AppController implements Observer{
 	public ViewingController viewing;
 	public HomepageController homepage;
 	
+	private final static String menuPath = "../fxml/menu.fxml";
+	private final static String homepagePath = "../fxml/homepage.fxml";
+	private final static String viewingPath = "../fxml/viewing.fxml";
+	
 	private AppController(){
 		// Called before all variable with @FXML have been populated
 	}
@@ -45,29 +51,44 @@ public class AppController implements Observer{
  		
 		// Add menu
 		addMenu();
+		
+		// Add veiwMode observer
 		AppModel.getInstance().addVeiwModeObserver(this);
+		
+		// force updateMode to load default page
 		updateMode(ViewMode.Mode.HOMEPAGE);
 	}
 	
-	private void addMenu() {
+ 	
+ 	// Loads fxml file
+ 	private Node loadFXML(URL path){
+ 		System.out.println("[+] Loading " + path);
 		
-		System.out.println("[+] Loading Menu");
-		System.out.println("\t path = " + getClass().getResource("../fxml/menu.fxml"));
-		
-		Parent menu = null;
+ 		Node node = null;
 		try {
-			menu = FXMLLoader.load(getClass().getResource("../fxml/menu.fxml"));
+			node = FXMLLoader.load(path);
 		} catch (IOException e) {
-			System.err.println("\t[ERR!] Unable to load menu");
+			System.err.println("\t[ERR!] Unable to load " + path);
 			e.printStackTrace();
 		}
 		
+		System.out.println("[-] Loaded " + path);
+
+		
+		return node;
+ 	}
+ 	
+	private void addMenu() {
+		
+		// load menu from fxml
+		Node menu = loadFXML( getClass().getResource(menuPath));
+		
+		// if the loaded menu is not null then set the top to it
 		if (menu != null){
 			root.setTop(menu);
 			System.out.println("\t[ OK ] Set Menu");
 		}
 		
-		System.out.println("[-] Loaded Menu");
 
 	}
 
@@ -76,6 +97,7 @@ public class AppController implements Observer{
 		
 		System.out.println("== app update ==");
 		
+		// check what has called this method
 		if (arg0 instanceof ViewMode){
 			if (arg1 instanceof Mode){
 				updateMode((Mode)arg1);
@@ -85,52 +107,46 @@ public class AppController implements Observer{
 			}
 		}
 		
-		logNodes(root,0);
+		//logNodes(root,0);
 
 	}
 
 	private void updateMode(Mode mode) {
-				
+		
+		if (mode == null){
+			System.err.println(this.toString() + " : mode was null");
+			return;
+		}
+		
+		// Build the file path based on the mode
+		String path = null;
+		
 		if (mode == Mode.HOMEPAGE){
-			System.out.println("[+] Loading homepage");
-			
-			Parent homepage = null;
-			try {
-				homepage = FXMLLoader.load(getClass().getResource("../fxml/homepage.fxml"));
-			} catch (IOException e) {
-				System.err.println("\t[ERR!] Unable to load homepage");
-				e.printStackTrace();
-			}
-			
-			if (homepage != null){
-				root.setCenter(homepage);
-				System.out.println("\t[ OK ] Set homepage");
-			}
-			
-			System.out.println("[-] Loaded homepage");
+			path = AppController.homepagePath;
 		}
 		else if(mode == Mode.VEIWING){
-			System.out.println("[+] Loading viewing");
-			
-			Parent veiwing = null;
-			try {
-				veiwing = FXMLLoader.load(getClass().getResource("../fxml/viewing.fxml"));
-			} catch (IOException e) {
-				System.err.println("\t[ERR!] Unable to load veiwing");
-				e.printStackTrace();
-			}
-			
-			if (veiwing != null){
-				root.setCenter(veiwing);
-				System.out.println("\t[ OK ] Set viewing");
-			}
-			
-			System.out.println("[-] Loaded viewing");
+			path = AppController.viewingPath;
+		}
+		
+		
+		// make sure we set a path
+		if (path == null){
+			System.err.println(this.toString() + " : path was null");
+			return;
+		}
+		
+		// load fxml file
+		Node n = loadFXML( getClass().getResource(path));
+		
+		// if the loaded file exists then set the center to it
+		if (n != null){
+			root.setCenter(n);
+			System.out.println("\t[ OK ] Set Veiw to " + mode.toString());
 		}
 		
 	}
 	
- 	
+ 	// TODO: move this to some kind of logger class
  	void logNodes(Node root, int depth) {
 		
 		//System.out.println("# "+root.toString());
