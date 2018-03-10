@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -58,6 +59,13 @@ public class PresentationRendererTest {
 	
 	@Test
 	public void test() {
+		
+		if (!System.getProperty( "os.name" ).startsWith( "Windows" )){
+			System.out.println("Skipping because OS is not windows : os.name = " + System.getProperty( "os.name" ));
+		}
+		// Don't run this on the CI, because javafx needs a GUI os to run
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+		
 		Node n = pr.render(pres);
 		
 		assertNotNull(n);
