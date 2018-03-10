@@ -52,9 +52,12 @@ public class SlideRenderer extends Renderer<Slide> {
 		
 		// using pane because it allows absolute positioning
 		Pane pane =  new Pane();
+		pane.getStyleClass().add("element-slide");
 
+		
 		for(Shape shape : s.getShapes()){
-			pane.getChildren().add(this.vectorRenderer.render(shape));
+			Node n = this.vectorRenderer.render(shape);
+			pane.getChildren().add(n);
 		}
 		
 		for(Audio audio : s.getAudios()){

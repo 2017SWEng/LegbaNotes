@@ -1,10 +1,14 @@
 package com.legba.notes.renderers;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 
 import java.util.List;
 
+import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Slide;
 
@@ -37,8 +41,21 @@ public class PresentationRenderer extends Renderer<Presentation>{
 	 */
 	@Override
 	public Node render(Presentation pres) {
-				
+		
+		if (pres == null){
+			System.err.println("Attempted to render a null presentation");
+		}
+		
+		
 		VBox vbox = new VBox();
+		vbox.getStyleClass().add("element-presentation");
+		
+		List<Meta> meta = pres.getMeta();
+		
+		for(Meta m : meta){
+			vbox.getChildren().add(new Text(m.getKey() + " : " + m.getValue()));
+		}
+		
 		
 		List<Slide> slide = pres.getSlide();
 		
@@ -46,7 +63,11 @@ public class PresentationRenderer extends Renderer<Presentation>{
 			vbox.getChildren().add(slideRenderer.render(s));
 		}
 		
-		return vbox;
+		ScrollPane scroller = new ScrollPane(vbox);
+		scroller.setFitToWidth(true);
+		
+		return scroller;
 	}
+
 
 }

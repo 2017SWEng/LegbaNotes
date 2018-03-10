@@ -47,4 +47,15 @@ public class Audio extends MultiMediaElement{
 		}
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Audio [" + (getPath() != null ? "getPath()=" + getPath() + ", " : "")
+				+ (getX() != null ? "getX()=" + getX() + ", " : "") + (getY() != null ? "getY()=" + getY() + ", " : "")
+				+ (getX2() != null ? "getX2()=" + getX2() + ", " : "") + (getY2() != null ? "getY2()=" + getY2() : "")
+				+ "]";
+	}
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+
+
+<SplitPane
+	styleClass="homepage"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:id="homepage_root"
+	fx:controller="com.legba.notes.controllers.HomepageController" >
+	<items>
+		    	
+				<VBox spacing="10">
+					<Text>Recent</Text>
+					<Text>Some thing some thing</Text>
+					<Text>EM waves 2</Text>
+					<Text>EM Feilds 19</Text>
+				</VBox>
+				
+				<VBox spacing="10">
+					<Text>Corses</Text>
+					<Text>EM</Text>
+					<Text>Digital Design</Text>
+					<Text>SWEng</Text>
+					<Text>DesCon</Text>
+				</VBox>
+		    </items> 
+
+</SplitPane>

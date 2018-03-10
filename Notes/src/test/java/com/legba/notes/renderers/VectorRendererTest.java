@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 
 import org.junit.Test;
@@ -60,13 +61,13 @@ public class VectorRendererTest {
 		 * Tests that shape parameters are rendered correctly
 		 */
 		assertNotNull(n);
-		assertEquals((double)ellipse.getX(), n.getCenterX(),0.01f);
-		assertEquals((double)ellipse.getY(), n.getCenterY(),0.01f);
-		assertEquals((double)ellipse.getX2(), n.getRadiusX(),0.01f);
-		assertEquals((double)ellipse.getY2(), n.getRadiusY(),0.01f);
+		assertEquals((double)(ellipse.getX() + ellipse.getX2())/2, n.getCenterX(),0.01f);
+		assertEquals((double)(ellipse.getY() + ellipse.getY2())/2, n.getCenterY(),0.01f);
+		assertEquals((double)(ellipse.getX2() - ellipse.getX())/2, n.getRadiusX(),0.01f);
+		assertEquals((double)(ellipse.getY2() - ellipse.getY())/2, n.getRadiusY(),0.01f);
 		assertEquals((double)ellipse.getStroke(), n.getStrokeWidth(),0.01f);
 		assertEquals(ellipse.getColor(), n.getStroke());
-		assertEquals(ellipse.getFill(), n.getFill());
+		assertEquals(VectorRenderer.DEFAULT_BG, n.getFill());
 	}
 	
 	/**
@@ -96,7 +97,7 @@ public class VectorRendererTest {
 		assertEquals((double)rectangle.getHeight(), n.getHeight(),0.01f);
 		assertEquals((double)rectangle.getStroke(), n.getStrokeWidth(),0.01f);
 		assertEquals(rectangle.getColor(), n.getStroke());
-		assertEquals(rectangle.getFill(), n.getFill());		
+		assertEquals(VectorRenderer.DEFAULT_BG, n.getFill());		
 	}
 	
 }

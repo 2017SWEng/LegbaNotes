@@ -45,11 +45,16 @@ public class FileSystemController {
 	
 	public Presentation loadXmlFile(String path) {
 		
+		System.out.println("Loading XML file : " + path);
+		
 		File f = new File(path);
 		if (f.exists() && !f.isDirectory()) {
 			
 			try {
 				InputStream s = new FileInputStream(f);
+				
+				System.out.println("Loaded XML file : " + path);
+
 				return unmarshall(s);
 				
 			} catch (FileNotFoundException | JAXBException e) {
@@ -59,6 +64,8 @@ public class FileSystemController {
 			
 		}
 		
+		System.out.println(" Failed to Load XML file : " + path);
+
 		return null;
 	}
 	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane 
+	fx:id="root"
+	xmlns:fx="http://javafx.com/fxml/1"
+	stylesheets="@application.css"
+	prefWidth="800"
+	prefHeight="600">
+	
+	<fx:define>
+		<Font fx:id="TITLE_FONT" size="18"/>
+		<Font fx:id="NORMAL_FONT" size="12"/>
+	</fx:define>
+	
+	
+	
+	<!-- MENU -->
+	<top>
+		
+	</top>
+	
+	
+	<!-- CONTENT -->
+	<center>
+		
+	</center>
+</BorderPane>
+

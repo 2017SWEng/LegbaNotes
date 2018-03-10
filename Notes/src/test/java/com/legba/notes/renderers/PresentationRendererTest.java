@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Slide;
 
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -57,13 +59,23 @@ public class PresentationRendererTest {
 	
 	@Test
 	public void test() {
+		
+		if (!System.getProperty( "os.name" ).startsWith( "Windows" )){
+			System.out.println("Skipping because OS is not windows : os.name = " + System.getProperty( "os.name" ));
+		}
+		// Don't run this on the CI, because javafx needs a GUI os to run
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+		
 		Node n = pr.render(pres);
 		
 		assertNotNull(n);
 		assertTrue(n instanceof Node);
-		assertTrue(n instanceof VBox);
+		assertTrue(n instanceof ScrollPane);
+				
+		ScrollPane sp = (ScrollPane)n;
+		assertTrue(sp.getContent() instanceof VBox);
 		
-		VBox box = (VBox)n;
+		VBox box = (VBox)sp.getContent();
 		List<Node> children = box.getChildren();
 		
 		assertNotNull(children);
