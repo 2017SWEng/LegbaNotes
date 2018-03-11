@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.legba.notes.elements.Text;
+import com.legba.notes.elements.TextModel;
 import com.legba.notes.renderers.TextRenderer;
 
 import javafx.application.Application;

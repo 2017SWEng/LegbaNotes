@@ -46,37 +46,75 @@ public class TextRendererTest {
 	
 	
 	@Test
-	public void test() {
+	public void testOne() {
 		
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
-		Text text = new Text();
-		text.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
 		
-		text.setBold(true);
-		text.setItalic(true);
-		text.setUnderline(true);
+		textModel.setBold(true);
+		textModel.setItalic(true);
+		textModel.setUnderline(true);
 		
-		text.setColor(javafx.scene.paint.Color.AZURE);
-		text.setFill(javafx.scene.paint.Color.RED);
+		textModel.setColor(javafx.scene.paint.Color.AZURE);
+		textModel.setFill(javafx.scene.paint.Color.RED);
 		
-		text.setTextsize(15);
+		textModel.setTextsize(15);
 		
-		text.setFont("Verdana");
+		textModel.setFont("Verdana");
+		
+		//Sets Horizontal and Vertical Position
+		textModel.setX(2f);
+		textModel.setY(3f);
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox n = textRenderer.render(text);
+		HBox renderedText = textRenderer.render(textModel);
 		
-		if(n != null){
+		if(renderedText != null){
 			System.out.println("Node not null");
 		}
 		
 		for(int i = 0; i<3; i++){
-			System.out.println(n.getChildren().get(i));
+			System.out.println(renderedText.getChildren().get(i));
 		}
-			
+	}
+	
+	@Test
+	public void testTwo() {
 		
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian")));
+		
+		textModel.setBold(false);
+		textModel.setItalic(true);
+		textModel.setUnderline(false);
+		
+		textModel.setColor(javafx.scene.paint.Color.AZURE);
+		textModel.setFill(javafx.scene.paint.Color.BLUE);
+		
+		textModel.setTextsize(15);
+		
+		textModel.setFont("Times New Roman");
+		
+		//Sets Horizontal and Vertical Position
+		textModel.setX(4f);
+		textModel.setY(5f);
+		
+		TextRenderer textRenderer = new TextRenderer();
+		
+		HBox renderedText = textRenderer.render(textModel);
+		
+		if(renderedText != null){
+			System.out.println("Node not null");
+		}
+		
+		for(int i = 0; i<3; i++){
+			System.out.println(renderedText.getChildren().get(i));
+		}
 	}
 
 }
