@@ -1,7 +1,5 @@
 package com.legba.notes.PDF;
 
-import com.legba.notes.app.AppController;
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -93,5 +91,5 @@ public class PdfView {
 		webEngine.load(this.getClass().getResource("pdf.html").toString());
 		
 		return borderPane;
-		}
+	}
 }

@@ -1,5 +1,8 @@
 package com.legba.notes.controllers;
 
+import java.io.File;
+
+import com.legba.notes.PDF.PdfView;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.renderers.PresentationRenderer;
@@ -43,6 +46,10 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
+		
+		PdfView pdfView = new PdfView();
+		reference_root.getChildren().clear();
+		reference_root.getChildren().add(pdfView.render(("https://www.warhammerdigital.com/Downloads/Product/PDF/rules/HOBBIT_III_BoTFA_UK.pdf").toString()));
 		
 	}
  	
