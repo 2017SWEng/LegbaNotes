@@ -20,7 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TextRendererTest {
-
+	
+	
 	@Before
 	public void setup() throws InterruptedException {
 		
@@ -104,6 +105,27 @@ public class TextRendererTest {
 		textModel.setX(4f);
 		textModel.setY(5f);
 		
+		TextRenderer textRenderer = new TextRenderer();
+		
+		HBox renderedText = textRenderer.render(textModel);
+		
+		if(renderedText != null){
+			System.out.println("Node not null");
+		}
+		
+		for(int i = 0; i<3; i++){
+			System.out.println(renderedText.getChildren().get(i));
+		}
+	}
+	
+	@Test
+	public void testNull() {
+		
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian", "Robert")));
+			
 		TextRenderer textRenderer = new TextRenderer();
 		
 		HBox renderedText = textRenderer.render(textModel);
