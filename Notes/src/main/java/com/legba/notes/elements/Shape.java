@@ -5,36 +5,41 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.legba.notes.elements.base.*;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
+
 
 public class Shape extends SlideElement implements Colorable,Positionable{
 	
 	private String type;
 	
-	private Integer stroke;
+	private IntegerProperty stroke;
 	
-	private Color color;
+	private ObjectProperty<Color> color;
 	
-	private Color fill;
+	private ObjectProperty<Color> fill;
 	
 	protected Shape() {
 		
 	}
 	
-	//Constructor with parameters position, shape and type
+	//Constructor with parameter type
 	public Shape(String type) {
 		super();
-
 		//Required by Element 'Shape'
 		this.setType(type);
-		
+		stroke = new SimpleIntegerProperty();
+		color = new SimpleObjectProperty<Color>();
+		fill = new SimpleObjectProperty<Color>();
 	}
 	
 	//Returns type of shape
 	@XmlAttribute
 	public String getType() {
 		return this.type;
-
 	}
 	
 	//Sets type of shape
@@ -50,40 +55,79 @@ public class Shape extends SlideElement implements Colorable,Positionable{
 	//Returns pixel width of border on shape
 	@XmlAttribute
 	public Integer getStroke() {
+		return (stroke == null) ? null : stroke.get();
+	}
+	
+	//Creates a property for stroke
+	public IntegerProperty strokeProperty() {
 		return this.stroke;
+	}
+	
+	//Sets pixel width of border on shape if not null
+	public void setStroke(Integer newStroke) {
+		if(newStroke == null){
+			stroke = null;
+			return;
+		}
+		else if (stroke == null){
+			stroke = new SimpleIntegerProperty();
+		}
+		
+		stroke.set(newStroke);
+	}
 
-	}
-	
-	//Sets pixel width of border on shape
-	public void setStroke(Integer stroke) {
-		this.stroke=stroke;
-	}
-	
+	//Returns the colour of the outline
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
 	public Color getColor() {
+		return (color == null) ? null : color.get();
+	}
+	
+	//Creates a property for color
+	public ObjectProperty<Color> colorProperty() {
 		return this.color;
 	}
-
-
+	
+	//Sets colour of outline if newColor is not null
 	@Override
-	public void setColor(Color col) {
-		this.color=col;
+	public void setColor(Color newColor) {
+		if(newColor == null){
+			color = null;
+			return;
+		}
+		else if (color == null){
+			color = new SimpleObjectProperty<Color>();
+		}
+		
+		color.set(newColor);
 	}
 
-
+	//Returns the colour of the fill
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
 	public Color getFill() {
+		return (fill == null) ? null : fill.get();
+	}
+	
+	//Creates a property for fill
+	public ObjectProperty<Color> fillProperty() {
 		return this.fill;
 	}
-
-
+	
+	//Sets fill of shape if newColor is not null
 	@Override
-	public void setFill(Color fill) {
-		this.color=fill;
+	public void setFill(Color newColor) {
+		if(newColor == null){
+			fill = null;
+			return;
+		}
+		else if (fill == null){
+			fill = new SimpleObjectProperty<Color>();
+		}
+		
+		fill.set(newColor);
 	}
 
 	/* (non-Javadoc)
