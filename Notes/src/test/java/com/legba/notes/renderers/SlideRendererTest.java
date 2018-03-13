@@ -2,6 +2,7 @@ package com.legba.notes.renderers;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -14,7 +15,7 @@ import org.junit.Test;
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
-
+import com.legba.notes.elements.Text;
 
 import org.junit.BeforeClass;
 
@@ -22,6 +23,7 @@ public class SlideRendererTest {
 
 	static Slide audioSlide;
 	static Slide shapeSlide;
+	static Slide textSlide;
 	static Slide multiSlide;
 
 	
@@ -29,6 +31,7 @@ public class SlideRendererTest {
 	
 	static int audioRenderCalled = 0;
 	static int vectorRenderCalled = 0;
+	static int textRenderCalled = 0;
 	
 	@BeforeClass
 	public static void setup() {
@@ -49,11 +52,18 @@ public class SlideRendererTest {
 				vectorRenderCalled++;
 			}
 		});
+		
+		TextRenderer tr = new mockTextRenderer(new Runnable() {
+			@Override
+			public void run() {
+				textRenderCalled++;
+			}
+		});
 		//TODO: add other renderers
 		
 		
 		// Create a new sliderenderer using the muck element renderes
-		sr = new SlideRenderer(vr,ar);
+		sr = new SlideRenderer(vr,ar,tr);
 				
 		// Create test slide with one audio element
 		audioSlide = new Slide();
@@ -64,12 +74,30 @@ public class SlideRendererTest {
 		shapeSlide = new Slide();
 		shapeSlide.addShape(new Shape("line"));
 		
+		// create test slide with one text
+		textSlide = new Slide();
+		Text text = new Text();
+		text.setContents(Arrays.asList("test"));
+		textSlide.addText(text);
+		
 		// create test slide with multiple mixed elements
 		multiSlide = new Slide();
+		
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
+		
 		multiSlide.addShape(new Shape("ellipse"));
 		multiSlide.addShape(new Shape("rectangle"));
+		
+		Text text1 = new Text();
+		text.setContents(Arrays.asList("test1"));
+		
+		Text text2 = new Text();
+		text.setContents(Arrays.asList("test2"));
+		
+		multiSlide.addText(text1);
+		multiSlide.addText(text2);
+
 
 	}
 	
@@ -77,6 +105,7 @@ public class SlideRendererTest {
 	public void reset(){
 		audioRenderCalled=0;
 		vectorRenderCalled=0;
+		textRenderCalled=0;
 	}
 	
 	@Test
@@ -120,6 +149,26 @@ public class SlideRendererTest {
 	}
 	
 	@Test
+	public void test_text() {
+		Node n = sr.render(textSlide);
+		
+		assertNotNull(n);
+		assertTrue(n instanceof Node);
+		assertTrue(n instanceof Pane);
+		
+		Pane pane = (Pane)n;
+		List<Node> children = pane.getChildren();
+		
+		assertNotNull(children);
+		assertEquals(children.size(), 1);
+		
+		assertTrue(children.get(0) instanceof dummyBox);
+		assertEquals(((dummyBox)children.get(0)).name, "text");
+		
+		assertTrue(textRenderCalled == 1);
+	}
+	
+	@Test
 	public void test_multi() {
 		Node n = sr.render(multiSlide);
 		
@@ -131,10 +180,12 @@ public class SlideRendererTest {
 		List<Node> children = pane.getChildren();
 		
 		assertNotNull(children);
-		assertEquals(children.size(), 4);
+		assertEquals(children.size(), 6);
 		
 		int numAudios = 0;
 		int numShapes = 0;
+		int numTexts = 0;
+
 		for(Node child : children){
 			assertTrue(child instanceof dummyBox);
 			
@@ -144,6 +195,9 @@ public class SlideRendererTest {
 			else if (((dummyBox)child).name == "shape"){
 				numShapes++;
 			}
+			else if (((dummyBox)child).name == "text"){
+				numTexts++;
+			}
 			else{
 				fail();
 			}
@@ -152,9 +206,11 @@ public class SlideRendererTest {
 		
 		assertEquals(numAudios, 2);
 		assertEquals(numShapes, 2);
+		assertEquals(numTexts, 2);
 		
 		assertTrue(vectorRenderCalled == 2);
 		assertTrue(audioRenderCalled == 2);
+		assertTrue(textRenderCalled == 2);
 	}
 	
 	/**
@@ -198,6 +254,27 @@ public class SlideRendererTest {
 			
 			// need to return a real node because you cannot add NULL as a child element
 			return new dummyBox("shape");
+			
+		}
+	}
+	
+	private static class mockTextRenderer extends TextRenderer {
+		
+		Runnable r;
+		
+		public mockTextRenderer(Runnable r){
+			super();
+
+			this.r = r;
+		}
+		
+		@Override
+		public Node render(Text text){
+			// call the callback
+			r.run();
+			
+			// need to return a real node because you cannot add NULL as a child element
+			return new dummyBox("text");
 			
 		}
 	}
