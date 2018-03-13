@@ -49,7 +49,7 @@ public class ViewingController {
 		
 		PdfView pdfView = new PdfView();
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView.render(("https://www.warhammerdigital.com/Downloads/Product/PDF/rules/HOBBIT_III_BoTFA_UK.pdf").toString()));
+		reference_root.getChildren().add(pdfView.render(("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf").toString()));
 		
 	}
  	
