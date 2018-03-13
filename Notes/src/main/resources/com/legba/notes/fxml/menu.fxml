@@ -23,15 +23,29 @@
 	fx:id="topbar_root"
 	fx:controller="com.legba.notes.controllers.MenuController" >
 	
-	<left>
-		<Button fx:id="HomeBtn" text="Home" styleClass="headerMenu" onAction="#handleHomeButtonAction"/>
-	</left>	
-	<right>
-		<ImageView  fitHeight="150" preserveRatio="true">
+	<center>
+		<ImageView fx:id="homeLogo" StyleClass="homeImage" fitHeight="60" preserveRatio="true" onMouseClicked="#handleHomeButtonAction">
 			<image>
-				<Image url="@Images/Logo-Hozizontal.png"/>
+				<Image url="@Images/Logo-Horizontal2-line.png" />
 			</image>
 		</ImageView>
-	</right>
+	</center>
+	<bottom>
+		<MenuBar fx:id="menuBar" pickOnBounds="true">
+			<menus>
+				<Menu text="Account">
+					<items>
+						<MenuItem text="View account"/>
+						<MenuItem text="Log out"/>
+					</items>
+				</Menu>
+				<Menu text="Windows">
+				</Menu>
+				<Menu text="Help">
+				</Menu>
+			</menus>
+		</MenuBar>
+	</bottom>	
+	
 		
 </BorderPane>

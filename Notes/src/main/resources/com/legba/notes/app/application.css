@@ -17,20 +17,20 @@
 	   
 	-fx-background-color: #fff/* #535360*/;
 	
-	-fx-border-style: solid;
+	/*-fx-border-style: solid;
 	-fx-border-color: dodgerblue;
 	
-	-fx-font-family: cursive;
+	-fx-font-family: cursive;*/
 	
 }
 
-/*
-.headerMenu.homeBtn {
-	
+.homeImage {
 	-fx-cursor: hand;
-	
 }
-*/
+
+Button {
+	-fx-cursor: hand;
+}
 
 .element-presentation{
 	-fx-spacing:10px;

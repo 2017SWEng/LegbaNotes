@@ -7,7 +7,10 @@ import com.legba.notes.models.ViewMode.Mode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.input.MouseEvent;
 
 public class MenuController {
 
@@ -17,6 +20,12 @@ public class MenuController {
 	
 	@FXML
 	Button HomeBtn;
+	
+	@FXML
+	MenuBar menuBar;
+	
+	@FXML
+	ImageView homeLogo;
 	
 	public MenuController(){
 	}
@@ -28,7 +37,7 @@ public class MenuController {
 	
 	// Currently switches between the two veiw modes
 	@FXML 
-	protected void handleHomeButtonAction(ActionEvent event) {
+	protected void handleHomeButtonAction(MouseEvent event) {
 		
 		if (AppModel.getInstance().getVeiwMode() == Mode.HOMEPAGE){
 			switchToViewing();
