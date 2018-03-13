@@ -11,9 +11,7 @@ import javax.swing.SwingUtilities;
 import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Node;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -51,7 +49,7 @@ public class TextRendererTest {
 		
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
-		TextModel textModel = new TextModel();
+		Text textModel = new Text();
 		textModel.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
 		
 		textModel.setBold(true);
@@ -71,7 +69,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = textRenderer.render(textModel);
+		HBox renderedText = (HBox) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());
@@ -102,7 +100,7 @@ public class TextRendererTest {
 		
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
-		TextModel textModel = new TextModel();
+		Text textModel = new Text();
 		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian")));
 		
 		textModel.setBold(false);
@@ -122,7 +120,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = textRenderer.render(textModel);
+		HBox renderedText = (HBox) textRenderer.render(textModel);
 		
 		
 		assertNotNull(renderedText);
@@ -155,7 +153,7 @@ public class TextRendererTest {
 		format.setBold(true);
 		format.setText("banana");
 		
-		TextModel textModel = new TextModel();
+		Text textModel = new Text();
 		textModel.setContents(
 			new ArrayList<Object>(
 				Arrays.asList(
@@ -171,7 +169,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = textRenderer.render(textModel);
+		HBox renderedText = (HBox) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());
@@ -201,12 +199,12 @@ public class TextRendererTest {
 		
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
-		TextModel textModel = new TextModel();
+		Text textModel = new Text();
 		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian", "Robert")));
 			
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = textRenderer.render(textModel);
+		HBox renderedText = (HBox) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());

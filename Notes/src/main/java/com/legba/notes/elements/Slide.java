@@ -34,7 +34,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	List<Audio> audios;
 	List<Image> images;
 	List<Shape> shapes;
-	List<TextModel> texts;
+	List<Text> texts;
 	List<Video> videos;
 	
 	public Slide() {
@@ -43,7 +43,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 		this.audios = new ArrayList<Audio>();
 		this.images = new ArrayList<Image>();
 		this.shapes = new ArrayList<Shape>();
-		this.texts = new ArrayList<TextModel>();
+		this.texts = new ArrayList<Text>();
 		this.videos = new ArrayList<Video>();
 	}
 	
@@ -87,15 +87,15 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	}
 
 	@XmlElement(name="Text")
-	public List<TextModel> getTexts() {
+	public List<Text> getTexts() {
 		return texts;
 	}
 
-	public void setTexts(List<TextModel> texts) {
+	public void setTexts(List<Text> texts) {
 		this.texts = texts;
 	}
 
-	public void addText(TextModel text) {
+	public void addText(Text text) {
 		this.texts.add(text);
 	}
 	

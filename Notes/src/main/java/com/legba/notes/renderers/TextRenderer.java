@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
-import com.legba.notes.elements.TextModel;
+import com.legba.notes.elements.Text;
+
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class TextRenderer {
 	
@@ -23,44 +26,51 @@ public class TextRenderer {
 	private final float DEFAULT_X = 0f;
 	private final float DEFAULT_Y = 0f;
 	
-
-	public HBox render(TextModel textModel) {
+	/**
+	 * Renderer for Text elements
+	 * @param textModel model for text elements
+	 * @return javafx node that represents the text model
+	 */
+	public Node render(Text textModel) {
+		
 		//Create an Array of JavaFX Text objects that our text .
 		//objects will be stored into
-		ArrayList<javafx.scene.text.Text> words = new ArrayList<javafx.scene.text.Text>();
+		ArrayList<javafx.scene.text.Text> lines = new ArrayList<javafx.scene.text.Text>();
 	
-		//Store each "word" from our text object into the array of 
-		//JavaFX Text objects
+		//For each line in the text model apply the correct renderer
 		for (int i=0; i<textModel.getContents().size(); i++) {
 			
-			// Handles Type Strings
-			if(textModel.getContents().get(i) instanceof String){
+			if (textModel.getContents().get(i) instanceof String){
 				javafx.scene.text.Text renderedString = stringRenderer((String)textModel.getContents().get(i), textModel);
-				words.add(renderedString);
-			//Handles type Format
-			}else if(textModel.getContents().get(i) instanceof Format){
+				lines.add(renderedString);
+			}
+			else if (textModel.getContents().get(i) instanceof Format){
 				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i));
-				words.add(renderedFormat);
-			//Handles type Break
-			}else if(textModel.getContents().get(i) instanceof Br){
+				lines.add(renderedFormat);
+			}
+			else if (textModel.getContents().get(i) instanceof Br){
 				javafx.scene.text.Text renderedBreak = breakRenderer((Br)textModel.getContents().get(i));
-				words.add(renderedBreak);
-			}else {
+				lines.add(renderedBreak);
+			}
+			else {
 				System.err.println("Passed unknown class in text model renderer");
 			}
 		}
 		
-		//Creates a HBox to wrap our JavaFX Text object in
+		//Creates a HBox to wrap our JavaFX Text objects in
 		HBox n = new HBox();
-		n.getChildren().addAll(words);
+		n.getChildren().addAll(lines);
 		
-		//Returns the HBox as a Node? That doesn't seem right
 		return n;
-	
 	}
 
-
-	public javafx.scene.text.Text stringRenderer(String string, TextModel textModel) {
+	/**
+	 * Renderer for strings within Text model
+	 * @param string the text data
+	 * @param textModel model contains formatting data
+	 * @return
+	 */
+	private javafx.scene.text.Text stringRenderer(String string, Text textModel) {
 		
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		
@@ -101,7 +111,12 @@ public class TextRenderer {
 	
 	}
 	
-	public javafx.scene.text.Text formatRenderer(Format format){
+	/**
+	 * Renderer for formatted text within a Text element
+	 * @param format Formatted text model
+	 * @return a javafx Text element that represents a subsection of formatted text 
+	 */
+	private javafx.scene.text.Text formatRenderer(Format format){
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		text.setText(format.getText());
 		
@@ -135,7 +150,12 @@ public class TextRenderer {
 		return text;
 	}
 	
-	public javafx.scene.text.Text breakRenderer(Br Break){
+	/**
+	 * Renderer for break elements. These act as line breaks as defined in the pws
+	 * @param Break Line break model
+	 * @return javafx text object that acts as a line break
+	 */
+	private javafx.scene.text.Text breakRenderer(Br Break){
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		text.setText("\n");
 		return text;

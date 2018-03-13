@@ -14,7 +14,7 @@ import com.legba.notes.elements.base.*;
 import javafx.scene.paint.Color;
 
 //Rich text element
-public class TextModel extends SlideElement implements Transitionable,Colorable,Formatable{
+public class Text extends SlideElement implements Transitionable,Colorable,Formatable{
 	
 	private Integer start;
 	
@@ -37,7 +37,7 @@ public class TextModel extends SlideElement implements Transitionable,Colorable,
 
 	private List<Object> contents;
 	
-	public TextModel() {
+	public Text() {
 		super();
 		
 		this.contents = new ArrayList<Object>();

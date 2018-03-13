@@ -29,7 +29,7 @@ Presentation pres1;
         s1.setDuration(10);
         s1.setStart(5);
         
-        TextModel t1 = new TextModel();
+        Text t1 = new Text();
         t1.setTextsize(12);
         s1.addText(t1);
 
