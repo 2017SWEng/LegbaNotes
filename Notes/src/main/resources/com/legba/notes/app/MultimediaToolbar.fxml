@@ -35,12 +35,12 @@
 							<top>
 								<ToolBar>
 									<HBox>
-										<Button text="B"/>
-										<Button text="I"  />
-										<Button text="U"  />
-										<ComboBox fx:id="sizeCombo" promptText="Size" />
-										<ComboBox fx:id="fontCombo" promptText="Font" />
-										<Button text="Br"  />
+										<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
+										<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
+										<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
+										<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
+										<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
+										<Button text="Br" onAction="#handlePageBreakAction"  />
 									</HBox>				
 								</ToolBar>
 							</top>
