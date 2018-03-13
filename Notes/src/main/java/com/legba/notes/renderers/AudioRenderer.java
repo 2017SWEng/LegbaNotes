@@ -1,16 +1,25 @@
 package com.legba.notes.renderers;
 
+import com.legba.notes.controllers.AudioPlayer;
 import com.legba.notes.elements.Audio;
 import javafx.scene.Node;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 import java.io.File;
+
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 /**
  * Class is the renderer for the Audio class.
@@ -20,8 +29,8 @@ import javafx.event.ActionEvent;
  */
 public class AudioRenderer extends Renderer<Audio> {
 	
-	/**Returns a vbox object which can then be painted on the screen.
-	 * The Vbox contains 3 children; 
+	/**Returns a hbox object which can then be painted on the screen.
+	 * The hbox contains 3 children; 
 	 * - Text which displays the retrieved file path
 	 * - Button which when pressed, plays the media
 	 * - Mediaviewer that views the player which plays the media
@@ -30,9 +39,13 @@ public class AudioRenderer extends Renderer<Audio> {
 	 *  path exists.
 	 * 
 	 * @param 	audio	The Audio model class to be rendered.
-	 * @return 	vbox	GUI 
+	 * @return 	hbox	GUI 
 	 */
+	private Duration duration;
+	
 	public Node render (Audio audio) {
+		
+		//Play, pause, stop, scrubbing bar
 		
 		// Setup text
 		Text t = new Text();
@@ -40,24 +53,11 @@ public class AudioRenderer extends Renderer<Audio> {
 		t.setText(audio.getPath()); 
 		
 		// Setup mediaplayer
-		Media media = new Media(new File(audio.getPath()).toURI().toString());
-	    MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
+		Media media = new Media(new File(audio.getPath()).toURI().toString());        
+        AudioPlayer audioPlayer = new AudioPlayer(media);
 
-	    // Setup play button
-		Button btn1 = new Button("Play");
-		//TODO: move this to a controller class
-	    btn1.setOnAction((ActionEvent e) -> {
-	    	mediaPlayer.play();
-	    	System.out.println("Button press");
-	    });
-	    
-	    // Make vertical box and add items to it
-	    VBox vbox = new VBox(8); // spacing = 8
-	    vbox.getChildren().add(t); 
-	    vbox.getChildren().add(btn1);
-	    vbox.getChildren().add(mediaView);
-
-		return vbox;
+		return audioPlayer;
 	}
+	
+	
 }
