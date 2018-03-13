@@ -20,7 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TextRendererTest {
-
+	
+	
 	@Before
 	public void setup() throws InterruptedException {
 		
@@ -46,36 +47,170 @@ public class TextRendererTest {
 	
 	
 	@Test
-	public void test() {
+	public void testOne() {
 		
 		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
 
-		Text text = new Text();
-		text.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Hello", "Peter", "Harsh")));
 		
-		text.setBold(true);
-		text.setItalic(true);
-		text.setUnderline(true);
+		textModel.setBold(true);
+		textModel.setItalic(true);
+		textModel.setUnderline(true);
 		
-		text.setColor(javafx.scene.paint.Color.AZURE);
-		text.setFill(javafx.scene.paint.Color.RED);
+		textModel.setColor(javafx.scene.paint.Color.AZURE);
+		textModel.setFill(javafx.scene.paint.Color.RED);
 		
-		text.setTextsize(15);
+		textModel.setTextsize(15);
 		
-		text.setFont("Verdana");
+		textModel.setFont("Verdana");
+		
+		//Sets Horizontal and Vertical Position
+		textModel.setX(2f);
+		textModel.setY(3f);
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox n = textRenderer.render(text);
+		HBox renderedText = textRenderer.render(textModel);
 		
-		if(n != null){
-			System.out.println("Node not null");
+		assertNotNull(renderedText);
+		assertNotNull(renderedText.getChildren());
+		
+		assertEquals(renderedText.getChildren().size(), 3);
+		
+		// Can loop because is true for all contents
+		for(int i = 0; i<renderedText.getChildren().size(); i++){
+			assertTrue(renderedText.getChildren().get(i) instanceof javafx.scene.text.Text);
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Bold"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Italic"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).isUnderline());
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getFamily().contains("Verdana"));
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getSize(), 15f, 0.01f);
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getX(), 2f, 0.01f);
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getY(), 3f, 0.01f);
 		}
 		
-		for(int i = 0; i<3; i++){
-			System.out.println(n.getChildren().get(i));
+		//Check the contents
+		assertEquals("Hello", ((javafx.scene.text.Text)renderedText.getChildren().get(0)).getText());
+		assertEquals("Peter", ((javafx.scene.text.Text)renderedText.getChildren().get(1)).getText());
+		assertEquals("Harsh", ((javafx.scene.text.Text)renderedText.getChildren().get(2)).getText());
+		
+	}
+	
+	@Test
+	public void testTwo() {
+		
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian")));
+		
+		textModel.setBold(false);
+		textModel.setItalic(true);
+		textModel.setUnderline(false);
+		
+		textModel.setColor(javafx.scene.paint.Color.AZURE);
+		textModel.setFill(javafx.scene.paint.Color.BLUE);
+		
+		textModel.setTextsize(15);
+		
+		textModel.setFont("Times New Roman");
+		
+		//Sets Horizontal and Vertical Position
+		textModel.setX(4f);
+		textModel.setY(5f);
+		
+		TextRenderer textRenderer = new TextRenderer();
+		
+		HBox renderedText = textRenderer.render(textModel);
+		
+		
+		assertNotNull(renderedText);
+		assertNotNull(renderedText.getChildren());
+		
+		assertEquals(renderedText.getChildren().size(), 4);
+		
+		// Can loop because is true for all contents
+		for(int i = 0; i<renderedText.getChildren().size(); i++){
+			assertTrue(renderedText.getChildren().get(i) instanceof javafx.scene.text.Text);
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Italic"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getFamily().contains("Times New Roman"));
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getSize(), 15f, 0.01f);
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getX(), 4f, 0.01f);
+			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getY(), 5f, 0.01f);
 		}
+		
+		assertEquals("Peter", ((javafx.scene.text.Text)renderedText.getChildren().get(0)).getText());
+		assertEquals("Harsh", ((javafx.scene.text.Text)renderedText.getChildren().get(1)).getText());
+		assertEquals("Noah", ((javafx.scene.text.Text)renderedText.getChildren().get(2)).getText());
+		assertEquals("Sebastian", ((javafx.scene.text.Text)renderedText.getChildren().get(3)).getText());
+		
+	}
+	
+	public void testThree() {
+		
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+
+		Format format = new Format();
+		format.setBold(true);
+		format.setText("banana");
+		
+		TextModel textModel = new TextModel();
+		textModel.setContents(
+			new ArrayList<Object>(
+				Arrays.asList(
+					"Hello",
+					new Br(),
+					"apple",
+					format,
+					"test"
+				)
+			)
+		);
+		
+		
+		TextRenderer textRenderer = new TextRenderer();
+		
+		HBox renderedText = textRenderer.render(textModel);
+		
+		assertNotNull(renderedText);
+		assertNotNull(renderedText.getChildren());
+		assertEquals(renderedText.getChildren().size(), 5);
+		
+		assertTrue(renderedText.getChildren().get(0) instanceof javafx.scene.text.Text);
+		assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(0)).getText(), "Hello");
+		
+		assertTrue(renderedText.getChildren().get(1) instanceof javafx.scene.text.Text);
+		assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(1)).getText(), "\n");
+		
+		assertTrue(renderedText.getChildren().get(2) instanceof javafx.scene.text.Text);
+		assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(2)).getText(), "apple");
+		
+		assertTrue(renderedText.getChildren().get(3) instanceof javafx.scene.text.Text);
+		assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(3)).getText(), "banana");
+		assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(3)).getFont().getStyle().contains("Bold"));
+
+		assertTrue(renderedText.getChildren().get(4) instanceof javafx.scene.text.Text);
+		assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(4)).getText(), "test");
+		
+
+	}
+	
+	@Test
+	public void testNull() {
+		
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+
+		TextModel textModel = new TextModel();
+		textModel.setContents(new ArrayList<Object>(Arrays.asList("Peter", "Harsh", "Noah", "Sebastian", "Robert")));
 			
+		TextRenderer textRenderer = new TextRenderer();
+		
+		HBox renderedText = textRenderer.render(textModel);
+		
+		assertNotNull(renderedText);
+		assertNotNull(renderedText.getChildren());
+		assertEquals(renderedText.getChildren().size(), 5);
 		
 	}
 
