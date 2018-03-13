@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-public class TextRenderer {
+public class TextRenderer extends Renderer<Text> {
 	
 	// Set Default values
 	private final boolean DEFAULT_Italic = false;
