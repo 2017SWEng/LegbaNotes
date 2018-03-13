@@ -1,5 +1,5 @@
 package com.legba.notes.app;
-	
+
 import java.io.IOException;
 
 import com.legba.notes.controllers.AppController;
@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-
 
 
 
@@ -35,14 +34,10 @@ public class Main extends Application {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("Images/NotesVeve-Center.png")));
+
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-
-
-	
-
 }
