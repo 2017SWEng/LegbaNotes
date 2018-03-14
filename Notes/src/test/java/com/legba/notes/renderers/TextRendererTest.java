@@ -11,8 +11,6 @@ import javax.swing.SwingUtilities;
 import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.layout.FlowPane;
-//import javafx.scene.layout.HBox;
 import javafx.scene.text.TextFlow;
 
 import org.junit.Assume;
