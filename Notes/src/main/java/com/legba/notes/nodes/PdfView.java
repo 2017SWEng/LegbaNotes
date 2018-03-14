@@ -1,6 +1,5 @@
-package com.legba.notes.PDF;
+package com.legba.notes.nodes;
 
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -13,17 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
-public class PdfView {
+public class PdfView extends BorderPane{
 	
 	/**
 	 * 
 	 * @param url
 	 * @return
 	 */
-	public Node render(String url) {
-		
-		BorderPane borderPane = new BorderPane();
-		
+	public PdfView(String url) {
+		super();
+
 		WebView pdfViewer = new WebView();
 		WebEngine webEngine = pdfViewer.getEngine();
 		webEngine.setJavaScriptEnabled(true);
@@ -76,8 +74,8 @@ public class PdfView {
 		hbox.setStyle("-fx-background-color: #535360;");
 		
 		hbox.getChildren().addAll(first, pageDown, pageUp, last);
-		borderPane.setTop(hbox);
-		borderPane.setCenter(pdfViewer);
+		this.setTop(hbox);
+		this.setCenter(pdfViewer);
 		
 		//Loads PDF in pdf.html 
 		
@@ -88,8 +86,7 @@ public class PdfView {
 	        }
 	    });
 
-		webEngine.load(this.getClass().getResource("pdf.html").toString());
+		webEngine.load(this.getClass().getResource("../PDF/pdf.html").toString());
 		
-		return borderPane;
 	}
 }
