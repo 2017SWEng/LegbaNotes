@@ -6,10 +6,7 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;

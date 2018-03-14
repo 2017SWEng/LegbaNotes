@@ -4,7 +4,6 @@ import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.models.ViewMode.Mode;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
@@ -57,7 +56,7 @@ public class MenuController {
 	}
 	
 	private void switchToViewing(){
-		FileSystemController fsc = new FileSystemController();
+		FileSystemController fsc = AppController.getInstance().fileSystemController;
 		
 		Presentation pres = fsc.loadXmlFile("example.pws");
 		

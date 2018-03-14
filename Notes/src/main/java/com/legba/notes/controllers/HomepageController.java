@@ -9,7 +9,6 @@ import com.legba.notes.models.ViewMode.Mode;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +27,7 @@ public class HomepageController {
 		System.out.println("selected " + contentList.getSelectionModel().getSelectedItem());
 		
 		//Change view to viewer and render the selected Object(s)
-		FileSystemController fsc = new FileSystemController();
+		FileSystemController fsc = AppController.getInstance().fileSystemController;
 		Presentation pres = fsc.loadXmlFile(contentList.getSelectionModel().getSelectedItem());
 		AppModel.getInstance().setPres(pres);
 		AppModel.getInstance().setVeiwMode(Mode.VEIWING);
