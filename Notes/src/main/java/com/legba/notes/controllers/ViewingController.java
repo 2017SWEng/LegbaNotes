@@ -2,9 +2,9 @@ package com.legba.notes.controllers;
 
 import java.io.File;
 
-import com.legba.notes.PDF.PdfView;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
+import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
@@ -47,9 +47,11 @@ public class ViewingController {
 		notes_root.getChildren().add(pr.render(pres));
 		
 		
-		PdfView pdfView = new PdfView();
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView.render(("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf").toString()));
+		
+		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
+
+		reference_root.getChildren().add(pdfView);
 		
 	}
  	

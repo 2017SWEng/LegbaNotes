@@ -1,7 +1,8 @@
 package com.legba.notes.renderers;
 
-import com.legba.notes.controllers.AudioPlayer;
 import com.legba.notes.elements.Audio;
+import com.legba.notes.nodes.AudioPlayer;
+
 import javafx.scene.Node;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
