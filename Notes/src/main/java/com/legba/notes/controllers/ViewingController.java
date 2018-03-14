@@ -3,14 +3,17 @@ package com.legba.notes.controllers;
 import java.io.File;
 
 import com.legba.notes.elements.Presentation;
+import com.legba.notes.elements.Slide;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -28,6 +31,7 @@ public class ViewingController {
 	@FXML 
 	public Text actiontarget;
 	
+
 	public ViewingController(){
 		
 	}
@@ -39,13 +43,16 @@ public class ViewingController {
  		// get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
 		
+		//Needs to get the node which has been selected and then perform the requested action on just
+		//that node.......
+		//Node selectedNode = 
+		
 		// render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
 
 		// display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
-		
 		
 		reference_root.getChildren().clear();
 		
@@ -54,6 +61,8 @@ public class ViewingController {
 		reference_root.getChildren().add(pdfView);
 		
 	}
+ 	
+ 	
  	
 
 }
