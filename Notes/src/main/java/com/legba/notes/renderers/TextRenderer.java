@@ -6,6 +6,8 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -57,11 +59,11 @@ public class TextRenderer extends Renderer<Text> {
 			}
 		}
 		
-		//Creates a HBox to wrap our JavaFX Text objects in
-		HBox n = new HBox();
-		n.getChildren().addAll(lines);
 		
-		return n;
+		FlowPane flow = new FlowPane();
+		flow.getChildren().addAll(lines);
+		return flow;
+		
 	}
 
 	/**
@@ -126,7 +128,7 @@ public class TextRenderer extends Renderer<Text> {
 			format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
 		);
 		
-		// Color of text  
+		//Color of text  
 		text.setFill(
 			format.getFill() == null ? DEFAULT_Fill : format.getFill()
 		);//Can only test fill since color is background not foreground.

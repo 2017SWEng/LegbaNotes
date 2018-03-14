@@ -53,6 +53,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 
 	public void setContents(List<Object> contents) {
 		//TODO:: Check to make sure font is valid
+		
 		this.contents=contents;		
 	}
 	

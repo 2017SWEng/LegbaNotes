@@ -3,16 +3,16 @@
    <Meta key="author" value="Stuart Porter" />
    <Slide duration="12">
       <Text textsize="18" underline="true" font="Times New Roman">
-         This is the schema of the
+ This is the schema of the
          <Format bold="true" color="#F341DE">PWS</Format>
-         file fromat agreed between
+ file fromat agreed between
          <Format bold="true" color="#F314DE">SWEng</Format>
-         groups.
+ groups.
       </Text>
       <Text>
-         Text can contain
+ Text can contain
          <Format font="comic sans">Format</Format>
-         tags that change how it is
+ tags that change how it is
          <Format italic="true">rendered</Format>
          .
          <Br />
