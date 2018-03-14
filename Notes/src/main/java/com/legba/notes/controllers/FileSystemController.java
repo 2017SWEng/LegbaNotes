@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.xml.bind.JAXBContext;
@@ -55,11 +56,18 @@ public class FileSystemController {
 				
 				System.out.println("Loaded XML file : " + path);
 
-				return unmarshall(s);
+				Presentation p = unmarshall(s);
 				
+				s.close();
+				
+				return p;
+								
 			} catch (FileNotFoundException | JAXBException e) {
 				e.printStackTrace();
 				System.err.println("Unable to open stream to read file");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Unable to cloase stream that was reading file");
 			}
 			
 		}
@@ -76,6 +84,8 @@ public class FileSystemController {
 		try {
 			OutputStream s = new FileOutputStream(f);
 			marshall(p, s);
+			
+			s.close();
 			return true;
 		}
 		catch (Exception e) {

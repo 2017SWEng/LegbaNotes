@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextFlow;
 
 public class TextRenderer extends Renderer<Text> {
 	
@@ -27,6 +28,8 @@ public class TextRenderer extends Renderer<Text> {
 	private final String DEFAULT_Font = "Times New Roman";
 	private final float DEFAULT_X = 0f;
 	private final float DEFAULT_Y = 0f;
+	private final float DEFAULT_WIDTH = 1000f;
+	private final float DEFAULT_HEIGHT = 200f;
 	
 	/**
 	 * Renderer for Text elements
@@ -44,7 +47,9 @@ public class TextRenderer extends Renderer<Text> {
 			
 			if (textModel.getContents().get(i) instanceof String){
 				javafx.scene.text.Text renderedString = stringRenderer((String)textModel.getContents().get(i), textModel);
-				lines.add(renderedString);
+				if (renderedString != null) {
+					lines.add(renderedString);
+				}
 			}
 			else if (textModel.getContents().get(i) instanceof Format){
 				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i));
@@ -59,9 +64,18 @@ public class TextRenderer extends Renderer<Text> {
 			}
 		}
 		
-		
-		FlowPane flow = new FlowPane();
+	
+		TextFlow flow = new TextFlow();
 		flow.getChildren().addAll(lines);
+		
+		
+		flow.setLayoutX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
+		flow.setLayoutY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
+		flow.setMinWidth(textModel.getWidth() == null ? DEFAULT_WIDTH : textModel.getWidth());
+		flow.setMinHeight(textModel.getHeight() == null ? DEFAULT_HEIGHT : textModel.getHeight());
+		
+		System.out.println(flow.getLayoutBounds());
+		
 		return flow;
 		
 	}
@@ -76,7 +90,11 @@ public class TextRenderer extends Renderer<Text> {
 		
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		
-		text.setText(string);
+		if (string.isEmpty()) {
+			return null;
+		}
+		
+		text.setText(string.trim());
 				
 		text.setFont(Font.font(
 			// Checking font type
