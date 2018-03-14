@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:id="root" fx:controller="com.legba.notes.app.ToolbarController" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@application.css" prefWidth="800" prefHeight="600">
+	
+	<fx:define>
+		<Font fx:id="TITLE_FONT" size="18"/>
+		<Font fx:id="NORMAL_FONT" size="12"/>
+	</fx:define>
+	
+	
+	<!-- MENU BAR -->
+	
+	
+	<!-- Menu bar to be applied across all screens, apart from login screen -->
+	<!-- Coded by: jjds502, lm1370, tmm522, 1st iteration 22/02/2018 -->
+	
+	<top>
+		<BorderPane  fx:id="toolbar">
+			<bottom>
+				<BorderPane>
+					<left>
+						<BorderPane>
+							<top>
+								<ToolBar>
+									<HBox>
+										<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
+										<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
+										<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
+										<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
+										<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
+										<Button text="Br" onAction="#handlePageBreakAction"  />
+									</HBox>				
+								</ToolBar>
+							</top>
+							
+							<center>
+								<ToolBar>
+									<HBox>	
+										<Button text="Color"/>
+										<ColorPicker prefWidth="30" fx:id="textColor" onAction="#handleColorPickAction"/>
+										<Button text="Fill"/>
+										<ColorPicker prefWidth="30"/>
+										<Button text="Start" onAction="#handleStartButtonAction" />
+										<Button text="Duration"  />
+									</HBox>				
+								</ToolBar>
+							</center>
+						</BorderPane>
+					</left>
+					
+					<right>
+						<ToolBar>
+							<HBox>
+								<Button text="Button1"/>
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+								<Button text="Button1"  />
+							</HBox>				
+						</ToolBar>
+					</right>
+				</BorderPane>
+			</bottom>	
+		</BorderPane>
+	</top>
+	
+	
+	<!-- CONTENT -->
+	
+	<center>
+		<SplitPane>
+		    <items>
+		    
+		    	
+		    
+		    	<!-- Video or Slides reference material -->
+				<VBox fx:id="reference_root" spacing="10">
+				
+					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text>Lorem ipsum dolor sit amet</Text>
+					<Text fx:id="actiontarget"/>
+					
+				</VBox>
+				
+				<!-- Notes Contents -->
+				<VBox fx:id="notes_root" spacing="10">
+				
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					<Text>Lorem Ipsum is simply dummy text</Text>
+					
+				</VBox>
+		    </items> 
+		</SplitPane>
+	</center>
+</BorderPane>
+
