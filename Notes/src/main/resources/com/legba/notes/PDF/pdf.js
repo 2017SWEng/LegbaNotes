@@ -42,7 +42,7 @@ var numOfPages = null;	//stores number of pages in PDF
  function previouspage()
  {
 	if (pageNumber > 1) {
-		pageNumber -= 1;
+		pageNumber  -= 1;
 		changepage(); 	
 	}
  }
@@ -84,4 +84,13 @@ var numOfPages = null;	//stores number of pages in PDF
 		renderTask.then(function () {});
 	});		 	
  
+ }
+ 
+ function getPageNumber(){
+ 	return pageNumber;
+ }
+ 
+ function setPageNumber(newPageNumber){
+ 	pageNumber = newPageNumber;
+	changepage();
  }
