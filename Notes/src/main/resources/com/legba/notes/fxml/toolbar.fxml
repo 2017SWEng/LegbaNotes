@@ -12,7 +12,11 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="root" fx:controller="com.legba.notes.app.ToolbarController" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@application.css" prefWidth="800" prefHeight="600">
+<BorderPane 
+	fx:id="toolbar_root"
+	fx:controller="com.legba.notes.controllers.ToolbarController"
+	xmlns:fx="http://javafx.com/fxml/1"
+>
 	
 	<fx:define>
 		<Font fx:id="TITLE_FONT" size="18"/>
@@ -76,36 +80,5 @@
 			</bottom>	
 		</BorderPane>
 	</top>
-	
-	
-	<!-- CONTENT -->
-	
-	<center>
-		<SplitPane>
-		    <items>
-		    
-		    	
-		    
-		    	<!-- Video or Slides reference material -->
-				<VBox fx:id="reference_root" spacing="10">
-				
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text fx:id="actiontarget"/>
-					
-				</VBox>
-				
-				<!-- Notes Contents -->
-				<VBox fx:id="notes_root" spacing="10">
-				
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					
-				</VBox>
-		    </items> 
-		</SplitPane>
-	</center>
 </BorderPane>
 

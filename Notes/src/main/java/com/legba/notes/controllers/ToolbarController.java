@@ -1,4 +1,4 @@
-package com.legba.notes.app;
+package com.legba.notes.controllers;
 
 import java.io.File;
 import java.util.List;
@@ -17,90 +17,68 @@ import javafx.scene.text.Font;
 public class ToolbarController {
 	
 	@FXML
-	private BorderPane root;
-	
-	@FXML
-	private VBox content_root;
-	
-	@FXML
-	private VBox reference_root;
-	
-	@FXML
-	private BorderPane topbar_root;
-	
-	@FXML 
-	private Text actiontarget;
-	
-	@FXML
-	private Image Logo;
+	private BorderPane toolbar_root;
 
 	//Bold font -- Display current state of bold
 	@FXML
 	private ToggleButton boldFont;
+	
 	@FXML 
 	protected void handleBoldFontAction(ActionEvent event) {
-		actiontarget.setText("Bold: " + boldFont.isSelected());
+		System.out.println("Bold: " + boldFont.isSelected());
 	}
-	/*-----------------------------------*/
 	
 	//Italic font -- Display current state of Italic
 	@FXML
 	private ToggleButton italicFont;
 	@FXML 
 	protected void handleItalicFontAction(ActionEvent event) {
-		actiontarget.setText("Italic: " + italicFont.isSelected());
+		System.out.println("Italic: " + italicFont.isSelected());
 	}
-	/*-----------------------------------*/
 	
 	//Underline font -- Display current state of underline
 	@FXML
 	private ToggleButton undFont;
 	@FXML 
 	protected void handleUndFontAction(ActionEvent event) {
-		actiontarget.setText("Underline: " + undFont.isSelected());
+		System.out.println("Underline: " + undFont.isSelected());
 	}
-	/*-----------------------------------*/
 	
 	//Start button -- Display current state of start
 	@FXML 
 	protected void handleStartButtonAction(ActionEvent event) {
-		actiontarget.setText("Start button pressed");
+		System.out.println("Start button pressed");
 	}
-	/*-----------------------------------*/
 	
 	//Text colour wheel -- Display current selected color
 	@FXML
 	private ColorPicker textColor;
 	@FXML 
 	protected void handleColorPickAction(ActionEvent event) {
-		actiontarget.setText("Color chosen: " + textColor.getValue());	
+		System.out.println("Color chosen: " + textColor.getValue());	
 	}
-	/*-----------------------------------*/
 	
 	//Page Break -- Display current state of page break
 	@FXML 
 	protected void handlePageBreakAction(ActionEvent event) {
-		actiontarget.setText("Page Break");	
+		System.out.println("Page Break");	
 	}
-	/*-----------------------------------*/
 	
 	//Font -- Display current chosen font
 	@FXML
 	private ComboBox<String> fontCombo;
 	@FXML 
 	protected void handleFontAction(ActionEvent event) {
-		actiontarget.setText("Font: " + fontCombo.getValue());	
+		System.out.println("Font: " + fontCombo.getValue());	
 	}
-	/*-----------------------------------*/
 	
 	//Size -- Display current chosen size
 	@FXML
 	private ComboBox<String> sizeCombo;
 	@FXML 
 	protected void handleSizeAction(ActionEvent event) {
-		actiontarget.setText("Size: " + sizeCombo.getValue());	
+		System.out.println("Size: " + sizeCombo.getValue());	
 	}
-	/*-----------------------------------*/
 	
 	public void initialize() {
 		fontCombo.getItems().setAll(Font.getFontNames());

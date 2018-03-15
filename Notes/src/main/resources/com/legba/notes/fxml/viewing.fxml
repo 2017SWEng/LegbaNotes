@@ -22,19 +22,16 @@
     	<!-- Video or Slides reference material -->
 		<VBox fx:id="reference_root" spacing="10">
 		
-			<Text>Lorem ipsum dolor sit amet</Text>
-			<Text>Lorem ipsum dolor sit amet</Text>
-			<Text>Lorem ipsum dolor sit amet</Text>
-			<Text fx:id="actiontarget"/>
+			<Text>PDF loading</Text>
+
 			
 		</VBox>
 		
 		<!-- Notes Contents -->
 		<VBox fx:id="notes_root" spacing="10">
 		
-			<Text>Lorem Ipsum is simply dummy text</Text>
-			<Text>Lorem Ipsum is simply dummy text</Text>
-			<Text>Lorem Ipsum is simply dummy text</Text>
+			<Text>Notes loading</Text>
+
 			
 		</VBox>
     </items> 

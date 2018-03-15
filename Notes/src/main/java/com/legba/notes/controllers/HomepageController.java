@@ -60,7 +60,9 @@ public class HomepageController {
 		files.add(new File("example2.pws"));
 		files.add(new File("/Notes/src/main/resources/com/legba/notes/PDF/pdf.html"));
 		
+		
 		ObservableList<String> items = contentList.getItems();
+		items.clear();
 		for(int i = 0; i < files.size(); i++ ){
 			items.add(files.get(i).toString());
 		}	
