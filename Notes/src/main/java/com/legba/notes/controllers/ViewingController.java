@@ -7,6 +7,7 @@ import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,6 +26,8 @@ public class ViewingController {
 	@FXML 
 	public Text actiontarget;
 	
+	public Node CurrentNode;
+	
 	public ViewingController(){
 		
 	}
@@ -32,6 +35,7 @@ public class ViewingController {
  	@FXML
     void initialize(){
 		// Called once all variable with @FXML have been populated
+ 		AppController.getInstance().viewing = this;
  		
  		// get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
@@ -43,14 +47,15 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		
 		reference_root.getChildren().clear();
-		
+			
 		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
 
 		reference_root.getChildren().add(pdfView);
 		
 	}
+ 	
+ 	
  	
 
 }

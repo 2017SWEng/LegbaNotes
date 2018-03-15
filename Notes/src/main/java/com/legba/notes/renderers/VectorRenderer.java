@@ -7,7 +7,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 import com.legba.notes.elements.Shape;
@@ -42,6 +49,7 @@ public class VectorRenderer extends Renderer<Shape> {
 	 */
 
 	public Node render(Shape shape) {
+		
 		if (isLine(shape)) {
 			return renderLine(shape);
 		}

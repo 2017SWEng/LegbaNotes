@@ -74,7 +74,7 @@ Presentation pres1;
 		Assert.assertEquals("Meta author", meta1.getValue(),"Stuart Porter");
 		
 		List<Slide> slides = presentation.getSlide();
-		Assert.assertEquals("Correct number of slides", slides.size(),5);
+		Assert.assertEquals("Correct number of slides", slides.size(),6);
 		
 		//Assert.assertEquals("First ele is text",slides.get(0).getSlideElement(0).getClass(),Text.class);
 

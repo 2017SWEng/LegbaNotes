@@ -36,9 +36,9 @@ public class AudioRenderer extends Renderer<Audio> {
 		//Play, pause, stop, scrubbing bar
 		
 		// Setup text
-		Text t = new Text();
-		t.setFont(new Font(20));
-		t.setText(audio.getPath()); 
+		//Text t = new Text();
+		//t.setFont(new Font(20));
+		//t.setText(audio.getPath()); 
 		
 		// Setup mediaplayer
 		Media media = new Media(new File(audio.getPath()).toURI().toString());        

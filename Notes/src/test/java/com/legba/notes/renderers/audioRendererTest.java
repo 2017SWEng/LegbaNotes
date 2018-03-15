@@ -12,10 +12,10 @@ import org.junit.Assume;
 
 
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.layout.VBox;
 
 
 import com.legba.notes.elements.Audio;
+import com.legba.notes.nodes.AudioPlayer;
 import com.legba.notes.renderers.AudioRenderer;
 
 public class audioRendererTest {
@@ -53,7 +53,7 @@ public class audioRendererTest {
 		
 
 	
-		VBox n = (VBox) audiorend.render(audio);
+		AudioPlayer n = (AudioPlayer) audiorend.render(audio);
 		
 		assertNotNull(n);
 		
