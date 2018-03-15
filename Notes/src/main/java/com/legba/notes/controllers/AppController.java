@@ -108,7 +108,7 @@ public class AppController implements Observer{
 			}
 		}
 		
-		//logNodes(root,0);
+		logNodes(root,0);
 
 	}
 
