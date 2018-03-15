@@ -23,6 +23,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		
 		appController = AppController.getInstance();
+		appController.setMainStage(primaryStage);
 		appModel = AppModel.getInstance();
 		
 		

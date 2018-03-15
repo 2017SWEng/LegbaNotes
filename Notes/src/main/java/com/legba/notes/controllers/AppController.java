@@ -13,6 +13,7 @@ import com.legba.notes.models.ViewMode.Mode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
@@ -33,6 +34,16 @@ public class AppController implements Observer{
 	private final static String homepagePath = "../fxml/homepage.fxml";
 	private final static String viewingPath = "../fxml/viewing.fxml";
 	
+	private Stage mainStage;
+	
+	public Stage getMainStage() {
+		return mainStage;
+	}
+
+	public void setMainStage(Stage mainStage) {
+		this.mainStage = mainStage;
+	}
+
 	private AppController(){
 		// Called before all variable with @FXML have been populated
 	}

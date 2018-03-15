@@ -39,17 +39,9 @@ public class MenuController {
 	@FXML 
 	protected void handleHomeButtonAction(MouseEvent event) {
 		
-		if (AppModel.getInstance().getVeiwMode() == Mode.HOMEPAGE){
-			switchToViewing();
-		}
-		else if (AppModel.getInstance().getVeiwMode() == Mode.VEIWING){
-			switchToHomepage();
-		}
-		else{
-			System.err.println(this.toString() +" : uknown viewmode bailing to homepage" );
-			switchToHomepage();
-
-		}
+		//navigate to homepage
+		switchToHomepage();
+		
 	}
 	
 	private void switchToHomepage(){
