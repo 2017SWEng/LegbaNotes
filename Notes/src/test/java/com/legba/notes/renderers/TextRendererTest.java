@@ -11,7 +11,8 @@ import javax.swing.SwingUtilities;
 import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
+//import javafx.scene.layout.HBox;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -69,7 +70,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = (HBox) textRenderer.render(textModel);
+		FlowPane renderedText = (FlowPane) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());
@@ -120,7 +121,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = (HBox) textRenderer.render(textModel);
+		FlowPane renderedText = (FlowPane) textRenderer.render(textModel);
 		
 		
 		assertNotNull(renderedText);
@@ -169,7 +170,7 @@ public class TextRendererTest {
 		
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = (HBox) textRenderer.render(textModel);
+		FlowPane renderedText = (FlowPane) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());
@@ -204,7 +205,7 @@ public class TextRendererTest {
 			
 		TextRenderer textRenderer = new TextRenderer();
 		
-		HBox renderedText = (HBox) textRenderer.render(textModel);
+		FlowPane renderedText = (FlowPane) textRenderer.render(textModel);
 		
 		assertNotNull(renderedText);
 		assertNotNull(renderedText.getChildren());
