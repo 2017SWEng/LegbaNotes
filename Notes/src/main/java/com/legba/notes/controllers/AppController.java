@@ -28,6 +28,7 @@ public class AppController implements Observer{
 	public MenuController menu;
 	public ViewingController viewing;
 	public HomepageController homepage;
+	public FileSystemController fileSystemController;
 	
 	private final static String menuPath = "../fxml/menu.fxml";
 	private final static String homepagePath = "../fxml/homepage.fxml";
@@ -35,6 +36,7 @@ public class AppController implements Observer{
 	
 	private AppController(){
 		// Called before all variable with @FXML have been populated
+		this.fileSystemController = new FileSystemController();
 	}
 	
 	public static AppController getInstance() {

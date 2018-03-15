@@ -17,28 +17,23 @@
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:id="viewing_root"
 	fx:controller="com.legba.notes.controllers.ViewingController" >
-		    <items>
-		    
-		    	
-		    
-		    	<!-- Video or Slides reference material -->
-				<VBox fx:id="reference_root" spacing="10">
-				
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text>Lorem ipsum dolor sit amet</Text>
-					<Text fx:id="actiontarget"/>
-					
-				</VBox>
-				
-				<!-- Notes Contents -->
-				<VBox fx:id="notes_root" spacing="10">
-				
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					<Text>Lorem Ipsum is simply dummy text</Text>
-					
-				</VBox>
-		    </items> 
-		</SplitPane>
+    <items>	
+    
+    	<!-- Video or Slides reference material -->
+		<VBox fx:id="reference_root" spacing="10">
+		
+			<Text>PDF loading</Text>
+
+			
+		</VBox>
+		
+		<!-- Notes Contents -->
+		<VBox fx:id="notes_root" spacing="10">
+		
+			<Text>Notes loading</Text>
+
+			
+		</VBox>
+    </items> 
+</SplitPane>
 

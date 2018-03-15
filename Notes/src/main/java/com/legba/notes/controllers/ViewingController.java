@@ -1,19 +1,14 @@
 package com.legba.notes.controllers;
 
-import java.io.File;
 
 import com.legba.notes.elements.Presentation;
-import com.legba.notes.elements.Slide;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.SplitPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 

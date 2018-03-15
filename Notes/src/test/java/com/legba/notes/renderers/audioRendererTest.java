@@ -2,7 +2,6 @@ package com.legba.notes.renderers;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.SwingUtilities;
@@ -13,16 +12,7 @@ import org.junit.Assume;
 
 
 import javafx.embed.swing.JFXPanel;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
+
 
 import com.legba.notes.elements.Audio;
 import com.legba.notes.nodes.AudioPlayer;

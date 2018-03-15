@@ -24,8 +24,7 @@ public class Main extends Application {
 		
 		appController = AppController.getInstance();
 		appModel = AppModel.getInstance();
-		
-		
+
 		//Let's set up some aspects of the UI
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("app.fxml"));
 		loader.setController(appController);

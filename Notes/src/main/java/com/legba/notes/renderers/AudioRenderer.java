@@ -6,22 +6,10 @@ import com.legba.notes.nodes.AudioPlayer;
 import javafx.scene.Node;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.util.Duration;
 
 import java.io.File;
 
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.event.ActionEvent;
 /**
  * Class is the renderer for the Audio class.
  * The class contains 1 method which returns a vbox.  
@@ -42,7 +30,6 @@ public class AudioRenderer extends Renderer<Audio> {
 	 * @param 	audio	The Audio model class to be rendered.
 	 * @return 	hbox	GUI 
 	 */
-	private Duration duration;
 	
 	public Node render (Audio audio) {
 		
