@@ -31,7 +31,8 @@ public class ViewingController {
 	@FXML 
 	public Text actiontarget;
 	
-
+	public Node CurrentNode;
+	
 	public ViewingController(){
 		
 	}
@@ -39,13 +40,10 @@ public class ViewingController {
  	@FXML
     void initialize(){
 		// Called once all variable with @FXML have been populated
+ 		AppController.getInstance().viewing = this;
  		
  		// get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
-		
-		//Needs to get the node which has been selected and then perform the requested action on just
-		//that node.......
-		//Node selectedNode = 
 		
 		// render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
@@ -55,7 +53,7 @@ public class ViewingController {
 		notes_root.getChildren().add(pr.render(pres));
 		
 		reference_root.getChildren().clear();
-		
+			
 		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
 
 		reference_root.getChildren().add(pdfView);

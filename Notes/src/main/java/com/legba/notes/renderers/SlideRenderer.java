@@ -1,9 +1,12 @@
 package com.legba.notes.renderers;
 
 import javafx.application.ConditionalFeature;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -12,7 +15,9 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
+import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
@@ -70,39 +75,50 @@ public class SlideRenderer extends Renderer<Slide> {
 		Pane pane =  new Pane();
 		pane.getStyleClass().add("element-slide");
 		
-		
+		//When mouse enters pane it puts border around it
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 			}
 		});
 		
+		//When mouse exits pane it removes the border
 		pane.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.EMPTY)));
 			}
 		});
 
-		
 		for(Shape shape : s.getShapes()){
 			Node n = this.vectorRenderer.render(shape);
 			
-			//select the node
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent mouseEvent) {
-					//pass the node to external source to be used when editing...
-				}
-			});
-			
+			//When mouse enters shape it puts a shadow behind it
 			n.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
-					System.out.println("Shape Entered");
+					DropShadow dropShadow = new DropShadow();
+					dropShadow.setBlurType(BlurType.GAUSSIAN);
+					dropShadow.setColor(Color.BLACK);
+					dropShadow.setOffsetX(0.0);
+					dropShadow.setOffsetY(0.0);
+					dropShadow.setRadius(15.0);
+					n.setEffect(dropShadow);
+					
+					if(n!=null) {
+						AppController.getInstance().viewing.CurrentNode = n;
+					}
 				}
 			});
 			
+			//When mouse exits shape it removes the shadow
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
-					System.out.println("Shape exit");
+					DropShadow dropShadow = new DropShadow();
+					dropShadow.setBlurType(BlurType.GAUSSIAN);
+					dropShadow.setColor(Color.BLACK);
+					dropShadow.setOffsetX(0.0);
+					dropShadow.setOffsetY(0.0);
+					dropShadow.setRadius(0.0);
+					n.setEffect(dropShadow);
 				}
 			});
 			
@@ -116,11 +132,33 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Text text : s.getTexts()){
 			Node n = this.textRenderer.render(text);
 			
-			TextArea textArea = new TextArea(text.toString());
-			
+			//When mouse clicks on text highlights whole text
 			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {			
+					DropShadow dropShadow = new DropShadow();
+					dropShadow.setBlurType(BlurType.GAUSSIAN);
+					dropShadow.setColor(Color.BLACK);
+					dropShadow.setOffsetX(0.0);
+					dropShadow.setOffsetY(0.0);
+					dropShadow.setRadius(15.0);
+					n.setEffect(dropShadow);
+					
+					if(n!=null) {
+						AppController.getInstance().viewing.CurrentNode = n;
+					}
+				}
+			});
+			
+			//When mouse exits text it removes the shadow
+			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
-					textArea.setStyle("-fx-highlight-fill: lightgray; -fx-highlight-text-fill: firebrick;");
+					DropShadow dropShadow = new DropShadow();
+					dropShadow.setBlurType(BlurType.GAUSSIAN);
+					dropShadow.setColor(Color.TRANSPARENT);
+					dropShadow.setOffsetX(0.0);
+					dropShadow.setOffsetY(0.0);
+					dropShadow.setRadius(0.0);
+					n.setEffect(dropShadow);
 				}
 			});
 			
