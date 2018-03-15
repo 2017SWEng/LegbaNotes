@@ -3,7 +3,6 @@ package com.legba.notes.renderers;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 
 import java.util.List;

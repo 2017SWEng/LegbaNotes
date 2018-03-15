@@ -2,14 +2,14 @@
 <Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman">
    <Meta key="author" value="Stuart Porter" />
    <Slide duration="12">
-      <Text textsize="18" underline="true" font="Times New Roman">
+      <Text x="100" y="10" textsize="18" underline="true" font="Times New Roman">
  This is the schema of the
          <Format bold="true" color="#F341DE">PWS</Format>
  file fromat agreed between
          <Format bold="true" color="#F314DE">SWEng</Format>
  groups.
       </Text>
-      <Text>
+      <Text x="10" y="400">
  Text can contain
          <Format font="comic sans">Format</Format>
  tags that change how it is

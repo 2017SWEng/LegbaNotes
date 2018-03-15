@@ -10,7 +10,6 @@ import com.legba.notes.models.AppModel;
 import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -82,6 +81,7 @@ public class MenuController implements Observer{
 	// Loads fxml file
  	private Node loadFXML(URL path){
  		System.out.println("[+] Loading " + path);
+		FileSystemController fsc = AppController.getInstance().fileSystemController;
 		
  		Node node = null;
 		try {
