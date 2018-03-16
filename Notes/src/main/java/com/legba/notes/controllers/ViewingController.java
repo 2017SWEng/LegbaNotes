@@ -56,8 +56,13 @@ public class ViewingController {
 	
 	public void scrollToSlide(int slideIndex){
 		
+		
 		double[] slideLengths = slideSize();
 		
+		if (slideIndex > slideLengths.length -1){
+			slideIndex = slideLengths.length -1;
+		}
+
 		VBox slideBox = ((VBox)((ScrollPane)notes_root.getChildren().get(0)).getContent());
 		double totalSlideSize = slideBox.getHeight();
 		
