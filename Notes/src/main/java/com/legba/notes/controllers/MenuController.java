@@ -1,7 +1,10 @@
 package com.legba.notes.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.scene.input.MouseEvent;
 
 public class MenuController implements Observer{
@@ -33,6 +37,38 @@ public class MenuController implements Observer{
 	
 	@FXML
 	ImageView homeLogo;
+	
+	@FXML public void handleManualNotesSave(){
+		
+		if(AppModel.getInstance().getVeiwMode() == ViewMode.Mode.VEIWING)
+		{
+			//get the presentation to save
+			Presentation pres = AppModel.getInstance().getPres();
+			
+			//get the user to select the file path
+			FileChooser fileChooser = new FileChooser();
+	        fileChooser.setTitle("Save New Note File");
+	        fileChooser.getExtensionFilters().addAll(
+	        		new FileChooser.ExtensionFilter("Text file", "*.pws")
+	        );
+	        
+	        //get the file path
+	        File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
+	        
+	        //call the xml saver
+	        AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
+		
+	        //update recents
+	        try {
+				AppController.getInstance().updateRecents(file);
+			} catch (IOException e) {
+				System.out.println("Unable to update Recent Docs");
+				e.printStackTrace();
+			}
+		}
+		
+			
+	}
 	
 	private final static String toolbarPath = "../fxml/toolbar.fxml";
 

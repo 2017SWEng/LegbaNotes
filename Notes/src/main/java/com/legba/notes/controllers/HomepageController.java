@@ -54,7 +54,7 @@ public class HomepageController {
 			
 			try {
 				File file = new File(contentList.getSelectionModel().getSelectedItem());
-				this.updateRecents(file);
+				AppController.getInstance().updateRecents(file);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Unable to update Recent Docs");
@@ -103,6 +103,8 @@ public class HomepageController {
         	    bw.write("</Presentation>");
         	    bw.flush();
         	    bw.close();
+        	    
+        	    //use save xmlFile() to save directly to the correct format
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -138,7 +140,7 @@ public class HomepageController {
     		//!!!! place ^^^^^^^ into its own module of code
     		//add to recent documents
     		try {
-				this.updateRecents(fileToOpen);
+				AppController.getInstance().updateRecents(fileToOpen);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Unable to update Recent Docs");
@@ -193,7 +195,7 @@ public class HomepageController {
 			}
 		}
 		catch(IOException ioe){
-			ioe.printStackTrace();
+			recentItems.add("No Recent Files");
 		}
 		
 		
@@ -201,53 +203,5 @@ public class HomepageController {
 		
 	}
 	
-	private void updateRecents(File openedFile) throws IOException{
-		//append to the recents file
-		Path legbaPath = Paths.get(System.getProperty("user.home") + File.separator + "Legba");
-		
-		
-		if(!Files.exists(legbaPath, LinkOption.NOFOLLOW_LINKS))
-		{
-			//create the directory
-			try{
-				File LegbaDir = legbaPath.toFile();
-				LegbaDir.mkdir();
-				System.out.println("Legba directory created...");
-			}
-			catch(SecurityException se){
-				se.printStackTrace();
-			}
-		}
-		
-		//we have the legba directory
-		//now to check for the file
-		File recentsDoc = new File(legbaPath.toString() + File.separator + "RecentDocs");
-		if(!Files.exists(Paths.get(recentsDoc.getPath()), LinkOption.NOFOLLOW_LINKS))
-		{
-			//create the file
-			try{
-				recentsDoc.createNewFile();
-				System.out.println("Recent Docs File created...");
-			}
-			catch(SecurityException se){
-				se.printStackTrace();
-			}
-			catch(IOException ioe){
-				ioe.printStackTrace();
-			}
-		}
-		
-		//we now have everything we need
-		//append to the file
-		//!! add checking to this !!
-		FileWriter fw = new FileWriter(recentsDoc, true);
-	    BufferedWriter bw = new BufferedWriter(fw);
-	    bw.write(openedFile.getAbsolutePath());
-	    bw.newLine();
-	    bw.flush();
-	    bw.close();
-	    
-	    //testing purposes
-	    System.out.println("recents updated");
-	}
+	
 }
