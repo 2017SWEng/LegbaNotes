@@ -51,6 +51,7 @@ public class ViewingController {
 			//System.out.println("Slide Height is: " + Slide.getLayoutBounds().getHeight());
 		}
 		return slideSizeIndex;
+		
 	}
 	
 	public void scrollToSlide(int slideIndex){

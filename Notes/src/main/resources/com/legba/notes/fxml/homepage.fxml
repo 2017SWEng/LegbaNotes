@@ -20,10 +20,20 @@
 	
 	<!-- Central list content -->
 	<center>
+	<HBox>
 		<VBox>
-			<ListView fx:id="contentList" onMouseClicked="#handleListClick"/>
-			<Button fx:id="fileChooserBtn" text="Open other..." onAction="#handleFileChooserBtn"/>
+			<Text StyleClass="listTitle">Recent Documents</Text>	
+			<ListView fx:id="recentsList" onMouseClicked="#handleListClick"/>
 		</VBox>
+		<VBox fx:id="documentInterface">
+			<Text StyleClass="listTitle">Resources</Text>
+			<ListView fx:id="contentList" onMouseClicked="#handleListClick"/>
+			<HBox>
+				<Button fx:id="fileChooserBtn" text="Open other..." onAction="#handleFileChooserBtn"/>
+				<Button fx:id="fileNewBtn" text="New Document..." onAction="#handleNewFileBtn"/>
+			</HBox>	
+		</VBox>
+	</HBox>	
 	</center> 
 
 </BorderPane>
