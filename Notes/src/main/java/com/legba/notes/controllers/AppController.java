@@ -1,8 +1,15 @@
 package com.legba.notes.controllers;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -119,7 +126,8 @@ public class AppController implements Observer{
 			}
 		}
 		
-		logNodes(root,0);
+		//for debugging
+		//logNodes(root,0);
 
 	}
 
@@ -188,4 +196,54 @@ public class AppController implements Observer{
 				
 	}
 	
+ 	
+ 	public void updateRecents(File openedFile) throws IOException{
+		//append to the recents file
+		Path legbaPath = Paths.get(System.getProperty("user.home") + File.separator + "Legba");
+		
+		
+		if(!Files.exists(legbaPath, LinkOption.NOFOLLOW_LINKS))
+		{
+			//create the directory
+			try{
+				File LegbaDir = legbaPath.toFile();
+				LegbaDir.mkdir();
+				System.out.println("Legba directory created...");
+			}
+			catch(SecurityException se){
+				se.printStackTrace();
+			}
+		}
+		
+		//we have the legba directory
+		//now to check for the file
+		File recentsDoc = new File(legbaPath.toString() + File.separator + "RecentDocs");
+		if(!Files.exists(Paths.get(recentsDoc.getPath()), LinkOption.NOFOLLOW_LINKS))
+		{
+			//create the file
+			try{
+				recentsDoc.createNewFile();
+				System.out.println("Recent Docs File created...");
+			}
+			catch(SecurityException se){
+				se.printStackTrace();
+			}
+			catch(IOException ioe){
+				ioe.printStackTrace();
+			}
+		}
+		
+		//we now have everything we need
+		//append to the file
+		//!! add checking to this !!
+		FileWriter fw = new FileWriter(recentsDoc, true);
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    bw.write(openedFile.getAbsolutePath());
+	    bw.newLine();
+	    bw.flush();
+	    bw.close();
+	    
+	    //testing purposes
+	    System.out.println("recents updated");
+	}
 }

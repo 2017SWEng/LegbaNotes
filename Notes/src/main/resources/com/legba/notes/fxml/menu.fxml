@@ -43,6 +43,11 @@
 				</Menu>
 				<Menu text="Help">
 				</Menu>
+				<Menu text="Notes">
+					<items>
+						<MenuItem text="Save notes" onAction="#handleManualNotesSave"/>
+					</items>
+				</Menu>
 			</menus>
 		</MenuBar>
 	</center>	
