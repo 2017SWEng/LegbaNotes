@@ -96,7 +96,7 @@ public class PdfView extends BorderPane{
 	        }
 	    });
 
-		webEngine.load(this.getClass().getResource("../PDF/pdf.html").toString());
+		webEngine.load(this.getClass().getClassLoader().getResource("com/legba/notes/PDF/pdf.html").toString());
 		
 	}
 	

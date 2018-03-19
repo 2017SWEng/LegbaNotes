@@ -38,9 +38,9 @@ public class AppController implements Observer{
 	public HomepageController homepage;
 	public FileSystemController fileSystemController;
 	
-	private final static String menuPath = "../fxml/menu.fxml";
-	private final static String homepagePath = "../fxml/homepage.fxml";
-	private final static String viewingPath = "../fxml/viewing.fxml";
+	private final static String menuPath = "com/legba/notes/fxml/menu.fxml";
+	private final static String homepagePath = "com/legba/notes/fxml/homepage.fxml";
+	private final static String viewingPath = "com/legba/notes/fxml/viewing.fxml";
 	
 	private Stage mainStage;
 	
@@ -66,6 +66,7 @@ public class AppController implements Observer{
 	
  	@FXML
     void initialize(){
+ 		
 		// Called once all variable with @FXML have been populated
  		
 		// Add menu
@@ -100,7 +101,7 @@ public class AppController implements Observer{
 	private void addMenu() {
 		
 		// load menu from fxml
-		Node menu = loadFXML( getClass().getResource(menuPath));
+		Node menu = loadFXML( getClass().getClassLoader().getResource(menuPath));
 		
 		// if the loaded menu is not null then set the top to it
 		if (menu != null){
@@ -156,7 +157,7 @@ public class AppController implements Observer{
 		}
 		
 		// load fxml file
-		Node n = loadFXML( getClass().getResource(path));
+		Node n = loadFXML( getClass().getClassLoader().getResource(path));
 		
 		// if the loaded file exists then set the center to it
 		if (n != null){

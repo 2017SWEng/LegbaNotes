@@ -14,6 +14,10 @@
   </organization>
   
   
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
    <dependencies>
     <dependency>
      <groupId>junit</groupId>
@@ -26,6 +30,24 @@
   
   <build>
     <plugins>
+    
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>com.legba.notes.app.Main</mainClass>
+            </manifest>
+            <manifestEntries>
+              <url>http://gitlab.com/SWEng2017/SWEng</url>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
     
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -41,7 +63,10 @@
       	<artifactId>javafx-maven-plugin</artifactId>
       	<version>8.1.2</version>
       	<configuration>
+      	    <vendor>Legba</vendor>
+      	    <verbose>true</verbose>
       		<mainClass>com.legba.notes.app.Main</mainClass>
+      		<allPermissions>true</allPermissions>
       		<nativeInstallers />
       	</configuration>
       </plugin>

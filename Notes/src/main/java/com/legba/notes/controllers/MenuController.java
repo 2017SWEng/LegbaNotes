@@ -70,7 +70,7 @@ public class MenuController implements Observer{
 			
 	}
 	
-	private final static String toolbarPath = "../fxml/toolbar.fxml";
+	private final static String toolbarPath = "com/legba/notes/fxml/toolbar.fxml";
 
 	public MenuController(){
 	}
@@ -111,7 +111,7 @@ public class MenuController implements Observer{
 	}
 	
 	private void switchToViewing(){
-		topbar_root.setBottom(loadFXML( getClass().getResource(toolbarPath)));
+		topbar_root.setBottom(loadFXML( getClass().getClassLoader().getResource(toolbarPath)));
 	}
 	
 	// Loads fxml file
