@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+
+
+<BorderPane
+	styleClass="loginPage"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:id="homepage_root"
+	fx:controller="com.legba.notes.controllers.LoginController" >
+	
+	<!-- Central list content -->
+	<center>
+			<VBox alignment="center" spacing="8.0">
+				<ImageView fx:id="loginLogo" fitHeight="180" preserveRatio="true">
+					<image>
+						<Image url="@Images/legba_center_round.png" />
+					</image>
+				</ImageView>
+				<HBox alignment="center">
+					<Text>Username</Text>
+					<TextField fx:id="usernameField"/>
+				</HBox>
+				<HBox alignment="center">
+					<Text>Password</Text>
+					<PasswordField fx:id="passwordField"/>
+				</HBox>
+				<HBox alignment="center">
+					<Button fx:id="loginBtn" text="Login" onAction="#handleLoginBtnAction"/>
+				</HBox>
+				<Text fx:id="errorText"/>
+			</VBox>	
+	</center> 
+
+</BorderPane>

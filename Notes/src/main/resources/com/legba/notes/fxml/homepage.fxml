@@ -33,6 +33,7 @@
 				<Button fx:id="fileNewBtn" text="New Document..." onAction="#handleNewFileBtn"/>
 			</HBox>	
 		</VBox>
+		<Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/>
 	</HBox>	
 	</center> 
 

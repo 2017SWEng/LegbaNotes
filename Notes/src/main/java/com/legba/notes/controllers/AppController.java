@@ -36,11 +36,13 @@ public class AppController implements Observer{
 	public MenuController menu;
 	public ViewingController viewing;
 	public HomepageController homepage;
+	public LoginController login;
 	public FileSystemController fileSystemController;
 	
 	private final static String menuPath = "com/legba/notes/fxml/menu.fxml";
 	private final static String homepagePath = "com/legba/notes/fxml/homepage.fxml";
 	private final static String viewingPath = "com/legba/notes/fxml/viewing.fxml";
+	private final static String loginPath = "com/legba/notes/fxml/login.fxml";
 	
 	private Stage mainStage;
 	
@@ -147,6 +149,9 @@ public class AppController implements Observer{
 		}
 		else if(mode == Mode.VEIWING){
 			path = AppController.viewingPath;
+		}
+		else if (mode ==Mode.LOGIN){
+			path = AppController.loginPath;
 		}
 		
 		

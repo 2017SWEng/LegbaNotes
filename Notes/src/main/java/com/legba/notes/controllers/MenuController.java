@@ -98,6 +98,9 @@ public class MenuController implements Observer{
 		else if (mode == Mode.HOMEPAGE){
 			switchToHomepage();
 		}
+		else if (mode == Mode.LOGIN){
+			switchtoLogin();
+		}
 		else{
 			System.err.println(this.toString() +" : uknown viewmode bailing to homepage" );
 			switchToHomepage();
@@ -106,6 +109,11 @@ public class MenuController implements Observer{
 	}
 
 	
+	private void switchtoLogin() {
+		// TODO Auto-generated method stub
+		topbar_root.setVisible(false);
+	}
+
 	private void switchToHomepage(){
 		topbar_root.setBottom(null);
 	}

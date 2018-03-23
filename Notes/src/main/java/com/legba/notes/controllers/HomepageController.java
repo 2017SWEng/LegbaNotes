@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
+import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
 
 import javafx.collections.ObservableList;
@@ -36,7 +37,14 @@ public class HomepageController {
 	Button fileChooserBtn;
 	
 	@FXML
+	Button LoginTest;
+	
+	@FXML
 	ListView<String> recentsList;
+	
+	@FXML public void GoToLogin(ActionEvent event){
+		AppModel.getInstance().setVeiwMode(Mode.LOGIN);
+	}
 	
 	@FXML public void handleListClick(MouseEvent event) {
 		
