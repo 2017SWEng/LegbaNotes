@@ -28,11 +28,11 @@
 						<Image url="@Images/legba_center_round.png" />
 					</image>
 				</ImageView>
-				<HBox alignment="center">
+				<HBox alignment="center" spacing="8.0">
 					<Text>Username</Text>
 					<TextField fx:id="usernameField"/>
 				</HBox>
-				<HBox alignment="center">
+				<HBox alignment="center" spacing="8.0">
 					<Text>Password</Text>
 					<PasswordField fx:id="passwordField"/>
 				</HBox>

@@ -76,13 +76,17 @@ public class User {
 		//return this.password.equals(password);
 		return Objects.equals(this.password, password);
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
 	@Override
 	public String toString() {
-		return this.username ;
+		return "Name: " + this.forename + " " + this.surname + System.lineSeparator() +
+		"Username: " + this.username + System.lineSeparator() + 
+		"User Type: " + this.userType.toString() + System.lineSeparator() +
+		"UserID: " + this.userID; 
 		
 	}
 	

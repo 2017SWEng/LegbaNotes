@@ -34,6 +34,7 @@
 			</HBox>	
 		</VBox>
 		<Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/>
+		<Button fx:id="AddStudentToModuleBtn" text="Add Student To Module" onAction="#GoToAddStudentForm"/>
 	</HBox>	
 	</center> 
 

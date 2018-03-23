@@ -5,6 +5,9 @@ package com.legba.notes.elements;
 
 import java.util.Collections;
 import java.util.List;
+
+import com.legba.notes.elements.User.USER_TYPE;
+
 import java.io.File;
 
 /**
@@ -61,5 +64,32 @@ public class Module {
 		 * @return List<File> containing all files within this module
 		 */
 		return this.content;
+	}
+	
+	public void addStudent(User student){
+		
+		//check to see if the user is actually a student
+		if(student.getUserType() == USER_TYPE.STUDENT){
+			this.assignedStudents.add(student);
+		} else {
+			System.out.println("User_Type must be Student for " + student.toString());
+		}
+		
+	}
+	
+	public void addStudent(List<User> studentList){
+		
+		User student = null;
+		
+		for(int i = 0; i < studentList.size(); i++){
+			student = studentList.get(i);
+			//check to see if the user is actually a student
+			if(student.getUserType() == USER_TYPE.STUDENT){
+				this.assignedStudents.add(student);
+			} else {
+				System.out.println("User_Type must be Student for " + student.toString());
+			}
+		}	
+				
 	}
 }

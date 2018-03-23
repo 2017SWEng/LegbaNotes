@@ -6,6 +6,7 @@ package com.legba.notes.elements;
 import java.util.List;
 import java.util.ArrayList;
 import com.legba.notes.elements.Module;
+import com.legba.notes.elements.User.USER_TYPE;
 
 /**
  * @author jjds502
@@ -18,7 +19,7 @@ public class Course {
 	};
 	private String title;
 	private List<User> assignedStudents;
-	private List<User> assignedLecturers;
+	//private List<User> assignedLecturers;
 	private ArrayList<ArrayList<Module>> yearlyModules;
 	
 	public Course(String title, int years){
@@ -47,5 +48,31 @@ public class Course {
 		return this.yearlyModules.get(module.getYear()).remove(module);
 	}
 	
+	public void addStudent(User student){
+		
+		//check to see if the user is actually a student
+		if(student.getUserType() == USER_TYPE.STUDENT){
+			this.assignedStudents.add(student);
+		} else {
+			System.out.println("User_Type must be Student for " + student.toString());
+		}
+		
+	}
+	
+	public void addStudent(List<User> studentList){
+		
+		User student = null;
+		
+		for(int i = 0; i < studentList.size(); i++){
+			student = studentList.get(i);
+			//check to see if the user is actually a student
+			if(student.getUserType() == USER_TYPE.STUDENT){
+				this.assignedStudents.add(student);
+			} else {
+				System.out.println("User_Type must be Student for " + student.toString());
+			}
+		}	
+				
+	}
 	
 }

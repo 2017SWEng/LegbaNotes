@@ -46,6 +46,9 @@ public class HomepageController {
 		AppModel.getInstance().setVeiwMode(Mode.LOGIN);
 	}
 	
+	@FXML public void GoToAddStudentForm(ActionEvent event){
+		AppModel.getInstance().setVeiwMode(Mode.MODULE_MANAGEMENT);
+	}
 	@FXML public void handleListClick(MouseEvent event) {
 		
 		try{
