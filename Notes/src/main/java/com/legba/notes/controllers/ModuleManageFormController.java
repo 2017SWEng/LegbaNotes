@@ -56,13 +56,17 @@ public class ModuleManageFormController {
 		fsc.saveToCourseFile(newCourse);
 	}
 	
-@FXML public void handleNewUserBtn(ActionEvent e){
+	@FXML public void handleNewUserBtn(ActionEvent e){
 		
 //		Course newCourse = new Course(this.CourseTitleField.getText(), Integer.parseInt(this.CourseNumberField.getText()));
 //		ItemList.add(newCourse.toString());
 //		
 //		FileSystemController fsc = new FileSystemController();
 //		fsc.saveToCourseFile(newCourse);
+	}
+
+	@FXML public void handleAddModuleBtn(ActionEvent e){
+		
 	}
 	
 	public ModuleManageFormController(){
