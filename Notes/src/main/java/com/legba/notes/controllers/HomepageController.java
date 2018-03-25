@@ -6,27 +6,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
-import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
 
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 public class HomepageController {
 
@@ -40,13 +31,16 @@ public class HomepageController {
 	Button LoginTest;
 	
 	@FXML
+	Button formsBtn;
+	
+	@FXML
 	ListView<String> recentsList;
 	
 	@FXML public void GoToLogin(ActionEvent event){
 		AppModel.getInstance().setVeiwMode(Mode.LOGIN);
 	}
 	
-	@FXML public void GoToAddStudentForm(ActionEvent event){
+	@FXML public void GoToForm(ActionEvent event){
 		AppModel.getInstance().setVeiwMode(Mode.MODULE_MANAGEMENT);
 	}
 	@FXML public void handleListClick(MouseEvent event) {
@@ -171,7 +165,7 @@ public class HomepageController {
 		//----------------------------------------------------------//
 		// Will need to check for a Legba Notes directory and then  //
 		// create one if there is not one present.					//
-		// Written by jj											//
+		// Written by jjds502											//
 		//----------------------------------------------------------//
 		
 		//lets put some things in our documents list

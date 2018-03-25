@@ -4,6 +4,12 @@
 package com.legba.notes.elements;
 
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
 import com.legba.notes.elements.Module;
 import com.legba.notes.elements.User.USER_TYPE;
@@ -12,21 +18,45 @@ import com.legba.notes.elements.User.USER_TYPE;
  * @author jjds502
  *
  */
+//xml markup
+@XmlRootElement(name="course")
+@XmlAccessorType(XmlAccessType.NONE)
 public class Course {
 
 	enum COURSE_YEAR {
 		FIRST_YEAR, SECOND_YEAR, THIRD_YEAR, FOURTH_YEAR 
 	};
+	
+	@XmlElement(name="title")
 	private String title;
+	
+	@XmlElement(name="years")
+	private int years;
+	
+	@XmlElement(name="assignedStudents", nillable=true)
 	private List<User> assignedStudents;
+	
 	//private List<User> assignedLecturers;
+	
+	@XmlElement(name="yearlyModules", nillable=true)
 	private ArrayList<ArrayList<Module>> yearlyModules;
 	
 	public Course(String title, int years){
 		
 		this.title = title;
-		yearlyModules = new ArrayList<ArrayList<Module>>(years);
+		this.years = years;
 		
+		//instantiate lists
+		this.yearlyModules = new ArrayList<ArrayList<Module>>(years);
+		this.assignedStudents = new ArrayList<User>();
+	}
+	
+	public Course(){
+		this.setTitle("Please Set Title");
+		
+		//instantiate lists
+		this.yearlyModules = new ArrayList<ArrayList<Module>>(years);
+		this.assignedStudents = new ArrayList<User>();
 	}
 	
 	public String getTitle() {
@@ -34,6 +64,12 @@ public class Course {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public int getDuration() {
+		return years;
+	}
+	public void setDuration(int years) {
+		this.years = years;
 	}
 	public void addModule(String title, int year){
 		this.yearlyModules.get(year-1).add(new Module(title, year));
@@ -73,6 +109,18 @@ public class Course {
 			}
 		}	
 				
+	}
+	
+	@Override
+	public String toString() {
+		/**
+		 * ToString Overridden to return Module in readable formal
+		 * @author jjds502
+		 * @Return Title and Years
+		 */
+		return "Course Title: " + this.title + System.lineSeparator() +
+				"Duration: " + this.years + " years";
+		
 	}
 	
 }

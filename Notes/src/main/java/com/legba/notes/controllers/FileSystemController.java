@@ -1,17 +1,24 @@
 package com.legba.notes.controllers;
 
+import java.util.List;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringWriter;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.legba.notes.elements.Course;
+import com.legba.notes.elements.Module;
 import com.legba.notes.elements.Presentation;
 
 public class FileSystemController {
@@ -120,7 +127,105 @@ public class FileSystemController {
 		
 	}
 	
+	protected void saveToModulesFile(Module module){
+		/** Used to serialise the Module object into xml using JAXB
+		 * Will save to an xml file on local storage, will need to be updated to save to server
+		 * @author jjds502
+		 * @param Module to be saved to file
+		 */
+		
+		StringWriter writer = new StringWriter();
+		JAXBContext context;
+		try {
+			context = JAXBContext.newInstance(Module.class);
+			Marshaller m = context.createMarshaller();
+			m.marshal(module, writer);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		File moduleFile = new File("H:" + File.separator + "Legba" + File.separator + "Modules");
+		//save the file
+        if (moduleFile != null) {   
+        	try {
+        		//check that the file extension is correct. Referenced from:
+        		//https://stackoverflow.com/questions/17010647/set-default-saving-extension-with-jfilechooser
+        		
+        		//if the file doesn't exist, create a new one
+        		if (!moduleFile.exists()) {
+        			moduleFile.createNewFile();
+        		}
+        		//now we need to save the module
+        		FileWriter fw = new FileWriter(moduleFile.getAbsoluteFile(), true);
+        		fw.append(writer.toString());
+        		fw.close();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        	
+    		System.out.println("Created new Module");
+
+        }
+		
+	}
 	
+	protected void saveToCourseFile(Course course){
+		/** Used to serialise the Course object into xml using JAXB
+		 * Will save to an xml file on local storage, will need to be updated to save to server
+		 * @author jjds502
+		 * @param Module to be saved to file
+		 */
+		
+		StringWriter writer = new StringWriter();
+		JAXBContext context;
+		try {
+			context = JAXBContext.newInstance(Course.class);
+			Marshaller m = context.createMarshaller();
+			m.marshal(course, writer);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		File courseFile = new File("H:" + File.separator + "Legba" + File.separator + "Courses");
+		//save the file
+        if (courseFile != null) {   
+        	try {
+        		//check that the file extension is correct. Referenced from:
+        		//https://stackoverflow.com/questions/17010647/set-default-saving-extension-with-jfilechooser
+        		
+        		//if the file doesn't exist, create a new one
+        		if (!courseFile.exists()) {
+        			courseFile.createNewFile();
+        		}
+        		//now we need to save the module
+        		FileWriter fw = new FileWriter(courseFile.getAbsoluteFile(), true);
+        		fw.append(writer.toString());
+        		fw.close();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        	
+    		System.out.println("Created new Course");
+
+        }
+		
+	}
+	
+	protected List<Module> readModuleFile(){
+		/**
+		 * @author jjds502
+		 */
+		return null;
+	}
+	
+	protected List<Module> readCourseFile(){
+		/**
+		 * @author jjds502
+		 */
+		return null;
+	}
 	
 	
 	

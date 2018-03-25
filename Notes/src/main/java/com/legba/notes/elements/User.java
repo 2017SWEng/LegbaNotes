@@ -83,6 +83,11 @@ public class User {
 	
 	@Override
 	public String toString() {
+		/**
+		 * ToString Overridden to return user in readable formal
+		 * @author jjds502
+		 * @Return Forename, Surname, Username, User Type and UserID
+		 */
 		return "Name: " + this.forename + " " + this.surname + System.lineSeparator() +
 		"Username: " + this.username + System.lineSeparator() + 
 		"User Type: " + this.userType.toString() + System.lineSeparator() +

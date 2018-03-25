@@ -3,8 +3,14 @@
  */
 package com.legba.notes.elements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.legba.notes.elements.User.USER_TYPE;
 
@@ -15,19 +21,45 @@ import java.io.File;
  * @author jjds502
  * 
  */
+@XmlRootElement(name="module")
+@XmlAccessorType(XmlAccessType.NONE)
 public class Module {
 
+	@XmlElement(name="title")
 	private String title;
+	
+	@XmlElement(name="year")
 	private int year;
+	
+	@XmlElement(name="content", nillable=true)
 	private List<File> content;
+	
+	@XmlElement(name="assignedStudents", nillable=true)
 	private List<User> assignedStudents;
+	
+	@XmlElement(name="assignedLecturers", nillable=true)
 	private List<User> assignedLecturers;
 	
 	public Module(String title, int year){
 		this.setTitle(title);
 		this.setYear(year);
+		
+		//initialise the lists
+		this.content = new ArrayList<File>();
+		this.assignedStudents = new ArrayList<User>();
+		this.assignedLecturers = new ArrayList<User>();
 	}
 
+	public Module(){
+		this.setTitle("Please Set Title");
+		this.setYear(0);
+		
+		//initialise the lists
+		this.content = new ArrayList<File>();
+		this.assignedStudents = new ArrayList<User>();
+		this.assignedLecturers = new ArrayList<User>();
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -89,7 +121,18 @@ public class Module {
 			} else {
 				System.out.println("User_Type must be Student for " + student.toString());
 			}
-		}	
-				
+		}			
+	}
+	
+	@Override
+	public String toString() {
+		/**
+		 * ToString Overridden to return Module in readable formal
+		 * @author jjds502
+		 * @Return Title and Years
+		 */
+		return "Module Title: " + this.title + System.lineSeparator() +
+		"Course year: " + this.year; 
+		
 	}
 }

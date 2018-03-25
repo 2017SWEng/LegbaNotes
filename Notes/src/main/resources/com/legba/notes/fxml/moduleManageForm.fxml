@@ -20,7 +20,60 @@
 	
 	<!-- Central list content -->
 	<center>
-	
+		<HBox styleClass="forms">
+			<VBox styleClass="forms">
+			
+				<Text>New Module:</Text>
+				<HBox styleClass="forms">
+					<Text>Title:</Text>
+					<TextField fx:id="ModuleTitleField"/>
+				</HBox>		
+				<HBox styleClass="forms">
+					<Text>Course Year:</Text>
+					<TextField fx:id="ModuleNumberField"/>
+				</HBox>
+				<Button fx:id="NewModuleBtn" text="Create New Module" onAction="#handleNewModuleBtn"/>
+				
+				<Text>New Course:</Text>
+				<HBox styleClass="forms">
+					<Text>Title:</Text>
+					<TextField fx:id="CourseTitleField"/>
+				</HBox>		
+				<HBox styleClass="forms">
+					<Text>Number of Years:</Text>
+					<TextField fx:id="CourseNumberField"/>
+				</HBox>
+				<Button fx:id="NewCourseBtn" text="Create New Course" onAction="#handleNewCourseBtn"/>	
+			
+				<Text>New User:</Text>
+				<HBox styleClass="forms">
+					<Text>Forename:</Text>
+					<TextField fx:id="UserForenameField"/>
+				</HBox>		
+				<HBox styleClass="forms">
+					<Text>Surname:</Text>
+					<TextField fx:id="UserSurnameField"/>
+				</HBox>
+				<HBox styleClass="forms">
+					<Text>Username: </Text>
+					<TextField fx:id="UsernameField"/>
+				</HBox>
+				<Button fx:id="NewUserBtn" text="Create New User" onAction="#handleNewUserBtn"/>
+			</VBox>
+			<ListView fx:id="ExistingObjectList"/>
+			<VBox styleClass="forms">
+				<Text>Add Module to Course:</Text>
+				<HBox styleClass="forms">
+					<Text>Select Course: </Text>
+					<ChoiceBox fx:id="CourseChoiceBx"/>
+				</HBox>
+				<HBox styleClass="forms">
+					<Text>Select Module: </Text>
+					<ChoiceBox fx:id="ModuleChoiceBx"/>
+				</HBox>
+				<Button fx:id="AddModuleBtn" text="Add Module" onAction="#handleAddModuleBtn"/>
+			</VBox>
+		</HBox>
 	</center> 
 
 </BorderPane>
