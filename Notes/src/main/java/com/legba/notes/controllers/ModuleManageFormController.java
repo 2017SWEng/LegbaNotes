@@ -95,6 +95,9 @@ public class ModuleManageFormController {
 			}
 		});
 		
+		FileSystemController fsc = new FileSystemController();
+		fsc.readCourseFile();
+		
 		//create a list for the modules
 		ItemList = ExistingObjectList.getItems();
 	}

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import com.legba.notes.elements.Module;
 import com.legba.notes.elements.User.USER_TYPE;
@@ -21,7 +22,12 @@ import com.legba.notes.elements.User.USER_TYPE;
 //xml markup
 @XmlRootElement(name="course")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Course {
+public class Course implements Serializable{
+
+	/**
+	 * @author jjds502
+	 */
+	private static final long serialVersionUID = -8184166569517659292L;
 
 	enum COURSE_YEAR {
 		FIRST_YEAR, SECOND_YEAR, THIRD_YEAR, FOURTH_YEAR 
