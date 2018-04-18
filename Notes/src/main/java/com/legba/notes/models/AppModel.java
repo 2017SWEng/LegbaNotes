@@ -16,7 +16,7 @@ public class AppModel{
 	 */
 	private ViewMode viewMode;
 	
-	private AppModel(){
+	AppModel(){
 		// any setup
 		viewMode = new ViewMode();
 	}
