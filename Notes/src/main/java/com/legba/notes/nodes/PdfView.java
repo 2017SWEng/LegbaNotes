@@ -8,13 +8,17 @@ import javafx.scene.web.WebView;
 
 import com.legba.notes.controllers.AppController;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
 public class PdfView extends BorderPane{
-	WebEngine webEngine;
+	private WebEngine webEngine;
+	private Boolean pdfLoaded = false;
 	
 	/**
 	 * 
@@ -37,11 +41,15 @@ public class PdfView extends BorderPane{
 			
 			@Override
 			public void handle(ActionEvent e) {
-	        	webEngine.executeScript("nextpage()");
-	        	int currentPage = getPageNumber();
+				if (pdfLoaded == true) {
+					
+					webEngine.executeScript("nextpage()");
+					int currentPage = getPageNumber();
 	    		
-	        	AppController.getInstance().viewing.scrollToSlide(currentPage);
-			 }
+					AppController.getInstance().viewing.scrollToSlide(currentPage);
+				}
+	        	
+			}
 		});
 		
 		Button pageUp = new Button("Previous Page");
@@ -49,11 +57,13 @@ public class PdfView extends BorderPane{
 
 			@Override
 			public void handle(ActionEvent e) {
-	        	webEngine.executeScript("previouspage()");
-	        	int currentPage = getPageNumber();
+				if (pdfLoaded == true) {
+					webEngine.executeScript("previouspage()");
+					int currentPage = getPageNumber();
 	    		
-	        	AppController.getInstance().viewing.scrollToSlide(currentPage-1);
-			 }
+					AppController.getInstance().viewing.scrollToSlide(currentPage-1);
+				}
+			}
 		});
 		
 		Button first = new Button("<<");
@@ -61,9 +71,11 @@ public class PdfView extends BorderPane{
 
 			@Override
 			public void handle(ActionEvent e) {
-	        	webEngine.executeScript("firstpage()");
-	        	AppController.getInstance().viewing.scrollToSlide(-100000);
-			 }
+				if (pdfLoaded == true) {
+					webEngine.executeScript("firstpage()");
+					AppController.getInstance().viewing.scrollToSlide(-100000);
+				}
+			}
 		});
 		
 		Button last = new Button(">>");
@@ -71,9 +83,11 @@ public class PdfView extends BorderPane{
 
 			@Override
 			public void handle(ActionEvent e) {
-	        	webEngine.executeScript("lastpage()");
-	        	AppController.getInstance().viewing.scrollToSlide(10000000);
-			 }
+				if (pdfLoaded == true) {
+					webEngine.executeScript("lastpage()");
+					AppController.getInstance().viewing.scrollToSlide(10000000);
+				}
+			}
 		});
 		
 		//HBox holds all the buttons at top of pane
@@ -97,6 +111,21 @@ public class PdfView extends BorderPane{
 	    });
 
 		webEngine.load(this.getClass().getClassLoader().getResource("com/legba/notes/PDF/pdf.html").toString());
+		
+		//https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+		webEngine.getLoadWorker().stateProperty().addListener(
+				  new ChangeListener<Worker.State>() {
+				  @Override
+				  public void changed(
+				    ObservableValue<? extends Worker.State> observable,
+				    Worker.State oldValue, Worker.State newValue ) {
+
+				    if( newValue == Worker.State.SUCCEEDED ) {
+				      pdfLoaded = true;
+				    }
+				  }
+				} );
+		
 		
 	}
 	
