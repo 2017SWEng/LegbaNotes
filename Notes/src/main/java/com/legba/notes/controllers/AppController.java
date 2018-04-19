@@ -35,6 +35,7 @@ public class AppController implements Observer{
 	
 	public MenuController menu;
 	public ViewingController viewing;
+	public ToolbarController toolbar;
 	public HomepageController homepage;
 	public FileSystemController fileSystemController;
 	
