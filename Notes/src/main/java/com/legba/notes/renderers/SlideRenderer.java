@@ -22,6 +22,7 @@ import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
+import com.legba.notes.elements.Video;
 import com.legba.notes.models.AppModel;
 
 /**
@@ -34,6 +35,7 @@ public class SlideRenderer extends Renderer<Slide> {
 	VectorRenderer vectorRenderer;
 	AudioRenderer audioRenderer;
 	TextRenderer textRenderer;
+	VideoRenderer videoRenderer;
 	//TODO: add other renders to this
 
 	/**
@@ -43,6 +45,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		this.vectorRenderer = new VectorRenderer();
 		this.audioRenderer = new AudioRenderer();
 		this.textRenderer = new TextRenderer();
+		this.videoRenderer = new VideoRenderer();
 		//TODO: add other renders to this
 	}
 	
@@ -54,11 +57,13 @@ public class SlideRenderer extends Renderer<Slide> {
 	public SlideRenderer(
 			VectorRenderer vectorRenderer,
 			AudioRenderer audioRenderer,
-			TextRenderer textRenderer
+			TextRenderer textRenderer,
+			VideoRenderer videoRenderer
 			){
 		this.vectorRenderer = vectorRenderer;
 		this.audioRenderer = audioRenderer;
 		this.textRenderer = textRenderer;
+		this.videoRenderer = videoRenderer;
 		//TODO: add other renders to this
 	}
 	
@@ -127,6 +132,10 @@ public class SlideRenderer extends Renderer<Slide> {
 		
 		for(Audio audio : s.getAudios()){
 			pane.getChildren().add(this.audioRenderer.render(audio));
+		}
+		
+		for(Video video : s.getVideos()){
+			pane.getChildren().add(this.videoRenderer.render(video));
 		}
 		
 		for(Text text : s.getTexts()){
