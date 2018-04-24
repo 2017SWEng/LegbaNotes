@@ -2,6 +2,7 @@ package com.legba.notes.renderers;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assume;
 import org.junit.Test;
 
 import com.legba.notes.elements.Video;
@@ -11,6 +12,8 @@ public class VideoRendererTest {
 
 	@Test
 	public void test() {
+		Assume.assumeTrue(System.getProperty( "os.name" ).startsWith( "Windows" ));
+		
 		VideoRenderer renderer = new VideoRenderer(); 
 		
 		//Sets up test video
