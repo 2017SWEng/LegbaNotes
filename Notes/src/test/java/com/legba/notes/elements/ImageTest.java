@@ -6,54 +6,60 @@ import org.junit.Assert;
 import com.legba.notes.elements.Image;
 
 public class ImageTest {
-
-	@Test
-	public void testPath_jpeg() {
-		String path = "test.jpeg";
-		
-		Image img = new Image(path);
-		String res = img.getPath();
-	
-		Assert.assertEquals("These Paths match?", path, res);
-	}
-
-	@Test
-	public void testPath_jpg() {
-		String path = "test.jpg";
-		
-		Image img = new Image(path);
-		String res = img.getPath();
-	
-		Assert.assertEquals("These Paths match?", path, res);
-	}
+	// All the types of extensions that should be accepted
+	String[] extensionType = new String[] {
+			".jpeg",".JPEG",
+			".jpg",".JPG",
+			".gif",".GIF",
+			".png",".PNG",
+			".bmp",".BMP"
+	};
 	
 	@Test
-	public void testPath_relitive() {
-		String path = "./test.jpg";
+	//Tests if all these path types in array are Valid
+	public void testPath() {		
+		for(int i = 0; i<extensionType.length; i++){
+			String path = "test" + extensionType[i];
+			Image img = new Image(path);
+			Boolean isValid = img.isValidPath(path);
 		
-		Image img = new Image(path);
-		String res = img.getPath();
-	
-		Assert.assertEquals("These Paths match?", path, res);
+			Assert.assertTrue(path + " is not valid", isValid);
+		};
 	}
 	
 	@Test
+	//Checks validity with a relative path types
+	public void testPath_relative() {
+		for(int i = 0; i<extensionType.length; i++){
+			String path = "./test" + extensionType[i];
+			Image img = new Image(path);
+			Boolean isValid = img.isValidPath(path);
+		
+			Assert.assertTrue(path + " is not valid", isValid);
+		};
+	}
+	
+	@Test
+	//Checks validity with a http path type
 	public void testPath_http() {
-		String path = "http://example.com/test.jpg";
+		for(int i = 0; i<extensionType.length; i++){
+			String path = "http://example.com/test" + extensionType[i];
+			Image img = new Image(path);
+			Boolean isValid = img.isValidPath(path);
 		
-		Image img = new Image(path);
-		String res = img.getPath();
-	
-		Assert.assertEquals("These Paths match?", path, res);
+			Assert.assertTrue(path + " is not valid", isValid);
+		};
+
 	}
 	
 	@Test
+	//Testing an invalid path. Should not work if there is no extension.
 	public void testPath_noExtension() {
 		String path = "test";
 		
 		Image img = new Image(path);
-		String res = img.getPath();
-	
-		Assert.assertNotEquals("These Paths don't match?", path, res);
+		Boolean isValid = img.isValidPath(path);
+		
+		Assert.assertFalse(path + " is not valid", isValid);
 	}
 }
