@@ -1,10 +1,7 @@
 package com.legba.notes.renderers;
 
-import javafx.application.ConditionalFeature;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -15,8 +12,6 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
-
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
@@ -27,7 +22,7 @@ import com.legba.notes.models.AppModel;
 
 /**
  * Takes an instance of a Slide and produces an javafx Node tree.
- * @author zraw500
+ * @author zraw500, lm1370
  *
  */
 public class SlideRenderer extends Renderer<Slide> {
@@ -75,7 +70,6 @@ public class SlideRenderer extends Renderer<Slide> {
 	@Override
 	public Node render(Slide s) {
 
-		
 		// using pane because it allows absolute positioning
 		Pane pane =  new Pane();
 		pane.getStyleClass().add("element-slide");
@@ -97,29 +91,41 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Shape shape : s.getShapes()){
 			Node n = this.vectorRenderer.render(shape);
 			
-			//When mouse enters shape it puts a shadow behind it
-			n.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent mouseEvent) {
-					DropShadow dropShadow = new DropShadow();
-					dropShadow.setBlurType(BlurType.GAUSSIAN);
-					dropShadow.setColor(Color.BLACK);
-					dropShadow.setOffsetX(0.0);
-					dropShadow.setOffsetY(0.0);
-					dropShadow.setRadius(15.0);
-					n.setEffect(dropShadow);
-					
+			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
+			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
+						//Enable shape mode
+						AppController.getInstance().toolbar.shapeMode();	
+						
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentShape = shape;
 						AppController.getInstance().viewing.CurrentNode = n;
+						
+						//Displays selected shape variables on toolbar
+						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
+						AppController.getInstance().toolbar.strokeCombo.setValue(shape.getStroke());
+						AppController.getInstance().toolbar.strokeColor.setValue(shape.getColor());
+						AppController.getInstance().toolbar.shapeFill.setValue(shape.getFill());
+						
+						//Highlights selected shape
+						DropShadow dropShadow = new DropShadow();
+						dropShadow.setBlurType(BlurType.GAUSSIAN);
+						dropShadow.setColor(Color.BLACK);
+						dropShadow.setOffsetX(0.0);
+						dropShadow.setOffsetY(0.0);
+						dropShadow.setRadius(20.0);
+						n.setEffect(dropShadow);
 					}
 				}
 			});
 			
-			//When mouse exits shape it removes the shadow
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
+					//Un-highlights selected shape
 					DropShadow dropShadow = new DropShadow();
 					dropShadow.setBlurType(BlurType.GAUSSIAN);
-					dropShadow.setColor(Color.BLACK);
+					dropShadow.setColor(Color.TRANSPARENT);
 					dropShadow.setOffsetX(0.0);
 					dropShadow.setOffsetY(0.0);
 					dropShadow.setRadius(0.0);
@@ -141,26 +147,48 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Text text : s.getTexts()){
 			Node n = this.textRenderer.render(text);
 			
-			//When mouse clicks on text highlights whole text
+			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
 			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent mouseEvent) {			
-					DropShadow dropShadow = new DropShadow();
-					dropShadow.setBlurType(BlurType.GAUSSIAN);
-					dropShadow.setColor(Color.BLACK);
-					dropShadow.setOffsetX(0.0);
-					dropShadow.setOffsetY(0.0);
-					dropShadow.setRadius(15.0);
-					n.setEffect(dropShadow);
-					
+				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
+						//Enable shape mode
+						AppController.getInstance().toolbar.textMode();	
+						
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().viewing.CurrentNode = n;
+						
+						/*----------------------------------------------------------------------------------------------------------------------
+						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
+							  the identical method for shapes and they work. If text has been binded then i'll have a another 
+							  look at this, text can be set from the toolbar, but can't retrieve data from text to display on toolbar - lm1370
+						
+						//Displays selected shape variables on toolbar
+						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
+						AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
+						AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
+						AppController.getInstance().toolbar.textColor.setValue(text.getColor());
+						AppController.getInstance().toolbar.textFill.setValue(text.getFill());
+						AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
+						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+						
+						-------------------------------------------------------------------------------------------------------------------------*/
+						
+						//Highlights selected text
+						DropShadow dropShadow = new DropShadow();
+						dropShadow.setBlurType(BlurType.GAUSSIAN);
+						dropShadow.setColor(Color.BLACK);
+						dropShadow.setOffsetX(0.0);
+						dropShadow.setOffsetY(0.0);
+						dropShadow.setRadius(20.0);
+						n.setEffect(dropShadow);
 					}
 				}
 			});
 			
-			//When mouse exits text it removes the shadow
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
+					//Un-highlights selected text
 					DropShadow dropShadow = new DropShadow();
 					dropShadow.setBlurType(BlurType.GAUSSIAN);
 					dropShadow.setColor(Color.TRANSPARENT);

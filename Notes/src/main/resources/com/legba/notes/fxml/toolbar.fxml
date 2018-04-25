@@ -29,56 +29,29 @@
 	
 	<!-- Menu bar to be applied across all screens, apart from login screen -->
 	<!-- Coded by: jjds502, lm1370, tmm522, 1st iteration 22/02/2018 -->
+	<!-- Slight Re-arrangement of layout and seperated text and shape editing tools, lm1370 , 21/03/2018 --> 
 	
 	<top>
 		<BorderPane  fx:id="toolbar">
-			<bottom>
-				<BorderPane>
-					<left>
-						<BorderPane>
-							<top>
-								<ToolBar>
-									<HBox>
-										<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
-										<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
-										<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
-										<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
-										<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
-										<Button text="Br" onAction="#handlePageBreakAction"  />
-									</HBox>				
-								</ToolBar>
-							</top>
-							
-							<center>
-								<ToolBar>
-									<HBox>	
-										<Button text="Color"/>
-										<ColorPicker prefWidth="30" fx:id="textColor" onAction="#handleColorPickAction"/>
-										<Button text="Fill"/>
-										<ColorPicker prefWidth="30"/>
-										<Button text="Start" onAction="#handleStartButtonAction" />
-										<Button text="Duration"  />
-									</HBox>				
-								</ToolBar>
-							</center>
-						</BorderPane>
-					</left>
-					
-					<right>
-						<ToolBar>
-							<HBox>
-								<Button text="Button1"/>
-								<Button text="Button1"  />
-								<Button text="Button1"  />
-								<Button text="Button1"  />
-								<Button text="Button1"  />
-								<Button text="Button1"  />
-							</HBox>				
-						</ToolBar>
-					</right>
-				</BorderPane>
-			</bottom>	
+			<top>
+				<ToolBar>
+					<HBox>
+						<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
+						<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
+						<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
+						<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
+						<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
+						<Button text="Br" fx:id="pageBreak" onAction="#handlePageBreakAction"  />
+						<ColorPicker prefWidth="30" fx:id="textColor" onAction="#handleFontColorAction"/>
+						<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
+						
+						<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
+						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
+						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
+						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
+					</HBox>				
+				</ToolBar>
+			</top>	
 		</BorderPane>
 	</top>
 </BorderPane>
-

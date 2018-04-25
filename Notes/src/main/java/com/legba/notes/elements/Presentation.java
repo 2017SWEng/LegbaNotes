@@ -30,55 +30,55 @@ public class Presentation extends Element implements Colorable,Formatable{
 	
 	private Integer size;
 	
-	private List<Meta> Meta;
-	private List<Slide> Slide;
+	private List<Meta> Metas;
+	private List<Slide> Slides;
 	
 	public Presentation() {
 		super();
 
-		this.Meta=new ArrayList<Meta>();
-		this.Slide=new ArrayList<Slide>();
+		this.Metas=new ArrayList<Meta>();
+		this.Slides=new ArrayList<Slide>();
 	}
 	
 	public void setSlide(List<Slide> slide) {
-		this.Slide.clear();
-		this.Slide.addAll(slide);
+		this.Slides.clear();
+		this.Slides.addAll(slide);
 	}
 	
 	@XmlElement(name="Slide")
 	public List<Slide> getSlide() {
-		return this.Slide;
+		return this.Slides;
 	}
 	
 	
 	public void addSlide(Slide slide) {
-		this.Slide.add(slide);
+		this.Slides.add(slide);
 	}
 	
 	public Slide getSlide(int index) {
-		if(index < this.Slide.size()) {
-			return this.Slide.get(index);
+		if(index < this.Slides.size()) {
+			return this.Slides.get(index);
 		}
 		return null;
 	}
 	
 	public void setMeta(List<Meta> meta) {
-		this.Meta.clear();
-		this.Meta.addAll(meta);
+		this.Metas.clear();
+		this.Metas.addAll(meta);
 	}
 	
 	@XmlElement(name="Meta")
 	public List<Meta> getMeta() {
-		return this.Meta;
+		return this.Metas;
 	}
 	
 	public void addMeta(Meta meta) {
-		this.Meta.add(meta);
+		this.Metas.add(meta);
 	}
 	
 	public Meta getMeta(int index) {
-		if(index < this.Meta.size()) {
-			return this.Meta.get(index);
+		if(index < this.Metas.size()) {
+			return this.Metas.get(index);
 		}
 		return null;
 	}
@@ -107,7 +107,7 @@ public class Presentation extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setFill(Color fill) {
-		this.color=fill;
+		this.fill=fill;
 	}
 	
 	@Override
