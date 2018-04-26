@@ -9,6 +9,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
 
@@ -48,6 +50,8 @@ public class ToolbarController {
 	public ColorPicker strokeColor;			//Shape stroke colour wheel
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
+	@FXML
+	public TextArea insertText;			//Text field for text input 
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -170,6 +174,16 @@ public class ToolbarController {
 	}
 	
 	/**
+	 * Takes typed text and inserts it
+	 * @param event
+	 */
+	@FXML
+	protected void handleInsertTextAction(ActionEvent event) {
+		CurrentText.addContents(insertText.getText());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
 	 * Enables editing tools for shapes and disables others
 	 */
 	public void shapeMode() {
@@ -186,6 +200,8 @@ public class ToolbarController {
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
+		
+		insertText.setDisable(true);
 	}
 	
 	/**
@@ -205,6 +221,9 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		insertText.setDisable(false);
+		insertText.setText(CurrentText.toString());
 	}
 	
 	/**
@@ -224,6 +243,9 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		insertText.setText(null);
+		insertText.setDisable(true);
 	}
 
 	/**
@@ -240,4 +262,6 @@ public class ToolbarController {
 		//Initially disable editing toolbar
 		initialStartup();
 	}
+	
+	
 }

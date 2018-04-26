@@ -151,13 +151,12 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						//Enable shape mode
-						AppController.getInstance().toolbar.textMode();	
-						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().viewing.CurrentNode = n;
 						
+						//Enable Text mode
+						AppController.getInstance().toolbar.textMode();	
 						/*----------------------------------------------------------------------------------------------------------------------
 						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
 							  the identical method for shapes and they work. If text has been binded then i'll have a another 

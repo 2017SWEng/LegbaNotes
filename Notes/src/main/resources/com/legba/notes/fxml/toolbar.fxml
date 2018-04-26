@@ -49,6 +49,8 @@
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
+
+						<TextArea fx:id="insertText" onKeyTyped="#handleInsertTextAction"></TextArea>
 					</HBox>				
 				</ToolBar>
 			</top>	

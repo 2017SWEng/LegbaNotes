@@ -35,7 +35,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Integer textsize;
 	
-
 	private List<Object> contents;
 	
 	public Text() {
@@ -56,6 +55,31 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		//TODO:: Check to make sure font is valid
 		
 		this.contents=contents;		
+	}
+	
+	public void addContents(Object content) {
+		this.contents.add(content);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (int i=0; i<this.getContents().size(); i++) {
+			
+			if (this.getContents().get(i) instanceof String){
+				sb.append(this.getContents().get(i));
+			}
+			else if (this.getContents().get(i) instanceof Format){
+				sb.append(((Format)this.getContents().get(i)).getText());
+			}
+			else if (this.getContents().get(i) instanceof Br){
+				sb.append("\n");
+			}
+			else {
+				System.err.println("Error");
+			}
+		}
+		return sb.toString();
 	}
 	
 	@Override
