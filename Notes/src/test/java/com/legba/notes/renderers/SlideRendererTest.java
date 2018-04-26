@@ -16,6 +16,7 @@ import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
+import com.legba.notes.elements.Video;
 
 import org.junit.BeforeClass;
 
@@ -25,6 +26,7 @@ public class SlideRendererTest {
 	static Slide shapeSlide;
 	static Slide textSlide;
 	static Slide multiSlide;
+	static Slide videoSlide;
 
 	
 	static SlideRenderer sr;
@@ -32,6 +34,7 @@ public class SlideRendererTest {
 	static int audioRenderCalled = 0;
 	static int vectorRenderCalled = 0;
 	static int textRenderCalled = 0;
+	static int videoRenderCalled = 0;
 	
 	@BeforeClass
 	public static void setup() {
@@ -59,11 +62,18 @@ public class SlideRendererTest {
 				textRenderCalled++;
 			}
 		});
+		
+		VideoRenderer mr = new mockVideoRenderer(new Runnable() {
+			@Override
+			public void run() {
+				videoRenderCalled++;
+			}
+		});
 		//TODO: add other renderers
 		
 		
 		// Create a new sliderenderer using the muck element renderes
-		sr = new SlideRenderer(vr,ar,tr);
+		sr = new SlideRenderer(vr,ar,tr,mr);
 				
 		// Create test slide with one audio element
 		audioSlide = new Slide();
@@ -80,11 +90,19 @@ public class SlideRendererTest {
 		text.setContents(Arrays.asList("test"));
 		textSlide.addText(text);
 		
+		//create test slide with one video
+		videoSlide = new Slide();
+		videoSlide.addVideo(new Video("local_file.mp4"));;
+		
 		// create test slide with multiple mixed elements
 		multiSlide = new Slide();
 		
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
 		multiSlide.addAudio(new Audio("testData/audioTest.wav"));
+		
+		multiSlide.addVideo(new Video("local_file.mp4"));
+		multiSlide.addVideo(new Video("local_file.mp4"));
+		multiSlide.addVideo(new Video("local_file.mp4"));
 		
 		multiSlide.addShape(new Shape("ellipse"));
 		multiSlide.addShape(new Shape("rectangle"));
@@ -106,6 +124,7 @@ public class SlideRendererTest {
 		audioRenderCalled=0;
 		vectorRenderCalled=0;
 		textRenderCalled=0;
+		videoRenderCalled=0;
 	}
 	
 	@Test
@@ -169,6 +188,26 @@ public class SlideRendererTest {
 	}
 	
 	@Test
+	public void test_video() {
+		Node n = sr.render(videoSlide);
+		
+		assertNotNull(n);
+		assertTrue(n instanceof Node);
+		assertTrue(n instanceof Pane);
+		
+		Pane pane = (Pane)n;
+		List<Node> children = pane.getChildren();
+		
+		assertNotNull(children);
+		assertEquals(children.size(), 1);
+		
+		assertTrue(children.get(0) instanceof dummyBox);
+		assertEquals(((dummyBox)children.get(0)).name, "video");
+		
+		assertTrue(videoRenderCalled == 1);
+	}
+	
+	@Test
 	public void test_multi() {
 		Node n = sr.render(multiSlide);
 		
@@ -180,11 +219,12 @@ public class SlideRendererTest {
 		List<Node> children = pane.getChildren();
 		
 		assertNotNull(children);
-		assertEquals(children.size(), 6);
+		assertEquals(children.size(), 9);
 		
 		int numAudios = 0;
 		int numShapes = 0;
 		int numTexts = 0;
+		int numVideos = 0;
 
 		for(Node child : children){
 			assertTrue(child instanceof dummyBox);
@@ -198,6 +238,9 @@ public class SlideRendererTest {
 			else if (((dummyBox)child).name == "text"){
 				numTexts++;
 			}
+			else if (((dummyBox)child).name == "video"){
+				numVideos++;
+			}
 			else{
 				fail();
 			}
@@ -207,10 +250,12 @@ public class SlideRendererTest {
 		assertEquals(numAudios, 2);
 		assertEquals(numShapes, 2);
 		assertEquals(numTexts, 2);
+		assertEquals(numVideos, 3);
 		
 		assertTrue(vectorRenderCalled == 2);
 		assertTrue(audioRenderCalled == 2);
 		assertTrue(textRenderCalled == 2);
+		assertTrue(videoRenderCalled == 3);
 	}
 	
 	/**
@@ -275,6 +320,30 @@ public class SlideRendererTest {
 			
 			// need to return a real node because you cannot add NULL as a child element
 			return new dummyBox("text");
+			
+		}
+	}
+	
+	/**
+	 * Testing subclass of video renderer for mocking/testing purposes
+	 */
+	private static class mockVideoRenderer extends VideoRenderer {
+		
+		Runnable r;
+		
+		public mockVideoRenderer(Runnable r){
+			super();
+
+			this.r = r;
+		}
+		
+		@Override
+		public Node render(Video video){
+			// call the callback
+			r.run();
+			
+			// need to return a real node because you cannot add NULL as a child element
+			return new dummyBox("video");
 			
 		}
 	}

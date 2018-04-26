@@ -19,6 +19,7 @@ import javafx.geometry.Insets;
 public class PdfView extends BorderPane{
 	private WebEngine webEngine;
 	private Boolean pdfLoaded = false;
+	private Button pageUp;
 	
 	/**
 	 * 
@@ -52,7 +53,7 @@ public class PdfView extends BorderPane{
 			}
 		});
 		
-		Button pageUp = new Button("Previous Page");
+		pageUp = new Button("Previous Page");
 		pageUp.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -131,5 +132,9 @@ public class PdfView extends BorderPane{
 	
 	public int getPageNumber(){
 		return (int) webEngine.executeScript("getPageNumber()");
+	}
+	
+	public Button getPageUp(){
+		return pageUp;
 	}
 }

@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
 
-public class Shape extends SlideElement implements Colorable,Positionable{
+public class Shape extends SlideElement implements Colorable{
 	
 	private String type;
 	
@@ -43,11 +43,16 @@ public class Shape extends SlideElement implements Colorable,Positionable{
 	}
 	
 	//Sets type of shape
-	public void setType(String type) {
+	public void setType(String type) throws IllegalArgumentException{
 		
 		// Only allow valid types to be set
 		if(type.equals("ellipse") || type.equals("rectangle") || type.equals("line")) {
 			this.type=type;
+		}
+		else {
+			System.err.println("Error: Invalid shape type");
+			throw new IllegalArgumentException("Invalid shape type");		
+			
 		}
 
 	}
