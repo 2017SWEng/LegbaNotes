@@ -17,12 +17,19 @@ import com.legba.notes.models.AppModel;
 import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 
@@ -51,6 +58,95 @@ public class AppController implements Observer{
 
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
+		
+		//Different view modes equal different exit messages			
+		mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {	
+	        @Override
+	        public void handle(final WindowEvent event) {
+	            //Stage
+	            final Stage dialog = new Stage();
+	            
+	            if(AppModel.getInstance().getVeiwMode() == ViewMode.Mode.VEIWING) {
+		            Label label = new Label("Do you want to save your work?");
+		            Button saveBtn = new Button("Save and close");
+		            Button dontSaveBtn = new Button("Close without saving");
+		            Button cancelBtn = new Button("Cancel");
+		            
+		            HBox closeWindow = new HBox();
+		            closeWindow.getChildren().add(label);
+		            closeWindow.getChildren().add(saveBtn);
+		            closeWindow.getChildren().add(dontSaveBtn);
+		            closeWindow.getChildren().add(cancelBtn);
+		            
+		            dialog.setScene(new Scene(closeWindow));
+		            dialog.initModality(Modality.APPLICATION_MODAL);
+		            dialog.show();
+		            
+		            //Save and close program
+		            saveBtn.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                	AppController.getInstance().menu.externalSaveFile();
+		                	dialog.close();
+		                    mainStage.close();
+		                }
+		            });
+		            
+		            //Close without saving program
+		            dontSaveBtn.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                    dialog.close();
+		                    mainStage.close();
+		                }
+		            });
+		            
+		            //Close dialog pop up
+		            cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                    dialog.close();
+		                }
+		            });
+		            
+		            event.consume();
+		        }
+	            else {
+		            Label label = new Label("Do you want to exit?");
+		            Button yesBtn = new Button("Yes");
+		            Button noBtn = new Button("No");
+		            
+		            HBox closeWindow = new HBox();
+		            closeWindow.getChildren().add(label);
+		            closeWindow.getChildren().add(yesBtn);
+		            closeWindow.getChildren().add(noBtn);
+		            
+		            dialog.setScene(new Scene(closeWindow));
+		            dialog.initModality(Modality.APPLICATION_MODAL);
+		            dialog.show();
+		            
+		            //Close program
+		            yesBtn.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                	dialog.close();
+		                    mainStage.close();
+		                }
+		            });
+		            
+		            //Close without saving program
+		            noBtn.setOnAction(new EventHandler<ActionEvent>() {
+		                @Override
+		                public void handle(ActionEvent event) {
+		                    dialog.close();
+		                }
+		            });
+		            
+		            event.consume();
+	            }
+	        } 
+		});
+        mainStage.show();
 	}
 
 	private AppController(){
@@ -63,6 +159,13 @@ public class AppController implements Observer{
 			instance = new AppController();
 		}
 		return instance;
+	}
+	
+	public void start(Stage mainStage) throws Exception {
+	    mainStage.setOnCloseRequest(e -> {
+	        System.out.print("QUIT");
+	    });
+	    mainStage.show();
 	}
 	
  	@FXML
@@ -78,6 +181,7 @@ public class AppController implements Observer{
 		
 		// force updateMode to load default page
 		updateMode(ViewMode.Mode.HOMEPAGE);
+
 	}
 	
  	

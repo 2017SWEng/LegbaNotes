@@ -42,36 +42,39 @@ public class MenuController implements Observer{
 		
 		if(AppModel.getInstance().getVeiwMode() == ViewMode.Mode.VEIWING)
 		{
-			//get the presentation to save
-			Presentation pres = AppModel.getInstance().getPres();
-			
-			//get the user to select the file path
-			FileChooser fileChooser = new FileChooser();
-	        fileChooser.setTitle("Save New Note File");
-	        fileChooser.getExtensionFilters().addAll(
-	        		new FileChooser.ExtensionFilter("Text file", "*.pws")
-	        );
-	        
-	        //get the file path
-	        File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
-	        
-	        //call the xml saver
-	        AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
-		
-	        //update recents
-	        try {
-				AppController.getInstance().updateRecents(file);
-			} catch (IOException e) {
-				System.out.println("Unable to update Recent Docs");
-				e.printStackTrace();
-			}
+			externalSaveFile();
 		}
-		
 			
 	}
 	
 	private final static String toolbarPath = "com/legba/notes/fxml/toolbar.fxml";
-
+	
+	public void externalSaveFile() {
+		//get the presentation to save
+		Presentation pres = AppModel.getInstance().getPres();
+		
+		//get the user to select the file path
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save New Note File");
+        fileChooser.getExtensionFilters().addAll(
+        		new FileChooser.ExtensionFilter("Text file", "*.pws")
+        );
+        
+        //get the file path
+        File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
+        
+        //call the xml saver
+        AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
+	
+        //update recents
+        try {
+			AppController.getInstance().updateRecents(file);
+		} catch (IOException e) {
+			System.out.println("Unable to update Recent Docs");
+			e.printStackTrace();
+		}
+	}
+	
 	public MenuController(){
 	}
 	
