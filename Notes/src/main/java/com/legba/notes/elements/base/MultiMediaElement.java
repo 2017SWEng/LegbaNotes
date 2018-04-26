@@ -21,6 +21,8 @@ public abstract class MultiMediaElement extends SlideElement implements Pathable
 	public void setPath(String path) {
 		if (this.isValidPath(path)) {
 			this.path = path;
+		}else {
+			throw new IllegalArgumentException("Invalid Path type");
 		}
 	}
 

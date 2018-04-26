@@ -2,33 +2,33 @@ package com.legba.notes.elements;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 
-public class VideoTest {
+public class AudioTest {
 	// All the types of extensions that should be accepted
 	String[] extensionType = new String[] {
-			".mp4",".MP4",
-			".m4a",".M4A",
-			".m4v",".M4V",
+			".wav",".WAV",
+			".aif",".AIF",
+			".aiff",".AIFF",
 			".m3u8",".M3U8",
-			".fxm",".FXM",
-			".flv",".FLV"
+			".mp3",".MP3"
 	};
 
 	@Test
 	//Tests if all these path types are Valid
 	public void testPath() {
-		Video vid = null;
+		Audio aud = null;
 		for(int i = 0; i<extensionType.length; i++){
 			String path = "test" + extensionType[i];
-			try{
-				vid = new Video(path);
-			}catch(Exception IllegalArgument){
+			
+			try {
+				 aud = new Audio(path);
+			} catch (Exception IllegalArgument){
 				fail();
 			}
-			boolean isValid = vid.isValidPath(path);
+			boolean isValid = aud.isValidPath(path);
 		
 			Assert.assertTrue(path + " is not valid", isValid);
 		};	
@@ -37,15 +37,15 @@ public class VideoTest {
 	@Test
 	//Checks validity with a relative path types
 	public void testPath_relative() {
-		Video vid = null;
+		Audio aud = null;
 		for(int i = 0; i<extensionType.length; i++){
 			String path = "./test" + extensionType[i];
-			try{
-				vid = new Video(path);
-			}catch(Exception IllegalArgument){
+			try {
+				 aud = new Audio(path);
+			} catch (Exception IllegalArgument){
 				fail();
 			}
-			boolean isValid = vid.isValidPath(path);
+			boolean isValid = aud.isValidPath(path);
 		
 			Assert.assertTrue(path + " is not valid", isValid);
 		};	
@@ -54,18 +54,19 @@ public class VideoTest {
 	@Test
 	//Checks validity with a http path type
 	public void testPath_http() {
-		Video vid = null;
+		Audio aud = null;
 		for(int i = 0; i<extensionType.length; i++){
 			String path = "http://example.com/test" + extensionType[i];
-			try{
-				vid = new Video(path);
-			}catch(Exception IllegalArgument){
+			try {
+				 aud = new Audio(path);
+			} catch (Exception IllegalArgument){
 				fail();
 			}
-			boolean isValid = vid.isValidPath(path);
+			boolean isValid = aud.isValidPath(path);
 		
 			Assert.assertTrue(path + " is not valid", isValid);
 		};	
+
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -73,8 +74,8 @@ public class VideoTest {
 	public void testPath_noExtension() {
 		String path = "test";
 		
-		Video vid = new Video(path);
-		boolean isValid = vid.isValidPath(path);
+		Audio aud = new Audio(path);
+		boolean isValid = aud.isValidPath(path);
 		
 		Assert.assertFalse(path + " is not valid", isValid);
 	}
