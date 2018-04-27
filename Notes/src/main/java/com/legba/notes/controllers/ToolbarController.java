@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
 
@@ -51,7 +50,9 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML
-	public TextArea insertText;			//Text field for text input 
+	public TextArea insertText;				//Text field for text input 
+	@FXML
+	public Button insertTextButton;			//Button for submitting text changes
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -174,7 +175,7 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Takes typed text and inserts it
+	 * Takes text typed into the text area and inserts it into the slide.
 	 * @param event
 	 */
 	@FXML
@@ -201,7 +202,9 @@ public class ToolbarController {
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
 		
+		insertText.setText(null);
 		insertText.setDisable(true);
+		insertTextButton.setDisable(true);
 	}
 	
 	/**
@@ -224,6 +227,7 @@ public class ToolbarController {
 		
 		insertText.setDisable(false);
 		insertText.setText(CurrentText.toString());
+		insertTextButton.setDisable(false);
 	}
 	
 	/**
@@ -244,8 +248,8 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		
-		insertText.setText(null);
 		insertText.setDisable(true);
+		insertTextButton.setDisable(true);
 	}
 
 	/**

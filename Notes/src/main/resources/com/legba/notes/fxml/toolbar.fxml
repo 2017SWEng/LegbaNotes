@@ -28,8 +28,9 @@
 	
 	
 	<!-- Menu bar to be applied across all screens, apart from login screen -->
-	<!-- Coded by: jjds502, lm1370, tmm522, 1st iteration 22/02/2018 -->
-	<!-- Slight Re-arrangement of layout and seperated text and shape editing tools, lm1370 , 21/03/2018 --> 
+	<!-- Coded by: jjds502, lm1370, tmm522, lr870, 1st iteration 22/02/2018 -->
+	<!-- Slight Re-arrangement of layout and separated text and shape editing tools, lm1370 , 21/03/2018 --> 
+	<!-- Text Area and button created by lr870 26/04/2018 -->
 	
 	<top>
 		<BorderPane  fx:id="toolbar">
@@ -50,7 +51,8 @@
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
 
-						<TextArea fx:id="insertText" onKeyTyped="#handleInsertTextAction"></TextArea>
+						<TextArea fx:id="insertText"></TextArea>
+						<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
 					</HBox>				
 				</ToolBar>
 			</top>	

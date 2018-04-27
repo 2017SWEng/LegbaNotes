@@ -58,6 +58,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 	
 	public void addContents(Object content) {
+		this.contents.clear();
 		this.contents.add(content);
 	}
 	
@@ -200,6 +201,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public void setDuration(Integer duration) {
 		this.duration=duration;
 	}
+	
 
 
 }
