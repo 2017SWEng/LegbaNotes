@@ -49,7 +49,7 @@ public class MenuController implements Observer{
 	
 	private final static String toolbarPath = "com/legba/notes/fxml/toolbar.fxml";
 	
-	public void externalSaveFile() {
+	public boolean externalSaveFile() {
 		//get the presentation to save
 		Presentation pres = AppModel.getInstance().getPres();
 		
@@ -63,6 +63,10 @@ public class MenuController implements Observer{
         //get the file path
         File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
         
+        if(file == null) {
+        	return false;
+        }
+        
         //call the xml saver
         AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
 	
@@ -73,9 +77,12 @@ public class MenuController implements Observer{
 			System.out.println("Unable to update Recent Docs");
 			e.printStackTrace();
 		}
+        
+        return true;
 	}
 	
 	public MenuController(){
+		AppController.getInstance().menu = this;
 	}
 	
 	@FXML

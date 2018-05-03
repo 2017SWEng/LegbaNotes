@@ -86,9 +86,18 @@ public class AppController implements Observer{
 		            saveBtn.setOnAction(new EventHandler<ActionEvent>() {
 		                @Override
 		                public void handle(ActionEvent event) {
-		                	AppController.getInstance().menu.externalSaveFile();
-		                	dialog.close();
-		                    mainStage.close();
+		                	//System.out.println(event + "\n"  + AppController.getInstance() + "\n" + AppController.getInstance().menu);
+		                	boolean ifFileValid = AppController.getInstance().menu.externalSaveFile();
+		                	
+		                	if(ifFileValid == true) {
+		                		dialog.close();
+			                    mainStage.close();
+		                	}
+		                	else {
+		                		System.out.println("File not chosen");
+		                		dialog.close();
+		                	}
+		                	
 		                }
 		            });
 		            
