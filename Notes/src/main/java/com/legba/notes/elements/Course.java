@@ -53,15 +53,19 @@ public class Course implements Serializable{
 		this.years = years;
 		
 		//instantiate lists
-		this.yearlyModules = new ArrayList<ArrayList<Module>>(years);
+		this.yearlyModules = new ArrayList<ArrayList<Module>>();
+		for( int i = 0; i < years; i++ ){
+			this.yearlyModules.add(new ArrayList<Module>());
+		}
 		this.assignedStudents = new ArrayList<User>();
 	}
 	
 	public Course(){
 		this.setTitle("Please Set Title");
+		this.years = 0;
 		
 		//instantiate lists
-		this.yearlyModules = new ArrayList<ArrayList<Module>>(years);
+		this.yearlyModules = new ArrayList<ArrayList<Module>>();
 		this.assignedStudents = new ArrayList<User>();
 	}
 	
@@ -79,6 +83,13 @@ public class Course implements Serializable{
 	}
 	public void addModule(String title, int year){
 		this.yearlyModules.get(year-1).add(new Module(title, year));
+	}
+	public void addMoudle(Module module) {
+		this.yearlyModules.get(module.getYear()-1).add(module);
+	}
+	public void addYear() {
+		this.yearlyModules.add(new ArrayList<Module>());
+		this.years++;
 	}
 	public boolean removeModule(Module module){
 		/**
@@ -125,7 +136,7 @@ public class Course implements Serializable{
 		 * @Return Title and Years
 		 */
 		return "Course Title: " + this.title + System.lineSeparator() +
-				"Duration: " + this.years + " years";
+				"Duration: " + this.years + " years" + " (" + this.yearlyModules.size() + ")";
 		
 	}
 	

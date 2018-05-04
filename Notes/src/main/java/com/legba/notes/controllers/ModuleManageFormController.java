@@ -2,6 +2,8 @@ package com.legba.notes.controllers;
 
 import com.legba.notes.elements.Course;
 import com.legba.notes.elements.Module;
+import com.legba.notes.elements.User;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -12,6 +14,8 @@ import javafx.scene.control.*;
 public class ModuleManageFormController {
 
 	ObservableList<String> ItemList;
+	ObservableList<Course> CourseList;
+	ObservableList<Module> ModuleList;
 	
 	@FXML
 	TextField ModuleNumberField;
@@ -34,6 +38,11 @@ public class ModuleManageFormController {
 	@FXML
 	TextField UsernameField;
 	
+	@FXML
+	ChoiceBox<Module> ModuleChoiceBx;
+	
+	@FXML
+	ChoiceBox<Course> CourseChoiceBx;
 	
 	@FXML
 	ListView<String> ExistingObjectList;
@@ -42,31 +51,39 @@ public class ModuleManageFormController {
 		
 		Module newModule = new Module(this.ModuleTitleField.getText(), Integer.parseInt(this.ModuleNumberField.getText()));
 		ItemList.add(newModule.toString());
+		ModuleList.add(newModule);
 		
-		FileSystemController fsc = new FileSystemController();
-		fsc.saveToModulesFile(newModule);
+		//FileSystemController fsc = new FileSystemController();
+		//fsc.saveToModulesFile(newModule);
 	}
 	
 	@FXML public void handleNewCourseBtn(ActionEvent e){
 		
 		Course newCourse = new Course(this.CourseTitleField.getText(), Integer.parseInt(this.CourseNumberField.getText()));
 		ItemList.add(newCourse.toString());
+		CourseList.add(newCourse);
 		
-		FileSystemController fsc = new FileSystemController();
-		fsc.saveToCourseFile(newCourse);
+		//FileSystemController fsc = new FileSystemController();
+		//fsc.saveToCourseFile(newCourse);
 	}
 	
 	@FXML public void handleNewUserBtn(ActionEvent e){
 		
-//		Course newCourse = new Course(this.CourseTitleField.getText(), Integer.parseInt(this.CourseNumberField.getText()));
-//		ItemList.add(newCourse.toString());
-//		
-//		FileSystemController fsc = new FileSystemController();
-//		fsc.saveToCourseFile(newCourse);
+		User newUser = new User(this.UsernameField.getText(), "password", User.USER_TYPE.STUDENT );
+		newUser.setForename(this.UserForenameField.getText());
+		newUser.setSurname(this.UserSurnameField.getText());
+		
+		ItemList.add(newUser.toString());
+
 	}
 
 	@FXML public void handleAddModuleBtn(ActionEvent e){
+		//get selected items
+		Course chosenCourse = this.CourseChoiceBx.getValue();
+		Module chosenModule = this.ModuleChoiceBx.getValue();
 		
+		//add the module to the course
+		chosenCourse.addMoudle(chosenModule);
 	}
 	
 	public ModuleManageFormController(){
@@ -95,11 +112,14 @@ public class ModuleManageFormController {
 			}
 		});
 		
-		FileSystemController fsc = new FileSystemController();
-		fsc.readCourseFile();
+		//FileSystemController fsc = new FileSystemController();
+		//fsc.readCourseFile();
 		
 		//create a list for the modules
 		ItemList = ExistingObjectList.getItems();
+		
+		ModuleList = ModuleChoiceBx.getItems();
+		CourseList = CourseChoiceBx.getItems();
 	}
 	
 	
