@@ -200,8 +200,11 @@ public class SlideRenderer extends Renderer<Slide> {
 			});
 			
 			pane.getChildren().add(n);
+			//AppController.getInstance().toolbar.CurrentPane = pane;
 			
 		}
+		
+		
 		
 		//TODO: repeat for other renderers
 		

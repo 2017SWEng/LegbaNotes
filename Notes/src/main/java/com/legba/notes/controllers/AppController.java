@@ -86,9 +86,10 @@ public class AppController implements Observer{
 		            saveBtn.setOnAction(new EventHandler<ActionEvent>() {
 		                @Override
 		                public void handle(ActionEvent event) {
-		                	//System.out.println(event + "\n"  + AppController.getInstance() + "\n" + AppController.getInstance().menu);
+		                	//Call function to save external file
 		                	boolean ifFileValid = AppController.getInstance().menu.externalSaveFile();
 		                	
+		                	//Check that file name is valid / action hasn't been cancelled
 		                	if(ifFileValid == true) {
 		                		dialog.close();
 			                    mainStage.close();

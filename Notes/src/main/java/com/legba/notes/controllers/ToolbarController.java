@@ -21,6 +21,7 @@ public class ToolbarController {
 	
 	public Shape CurrentShape;
 	public Text CurrentText;
+	public Pane CurrentPane;
 	
 	@FXML
 	private BorderPane toolbar_root;		//Toolbar borderpane
@@ -40,6 +41,8 @@ public class ToolbarController {
 	public ComboBox<String> fontCombo;		//Font type list
 	@FXML
 	public ComboBox<Integer> sizeCombo;		//Font size list
+	@FXML 
+	public Button deleteText;				//Delete current text button
 	@FXML
 	public ComboBox<String> typeCombo;		//Shape type list
 	@FXML
@@ -48,6 +51,8 @@ public class ToolbarController {
 	public ColorPicker strokeColor;			//Shape stroke colour wheel
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
+	@FXML 
+	public Button deleteShape;				//Delete current shape button
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -130,6 +135,16 @@ public class ToolbarController {
 	}
 	
 	/**
+	 * Button to delete currently selected text 
+	 * @param event
+	 */
+	@FXML 
+	protected void handleDeleteTextAction(ActionEvent event) {
+		CurrentPane.getChildren().remove(CurrentText);
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
 	 * Takes selected shape type and sets it to the selected shape
 	 * @param event
 	 */
@@ -170,6 +185,16 @@ public class ToolbarController {
 	}
 	
 	/**
+	 * Button to delete currently selected shape 
+	 * @param event
+	 */
+	@FXML 
+	protected void handleDeleteShapeAction(ActionEvent event) {
+		CurrentPane.getChildren().remove(CurrentShape);
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
 	 * Enables editing tools for shapes and disables others
 	 */
 	public void shapeMode() {
@@ -181,11 +206,13 @@ public class ToolbarController {
 		pageBreak.setDisable(true);
 		textColor.setDisable(true);
 		textFill.setDisable(true);
+		deleteText.setDisable(true);
 		
 		typeCombo.setDisable(false);
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
+		deleteShape.setDisable(false);
 	}
 	
 	/**
@@ -200,11 +227,13 @@ public class ToolbarController {
 		pageBreak.setDisable(false);
 		textColor.setDisable(false);
 		textFill.setDisable(false);
+		deleteText.setDisable(false);
 		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		deleteShape.setDisable(true);
 	}
 	
 	/**
