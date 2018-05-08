@@ -66,6 +66,9 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 
 	@Override
 	public void setFont(String font) {
+		if (font == null) {
+			return;
+		}
 		//TODO:: Check to make sure font is valid
 		this.font=font;		
 	}
@@ -121,8 +124,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public void setTextsize(Integer size) {
 		this.textsize=size;		
 	}
-	
-	
+		
 	
 	@Override
 	@XmlAttribute
