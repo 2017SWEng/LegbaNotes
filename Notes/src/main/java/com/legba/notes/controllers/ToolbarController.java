@@ -1,87 +1,272 @@
 package com.legba.notes.controllers;
 
-import java.io.File;
-import java.util.List;
+import com.legba.notes.elements.Shape;
+import com.legba.notes.elements.Text;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
-import javafx.scene.shape.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.*;
-import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
+/**
+ * Controller for the toolbar
+ * @author lm1370, tmm522
+ *
+ */
 public class ToolbarController {
 	
-	@FXML
-	private BorderPane toolbar_root;
-
-	//Bold font -- Display current state of bold
-	@FXML
-	private ToggleButton boldFont;
+	public Shape CurrentShape;
+	public Text CurrentText;
+	public Pane CurrentPane;
 	
+	@FXML
+	private BorderPane toolbar_root;		//Toolbar borderpane
+	@FXML
+	public ToggleButton boldFont;			//Bold button
+	@FXML
+	public ToggleButton italicFont;			//Italic button
+	@FXML
+	public ToggleButton undFont;			//Underline button
+	@FXML
+	public ColorPicker textColor;			//Text colour wheel
+	@FXML
+	public ColorPicker textFill;			//Text highlighting wheel
+	@FXML 
+	public Button pageBreak;				//Page break button
+	@FXML
+	public ComboBox<String> fontCombo;		//Font type list
+	@FXML
+	public ComboBox<Integer> sizeCombo;		//Font size list
+	@FXML 
+	public Button deleteText;				//Delete current text button
+	@FXML
+	public ComboBox<String> typeCombo;		//Shape type list
+	@FXML
+	public ComboBox<Integer> strokeCombo;	//Shape stroke width list
+	@FXML
+	public ColorPicker strokeColor;			//Shape stroke colour wheel
+	@FXML
+	public ColorPicker shapeFill;			//Shape Fill colour wheel
+	@FXML 
+	public Button deleteShape;				//Delete current shape button
+	
+	/**
+	 * Toggles bold font for the selected text
+	 * @param event
+	 */
 	@FXML 
 	protected void handleBoldFontAction(ActionEvent event) {
-		System.out.println("Bold: " + boldFont.isSelected());
+		CurrentText.setBold(boldFont.isSelected());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Italic font -- Display current state of Italic
-	@FXML
-	private ToggleButton italicFont;
+	/**
+	 * Toggles italic font for the selected text 
+	 * @param event
+	 */
 	@FXML 
 	protected void handleItalicFontAction(ActionEvent event) {
-		System.out.println("Italic: " + italicFont.isSelected());
+		CurrentText.setItalic(italicFont.isSelected());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Underline font -- Display current state of underline
-	@FXML
-	private ToggleButton undFont;
+	/**
+	 * Toggles underline font for the selected text
+	 * @param event
+	 */
 	@FXML 
 	protected void handleUndFontAction(ActionEvent event) {
-		System.out.println("Underline: " + undFont.isSelected());
+		CurrentText.setUnderline(undFont.isSelected());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Start button -- Display current state of start
+	/**
+	 * Sets text colour for the selected text
+	 * @param event
+	 */
 	@FXML 
-	protected void handleStartButtonAction(ActionEvent event) {
-		System.out.println("Start button pressed");
+	protected void handleFontColorAction(ActionEvent event) {
+		CurrentText.setColor(textColor.getValue());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Text colour wheel -- Display current selected color
+	/**
+	 * Sets text Fill for the selected text
+	 * @param event
+	 */
 	@FXML
-	private ColorPicker textColor;
-	@FXML 
-	protected void handleColorPickAction(ActionEvent event) {
-		System.out.println("Color chosen: " + textColor.getValue());	
+	protected void handleFontFillAction(ActionEvent event) {
+		CurrentText.setFill(textFill.getValue());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Page Break -- Display current state of page break
+	/**
+	 * Button to insert a page break 
+	 * @param event
+	 */
 	@FXML 
 	protected void handlePageBreakAction(ActionEvent event) {
 		System.out.println("Page Break");	
+		//TODO: Functionality code....
 	}
 	
-	//Font -- Display current chosen font
-	@FXML
-	private ComboBox<String> fontCombo;
+	/**
+	 * Takes selected font type and sets it to selected text
+	 * @param event
+	 */
 	@FXML 
 	protected void handleFontAction(ActionEvent event) {
-		System.out.println("Font: " + fontCombo.getValue());	
+		CurrentText.setFont(fontCombo.getValue());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	//Size -- Display current chosen size
-	@FXML
-	private ComboBox<String> sizeCombo;
+	/**
+	 * Takes selected font size and sets it to the selected text
+	 * @param event
+	 */
 	@FXML 
 	protected void handleSizeAction(ActionEvent event) {
-		System.out.println("Size: " + sizeCombo.getValue());	
+		CurrentText.setTextsize(sizeCombo.getValue());
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
+	/**
+	 * Button to delete currently selected text 
+	 * @param event
+	 */
+	@FXML 
+	protected void handleDeleteTextAction(ActionEvent event) {
+		CurrentPane.getChildren().remove(CurrentText);
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected shape type and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML 
+	protected void handleShapeTypeAction(ActionEvent event) {
+		CurrentShape.setType(typeCombo.getValue());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected shape stroke width and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML 
+	protected void handleStrokeTypeAction(ActionEvent event) {	
+		CurrentShape.setStroke(strokeCombo.getValue());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected stroke colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handleStrokeColorAction(ActionEvent event) {
+		CurrentShape.setColor(strokeColor.getValue());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected shape fill colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handleShapeFillAction(ActionEvent event) {
+		CurrentShape.setFill(shapeFill.getValue());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Button to delete currently selected shape 
+	 * @param event
+	 */
+	@FXML 
+	protected void handleDeleteShapeAction(ActionEvent event) {
+		CurrentPane.getChildren().remove(CurrentShape);
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Enables editing tools for shapes and disables others
+	 */
+	public void shapeMode() {
+		boldFont.setDisable(true);
+		italicFont.setDisable(true);
+		undFont.setDisable(true);
+		fontCombo.setDisable(true);
+		sizeCombo.setDisable(true);
+		pageBreak.setDisable(true);
+		textColor.setDisable(true);
+		textFill.setDisable(true);
+		deleteText.setDisable(true);
+		
+		typeCombo.setDisable(false);
+		strokeCombo.setDisable(false);
+		strokeColor.setDisable(false);
+		shapeFill.setDisable(false);
+		deleteShape.setDisable(false);
+	}
+	
+	/**
+	 * Enables editing tools for text and disables others
+	 */
+	public void textMode() {
+		boldFont.setDisable(false);
+		italicFont.setDisable(false);
+		undFont.setDisable(false);
+		fontCombo.setDisable(false);
+		sizeCombo.setDisable(false);
+		pageBreak.setDisable(false);
+		textColor.setDisable(false);
+		textFill.setDisable(false);
+		deleteText.setDisable(false);
+		
+		typeCombo.setDisable(true);
+		strokeCombo.setDisable(true);
+		strokeColor.setDisable(true);
+		shapeFill.setDisable(true);
+		deleteShape.setDisable(true);
+	}
+	
+	/**
+	 * On Start up disable all editing tools
+	 */
+	public void initialStartup() {
+		boldFont.setDisable(true);
+		italicFont.setDisable(true);
+		undFont.setDisable(true);
+		fontCombo.setDisable(true);
+		sizeCombo.setDisable(true);
+		pageBreak.setDisable(true);
+		textColor.setDisable(true);
+		textFill.setDisable(true);
+		
+		typeCombo.setDisable(true);
+		strokeCombo.setDisable(true);
+		strokeColor.setDisable(true);
+		shapeFill.setDisable(true);
+	}
+
+	/**
+	 * Initialise method
+	 */
 	public void initialize() {
-		fontCombo.getItems().setAll(Font.getFontNames());
-		sizeCombo.getItems().setAll("8", "10", "12");
+		AppController.getInstance().toolbar = this;
+		
+		fontCombo.getItems().setAll(Font.getFamilies());
+		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
+		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
+		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		
+		//Initially disable editing toolbar
+		initialStartup();
 	}
 }

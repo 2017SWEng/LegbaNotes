@@ -32,7 +32,10 @@ public class ViewMode extends Observable{
 	 * Enum for different view modes
 	 * <li>{@link #HOMEPAGE}</li>
 	 * <li>{@link #VEIWING}</li>
+	 * <li>{@link #LOGIN}</li>
+	 * <li>{@link #MODULE_MANAGEMENT}</li>
 	 * @author zraw500
+	 * @author Contributed to by <jjds502>
 	 */
 	public enum Mode {
 		/**
@@ -43,9 +46,17 @@ public class ViewMode extends Observable{
 		 /**
 		  *  for viewing (and editing) a notes file
 		  */
-		VEIWING  
+		VEIWING,
 		
-		// Login
+		/**
+		 * Login page will be shown when user session is not in progress/has expired
+		 */
+		LOGIN,
+		
+		/**
+		 * 
+		 */
+		MODULE_MANAGEMENT
 		// User Management
 		// Account management (settings)
 		// Dept./Course/Module management	
