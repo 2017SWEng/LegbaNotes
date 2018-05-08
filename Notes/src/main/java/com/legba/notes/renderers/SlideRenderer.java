@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
+import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
@@ -31,7 +32,7 @@ public class SlideRenderer extends Renderer<Slide> {
 	AudioRenderer audioRenderer;
 	TextRenderer textRenderer;
 	VideoRenderer videoRenderer;
-	//TODO: add other renders to this
+	ImageRenderer imageRenderer;
 
 	/**
 	 * Default constructor, use default SlideElement renderers
@@ -41,7 +42,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		this.audioRenderer = new AudioRenderer();
 		this.textRenderer = new TextRenderer();
 		this.videoRenderer = new VideoRenderer();
-		//TODO: add other renders to this
+		this.imageRenderer = new ImageRenderer();
 	}
 	
 	/**
@@ -53,13 +54,14 @@ public class SlideRenderer extends Renderer<Slide> {
 			VectorRenderer vectorRenderer,
 			AudioRenderer audioRenderer,
 			TextRenderer textRenderer,
-			VideoRenderer videoRenderer
+			VideoRenderer videoRenderer,
+			ImageRenderer imageRenderer
 			){
 		this.vectorRenderer = vectorRenderer;
 		this.audioRenderer = audioRenderer;
 		this.textRenderer = textRenderer;
 		this.videoRenderer = videoRenderer;
-		//TODO: add other renders to this
+		this.imageRenderer = imageRenderer;
 	}
 	
 	/**
@@ -144,6 +146,10 @@ public class SlideRenderer extends Renderer<Slide> {
 			pane.getChildren().add(this.videoRenderer.render(video));
 		}
 		
+		for(Image image : s.getImages()){
+			pane.getChildren().add(this.imageRenderer.render(image));
+		}
+		
 		for(Text text : s.getTexts()){
 			Node n = this.textRenderer.render(text);
 			
@@ -203,11 +209,6 @@ public class SlideRenderer extends Renderer<Slide> {
 			//AppController.getInstance().toolbar.CurrentPane = pane;
 			
 		}
-		
-		
-		
-		//TODO: repeat for other renderers
-		
 		
 		return pane;
 	}

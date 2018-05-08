@@ -69,7 +69,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 		this.images = images;
 	}
 
-	public void addAudio(Image image) {
+	public void addImage(Image image) {
 		this.images.add(image);
 	}
 
