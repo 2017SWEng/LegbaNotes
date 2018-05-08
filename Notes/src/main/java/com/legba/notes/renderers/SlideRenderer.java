@@ -157,10 +157,6 @@ public class SlideRenderer extends Renderer<Slide> {
 						
 						//Enable Text mode
 						AppController.getInstance().toolbar.textMode();	
-						/*----------------------------------------------------------------------------------------------------------------------
-						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
-							  the identical method for shapes and they work. If text has been binded then i'll have a another 
-							  look at this, text can be set from the toolbar, but can't retrieve data from text to display on toolbar - lm1370
 						
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
@@ -170,8 +166,6 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.textFill.setValue(text.getFill());
 						AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
 						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
-						
-						-------------------------------------------------------------------------------------------------------------------------*/
 						
 						//Highlights selected text
 						DropShadow dropShadow = new DropShadow();

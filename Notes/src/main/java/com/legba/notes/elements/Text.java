@@ -40,6 +40,13 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Text() {
 		super();
 		
+		this.color = javafx.scene.paint.Color.BLACK;
+		this.fill = javafx.scene.paint.Color.BLACK;
+		this.font = "Times New Roman";
+		this.italic = false;
+		this.bold = false;
+		this.underline = false;
+		this.textsize = 10;
 		this.contents = new ArrayList<Object>();
 	}
 	@XmlElementRefs({
@@ -92,7 +99,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	@Override
 	public void setFont(String font) {
 		//TODO:: Check to make sure font is valid
-		this.font=font;		
+		this.font = font;		
 	}
 
 

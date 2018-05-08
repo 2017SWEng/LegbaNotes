@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.web.HTMLEditor?>
 
 <BorderPane 
 	fx:id="toolbar_root"
@@ -50,9 +51,10 @@
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
-
-						<TextArea fx:id="insertText"></TextArea>
 						<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
+					</HBox>
+					<HBox>
+						<HTMLEditor fx:id="insertText"></HTMLEditor>
 					</HBox>				
 				</ToolBar>
 			</top>	

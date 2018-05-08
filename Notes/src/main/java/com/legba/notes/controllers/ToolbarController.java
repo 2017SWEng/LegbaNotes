@@ -2,6 +2,7 @@ package com.legba.notes.controllers;
 
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Text;
+import com.legba.notes.app.HTMLConverter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
+import javafx.scene.web.HTMLEditor;
 
 /**
  * Controller for the toolbar
@@ -50,7 +52,7 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML
-	public TextArea insertText;				//Text field for text input 
+	public HTMLEditor insertText;				//Text field for text input 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
 	
@@ -180,7 +182,7 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		CurrentText.addContents(insertText.getText());
+		CurrentText.addContents(insertText.getHtmlText());
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -202,7 +204,7 @@ public class ToolbarController {
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
 		
-		insertText.setText(null);
+		insertText.setHtmlText(null);
 		insertText.setDisable(true);
 		insertTextButton.setDisable(true);
 	}
@@ -226,7 +228,7 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 		
 		insertText.setDisable(false);
-		insertText.setText(CurrentText.toString());
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
 	}
 	
@@ -249,6 +251,7 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 		
 		insertText.setDisable(true);
+		insertText.setPrefSize(200, 100);
 		insertTextButton.setDisable(true);
 	}
 
