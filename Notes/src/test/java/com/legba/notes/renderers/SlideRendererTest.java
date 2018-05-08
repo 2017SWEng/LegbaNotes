@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import org.junit.Test;
 
 import com.legba.notes.elements.Audio;
+import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
@@ -27,6 +28,7 @@ public class SlideRendererTest {
 	static Slide textSlide;
 	static Slide multiSlide;
 	static Slide videoSlide;
+	static Slide imageSlide;
 
 	
 	static SlideRenderer sr;
@@ -35,6 +37,7 @@ public class SlideRendererTest {
 	static int vectorRenderCalled = 0;
 	static int textRenderCalled = 0;
 	static int videoRenderCalled = 0;
+	static int imageRenderCalled = 0;
 	
 	@BeforeClass
 	public static void setup() {
@@ -69,11 +72,17 @@ public class SlideRendererTest {
 				videoRenderCalled++;
 			}
 		});
-		//TODO: add other renderers
+		
+		ImageRenderer ir = new mockImageRenderer(new Runnable() {
+			@Override
+			public void run() {
+				imageRenderCalled++;
+			}
+		});
 		
 		
 		// Create a new sliderenderer using the muck element renderes
-		sr = new SlideRenderer(vr,ar,tr,mr);
+		sr = new SlideRenderer(vr,ar,tr,mr, ir);
 				
 		// Create test slide with one audio element
 		audioSlide = new Slide();
@@ -94,6 +103,10 @@ public class SlideRendererTest {
 		videoSlide = new Slide();
 		videoSlide.addVideo(new Video("local_file.mp4"));;
 		
+		//create test slide with one image
+		imageSlide = new Slide();
+		imageSlide.addImage(new Image("local_file.jpg"));;
+		
 		// create test slide with multiple mixed elements
 		multiSlide = new Slide();
 		
@@ -103,6 +116,9 @@ public class SlideRendererTest {
 		multiSlide.addVideo(new Video("local_file.mp4"));
 		multiSlide.addVideo(new Video("local_file.mp4"));
 		multiSlide.addVideo(new Video("local_file.mp4"));
+		
+		multiSlide.addImage(new Image("local_file.jpg"));
+		multiSlide.addImage(new Image("local_file.jpg"));
 		
 		multiSlide.addShape(new Shape("ellipse"));
 		multiSlide.addShape(new Shape("rectangle"));
@@ -125,6 +141,7 @@ public class SlideRendererTest {
 		vectorRenderCalled=0;
 		textRenderCalled=0;
 		videoRenderCalled=0;
+		imageRenderCalled=0;
 	}
 	
 	@Test
@@ -208,6 +225,26 @@ public class SlideRendererTest {
 	}
 	
 	@Test
+	public void test_image() {
+		Node n = sr.render(imageSlide);
+		
+		assertNotNull(n);
+		assertTrue(n instanceof Node);
+		assertTrue(n instanceof Pane);
+		
+		Pane pane = (Pane)n;
+		List<Node> children = pane.getChildren();
+		
+		assertNotNull(children);
+		assertEquals(children.size(), 1);
+		
+		assertTrue(children.get(0) instanceof dummyBox);
+		assertEquals(((dummyBox)children.get(0)).name, "image");
+		
+		assertTrue(imageRenderCalled == 1);
+	}
+	
+	@Test
 	public void test_multi() {
 		Node n = sr.render(multiSlide);
 		
@@ -219,12 +256,13 @@ public class SlideRendererTest {
 		List<Node> children = pane.getChildren();
 		
 		assertNotNull(children);
-		assertEquals(children.size(), 9);
+		assertEquals(children.size(), 11);
 		
 		int numAudios = 0;
 		int numShapes = 0;
 		int numTexts = 0;
 		int numVideos = 0;
+		int numImages = 0;
 
 		for(Node child : children){
 			assertTrue(child instanceof dummyBox);
@@ -241,6 +279,9 @@ public class SlideRendererTest {
 			else if (((dummyBox)child).name == "video"){
 				numVideos++;
 			}
+			else if (((dummyBox)child).name == "image"){
+				numImages++;
+			}
 			else{
 				fail();
 			}
@@ -251,11 +292,13 @@ public class SlideRendererTest {
 		assertEquals(numShapes, 2);
 		assertEquals(numTexts, 2);
 		assertEquals(numVideos, 3);
+		assertEquals(numImages, 2);
 		
 		assertTrue(vectorRenderCalled == 2);
 		assertTrue(audioRenderCalled == 2);
 		assertTrue(textRenderCalled == 2);
 		assertTrue(videoRenderCalled == 3);
+		assertTrue(imageRenderCalled == 2);
 	}
 	
 	/**
@@ -344,6 +387,29 @@ public class SlideRendererTest {
 			
 			// need to return a real node because you cannot add NULL as a child element
 			return new dummyBox("video");
+			
+		}
+	}
+	/**
+	 * Testing subclass of image renderer for mocking/testing purposes
+	 */
+	private static class mockImageRenderer extends ImageRenderer {
+		
+		Runnable r;
+		
+		public mockImageRenderer(Runnable r){
+			super();
+
+			this.r = r;
+		}
+		
+		@Override
+		public Node render(Image image){
+			// call the callback
+			r.run();
+			
+			// need to return a real node because you cannot add NULL as a child element
+			return new dummyBox("image");
 			
 		}
 	}

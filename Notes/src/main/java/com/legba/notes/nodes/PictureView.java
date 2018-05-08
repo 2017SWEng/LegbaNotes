@@ -1,7 +1,6 @@
 package com.legba.notes.nodes;
 
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
@@ -51,8 +50,9 @@ public class PictureView extends Region {
         mask.setVisible(loupeEnabled);
         maskView.setClip(mask);
 
-        getChildren().addAll(imageView, maskView, new Button("Test"));
+        getChildren().addAll(imageView, maskView);
 
+        
         setLayoutX(x);
         setLayoutY(y);
         setWidth(width);
@@ -146,6 +146,14 @@ public class PictureView extends Region {
      */
     public double getLoupeScale() {
         return scale;
+    }
+    
+    /**
+     * Getter for the Image in imageView
+     * @return image 
+     */
+    public Image getImage() {
+    	return imageView.getImage();
     }
 
     /**
