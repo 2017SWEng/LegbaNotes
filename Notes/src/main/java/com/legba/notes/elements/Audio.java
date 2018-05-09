@@ -13,7 +13,7 @@ public class Audio extends MultiMediaElement{
 	/**
 	 * Constructor supers element
 	 */
-	protected Audio() {
+	public Audio() {
 		super();
 	}
 	

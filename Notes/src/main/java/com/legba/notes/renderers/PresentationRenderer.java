@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 
 import java.util.List;
 
+import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Slide;
@@ -23,7 +24,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 	 * Default constructor uses the default slide renderer
 	 */
 	public PresentationRenderer() {
-		this.slideRenderer = new SlideRenderer();
+		this.slideRenderer = new SlideRenderer();	
 	}
 	
 	/**
@@ -59,6 +60,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 		List<Slide> slide = pres.getSlide();
 		
 		for(Slide s : slide){
+			
 			vbox.getChildren().add(slideRenderer.render(s));
 		}
 		

@@ -1,11 +1,17 @@
 package com.legba.notes.controllers;
 
+import com.legba.notes.elements.Audio;
+import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
+import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
+import com.legba.notes.elements.Video;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -22,6 +28,7 @@ public class ToolbarController {
 	public Shape CurrentShape;
 	public Text CurrentText;
 	public Pane CurrentPane;
+	public Slide CurrentSlide;
 	
 	@FXML
 	private BorderPane toolbar_root;		//Toolbar borderpane
@@ -41,8 +48,6 @@ public class ToolbarController {
 	public ComboBox<String> fontCombo;		//Font type list
 	@FXML
 	public ComboBox<Integer> sizeCombo;		//Font size list
-	@FXML 
-	public Button deleteText;				//Delete current text button
 	@FXML
 	public ComboBox<String> typeCombo;		//Shape type list
 	@FXML
@@ -53,6 +58,8 @@ public class ToolbarController {
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML 
 	public Button deleteShape;				//Delete current shape button
+	@FXML 
+	public ComboBox<String> addCombo;		//Add element button
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -135,16 +142,6 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Button to delete currently selected text 
-	 * @param event
-	 */
-	@FXML 
-	protected void handleDeleteTextAction(ActionEvent event) {
-		CurrentPane.getChildren().remove(CurrentText);
-		AppController.getInstance().viewing.updateSlide();
-	}
-	
-	/**
 	 * Takes selected shape type and sets it to the selected shape
 	 * @param event
 	 */
@@ -190,7 +187,40 @@ public class ToolbarController {
 	 */
 	@FXML 
 	protected void handleDeleteShapeAction(ActionEvent event) {
-		CurrentPane.getChildren().remove(CurrentShape);
+
+	}
+	
+	/**
+	 * Button to add a shape 
+	 * @param event
+	 */
+	@FXML
+	protected void handleAddItemAction(ActionEvent event) {
+		String SelectedItem = new String(addCombo.getValue());
+		
+		//Default shape
+		if(SelectedItem.equals("Shape")) {
+			Shape s = new Shape("ellipse");
+			s.setX2(50f);
+			s.setY2(50f);
+			s.setFill(Color.WHITE);
+			s.setStroke(5);
+			s.setColor(Color.BLACK);
+			s.setX(10f);
+			s.setY(7f);
+			CurrentSlide.addShape(s);
+		} else if(SelectedItem.equals("Text")) {
+			Text t = new Text();
+			CurrentSlide.addText(t);
+		} else if(SelectedItem.equals("Audio")) {
+			Image i = new Image("../local_file.jpg");
+			CurrentSlide.addAudio(i);
+		} else if(SelectedItem.equals("Video")) {
+			Video v = new Video("../local_file.mp4");
+			CurrentSlide.addVideo(v);
+		}
+
+		//Add shape to current slide / pane
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -206,13 +236,13 @@ public class ToolbarController {
 		pageBreak.setDisable(true);
 		textColor.setDisable(true);
 		textFill.setDisable(true);
-		deleteText.setDisable(true);
 		
 		typeCombo.setDisable(false);
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
 		deleteShape.setDisable(false);
+		addCombo.setDisable(false);
 	}
 	
 	/**
@@ -227,13 +257,20 @@ public class ToolbarController {
 		pageBreak.setDisable(false);
 		textColor.setDisable(false);
 		textFill.setDisable(false);
-		deleteText.setDisable(false);
 		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		deleteShape.setDisable(true);
+		addCombo.setDisable(true);
+	}
+	
+	/**
+	 * Enables addition of shapes onto current pane
+	 */
+	public void paneMode() {
+		addCombo.setDisable(false);
 	}
 	
 	/**
@@ -253,6 +290,8 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		deleteShape.setDisable(true);
+		addCombo.setDisable(true);
 	}
 
 	/**
@@ -265,6 +304,7 @@ public class ToolbarController {
 		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video");
 		
 		//Initially disable editing toolbar
 		initialStartup();

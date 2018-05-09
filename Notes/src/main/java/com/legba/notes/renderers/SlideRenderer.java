@@ -74,10 +74,18 @@ public class SlideRenderer extends Renderer<Slide> {
 		Pane pane =  new Pane();
 		pane.getStyleClass().add("element-slide");
 		
+		//When mouse clicks on pane
+		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent mouseEvent) {
+				AppController.getInstance().toolbar.paneMode();
+				AppController.getInstance().toolbar.CurrentSlide = s;
+			}
+		});
 		//When mouse enters pane it puts border around it
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+				AppController.getInstance().toolbar.CurrentPane = pane;
 			}
 		});
 		
@@ -158,6 +166,7 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().viewing.CurrentNode = n;
 						
+						
 						/*----------------------------------------------------------------------------------------------------------------------
 						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
 							  the identical method for shapes and they work. If text has been binded then i'll have a another 
@@ -200,7 +209,6 @@ public class SlideRenderer extends Renderer<Slide> {
 			});
 			
 			pane.getChildren().add(n);
-			//AppController.getInstance().toolbar.CurrentPane = pane;
 			
 		}
 		

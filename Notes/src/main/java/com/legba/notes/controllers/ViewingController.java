@@ -95,13 +95,7 @@ public class ViewingController {
 	 * Updates all slides when changes are made from the toolbar controller
 	 */
 	public void updateSlide() {
-		/*-----------------------------------------------------------------------------------------
-		TODO: Currently this clears and rebuilds the entire presentation when are changes are made
-			  to the text or shapes (size, colour, font, etc.). There might be some way to update
-			  without having to rebuild the entire thing every time. - lm1370
-			  
-		------------------------------------------------------------------------------------------*/
-		//Get scroll
+		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
 		// get the presentation from the model
@@ -114,23 +108,9 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
+		//Set new scroll location to old one
 		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
 		
-		/*-----------------------------------------------------------------------------------------
-		TODO: Fix highlighting issue, when you click on any object it updates the presentation
-			  therefore removing the highlighting. Tried to implement it then after updating 
-			  but still not working. Not major issue so have left for now - lm1370
-		
-		//Highlight shape when clicked
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setBlurType(BlurType.GAUSSIAN);
-		dropShadow.setColor(Color.BLACK);
-		dropShadow.setOffsetX(0.0);
-		dropShadow.setOffsetY(0.0);
-		dropShadow.setRadius(20.0);
-		CurrentNode.setEffect(dropShadow);
-		
-		------------------------------------------------------------------------------------------*/
 	}
 	
 	/**
