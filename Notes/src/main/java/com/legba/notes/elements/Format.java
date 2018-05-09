@@ -28,6 +28,9 @@ public class Format extends Element implements Colorable,Formatable{
 	
 	private String text;
 	
+	/**
+	 * Constructor supers element
+	 */
 	public Format() {
 		super();
 
@@ -51,7 +54,9 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setFont(String font) {
-		//TODO:: Check to make sure font is valid
+		if (font == null) {
+			return;
+		}
 		this.font=font;		
 	}
 
@@ -68,13 +73,11 @@ public class Format extends Element implements Colorable,Formatable{
 		this.italic=italic;
 	}
 
-
 	@Override
 	@XmlAttribute
 	public Boolean getBold() {
 		return this.bold;
 	}
-
 
 	@Override
 	public void setBold(Boolean bold) {

@@ -37,10 +37,11 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 
 	private List<Object> contents;
-	
+	/**
+	 * Constructor supers element
+	 */
 	public Text() {
-		super();
-		
+		super();		
 		this.contents = new ArrayList<Object>();
 	}
 	@XmlElementRefs({
@@ -53,7 +54,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	public void setContents(List<Object> contents) {
-		//TODO:: Check to make sure font is valid
 		
 		this.contents=contents;		
 	}
@@ -69,7 +69,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (font == null) {
 			return;
 		}
-		//TODO:: Check to make sure font is valid
 		this.font=font;		
 	}
 

@@ -30,7 +30,7 @@ public class Audio extends MultiMediaElement{
 	
 	/**
 	 * Boolean method that checks the filepath is 
-	 * in the correct format and that is length is
+	 * in the correct format and that its length is
 	 * larger than zero. If both these requirements
 	 * are met, method returns TRUE.
 	 * If either are not met, returns FALSE.

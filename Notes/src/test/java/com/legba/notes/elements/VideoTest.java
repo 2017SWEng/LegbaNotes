@@ -5,9 +5,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.junit.Assert;
-
+/**
+ * This file is a test File for Video.java
+ * A for loop is used to Test all extension
+ * types. This is done for all types of he 
+ * file paths.
+ * @author vc622
+ *
+ */
 public class VideoTest {
-	// All the types of extensions that should be accepted
+	/**
+	 * All the types of extensions that should be
+	 * accepted as a video file.
+	 */
 	String[] extensionType = new String[] {
 			".mp4",".MP4",
 			".m4a",".M4A",
@@ -16,9 +26,11 @@ public class VideoTest {
 			".fxm",".FXM",
 			".flv",".FLV"
 	};
-
+	/**
+	 * Tests if all these path types are Valid
+	 * @param path Filepath
+	 */
 	@Test
-	//Tests if all these path types are Valid
 	public void testPath() {
 		Video vid = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -35,7 +47,10 @@ public class VideoTest {
 	}
 	
 	@Test
-	//Checks validity with a relative path types
+	/**
+	 * Checks validity with a relative path types
+	 * @param path Filepath
+	 */	
 	public void testPath_relative() {
 		Video vid = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -52,7 +67,10 @@ public class VideoTest {
 	}
 	
 	@Test
-	//Checks validity with a http path type
+	/**
+	 * Checks validity with a http path types
+	 * @param path Filepath
+	 */	
 	public void testPath_http() {
 		Video vid = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -67,9 +85,13 @@ public class VideoTest {
 			Assert.assertTrue(path + " is not valid", isValid);
 		};	
 	}
-	
+	/**
+	 * Intentionally testing an invalid path.  
+	 * The test should fail if the path is not 
+	 * a valid one.
+	 * @param path Filepath
+	 */
 	@Test (expected = IllegalArgumentException.class)
-	//Testing an invalid path. Should not work if there is no extension.
 	public void testPath_noExtension() {
 		String path = "test";
 		
