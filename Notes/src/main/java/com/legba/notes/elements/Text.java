@@ -2,7 +2,6 @@ package com.legba.notes.elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
@@ -46,7 +45,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.italic = false;
 		this.bold = false;
 		this.underline = false;
-		this.textsize = 10;
+		this.textsize = 12;
 		this.contents = new ArrayList<Object>();
 	}
 	@XmlElementRefs({
@@ -59,9 +58,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	public void setContents(List<Object> contents) {
-		//TODO:: Check to make sure font is valid
-		
-		this.contents=contents;		
+		this.contents = contents;		
 	}
 	
 	public void addContents(Object content) {
@@ -102,19 +99,16 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.font = font;		
 	}
 
-
 	@Override
 	@XmlAttribute
 	public Boolean getItalic() {
 		return this.italic;
 	}
 
-
 	@Override
 	public void setItalic(Boolean italic) {
 		this.italic=italic;
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -122,12 +116,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.bold;
 	}
 
-
 	@Override
 	public void setBold(Boolean bold) {
-		this.bold=bold;
+		this.bold = bold;
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -135,12 +127,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.underline;
 	}
 
-
 	@Override
 	public void setUnderline(Boolean underline) {
-		this.underline=underline;		
+		this.underline = underline;		
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -148,13 +138,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.textsize;
 	}
 
-
 	@Override
 	public void setTextsize(Integer size) {
-		this.textsize=size;		
+		this.textsize = size;		
 	}
-	
-	
 	
 	@Override
 	@XmlAttribute
@@ -162,13 +149,11 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Color getColor() {
 		return this.color;
 	}
-
-
+	
 	@Override
 	public void setColor(Color col) {
-		this.color=col;
+		this.color = col;
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -177,10 +162,9 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.fill;
 	}
 
-
 	@Override
 	public void setFill(Color fill) {
-		this.color=fill;
+		this.color = fill;
 	}
 
 	@Override
@@ -190,12 +174,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.start;
 	}
 
-
 	@Override
 	public void setStart(Integer start) {
-		this.start=start;
+		this.start = start;
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -203,12 +185,8 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.duration;
 	}
 
-
 	@Override
 	public void setDuration(Integer duration) {
-		this.duration=duration;
+		this.duration = duration;
 	}
-	
-
-
 }

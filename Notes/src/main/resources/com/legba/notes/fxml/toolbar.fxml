@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import java.net.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -52,14 +51,11 @@
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
-<<<<<<< HEAD
-						<Button text="Delete" fx:id="deleteShape" onAction="#handleDeleteShapeAction"  />
-=======
+						<Button text="Delete" fx:id="deleteShape" onAction="#handleDeleteShapeAction"/>
 						<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
 					</HBox>
 					<HBox>
 						<HTMLEditor fx:id="insertText"></HTMLEditor>
->>>>>>> TextInput
 					</HBox>				
 				</ToolBar>
 			</top>	

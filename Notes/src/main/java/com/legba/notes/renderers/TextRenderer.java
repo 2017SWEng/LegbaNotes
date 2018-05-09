@@ -104,7 +104,6 @@ public class TextRenderer extends Renderer<Text> {
 			textModel.getFill() == null ? DEFAULT_Fill : textModel.getFill()
 		);//Can only test fill since color is background not foreground.
 		
-		
 		text.setUnderline(
 			textModel.getUnderline() == null ? DEFAULT_Underline : textModel.getUnderline()
 		);

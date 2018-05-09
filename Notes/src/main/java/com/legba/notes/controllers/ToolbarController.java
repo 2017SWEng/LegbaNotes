@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
@@ -54,15 +53,12 @@ public class ToolbarController {
 	public ColorPicker strokeColor;			//Shape stroke colour wheel
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
-<<<<<<< HEAD
 	@FXML 
 	public Button deleteShape;				//Delete current shape button
-=======
 	@FXML
 	public HTMLEditor insertText;				//Text field for text input 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
->>>>>>> TextInput
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -195,21 +191,20 @@ public class ToolbarController {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Button to delete currently selected shape 
 	 * @param event
 	 */
 	@FXML 
 	protected void handleDeleteShapeAction(ActionEvent event) {
 		CurrentPane.getChildren().remove(CurrentShape);
-=======
-	 * Takes text typed into the text area and inserts it into the slide.
+	}
+	
+	 /* Takes text typed into the text area and inserts it into the slide.
 	 * @param event
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
 		CurrentText.addContents(insertText.getHtmlText());
->>>>>>> TextInput
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -231,14 +226,11 @@ public class ToolbarController {
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
-<<<<<<< HEAD
 		deleteShape.setDisable(false);
-=======
 		
 		insertText.setHtmlText(null);
 		insertText.setDisable(true);
 		insertTextButton.setDisable(true);
->>>>>>> TextInput
 	}
 	
 	/**
@@ -259,14 +251,11 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
-<<<<<<< HEAD
 		deleteShape.setDisable(true);
-=======
 		
 		insertText.setDisable(false);
 		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
->>>>>>> TextInput
 	}
 	
 	/**
@@ -288,7 +277,7 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 		
 		insertText.setDisable(true);
-		insertText.setPrefSize(200, 100);
+		insertText.setPrefSize(200, 500);
 		insertTextButton.setDisable(true);
 	}
 
