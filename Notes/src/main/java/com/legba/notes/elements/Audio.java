@@ -24,8 +24,8 @@ public class Audio extends MultiMediaElement{
 	 */
 	public Audio(String path) {
 		super();
-
 		this.setPath(path);
+
 	}
 	
 	/**
@@ -34,6 +34,7 @@ public class Audio extends MultiMediaElement{
 	 * larger than zero. If both these requirements
 	 * are met, method returns TRUE.
 	 * If either are not met, returns FALSE.
+	 * Accepted formats referenced from javafx.scene.media
 	 * @param path Filepath
 	 */
 	@Override

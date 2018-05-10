@@ -5,9 +5,20 @@ import org.junit.Test;
 import static org.junit.Assert.fail;
 
 import org.junit.Assert;
-
+/**
+ * This file is a test File for Audio.java
+ * A for loop is used to Test all extension
+ * types. This is done for all types of he 
+ * file paths.
+ * @author vc622
+ *
+ */
 public class AudioTest {
-	// All the types of extensions that should be accepted
+	/**
+	 * All the types of extensions that should be
+	 * accepted as an audio file. Accepted formats 
+	 * referenced from javafx.scene.media
+	 */
 	String[] extensionType = new String[] {
 			".wav",".WAV",
 			".aif",".AIF",
@@ -16,8 +27,11 @@ public class AudioTest {
 			".mp3",".MP3"
 	};
 
+	/**
+	 * Tests if path types in array are Valid
+	 * @param path Filepath
+	 */
 	@Test
-	//Tests if all these path types are Valid
 	public void testPath() {
 		Audio aud = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -34,6 +48,10 @@ public class AudioTest {
 		};	
 	}
 	
+	/**
+	 * Checks validity with a relative path types
+	 * @param path Filepath
+	 */	
 	@Test
 	//Checks validity with a relative path types
 	public void testPath_relative() {
@@ -51,6 +69,10 @@ public class AudioTest {
 		};	
 	}
 	
+	/**
+	 * Checks validity with a http path types
+	 * @param path Filepath
+	 */	
 	@Test
 	//Checks validity with a http path type
 	public void testPath_http() {
@@ -69,6 +91,12 @@ public class AudioTest {
 
 	}
 	
+	/**
+	 * Intentionally testing an invalid path.  
+	 * The test should fail if the path is not 
+	 * a valid one.
+	 * @param path Filepath
+	 */
 	@Test (expected = IllegalArgumentException.class)
 	//Testing an invalid path. Should not work if there is no extension.
 	public void testPath_noExtension() {

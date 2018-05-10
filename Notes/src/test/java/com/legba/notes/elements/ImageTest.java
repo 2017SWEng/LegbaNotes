@@ -7,9 +7,20 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 
 import com.legba.notes.elements.Image;
-
+/**
+ * This file is a test File for Audio.java
+ * A for loop is used to Test all extension
+ * types. This is done for all types of he 
+ * file paths.
+ * @author vc622
+ *
+ */
 public class ImageTest {
-	// All the types of extensions that should be accepted
+	/**
+	 * All the types of extensions that should be
+	 * accepted as a image file. Accepted formats
+	 * referenced from javafx.scene.media
+	 */
 	String[] extensionType = new String[] {
 			".jpeg",".JPEG",
 			".jpg",".JPG",
@@ -19,7 +30,10 @@ public class ImageTest {
 	};
 	
 	@Test
-	//Tests if all these path types in array are Valid
+	/**
+	 * Tests if path types in array are Valid
+	 * @param path Filepath
+	 */
 	public void testPath() {	
 		Image img = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -34,8 +48,11 @@ public class ImageTest {
 		};
 	}
 	
+	/**
+	 * Checks validity with a relative path types
+	 * @param path Filepath
+	 */	
 	@Test
-	//Checks validity with a relative path types
 	public void testPath_relative() {
 		Image img = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -51,8 +68,11 @@ public class ImageTest {
 		};
 	}
 	
+	/**
+	 * Checks validity with a http path types
+	 * @param path Filepath
+	 */	
 	@Test
-	//Checks validity with a http path type
 	public void testPath_http() {
 		Image img = null;
 		for(int i = 0; i<extensionType.length; i++){
@@ -69,6 +89,12 @@ public class ImageTest {
 
 	}
 	
+	/**
+	 * Intentionally testing an invalid path.  
+	 * The test should fail if the path is not 
+	 * a valid one.
+	 * @param path Filepath
+	 */	
 	@Test (expected = IllegalArgumentException.class)
 	//Testing an invalid path. Should not work if there is no extension.
 	public void testPath_noExtension() {

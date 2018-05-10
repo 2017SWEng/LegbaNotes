@@ -16,7 +16,8 @@ import org.junit.Assert;
 public class VideoTest {
 	/**
 	 * All the types of extensions that should be
-	 * accepted as a video file.
+	 * accepted as a video file. Accepted formats 
+	 * referenced from javafx.scene.media
 	 */
 	String[] extensionType = new String[] {
 			".mp4",".MP4",
@@ -27,7 +28,7 @@ public class VideoTest {
 			".flv",".FLV"
 	};
 	/**
-	 * Tests if all these path types are Valid
+	 * Tests if path types in array are Valid
 	 * @param path Filepath
 	 */
 	@Test
@@ -100,4 +101,5 @@ public class VideoTest {
 		
 		Assert.assertFalse(path + " is not valid", isValid);
 	}
+	
 }
