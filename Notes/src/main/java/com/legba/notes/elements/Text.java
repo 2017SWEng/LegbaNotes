@@ -48,6 +48,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.contents = new ArrayList<Object>();
 
 	}
+	
+	public Text(String s) {
+		super();
+		
+		this.contents = new ArrayList<Object>();
+		this.contents.add(s);
+	}
+	
+	
 	@XmlElementRefs({
     	@XmlElementRef(name="Format", type=Format.class),
     	@XmlElementRef(name="Br", type=Br.class)

@@ -69,7 +69,6 @@ public class ViewingController {
 	 */
 	public void scrollToSlide(int slideIndex){
 		
-		
 		double[] slideLengths = slideSize();
 		
 		if (slideIndex > slideLengths.length -1){
@@ -89,7 +88,7 @@ public class ViewingController {
 		System.out.println("actual scroll size: " + nextSLideHeight/totalSlideSize);
 		
 		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSLideHeight/totalSlideSize);
-
+		
 	}
 	
 	/**
@@ -102,6 +101,9 @@ public class ViewingController {
 			  without having to rebuild the entire thing every time. - lm1370
 			  
 		------------------------------------------------------------------------------------------*/
+		//Get scroll
+		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
+		
 		// get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
 		
@@ -111,6 +113,8 @@ public class ViewingController {
 		// display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
+		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
 		
 		/*-----------------------------------------------------------------------------------------
 		TODO: Fix highlighting issue, when you click on any object it updates the presentation
