@@ -206,7 +206,7 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		CurrentText.addContents(insertText.getHtmlText());
+		CurrentText.setContents(HTMLConverter.toPWS(insertText.getHtmlText()).getContents());
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -300,7 +300,12 @@ public class ToolbarController {
 		initialStartup();
 	}
 	
-	//Stolen from here: https://stackoverflow.com/a/25388790
+	
+	//Referenced from: https://stackoverflow.com/a/25388790
+	/**
+	 * Removes additonal toolbar elements from the HTMLEditor element
+	 * @param editor
+	 */
 	public static void hideHTMLEditorToolbars(final HTMLEditor editor)
 	{
 	    editor.setVisible(false);

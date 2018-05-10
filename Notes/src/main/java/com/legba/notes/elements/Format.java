@@ -12,25 +12,20 @@ import javafx.scene.paint.Color;
 @XmlRootElement(name="Format")
 public class Format extends Element implements Colorable,Formatable{
 	
+	private String text;
 	private String font;
 	
 	private Boolean italic;
-	
 	private Boolean bold;
-	
 	private Boolean underline;
 	
 	private Integer size;
 	
 	private Color color;
-	
 	private Color fill;
-	
-	private String text;
-	
+
 	public Format() {
 		super();
-		
 	}
 	
 	@XmlValue
@@ -39,7 +34,7 @@ public class Format extends Element implements Colorable,Formatable{
 	}
 
 	public void setText(String text) {
-		this.text=text;		
+		this.text = text;		
 	}
 	
 	@Override
@@ -52,7 +47,7 @@ public class Format extends Element implements Colorable,Formatable{
 	@Override
 	public void setFont(String font) {
 		//TODO:: Check to make sure font is valid
-		this.font=font;		
+		this.font = font;		
 	}
 
 
@@ -65,7 +60,7 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setItalic(Boolean italic) {
-		this.italic=italic;
+		this.italic = italic;
 	}
 
 
@@ -78,7 +73,7 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setBold(Boolean bold) {
-		this.bold=bold;
+		this.bold = bold;
 	}
 
 
@@ -91,7 +86,7 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setUnderline(Boolean underline) {
-		this.underline=underline;		
+		this.underline = underline;		
 	}
 
 
@@ -117,7 +112,7 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setColor(Color col) {
-		this.color=col;
+		this.color = col;
 	}
 
 
@@ -131,7 +126,6 @@ public class Format extends Element implements Colorable,Formatable{
 
 	@Override
 	public void setFill(Color fill) {
-		this.color=fill;
+		this.color = fill;
 	}
-
 }

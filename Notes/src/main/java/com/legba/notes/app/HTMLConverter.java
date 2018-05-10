@@ -1,11 +1,21 @@
 package com.legba.notes.app;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
+import javafx.scene.paint.Color;
+
 public class HTMLConverter {
 	
+	/**
+	 * Converts a Text element into HTML code
+	 * @param text that needs to be converted to HTML code
+	 * @return html.toString() which is the converted text
+	 */
 	public static String toHTML(Text text) {
 		StringBuilder html = new StringBuilder();
 		
@@ -102,7 +112,14 @@ public class HTMLConverter {
 	}
 	
 	public static Text toPWS(String html) {
+		//TODO: Currently only returns plain text, all formatting removed
 		Text pws = new Text();
+		Document doc = Jsoup.parse(html);
+		
+		pws.addContents(doc.body().text());
+		
+		//This code is for checking output i.e. temp
+		System.out.println(doc.data());
 		
 		return pws;
 	}

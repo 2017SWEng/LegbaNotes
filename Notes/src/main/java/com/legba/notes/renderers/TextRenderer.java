@@ -61,10 +61,8 @@ public class TextRenderer extends Renderer<Text> {
 			}
 		}
 		
-	
 		TextFlow flow = new TextFlow();
 		flow.getChildren().addAll(lines);
-		
 		
 		flow.setLayoutX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
 		flow.setLayoutY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
@@ -74,7 +72,6 @@ public class TextRenderer extends Renderer<Text> {
 		System.out.println(flow.getLayoutBounds());
 		
 		return flow;
-		
 	}
 
 	/**
@@ -124,7 +121,6 @@ public class TextRenderer extends Renderer<Text> {
 		text.setY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
 		
 		return text;
-	
 	}
 	
 	/**

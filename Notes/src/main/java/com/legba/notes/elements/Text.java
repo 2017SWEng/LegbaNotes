@@ -17,28 +17,24 @@ import javafx.scene.paint.Color;
 public class Text extends SlideElement implements Transitionable,Colorable,Formatable{
 	
 	private Integer start;
-	
 	private Integer duration;
+	private Integer textsize;
 	
 	private Color color;
-	
 	private Color fill;
 	
 	private String font;
 	
 	private Boolean italic;
-	
 	private Boolean bold;
-	
 	private Boolean underline;
-	
-	private Integer textsize;
 	
 	private List<Object> contents;
 	
 	public Text() {
 		super();
 		
+		//Default Values
 		this.color = javafx.scene.paint.Color.BLACK;
 		this.fill = javafx.scene.paint.Color.BLACK;
 		this.font = "Times New Roman";
