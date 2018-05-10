@@ -21,9 +21,9 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Integer duration;
 	
-	private Color color;
+	private Color[] color;
 	
-	private Color fill;
+	private Color[] fill;
 	
 	private String font;
 	
@@ -127,13 +127,13 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	@Override
 	@XmlAttribute
     @XmlJavaTypeAdapter(ColorAdapter.class)
-	public Color getColor() {
+	public Color[] getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color col) {
+	public void setColor(Color[] col) {
 		this.color=col;
 	}
 
@@ -141,14 +141,14 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	@Override
 	@XmlAttribute
     @XmlJavaTypeAdapter(ColorAdapter.class)
-	public Color getFill() {
+	public Color[] getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color fill) {
-		this.color=fill;
+	public void setFill(Color[] fill) {
+		this.fill=fill;
 	}
 
 	@Override

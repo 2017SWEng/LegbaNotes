@@ -18,9 +18,9 @@ public class Shape extends SlideElement implements Colorable{
 	
 	private IntegerProperty stroke;
 	
-	private ObjectProperty<Color> color;
+	private Color[] color;
 	
-	private ObjectProperty<Color> fill;
+	private Color[] fill;
 	
 	protected Shape() {
 		
@@ -32,8 +32,6 @@ public class Shape extends SlideElement implements Colorable{
 		//Required by Element 'Shape'
 		this.setType(type);
 		stroke = new SimpleIntegerProperty();
-		color = new SimpleObjectProperty<Color>();
-		fill = new SimpleObjectProperty<Color>();
 	}
 	
 	//Returns type of shape
@@ -85,54 +83,29 @@ public class Shape extends SlideElement implements Colorable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getColor() {
-		return (color == null) ? null : color.get();
-	}
-	
-	//Creates a property for color
-	public ObjectProperty<Color> colorProperty() {
+	public Color[] getColor() {
 		return this.color;
 	}
 	
 	//Sets colour of outline if newColor is not null
 	@Override
-	public void setColor(Color newColor) {
-		if(newColor == null){
-			color = null;
-			return;
-		}
-		else if (color == null){
-			color = new SimpleObjectProperty<Color>();
-		}
-		
-		color.set(newColor);
+	public void setColor(Color[] newColor) {
+		this.color=newColor;
 	}
 
 	//Returns the colour of the fill
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getFill() {
-		return (fill == null) ? null : fill.get();
-	}
-	
-	//Creates a property for fill
-	public ObjectProperty<Color> fillProperty() {
+	public Color[] getFill() {
 		return this.fill;
 	}
 	
+	
 	//Sets fill of shape if newColor is not null
 	@Override
-	public void setFill(Color newColor) {
-		if(newColor == null){
-			fill = null;
-			return;
-		}
-		else if (fill == null){
-			fill = new SimpleObjectProperty<Color>();
-		}
-		
-		fill.set(newColor);
+	public void setFill(Color[] newColor) {
+		this.fill=newColor;
 	}
 
 	/* (non-Javadoc)

@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
 
 import org.junit.Assume;
@@ -56,8 +57,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(true);
 		
-		textModel.setColor(javafx.scene.paint.Color.AZURE);
-		textModel.setFill(javafx.scene.paint.Color.RED);
+		textModel.setColor(new Color [] {javafx.scene.paint.Color.AZURE});
+		textModel.setFill(new Color [] {javafx.scene.paint.Color.RED});
 		
 		textModel.setTextsize(15);
 		
@@ -107,8 +108,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(false);
 		
-		textModel.setColor(javafx.scene.paint.Color.AZURE);
-		textModel.setFill(javafx.scene.paint.Color.BLUE);
+		textModel.setColor(new Color [] {javafx.scene.paint.Color.AZURE});
+		textModel.setFill(new Color [] {javafx.scene.paint.Color.BLUE});
 		
 		textModel.setTextsize(15);
 		

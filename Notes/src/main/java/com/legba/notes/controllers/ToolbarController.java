@@ -6,6 +6,7 @@ import com.legba.notes.elements.Text;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -90,7 +91,8 @@ public class ToolbarController {
 	 */
 	@FXML 
 	protected void handleFontColorAction(ActionEvent event) {
-		CurrentText.setColor(textColor.getValue());
+		Color[] tempColor = new Color[] {strokeColor.getValue()};
+		CurrentText.setColor(tempColor);
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -100,7 +102,8 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleFontFillAction(ActionEvent event) {
-		CurrentText.setFill(textFill.getValue());
+		Color[] tempColor = new Color[] {strokeColor.getValue()};
+		CurrentText.setFill(tempColor);
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -170,7 +173,8 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleStrokeColorAction(ActionEvent event) {
-		CurrentShape.setColor(strokeColor.getValue());
+		Color[] tempColor = new Color[] {strokeColor.getValue()};
+		CurrentShape.setColor(tempColor);
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -180,7 +184,8 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleShapeFillAction(ActionEvent event) {
-		CurrentShape.setFill(shapeFill.getValue());
+		Color[] tempColor = new Color[] {strokeColor.getValue()};
+		CurrentShape.setFill(tempColor);
 		AppController.getInstance().viewing.updateSlide();
 	}
 	

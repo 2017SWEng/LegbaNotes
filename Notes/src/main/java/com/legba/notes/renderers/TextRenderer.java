@@ -8,6 +8,10 @@ import com.legba.notes.elements.Text;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -99,11 +103,20 @@ public class TextRenderer extends Renderer<Text> {
 			textModel.getTextsize() == null ? DEFAULT_Textsize : textModel.getTextsize())
 		);
 		
+		//Color of text
+		if (textModel.getFill() == null) {
+			text.setStyle("-fx-fill: " + convertToHex(DEFAULT_Fill));
+		}
+		else if (textModel.getFill().length == 2) {
+			text.setStyle("-fx-fill: " + convertToGradient(textModel.getFill()));
+		}
+		else {
+			text.setStyle("-fx-fill: " + convertToHex(textModel.getFill()[0]));
+		}
 		//Color of text 
-		text.setFill(
-			textModel.getFill() == null ? DEFAULT_Fill : textModel.getFill()
-		);//Can only test fill since color is background not foreground.
-		
+		//text.setFill(
+			//textModel.getFill() == null ? DEFAULT_Fill : textModel.getFill()[0]
+		//);//Can only test fill since color is background not foreground.
 		
 		text.setUnderline(
 			textModel.getUnderline() == null ? DEFAULT_Underline : textModel.getUnderline()
@@ -137,16 +150,33 @@ public class TextRenderer extends Renderer<Text> {
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		text.setText(format.getText());
 		
+		
+		//Color of text
+		if (format.getFill() == null) {
+			text.setStyle("-fx-fill: " + convertToHex(DEFAULT_Fill));
+		}
+		else if (format.getFill().length == 2) {
+			text.setStyle("-fx-fill: " + convertToGradient(format.getFill()));
+		}
+		else {
+			text.setStyle("-fx-fill: " + convertToHex(format.getFill()[0]));
+		}
+		
+//		if (format.getColor() == null) {
+//			text.setStyle("-fx-stroke: " + convertToHex(DEFAULT_Fill));
+//		}
+//		else if (format.getColor().length == 2) {
+//			text.setStyle("-fx-stroke: " + convertToGradient(format.getColor()) + "; -fx-stroke-width: 1");
+//		}
+//		else {
+//			text.setStyle("-fx-stroke: " + convertToHex(format.getColor()[0]) + "; -fx-stroke-width: 1");
+//		}
+		
 		text.setFont(Font.font(
 			// Checking font type
 			format.getFont() == null ? DEFAULT_Font : format.getFont(), 
 			format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
 		);
-		
-		//Color of text  
-		text.setFill(
-			format.getFill() == null ? DEFAULT_Fill : format.getFill()
-		);//Can only test fill since color is background not foreground.
 		
 		
 		text.setUnderline(
@@ -176,6 +206,26 @@ public class TextRenderer extends Renderer<Text> {
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		text.setText("\n");
 		return text;
+	}
+	
+	public String convertToHex(Color color) {
+		
+		String string =  String.format( "#%02X%02X%02X",
+				(int)( color.getRed()	* 255 ),
+				(int)( color.getGreen() * 255 ),
+				(int)( color.getBlue()	* 255 ) 
+			);
+		
+		return string;
+		
+	}
+	
+	public String convertToGradient(Color[] color) {
+		
+		String string = ("linear-gradient(" + convertToHex(color[0]) + ", " + convertToHex(color[1]) + ")");
+		
+		return string;
+		
 	}
 }
 

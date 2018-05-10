@@ -85,17 +85,21 @@ public class PresentationTest {
 	@Test	//Tests Color is correctly set.
 	public void ColorTest() {
 		Presentation pres_parameters = new Presentation();
-		pres_parameters.setColor(Color.DODGERBLUE);
+		Color[] tempArray = new Color[] {Color.DODGERBLUE, Color.FIREBRICK};
+		pres_parameters.setColor(tempArray);
 		
-		assertEquals(Color.DODGERBLUE, (Color)pres_parameters.getColor());
+		assertEquals(Color.DODGERBLUE, (Color)pres_parameters.getColor()[0]);
+		assertEquals(Color.FIREBRICK, (Color)pres_parameters.getColor()[1]);
 	}
 	
 	@Test	//Tests Fill Color is correctly set.
 	public void FillTest() {
 		Presentation pres_parameters = new Presentation();
-		pres_parameters.setFill(Color.ALICEBLUE);		
+		Color[] tempArray = new Color[] {Color.ALICEBLUE, Color.BLANCHEDALMOND};
+		pres_parameters.setFill(tempArray);		
 		
-		assertEquals(Color.ALICEBLUE, (Color)pres_parameters.getFill());
+		assertEquals(Color.ALICEBLUE, (Color)pres_parameters.getFill()[0]);
+		assertEquals(Color.BLANCHEDALMOND, (Color)pres_parameters.getFill()[1]);
 	}		
 	
 	@Test	//Tests font is correctly set.

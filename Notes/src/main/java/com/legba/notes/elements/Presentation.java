@@ -16,9 +16,9 @@ import javafx.scene.paint.Color;
 public class Presentation extends Element implements Colorable,Formatable{
 
 	
-	private Color color;
+	private Color[] color;
 	
-	private Color fill;
+	private Color[] fill;
 	
 	private String font;
 	
@@ -86,13 +86,13 @@ public class Presentation extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getColor() {
+	public Color[] getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color col) {
+	public void setColor(Color[] col) {
 		this.color=col;
 	}
 
@@ -100,13 +100,13 @@ public class Presentation extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getFill() {
+	public Color[] getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color fill) {
+	public void setFill(Color[] fill) {
 		this.fill=fill;
 	}
 	

@@ -12,6 +12,11 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
+
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Shape;
@@ -26,6 +31,9 @@ import com.legba.notes.models.AppModel;
  *
  */
 public class SlideRenderer extends Renderer<Slide> {
+	
+	public static final Color DEFAULT_BG = Color.WHITESMOKE;
+	public static final Color DEFAULT_FG = Color.DIMGREY;
 
 	VectorRenderer vectorRenderer;
 	AudioRenderer audioRenderer;
@@ -74,6 +82,29 @@ public class SlideRenderer extends Renderer<Slide> {
 		Pane pane =  new Pane();
 		pane.getStyleClass().add("element-slide");
 		
+		Paint color;
+		if (s.getColor() == null) {
+			color = Paint.valueOf(DEFAULT_FG.toString());
+		}
+		else if (s.getColor().length == 2) {
+			Stop[] stops = new Stop[] {new Stop(0, s.getColor()[0]), new Stop(1, s.getColor()[1])};
+			color = new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops);
+		}
+		else {
+			color = Paint.valueOf(s.getColor()[0].toString());
+		}
+		pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+		if (s.getFill() == null) {
+			pane.setStyle("-fx-background-color: " + convertToHex(DEFAULT_BG));
+		}
+		else if (s.getFill().length == 2) {
+			pane.setStyle("-fx-background-color: " + convertToGradient(s.getFill()));
+		}
+		else {
+			pane.setStyle("-fx-background-color: " + convertToHex(s.getFill()[0]));
+		}
+
 		//When mouse enters pane it puts border around it
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
@@ -84,7 +115,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		//When mouse exits pane it removes the border
 		pane.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
-				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.EMPTY)));
+				pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 			}
 		});
 
@@ -105,8 +136,8 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
 						AppController.getInstance().toolbar.strokeCombo.setValue(shape.getStroke());
-						AppController.getInstance().toolbar.strokeColor.setValue(shape.getColor());
-						AppController.getInstance().toolbar.shapeFill.setValue(shape.getFill());
+						AppController.getInstance().toolbar.strokeColor.setValue(shape.getColor()[0]);
+						AppController.getInstance().toolbar.shapeFill.setValue(shape.getFill()[0]);
 						
 						//Highlights selected shape
 						DropShadow dropShadow = new DropShadow();
@@ -210,6 +241,26 @@ public class SlideRenderer extends Renderer<Slide> {
 		
 		
 		return pane;
+	}
+	
+	public String convertToHex(Color color) {
+		
+		String string =  String.format( "#%02X%02X%02X",
+				(int)( color.getRed()	* 255 ),
+				(int)( color.getGreen() * 255 ),
+				(int)( color.getBlue()	* 255 ) 
+			);
+		
+		return string;
+		
+	}
+	
+	public String convertToGradient(Color[] color) {
+		
+		String string = ("linear-gradient(" + convertToHex(color[0]) + ", " + convertToHex(color[1]) + ")");
+		
+		return string;
+		
 	}
 
 }

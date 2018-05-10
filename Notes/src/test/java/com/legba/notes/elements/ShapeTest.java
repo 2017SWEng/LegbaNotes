@@ -39,15 +39,15 @@ public class ShapeTest {
 	@Test	//Ensures the outline colour is as specified
 	public void test_outline() {
 		Shape linShape = new Shape("line");
-		linShape.setColor(Color.INDIANRED);
-		assertEquals(Color.INDIANRED, (Color)linShape.getColor());
+		linShape.setColor(new Color [] {Color.INDIANRED});
+		assertEquals(Color.INDIANRED, (Color)linShape.getColor()[0]);
 	}
 	
 	@Test	//Ensures the fill colour of the shape is as specified
 	public void test_fill() {
 		Shape ellShape = new Shape("ellipse");
-		ellShape.setFill(Color.DODGERBLUE);
-		assertEquals(Color.DODGERBLUE, (Color)ellShape.getFill());
+		ellShape.setFill(new Color [] {Color.DODGERBLUE});
+		assertEquals(Color.DODGERBLUE, (Color)ellShape.getFill()[0]);
 	}
 	
 	//Throws an exception if an invalid shape type is created

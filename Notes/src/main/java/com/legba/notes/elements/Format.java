@@ -22,9 +22,9 @@ public class Format extends Element implements Colorable,Formatable{
 	
 	private Integer size;
 	
-	private Color color;
+	private Color[] color;
 	
-	private Color fill;
+	private Color[] fill;
 	
 	private String text;
 	
@@ -110,13 +110,13 @@ public class Format extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getColor() {
+	public Color[] getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color col) {
+	public void setColor(Color[] col) {
 		this.color=col;
 	}
 
@@ -124,14 +124,14 @@ public class Format extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getFill() {
+	public Color[] getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color fill) {
-		this.color=fill;
+	public void setFill(Color[] fill) {
+		this.fill=fill;
 	}
 
 }
