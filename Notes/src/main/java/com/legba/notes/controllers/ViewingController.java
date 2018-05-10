@@ -111,6 +111,7 @@ public class ViewingController {
 		//Set new scroll location to old one
 		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
 		
+		AppController.getInstance().logNodes(notes_root, 0);
 	}
 	
 	/**

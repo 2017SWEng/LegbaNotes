@@ -191,15 +191,16 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Button to add a shape 
+	 * Button to add elements
 	 * @param event
 	 */
 	@FXML
 	protected void handleAddItemAction(ActionEvent event) {
+		//Get combo box value
 		String SelectedItem = new String(addCombo.getValue());
 		
-		//Default shape
 		if(SelectedItem.equals("Shape")) {
+			//Default shape is ellipse
 			Shape s = new Shape("ellipse");
 			s.setX2(50f);
 			s.setY2(50f);
@@ -209,14 +210,20 @@ public class ToolbarController {
 			s.setX(10f);
 			s.setY(7f);
 			CurrentSlide.addShape(s);
+			
 		} else if(SelectedItem.equals("Text")) {
+			//TODO: Need text box editing code from luke
 			Text t = new Text();
 			CurrentSlide.addText(t);
+			
 		} else if(SelectedItem.equals("Audio")) {
-			Image i = new Image("../local_file.jpg");
-			CurrentSlide.addAudio(i);
+			//Default audio file
+			Audio a = new Audio("testData/audioTest.wav");
+			CurrentSlide.addAudio(a);
+			
 		} else if(SelectedItem.equals("Video")) {
-			Video v = new Video("../local_file.mp4");
+			//Default video file
+			Video v = new Video("local_file.mp4", 10, 35, 100, 200);
 			CurrentSlide.addVideo(v);
 		}
 
