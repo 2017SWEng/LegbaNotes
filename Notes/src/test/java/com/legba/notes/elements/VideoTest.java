@@ -29,7 +29,6 @@ public class VideoTest {
 	};
 	/**
 	 * Tests if path types in array are Valid
-	 * @param path Filepath
 	 */
 	@Test
 	public void testPath() {
@@ -50,7 +49,6 @@ public class VideoTest {
 	@Test
 	/**
 	 * Checks validity with a relative path types
-	 * @param path Filepath
 	 */	
 	public void testPath_relative() {
 		Video vid = null;
@@ -70,7 +68,6 @@ public class VideoTest {
 	@Test
 	/**
 	 * Checks validity with a http path types
-	 * @param path Filepath
 	 */	
 	public void testPath_http() {
 		Video vid = null;
@@ -90,7 +87,6 @@ public class VideoTest {
 	 * Intentionally testing an invalid path.  
 	 * The test should fail if the path is not 
 	 * a valid one.
-	 * @param path Filepath
 	 */
 	@Test (expected = IllegalArgumentException.class)
 	public void testPath_noExtension() {
