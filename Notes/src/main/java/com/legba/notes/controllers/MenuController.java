@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +35,9 @@ public class MenuController implements Observer{
 	
 	@FXML
 	MenuBar menuBar;
+	
+	@FXML
+	Menu notesMenu;
 	
 	@FXML
 	ImageView homeLogo;
