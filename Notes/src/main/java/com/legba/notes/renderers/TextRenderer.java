@@ -49,7 +49,7 @@ public class TextRenderer extends Renderer<Text> {
 				}
 			}
 			else if (textModel.getContents().get(i) instanceof Format){
-				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i));
+				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i), textModel);
 				lines.add(renderedFormat);
 			}
 			else if (textModel.getContents().get(i) instanceof Br){
@@ -132,35 +132,35 @@ public class TextRenderer extends Renderer<Text> {
 	 * @param format Formatted text model
 	 * @return a javafx Text element that represents a subsection of formatted text 
 	 */
-	private javafx.scene.text.Text formatRenderer(Format format){
+	private javafx.scene.text.Text formatRenderer(Format format, Text textModel){
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		text.setText(format.getText());
 		
 		text.setFont(Font.font(
 			// Checking font type
-			format.getFont() == null ? DEFAULT_Font : format.getFont(), 
-			format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
+			format.getFont() == null ? textModel.getFont() : format.getFont(), 
+			format.getTextsize() == null ? textModel.getTextsize() : format.getTextsize())
 		);
 		
 		//Color of text  
 		text.setFill(
-			format.getFill() == null ? DEFAULT_Fill : format.getFill()
+			format.getFill() == null ? textModel.getFill() : format.getFill()
 		);//Can only test fill since color is background not foreground.
 		
 		
 		text.setUnderline(
-			format.getUnderline() == null ? DEFAULT_Underline : format.getUnderline()
+			format.getUnderline() == null ? textModel.getUnderline() : format.getUnderline()
 		);
 		
 		//Checking Bold and Italic.
-		boolean isItalic = format.getItalic() == null ? DEFAULT_Italic : format.getItalic();
-		boolean isBold = format.getBold() == null ? DEFAULT_Bold : format.getBold();
+		boolean isItalic = format.getItalic() == null ? textModel.getItalic() : format.getItalic();
+		boolean isBold = format.getBold() == null ? textModel.getBold() : format.getBold();
 
 		text.setFont(Font.font(
-				format.getFont() == null ? DEFAULT_Font : format.getFont(), 
+				format.getFont() == null ? textModel.getFont() : format.getFont(), 
 				isBold == false ? FontWeight.NORMAL : FontWeight.BOLD,
 				isItalic == false ? FontPosture.REGULAR : FontPosture.ITALIC,
-				format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
+				format.getTextsize() == null ? textModel.getTextsize() : format.getTextsize())
 			);
 		
 		return text;

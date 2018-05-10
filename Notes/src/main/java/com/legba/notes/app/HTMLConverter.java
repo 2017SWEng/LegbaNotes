@@ -28,14 +28,20 @@ public class HTMLConverter {
 				html.append(text.getContents().get(i));
 			}
 			else if (text.getContents().get(i) instanceof Format){
-				if (((Format)text.getContents().get(i)).getBold() == true) {
-					html.append("<b>");
+				if (((Format)text.getContents().get(i)).getBold() != null) {
+					if(((Format)text.getContents().get(i)).getBold() == true) {
+						html.append("<b>");
+					}
 				}
-				if (((Format)text.getContents().get(i)).getItalic() == true) {
-					html.append("<i>");
+				if (((Format)text.getContents().get(i)).getItalic() != null) {
+					if(((Format)text.getContents().get(i)).getItalic() == true) {
+						html.append("<i>");
+					}
 				}
-				if (((Format)text.getContents().get(i)).getUnderline() == true) {
-					html.append("<u>");
+				if (((Format)text.getContents().get(i)).getUnderline() != null) {
+					if (((Format)text.getContents().get(i)).getUnderline() == true) {
+						html.append("<u>");
+					}
 				}
 				
 				html.append("<p style=\"");
@@ -55,14 +61,20 @@ public class HTMLConverter {
 				
 				html.append("</p>");
 				
-				if (((Format)text.getContents().get(i)).getBold() == true) {
-					html.append("</b>");
+				if (((Format)text.getContents().get(i)).getBold() != null) {
+					if(((Format)text.getContents().get(i)).getBold() == true) {
+						html.append("</b>");
+					}
 				}
-				if (((Format)text.getContents().get(i)).getItalic() == true) {
-					html.append("</i>");
+				if (((Format)text.getContents().get(i)).getItalic() != null) {
+					if(((Format)text.getContents().get(i)).getItalic() == true) {
+						html.append("</i>");
+					}
 				}
-				if (((Format)text.getContents().get(i)).getUnderline() == true) {
-					html.append("</u>");
+				if (((Format)text.getContents().get(i)).getUnderline() != null) {
+					if (((Format)text.getContents().get(i)).getUnderline() == true) {
+						html.append("</u>");
+					}
 				}
 			}
 			else if (text.getContents().get(i) instanceof Br){

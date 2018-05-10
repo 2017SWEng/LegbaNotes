@@ -31,9 +31,6 @@ public class Format extends Element implements Colorable,Formatable{
 	public Format() {
 		super();
 		
-		this.italic = false;
-		this.bold = false;
-		this.underline = false;
 	}
 	
 	@XmlValue

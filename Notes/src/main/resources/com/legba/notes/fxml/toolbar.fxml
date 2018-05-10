@@ -58,6 +58,7 @@
 						<HTMLEditor fx:id="insertText"></HTMLEditor>
 					</HBox>				
 				</ToolBar>
+				
 			</top>	
 		</BorderPane>
 	</top>

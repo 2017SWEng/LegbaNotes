@@ -4,9 +4,11 @@ import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Text;
 import com.legba.notes.app.HTMLConverter;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -56,7 +58,7 @@ public class ToolbarController {
 	@FXML 
 	public Button deleteShape;				//Delete current shape button
 	@FXML
-	public HTMLEditor insertText;				//Text field for text input 
+	public HTMLEditor insertText;			//HTML Input pane 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
 	
@@ -199,7 +201,7 @@ public class ToolbarController {
 		CurrentPane.getChildren().remove(CurrentShape);
 	}
 	
-	 /* Takes text typed into the text area and inserts it into the slide.
+	/** Takes text typed into the HTML Editor and inserts it into the slide.
 	 * @param event
 	 */
 	@FXML
@@ -277,7 +279,6 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 		
 		insertText.setDisable(true);
-		insertText.setPrefSize(200, 500);
 		insertTextButton.setDisable(true);
 	}
 
@@ -292,9 +293,30 @@ public class ToolbarController {
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		
+		insertText.setPrefSize(400, 100);
+		hideHTMLEditorToolbars(insertText);
+		
 		//Initially disable editing toolbar
 		initialStartup();
 	}
 	
-	
+	//Stolen from here: https://stackoverflow.com/a/25388790
+	public static void hideHTMLEditorToolbars(final HTMLEditor editor)
+	{
+	    editor.setVisible(false);
+	    Platform.runLater(new Runnable()
+	    {
+	        @Override
+	        public void run()
+	        {
+	            Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
+	            for(Node node : nodes)
+	            {
+	                node.setVisible(false);
+	                node.setManaged(false);
+	            }
+	            editor.setVisible(true);
+	        }
+	    });
+	}
 }
