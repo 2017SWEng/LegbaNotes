@@ -109,7 +109,8 @@ public class VectorRenderer extends Renderer<Shape> {
 			FloatProperty endX = new SimpleFloatProperty();
 			FloatProperty startY = new SimpleFloatProperty();
 			FloatProperty endY = new SimpleFloatProperty();
-			DoubleProperty strokeWidth = new SimpleDoubleProperty();							
+			DoubleProperty strokeWidth = new SimpleDoubleProperty();
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			line.setStartX(shape.getX() == null ? DEFAULT_X : shape.getX());
@@ -147,6 +148,14 @@ public class VectorRenderer extends Renderer<Shape> {
 				line.strokeWidthProperty().bind(strokeWidth);
 				strokeWidth.bind(shape.strokeProperty());
 			}
+			
+			//Binds the color value in the shape to the stroke value in line if color is not null
+			if (shape.paintColorProperty() != null) {
+				line.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
+			}
+			
+
 			return (Node) line;
 		}
 		return null;
@@ -189,6 +198,9 @@ public class VectorRenderer extends Renderer<Shape> {
 			
 			//Creates properties for binding to the values in shape 
 			DoubleProperty strokeWidth = new SimpleDoubleProperty();
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
+			ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
+			
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			ellipse.setCenterX(shape.getX() == null ? (DEFAULT_X + DEFAULT_X2)/2: shape.getX()+shape.getWidth()/2);
@@ -221,6 +233,19 @@ public class VectorRenderer extends Renderer<Shape> {
 			if (shape.strokeProperty() != null) {
 				ellipse.strokeWidthProperty().bind(strokeWidth);
 				strokeWidth.bind(shape.strokeProperty());
+			}
+			
+			//Binds the color value in the shape to the stroke value in ellipse if color is not null
+			if (shape.paintColorProperty() != null) {
+				ellipse.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
+			}
+			
+			
+			//Binds the fill value in the shape to the fill value in ellipse if fill is not null
+			if (shape.paintFillProperty() != null) {
+				ellipse.fillProperty().bind(paintFill);
+				paintFill.bind(shape.paintFillProperty());
 			}
 					
 			return (Node) ellipse;
@@ -267,6 +292,8 @@ public class VectorRenderer extends Renderer<Shape> {
 			FloatProperty x = new SimpleFloatProperty();
 			FloatProperty y = new SimpleFloatProperty();
 			DoubleProperty strokeWidth = new SimpleDoubleProperty();
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
+			ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			rectangle.setX(shape.getX() == null ? DEFAULT_X : shape.getX());
@@ -305,6 +332,19 @@ public class VectorRenderer extends Renderer<Shape> {
 			if (shape.strokeProperty() != null) {
 				rectangle.strokeWidthProperty().bind(strokeWidth);
 				strokeWidth.bind(shape.strokeProperty());
+			}
+			
+			//Binds the color value in the shape to the stroke value in rectangle if color is not null
+			if (shape.paintColorProperty() != null) {
+				rectangle.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
+			}
+			
+			
+			//Binds the fill value in the shape to the fill value in rectangle if fill is not null
+			if (shape.paintFillProperty() != null) {
+				rectangle.fillProperty().bind(paintFill);
+				paintFill.bind(shape.paintFillProperty());
 			}
 			
 			

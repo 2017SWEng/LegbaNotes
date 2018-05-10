@@ -107,11 +107,11 @@ public class TextRenderer extends Renderer<Text> {
 		if (textModel.getFill() == null) {
 			text.setStyle("-fx-fill: " + convertToHex(DEFAULT_Fill));
 		}
-		else if (textModel.getFill().length == 2) {
+		else if (textModel.getFill() instanceof LinearGradient) {
 			text.setStyle("-fx-fill: " + convertToGradient(textModel.getFill()));
 		}
 		else {
-			text.setStyle("-fx-fill: " + convertToHex(textModel.getFill()[0]));
+			text.setStyle("-fx-fill: " + convertToHex((Color) textModel.getFill()));
 		}
 		//Color of text 
 		//text.setFill(
@@ -155,11 +155,11 @@ public class TextRenderer extends Renderer<Text> {
 		if (format.getFill() == null) {
 			text.setStyle("-fx-fill: " + convertToHex(DEFAULT_Fill));
 		}
-		else if (format.getFill().length == 2) {
+		else if (format.getFill() instanceof LinearGradient) {
 			text.setStyle("-fx-fill: " + convertToGradient(format.getFill()));
 		}
 		else {
-			text.setStyle("-fx-fill: " + convertToHex(format.getFill()[0]));
+			text.setStyle("-fx-fill: " + convertToHex((Color) format.getFill()));
 		}
 		
 //		if (format.getColor() == null) {
@@ -220,9 +220,10 @@ public class TextRenderer extends Renderer<Text> {
 		
 	}
 	
-	public String convertToGradient(Color[] color) {
-		
-		String string = ("linear-gradient(" + convertToHex(color[0]) + ", " + convertToHex(color[1]) + ")");
+	public String convertToGradient(Paint color) {
+		Color color1 = ((LinearGradient) color).getStops().get(0).getColor();
+		Color color2 = ((LinearGradient) color).getStops().get(1).getColor();
+		String string = ("linear-gradient(" + convertToHex(color1) + ", " + convertToHex(color2) + ")");
 		
 		return string;
 		

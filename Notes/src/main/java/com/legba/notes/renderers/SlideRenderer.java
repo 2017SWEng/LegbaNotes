@@ -86,23 +86,24 @@ public class SlideRenderer extends Renderer<Slide> {
 		if (s.getColor() == null) {
 			color = Paint.valueOf(DEFAULT_FG.toString());
 		}
-		else if (s.getColor().length == 2) {
-			Stop[] stops = new Stop[] {new Stop(0, s.getColor()[0]), new Stop(1, s.getColor()[1])};
-			color = new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops);
+		else if (s.getColor() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) s.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) s.getColor()).getStops().get(1).getColor())};
+			s.setColor(new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops));
+			color = s.getColor();
 		}
 		else {
-			color = Paint.valueOf(s.getColor()[0].toString());
+			color = s.getColor();
 		}
 		pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 		if (s.getFill() == null) {
 			pane.setStyle("-fx-background-color: " + convertToHex(DEFAULT_BG));
 		}
-		else if (s.getFill().length == 2) {
+		else if (s.getColor() instanceof LinearGradient) {
 			pane.setStyle("-fx-background-color: " + convertToGradient(s.getFill()));
 		}
 		else {
-			pane.setStyle("-fx-background-color: " + convertToHex(s.getFill()[0]));
+			pane.setStyle("-fx-background-color: " + convertToHex((Color) s.getFill()));
 		}
 
 		//When mouse enters pane it puts border around it
@@ -136,8 +137,8 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
 						AppController.getInstance().toolbar.strokeCombo.setValue(shape.getStroke());
-						AppController.getInstance().toolbar.strokeColor.setValue(shape.getColor()[0]);
-						AppController.getInstance().toolbar.shapeFill.setValue(shape.getFill()[0]);
+						AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
+						AppController.getInstance().toolbar.shapeFill.setValue((Color) shape.getFill());
 						
 						//Highlights selected shape
 						DropShadow dropShadow = new DropShadow();
@@ -255,9 +256,10 @@ public class SlideRenderer extends Renderer<Slide> {
 		
 	}
 	
-	public String convertToGradient(Color[] color) {
-		
-		String string = ("linear-gradient(" + convertToHex(color[0]) + ", " + convertToHex(color[1]) + ")");
+	public String convertToGradient(Paint color) {
+		Color color1 = ((LinearGradient) color).getStops().get(0).getColor();
+		Color color2 = ((LinearGradient) color).getStops().get(1).getColor();
+		String string = ("linear-gradient(" + convertToHex(color1) + ", " + convertToHex(color2) + ")");
 		
 		return string;
 		

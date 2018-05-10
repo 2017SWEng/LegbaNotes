@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 //Rich text element
 public class Text extends SlideElement implements Transitionable,Colorable,Formatable{
@@ -21,9 +22,9 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Integer duration;
 	
-	private Color[] color;
+	private Paint color;
 	
-	private Color[] fill;
+	private Paint fill;
 	
 	private String font;
 	
@@ -127,13 +128,13 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	@Override
 	@XmlAttribute
     @XmlJavaTypeAdapter(ColorAdapter.class)
-	public Color[] getColor() {
+	public Paint getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color[] col) {
+	public void setColor(Paint col) {
 		this.color=col;
 	}
 
@@ -141,13 +142,13 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	@Override
 	@XmlAttribute
     @XmlJavaTypeAdapter(ColorAdapter.class)
-	public Color[] getFill() {
+	public Paint getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color[] fill) {
+	public void setFill(Paint fill) {
 		this.fill=fill;
 	}
 

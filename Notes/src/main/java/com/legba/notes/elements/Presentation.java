@@ -11,14 +11,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 @XmlRootElement(name="Presentation")
 public class Presentation extends Element implements Colorable,Formatable{
 
 	
-	private Color[] color;
+	private Paint color;
 	
-	private Color[] fill;
+	private Paint fill;
 	
 	private String font;
 	
@@ -86,13 +87,13 @@ public class Presentation extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color[] getColor() {
+	public Paint getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color[] col) {
+	public void setColor(Paint col) {
 		this.color=col;
 	}
 
@@ -100,13 +101,13 @@ public class Presentation extends Element implements Colorable,Formatable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color[] getFill() {
+	public Paint getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color[] fill) {
+	public void setFill(Paint fill) {
 		this.fill=fill;
 	}
 	
