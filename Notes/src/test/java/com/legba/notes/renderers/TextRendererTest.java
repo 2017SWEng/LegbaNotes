@@ -57,8 +57,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(true);
 		
-		textModel.setColor(new Color [] {javafx.scene.paint.Color.AZURE});
-		textModel.setFill(new Color [] {javafx.scene.paint.Color.RED});
+		textModel.setColor(Color.AZURE);
+		textModel.setFill(Color.RED);
 		
 		textModel.setTextsize(15);
 		
@@ -108,8 +108,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(false);
 		
-		textModel.setColor(new Color [] {javafx.scene.paint.Color.AZURE});
-		textModel.setFill(new Color [] {javafx.scene.paint.Color.BLUE});
+		textModel.setColor(Color.AZURE);
+		textModel.setFill(Color.BLUE);
 		
 		textModel.setTextsize(15);
 		

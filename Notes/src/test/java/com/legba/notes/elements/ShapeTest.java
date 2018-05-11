@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 
 public class ShapeTest {
 
@@ -39,15 +42,20 @@ public class ShapeTest {
 	@Test	//Ensures the outline colour is as specified
 	public void test_outline() {
 		Shape linShape = new Shape("line");
-		linShape.setColor(new Color [] {Color.INDIANRED});
-		assertEquals(Color.INDIANRED, (Color)linShape.getColor()[0]);
+		linShape.setColor(Color.INDIANRED);
+		assertEquals(Color.INDIANRED, linShape.getColor());
 	}
 	
 	@Test	//Ensures the fill colour of the shape is as specified
 	public void test_fill() {
 		Shape ellShape = new Shape("ellipse");
-		ellShape.setFill(new Color [] {Color.DODGERBLUE});
-		assertEquals(Color.DODGERBLUE, (Color)ellShape.getFill()[0]);
+		
+		Stop[] stops = new Stop[] {new Stop(0, Color.DARKOLIVEGREEN), new Stop(1, Color.BLUEVIOLET)};
+		ellShape.setFill(new LinearGradient(ellShape.getX(), ellShape.getY(), ellShape.getX2(), ellShape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+		
+		Stop[] tempStops = new Stop[] {new Stop(0, ((LinearGradient) ellShape.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) ellShape.getFill()).getStops().get(1).getColor())};
+		
+		assertEquals(new LinearGradient(ellShape.getX(), ellShape.getY(), ellShape.getX2(), ellShape.getY2(), false, CycleMethod.NO_CYCLE, tempStops), ellShape.getFill());
 	}
 	
 	//Throws an exception if an invalid shape type is created

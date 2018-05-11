@@ -28,7 +28,7 @@ public class VectorRendererTest {
 		line.setX2(50f);
 		line.setY2(100f);
 		line.setStroke(2);
-		line.setColor(new Color[] {Color.SEAGREEN});
+		line.setColor(Color.SEAGREEN);
 		Line n = (Line) vr.render(line);
 		
 		/**
@@ -40,7 +40,7 @@ public class VectorRendererTest {
 		assertEquals((double)line.getX2(), n.getEndX(),0.01f);
 		assertEquals((double)line.getY2(), n.getEndY(),0.01f);
 		assertEquals((double)line.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(line.getColor()[0], n.getStroke());	
+		assertEquals(line.getColor(), n.getStroke());	
 		
 	}
 	
@@ -53,7 +53,7 @@ public class VectorRendererTest {
 		line.setX2(500f);
 		line.setY2(100f);
 		line.setStroke(2);
-		line.setColor(new Color[] {Color.PAPAYAWHIP});
+		line.setColor(Color.PAPAYAWHIP);
 		Line n = (Line) vr.render(line);
 		
 		//Change line values
@@ -62,7 +62,7 @@ public class VectorRendererTest {
 		line.setY(333f);
 		line.setY2(666f);
 		line.setStroke(7);
-		line.setColor(new Color[] {Color.SNOW});
+		line.setColor(Color.SNOW);
 		System.out.println(line.getColor());;
 		
 		/**
@@ -90,9 +90,11 @@ public class VectorRendererTest {
 		ellipse.setX2(50f);
 		ellipse.setY2(100f);
 		ellipse.setStroke(2);
-		ellipse.setColor(new Color[] {Color.LIGHTGOLDENRODYELLOW});
-		ellipse.setFill(new Color[] {Color.BLACK, Color.RED});
-		LinearGradient lg = new LinearGradient(ellipse.getX(), ellipse.getY(), ellipse.getX2(), ellipse.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, ellipse.getFill()[0]), new Stop(1, ellipse.getFill()[1])});
+		ellipse.setColor(Color.LIGHTGOLDENRODYELLOW);
+		
+		LinearGradient lg = new LinearGradient(ellipse.getX(), ellipse.getY(), ellipse.getX2(), ellipse.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, Color.HONEYDEW), new Stop(1, Color.BROWN)});
+		
+		ellipse.setFill(lg);
 		
 		Ellipse n = (Ellipse) vr.render(ellipse);
 		
@@ -105,8 +107,8 @@ public class VectorRendererTest {
 		assertEquals((double)(ellipse.getX2() - ellipse.getX())/2, n.getRadiusX(),0.01f);
 		assertEquals((double)(ellipse.getY2() - ellipse.getY())/2, n.getRadiusY(),0.01f);
 		assertEquals((double)ellipse.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(ellipse.getColor()[0], n.getStroke());
-		assertEquals(lg, n.getFill());
+		assertEquals(ellipse.getColor(), n.getStroke());
+		assertEquals(ellipse.getFill(), n.getFill());
 	}
 	
 	@Test
@@ -119,8 +121,8 @@ public class VectorRendererTest {
 		ellipse.setX2(500f);
 		ellipse.setY2(100f);
 		ellipse.setStroke(2);
-		ellipse.setColor(new Color[] {Color.LIGHTSALMON});
-		ellipse.setFill(new Color[] {Color.NAVAJOWHITE});
+		ellipse.setColor(Color.LIGHTSALMON);
+		ellipse.setFill(Color.NAVAJOWHITE);
 		Ellipse n = (Ellipse) vr.render(ellipse);
 		
 		//Change ellipse values
@@ -131,8 +133,8 @@ public class VectorRendererTest {
 		ellipse.setY2(666f);
 		
 		ellipse.setStroke(20);
-		ellipse.setColor(new Color [] {Color.CHARTREUSE});
-		ellipse.setFill(new Color[] {Color.CHOCOLATE});
+		ellipse.setColor(Color.CHARTREUSE);
+		ellipse.setFill(Color.CHOCOLATE);
 				
 		/**
 		 * Tests that new shape parameters are rendered correctly
@@ -143,8 +145,8 @@ public class VectorRendererTest {
 		assertEquals((double)(ellipse.getY2() - ellipse.getY())/2, n.getRadiusY(),0.01f);
 		assertEquals((double)ellipse.getStroke(), n.getStrokeWidth(),0.01f);
 		//The binding for color was removed
-		//assertEquals(ellipse.getColor()[0], n.getStroke());
-		//assertEquals(ellipse.getFill()[0], n.getFill());
+		assertEquals(ellipse.getColor(), n.getStroke());
+		assertEquals(ellipse.getFill(), n.getFill());
 	}
 	
 	/**
@@ -159,9 +161,11 @@ public class VectorRendererTest {
 		rectangle.setX2(50f);
 		rectangle.setY2(100f);
 		rectangle.setStroke(2);
-		rectangle.setColor(new Color [] {Color.OLIVEDRAB});
-		rectangle.setFill(new Color[] {Color.BLACK, Color.RED});
-		LinearGradient lg = new LinearGradient(rectangle.getX(), rectangle.getY(), rectangle.getX2(), rectangle.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, rectangle.getFill()[0]), new Stop(1, rectangle.getFill()[1])});
+		rectangle.setColor(Color.OLIVEDRAB);
+		
+		LinearGradient lg = new LinearGradient(rectangle.getX(), rectangle.getY(), rectangle.getX2(), rectangle.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, Color.NAVAJOWHITE), new Stop(1, Color.ROYALBLUE)});
+		rectangle.setFill(lg);
+		
 		
 		Rectangle n = (Rectangle) vr.render(rectangle);
 		
@@ -174,8 +178,8 @@ public class VectorRendererTest {
 		assertEquals((double)rectangle.getWidth(), n.getWidth(),0.01f);
 		assertEquals((double)rectangle.getHeight(), n.getHeight(),0.01f);
 		assertEquals((double)rectangle.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(rectangle.getColor()[0], n.getStroke());
-		assertEquals(lg, n.getFill());		
+		assertEquals(rectangle.getColor(), n.getStroke());
+		assertEquals(rectangle.getFill(), n.getFill());		
 	}
 	
 	@Test
@@ -188,8 +192,8 @@ public class VectorRendererTest {
 		rectangle.setX2(500f);
 		rectangle.setY2(100f);
 		rectangle.setStroke(2);
-		rectangle.setColor(new Color [] {Color.PLUM});
-		rectangle.setFill(new Color [] {Color.HOTPINK});
+		rectangle.setColor(Color.PLUM);
+		rectangle.setFill(Color.HOTPINK);
 		Rectangle n = (Rectangle) vr.render(rectangle);
 		
 		/**
@@ -201,8 +205,8 @@ public class VectorRendererTest {
 		assertEquals((double)rectangle.getWidth(), n.getWidth(),0.01f);
 		assertEquals((double)rectangle.getHeight(), n.getHeight(),0.01f);
 		assertEquals((double)rectangle.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(rectangle.getColor()[0], n.getStroke());
-		assertEquals(rectangle.getFill()[0], n.getFill());
+		assertEquals(rectangle.getColor(), n.getStroke());
+		assertEquals(rectangle.getFill(), n.getFill());
 		
 		//Change rectangle values
 		rectangle.setX(500f);
@@ -212,8 +216,8 @@ public class VectorRendererTest {
 		
 		rectangle.setStroke(20);
 		
-		rectangle.setColor(new Color [] {Color.TOMATO});
-		rectangle.setFill(new Color [] {Color.BISQUE});
+		rectangle.setColor(Color.TOMATO);
+		rectangle.setFill(Color.BISQUE);
 				
 		/**
 		 * Tests that shape parameters are rendered correctly

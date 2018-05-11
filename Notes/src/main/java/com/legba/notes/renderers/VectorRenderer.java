@@ -96,12 +96,13 @@ public class VectorRenderer extends Renderer<Shape> {
 				if (shape.getColor() == null) {
 					color = Paint.valueOf(DEFAULT_FG.toString());
 				}
-				else if (shape.getColor().length == 2) {
-					Stop[] stops = new Stop[] {new Stop(0, shape.getColor()[0]), new Stop(1, shape.getColor()[1])};
-					color = new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops);
+				else if (shape.getColor() instanceof LinearGradient) {
+					Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+					shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+					color = shape.getColor();
 				}
 				else {
-					color = Paint.valueOf(shape.getColor()[0].toString());
+					color = shape.getColor();
 				}
 			
 			//Creates properties for binding to the values in shape 
@@ -176,24 +177,26 @@ public class VectorRenderer extends Renderer<Shape> {
 			if (shape.getColor() == null) {
 				color = Paint.valueOf(DEFAULT_FG.toString());
 			}
-			else if (shape.getColor().length == 2) {
-				Stop[] stops = new Stop[] {new Stop(0, shape.getColor()[0]), new Stop(1, shape.getColor()[1])};
-				color = new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops);
+			else if (shape.getColor() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+				shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				color = shape.getColor();
 			}
 			else {
-				color = Paint.valueOf(shape.getColor()[0].toString());
+				color = shape.getColor();
 			}
 			
 			Paint fill;
 			if (shape.getFill() == null) {
 				fill = Paint.valueOf(DEFAULT_BG.toString());
 			}
-			else if (shape.getFill().length == 2) {
-				Stop[] stops = new Stop[] {new Stop(0, shape.getFill()[0]), new Stop(1, shape.getFill()[1])};
-				fill = new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops);
+			else if (shape.getFill() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getFill()).getStops().get(1).getColor())};
+				shape.setFill(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				fill = shape.getFill();
 			}
 			else {
-				fill = Paint.valueOf(shape.getFill()[0].toString());
+				fill = shape.getFill();
 			}
 			
 			//Creates properties for binding to the values in shape 
@@ -267,24 +270,26 @@ public class VectorRenderer extends Renderer<Shape> {
 			if (shape.getColor() == null) {
 				color = Paint.valueOf(DEFAULT_FG.toString());
 			}
-			else if (shape.getColor().length == 2) {
-				Stop[] stops = new Stop[] {new Stop(0, shape.getColor()[0]), new Stop(1, shape.getColor()[1])};
-				color = new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops);
+			else if (shape.getColor() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+				shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				color = shape.getColor();
 			}
 			else {
-				color = Paint.valueOf(shape.getColor()[0].toString());
+				color = shape.getColor();
 			}
 			
 			Paint fill;
 			if (shape.getFill() == null) {
 				fill = Paint.valueOf(DEFAULT_BG.toString());
 			}
-			else if (shape.getFill().length == 2) {
-				Stop[] stops = new Stop[] {new Stop(0, shape.getFill()[0]), new Stop(1, shape.getFill()[1])};
-				fill = new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops);
+			else if (shape.getFill() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getFill()).getStops().get(1).getColor())};
+				shape.setFill(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				fill = shape.getFill();
 			}
 			else {
-				fill = Paint.valueOf(shape.getFill()[0].toString());
+				fill = shape.getFill();
 			}
 			
 			//Creates properties for binding to the values in shape 

@@ -7,7 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
@@ -51,7 +55,15 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker strokeColor;			//Shape stroke colour wheel
 	@FXML
+	public CheckBox strokeGradient;			//Shape stroke gradient yes or no
+	@FXML
+	public ColorPicker strokeColor2;		//Shape stroke colour 2 wheel for gradient
+	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
+	@FXML
+	public CheckBox fillGradient;			//Shape fill gradient yes or no
+	@FXML
+	public ColorPicker shapeFill2;			//Shape Fill colour 2 wheel for gradient
 	@FXML 
 	public Button deleteShape;				//Delete current shape button
 	
@@ -91,8 +103,7 @@ public class ToolbarController {
 	 */
 	@FXML 
 	protected void handleFontColorAction(ActionEvent event) {
-		Color[] tempColor = new Color[] {strokeColor.getValue()};
-		CurrentText.setColor(tempColor);
+		CurrentText.setColor(strokeColor.getValue());
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -102,8 +113,7 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleFontFillAction(ActionEvent event) {
-		Color[] tempColor = new Color[] {strokeColor.getValue()};
-		CurrentText.setFill(tempColor);
+		CurrentText.setFill(strokeColor.getValue());
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -173,8 +183,44 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleStrokeColorAction(ActionEvent event) {
-		Color[] tempColor = new Color[] {strokeColor.getValue()};
-		CurrentShape.setColor(tempColor);
+		if (strokeGradient.isSelected()) {
+			CurrentShape.setColor(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(strokeColor.getValue(), strokeColor2.getValue())));
+		}
+		else {
+			CurrentShape.setColor(strokeColor.getValue());	
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Whether or not there should be a gradient for stroke
+	 * @param event
+	 */
+	@FXML
+	protected void handleStrokeGradientAction(ActionEvent event) {
+		if (strokeGradient.isSelected()) {
+			strokeColor2.setDisable(false);
+			CurrentShape.setColor(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(strokeColor.getValue(), strokeColor2.getValue())));
+		}
+		else {
+			strokeColor2.setDisable(true);
+			CurrentShape.setColor(strokeColor.getValue());
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected stroke colour 2 and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handleStrokeColor2Action(ActionEvent event) {
+		if (strokeGradient.isSelected()) {
+			CurrentShape.setColor(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(strokeColor.getValue(), strokeColor2.getValue())));
+		}
+		else {
+			CurrentShape.setColor(strokeColor.getValue());	
+		}
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -184,8 +230,43 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleShapeFillAction(ActionEvent event) {
-		Color[] tempColor = new Color[] {strokeColor.getValue()};
-		CurrentShape.setFill(tempColor);
+		if (fillGradient.isSelected()) {
+			CurrentShape.setFill(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(shapeFill.getValue(), shapeFill2.getValue())));
+		}
+		else {
+			CurrentShape.setFill(shapeFill.getValue());
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	/**
+	 * Whether or not there should be a gradient for stroke
+	 * @param event
+	 */
+	@FXML
+	protected void handleFillGradientAction(ActionEvent event) {
+		if (fillGradient.isSelected()) {
+			shapeFill2.setDisable(false);
+			CurrentShape.setFill(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(shapeFill.getValue(), shapeFill2.getValue())));
+		}
+		else {
+			shapeFill2.setDisable(true);
+			CurrentShape.setFill(shapeFill.getValue());
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected shape fill colour 2 and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handleShapeFill2Action(ActionEvent event) {
+		if (fillGradient.isSelected()) {
+			CurrentShape.setFill(new LinearGradient(CurrentShape.getX(), CurrentShape.getY(), CurrentShape.getX2(), CurrentShape.getY2(), false, CycleMethod.NO_CYCLE, getStops(shapeFill.getValue(), shapeFill2.getValue())));
+		}
+		else {
+			CurrentShape.setFill(shapeFill.getValue());
+		}
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -218,6 +299,27 @@ public class ToolbarController {
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
 		deleteShape.setDisable(false);
+		strokeGradient.setDisable(false);
+		fillGradient.setDisable(false);
+		
+		if (CurrentShape.getColor() instanceof LinearGradient) {
+			strokeGradient.setSelected(true);
+			strokeColor2.setDisable(false);
+		}
+		else {
+			strokeGradient.setSelected(false);
+			strokeColor2.setDisable(true);
+		}
+		
+		if (CurrentShape.getFill() instanceof LinearGradient) {
+			fillGradient.setSelected(true);
+			shapeFill2.setDisable(false);
+		}
+		else {
+			fillGradient.setSelected(false);
+			shapeFill2.setDisable(true);
+		}
+
 	}
 	
 	/**
@@ -239,6 +341,10 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		deleteShape.setDisable(true);
+		strokeGradient.setDisable(true);
+		fillGradient.setDisable(true);
+		strokeColor2.setDisable(true);
+		shapeFill2.setDisable(true);
 	}
 	
 	/**
@@ -258,6 +364,10 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		strokeGradient.setDisable(true);
+		fillGradient.setDisable(true);
+		strokeColor2.setDisable(true);
+		shapeFill2.setDisable(true);
 	}
 
 	/**
@@ -273,5 +383,10 @@ public class ToolbarController {
 		
 		//Initially disable editing toolbar
 		initialStartup();
+	}
+	
+	public Stop[] getStops(Color color1, Color color2) {
+		Stop[] stops = new Stop[] {new Stop(0, color1), new Stop(1, color2)};
+		return stops;
 	}
 }

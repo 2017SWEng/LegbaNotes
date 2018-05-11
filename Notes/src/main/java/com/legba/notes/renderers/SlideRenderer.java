@@ -99,7 +99,9 @@ public class SlideRenderer extends Renderer<Slide> {
 		if (s.getFill() == null) {
 			pane.setStyle("-fx-background-color: " + convertToHex(DEFAULT_BG));
 		}
-		else if (s.getColor() instanceof LinearGradient) {
+		else if (s.getFill() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) s.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) s.getFill()).getStops().get(1).getColor())};
+			s.setFill(new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops));
 			pane.setStyle("-fx-background-color: " + convertToGradient(s.getFill()));
 		}
 		else {
@@ -127,18 +129,40 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						//Enable shape mode
-						AppController.getInstance().toolbar.shapeMode();	
-						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
 						AppController.getInstance().viewing.CurrentNode = n;
 						
+						//Enable shape mode
+						AppController.getInstance().toolbar.shapeMode();
+						
+						if (shape.getType().equals("line")) {
+							AppController.getInstance().toolbar.fillGradient.setDisable(true);
+							AppController.getInstance().toolbar.shapeFill.setDisable(true);
+						}
+						
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
 						AppController.getInstance().toolbar.strokeCombo.setValue(shape.getStroke());
-						AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
-						AppController.getInstance().toolbar.shapeFill.setValue((Color) shape.getFill());
+						
+						if (AppController.getInstance().toolbar.CurrentShape.getColor() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.strokeColor2.setValue(((LinearGradient) shape.getColor()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.strokeColor.setValue(((LinearGradient) shape.getColor()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
+						}
+						//System.out.println("box : " + AppController.getInstance().toolbar.strokeColor2.getValue());
+						//System.out.println("actual : " + shape.getColor());
+						//AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
+						
+						if (AppController.getInstance().toolbar.CurrentShape.getFill() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.shapeFill2.setValue(((LinearGradient) shape.getFill()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.shapeFill.setValue(((LinearGradient) shape.getFill()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.shapeFill.setValue((Color) shape.getFill());
+						}
 						
 						//Highlights selected shape
 						DropShadow dropShadow = new DropShadow();

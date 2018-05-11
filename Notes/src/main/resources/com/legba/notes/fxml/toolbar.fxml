@@ -49,7 +49,11 @@
 						<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
+						<CheckBox fx:id="strokeGradient" onAction="#handleStrokeGradientAction"/>
+						<ColorPicker prefWidth="30" fx:id="strokeColor2" onAction="#handleStrokeColor2Action"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
+						<CheckBox fx:id="fillGradient" onAction="#handleFillGradientAction"/>
+						<ColorPicker prefWidth="30" fx:id="shapeFill2" onAction="#handleShapeFill2Action"/>
 						<Button text="Delete" fx:id="deleteShape" onAction="#handleDeleteShapeAction"  />
 					</HBox>				
 				</ToolBar>
