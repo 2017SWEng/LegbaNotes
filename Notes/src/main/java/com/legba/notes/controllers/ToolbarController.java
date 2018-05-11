@@ -274,7 +274,7 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Enables addition of shapes onto current pane
+	 * Enables addition of elements onto current pane
 	 */
 	public void paneMode() {
 		addCombo.setDisable(false);

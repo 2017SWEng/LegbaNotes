@@ -77,6 +77,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		//When mouse clicks on pane
 		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
+				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
 				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
 			}

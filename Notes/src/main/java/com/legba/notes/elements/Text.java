@@ -41,14 +41,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Text() {
 		super();
 		
-		//Default Values
-		this.color = javafx.scene.paint.Color.BLACK;
-		this.fill = javafx.scene.paint.Color.BLACK;
-		this.font = "Times New Roman";
-		this.italic = false;
-		this.bold = false;
-		this.underline = false;
-		this.textsize = 12;
 		this.contents = new ArrayList<Object>();
 	}
 	@XmlElementRefs({
