@@ -63,13 +63,14 @@ public class AppModel{
 			System.err.println("AppModel.setVeiwMode was passed null, defaulting to homepage");
 			viewMode = ViewMode.Mode.HOMEPAGE;
 		}
+		else if(this.viewMode.getMode() == ViewMode.Mode.VEIWING) {
+			AppController.getInstance().viewing.stopAllMedia();
+		}
 		
 		System.out.println("Setting veiw to " + viewMode.toString());
 		
 		//When leaving Viewing mode, stop all media
-		if(this.viewMode.getMode() == ViewMode.Mode.VEIWING) {
-			AppController.getInstance().viewing.stopAllMedia();
-		}
+		
 
 		// if were not in viewing mode we shouldn't have a presentation open
 		if (viewMode != ViewMode.Mode.VEIWING){
