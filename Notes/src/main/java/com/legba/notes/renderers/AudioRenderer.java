@@ -4,8 +4,6 @@ import com.legba.notes.elements.Audio;
 import com.legba.notes.nodes.AudioPlayer;
 
 import javafx.scene.Node;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.media.Media;
 
 import java.io.File;

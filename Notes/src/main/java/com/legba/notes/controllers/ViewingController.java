@@ -1,19 +1,22 @@
 package com.legba.notes.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
@@ -23,6 +26,7 @@ import javafx.scene.text.Text;
 public class ViewingController {
 	
 	public Node CurrentNode;
+	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
 	
 	@FXML
 	private SplitPane viewing_root;
@@ -95,42 +99,48 @@ public class ViewingController {
 	 * Updates all slides when changes are made from the toolbar controller
 	 */
 	public void updateSlide() {
-		/*-----------------------------------------------------------------------------------------
-		TODO: Currently this clears and rebuilds the entire presentation when are changes are made
-			  to the text or shapes (size, colour, font, etc.). There might be some way to update
-			  without having to rebuild the entire thing every time. - lm1370
-			  
-		------------------------------------------------------------------------------------------*/
-		//Get scroll
+		
+		ArrayList<Duration> currentPlayback = new ArrayList<Duration>();
+		
+		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
-		// get the presentation from the model
+		// Get all current playback locations for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			currentPlayback.add(m.getCurrentTime());
+		}
+				
+		// Stop all current playing media and remove media player storage
+		stopAllMedia();
+		this.allMediaPlayers.clear();
+		
+		// Get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
 		
-		// render the presentation
+		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
 		
-		// display the presentation
+		// Display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
+		// Set playback locations for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
+		}
 		
-		/*-----------------------------------------------------------------------------------------
-		TODO: Fix highlighting issue, when you click on any object it updates the presentation
-			  therefore removing the highlighting. Tried to implement it then after updating 
-			  but still not working. Not major issue so have left for now - lm1370
-		
-		//Highlight shape when clicked
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setBlurType(BlurType.GAUSSIAN);
-		dropShadow.setColor(Color.BLACK);
-		dropShadow.setOffsetX(0.0);
-		dropShadow.setOffsetY(0.0);
-		dropShadow.setRadius(20.0);
-		CurrentNode.setEffect(dropShadow);
-		
-		------------------------------------------------------------------------------------------*/
+		// Set scroll to previous position
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);		
+	}
+	
+	/**
+	 * Sets all media currently playing to "stop"
+	 */
+	public void stopAllMedia() {
+		//For all mediaPlayers rendered, apply stop method
+		for(MediaPlayer m : this.allMediaPlayers) {
+			m.stop();
+		}
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package com.legba.notes.nodes;
 
+import com.legba.notes.controllers.AppController;
+
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -26,6 +28,9 @@ public class AudioPlayer extends BorderPane {
 		
 		Button playButton = new Button("Play");
 		
+		//Auto-play
+		mediaPlayer.play();
+		
 		// Setup play button
 		playButton.setOnAction((ActionEvent e) -> {
 			mediaPlayer.play();
@@ -50,6 +55,7 @@ public class AudioPlayer extends BorderPane {
 			public void invalidated(Observable ov) {
 				if (timeSlider.isValueChanging()) {
 					// multiply duration by percentage calculated by slider position
+					mediaPlayer.setStartTime(new Duration(0));
 					mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
 		       	}
 		    }
@@ -91,7 +97,8 @@ public class AudioPlayer extends BorderPane {
 	    this.setCenter(timeSlider);
 	    this.setTop(mediaView);
 	    
-	    
+	    // Add media player to list of total
+        AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
 	}
 	
 	protected void updateValues() {
