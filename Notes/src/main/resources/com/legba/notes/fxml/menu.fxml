@@ -43,9 +43,9 @@
 				</Menu>
 				<Menu text="Help">
 				</Menu>
-				<Menu text="Notes">
+				<Menu text="Notes" fx:id="notesMenu">
 					<items>
-						<MenuItem text="Save notes" onAction="#handleManualNotesSave"/>
+						<MenuItem  text="Save notes" onAction="#handleManualNotesSave"/>
 					</items>
 				</Menu>
 			</menus>

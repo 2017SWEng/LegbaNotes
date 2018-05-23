@@ -42,11 +42,11 @@
       <Shape x="103" y="123" type="ellipse" x2="5" y2="101" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
    </Slide>
    <Slide fill="#FEDDFE" color="#032222">
-      <Image path="../local_file.jpg" x="10" y="35" x2="100" y2="200" />
+      <Image path="local_file.jpg" x="10" y="35" x2="500" y2="400" />
       <Shape x="400" y="50" type="ellipse" x2="450" y2="75" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
    </Slide>
    <Slide>
-      <Video path="../local_file.mp4" x="10" y="35" x2="100" y2="200" />
+      <Video path="local_file.mp4" x="10" y="35" x2="500" y2="400" />
       <Audio path="testData/audioTest.wav" x="50" y="100" x2="10" y2="10" />
    </Slide>
    <Slide >

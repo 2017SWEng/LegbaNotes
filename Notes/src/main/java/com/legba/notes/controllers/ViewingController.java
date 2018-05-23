@@ -1,19 +1,22 @@
 package com.legba.notes.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
@@ -23,6 +26,7 @@ import javafx.scene.text.Text;
 public class ViewingController {
 	
 	public Node CurrentNode;
+	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
 	
 	@FXML
 	private SplitPane viewing_root;
@@ -95,23 +99,48 @@ public class ViewingController {
 	 * Updates all slides when changes are made from the toolbar controller
 	 */
 	public void updateSlide() {
+		
+		ArrayList<Duration> currentPlayback = new ArrayList<Duration>();
+		
 		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
-		// get the presentation from the model
+		// Get all current playback locations for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			currentPlayback.add(m.getCurrentTime());
+		}
+				
+		// Stop all current playing media and remove media player storage
+		stopAllMedia();
+		this.allMediaPlayers.clear();
+		
+		// Get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
 		
-		// render the presentation
+		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
 		
-		// display the presentation
+		// Display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		//Set new scroll location to old one
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
+		// Set playback locations for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
+		}
 		
-		AppController.getInstance().logNodes(notes_root, 0);
+		// Set scroll to previous position
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);		
+	}
+	
+	/**
+	 * Sets all media currently playing to "stop"
+	 */
+	public void stopAllMedia() {
+		//For all mediaPlayers rendered, apply stop method
+		for(MediaPlayer m : this.allMediaPlayers) {
+			m.stop();
+		}
 	}
 	
 	/**

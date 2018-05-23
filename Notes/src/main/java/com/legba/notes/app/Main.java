@@ -2,6 +2,9 @@ package com.legba.notes.app;
 
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.models.AppModel;
 
@@ -38,6 +41,36 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		
+		try {
+		    // Try to get LOCK //
+		    if (!AppLock.setLock("MY_CUSTOM_LOCK_KEY")) {
+		        System.out.println("Only one application instance may run at the same time!");
+		        
+		        //Display warning message
+		        warn();
+		        System.exit(1);
+		    }
+		
+		//Run program
 		launch(args);
+		
+		}
+		finally{
+		    AppLock.releaseLock(); // Release lock
+		}
 	}
+	
+	/**
+	 * Warning message when trying to open program when it's already running
+	 */
+	private static void warn() {
+        final JFrame parent = new JFrame();
+
+        JOptionPane.showMessageDialog(parent,
+    		    "Legba Notes Is Already Running",
+    		    "Warning",
+    		    JOptionPane.WARNING_MESSAGE);
+    }
+	
 }

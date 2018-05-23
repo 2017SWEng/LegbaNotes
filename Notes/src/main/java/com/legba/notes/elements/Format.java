@@ -8,7 +8,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.scene.paint.Color;
-
+/**
+ * Class is the format element and allows the formatting 
+ * of the format elements parameters such as setting bold, italic etc...
+ * Class extends Element and implements Colorable and Formatable.
+ * If any parameter is set to null its state will not change.
+ * @author vc622
+ */
 @XmlRootElement(name="Format")
 public class Format extends Element implements Colorable,Formatable{
 	
@@ -30,15 +36,20 @@ public class Format extends Element implements Colorable,Formatable{
 	
 	public Format() {
 		super();
-
 	}
 	
 	@XmlValue
 	public String getText() {
 		return this.text;
 	}
-
+	/**
+	 * Sets text of Format Element
+	 * @param text
+	 */
 	public void setText(String text) {
+		if (text == null) {
+			return;
+		}
 		this.text=text;		
 	}
 	
@@ -50,24 +61,37 @@ public class Format extends Element implements Colorable,Formatable{
 
 
 	@Override
+	/**
+	 * Sets font of Format Element
+	 * @param font
+	 */
 	public void setFont(String font) {
-		//TODO:: Check to make sure font is valid
+		if (font == null) {
+			return;
+		}
 		this.font=font;		
 	}
 
 
 	@Override
 	@XmlAttribute
+
 	public Boolean getItalic() {
 		return this.italic;
 	}
 
 
 	@Override
+	/**
+	 * Sets format to italic
+	 * @param italic
+	 */
 	public void setItalic(Boolean italic) {
+		if (italic == null) {
+			return;
+		}
 		this.italic=italic;
 	}
-
 
 	@Override
 	@XmlAttribute
@@ -75,9 +99,15 @@ public class Format extends Element implements Colorable,Formatable{
 		return this.bold;
 	}
 
-
 	@Override
+	/**
+	 * Sets format to bold
+	 * @param bold
+	 */
 	public void setBold(Boolean bold) {
+		if (bold == null) {
+			return;
+		}
 		this.bold=bold;
 	}
 
@@ -90,7 +120,14 @@ public class Format extends Element implements Colorable,Formatable{
 
 
 	@Override
+	/**
+	 * Underlines Format element
+	 * @param underline
+	 */
 	public void setUnderline(Boolean underline) {
+		if (underline == null) {
+			return;
+		}
 		this.underline=underline;		
 	}
 
@@ -103,7 +140,14 @@ public class Format extends Element implements Colorable,Formatable{
 
 
 	@Override
+	/**
+	 * Sets textsize of Format element
+	 * @param size
+	 */
 	public void setTextsize(Integer size) {
+		if (size == null) {
+			return;
+		}
 		this.size=size;		
 	}
 	
@@ -114,9 +158,15 @@ public class Format extends Element implements Colorable,Formatable{
 		return this.color;
 	}
 
-
+	/**
+	 * Sets color of Format element
+	 * @param color
+	 */
 	@Override
 	public void setColor(Color col) {
+		if (col == null) {
+			return;
+		}
 		this.color=col;
 	}
 
@@ -130,8 +180,15 @@ public class Format extends Element implements Colorable,Formatable{
 
 
 	@Override
+	/**
+	 * Sets color of fill for Format element
+	 * @param fill
+	 */
 	public void setFill(Color fill) {
-		this.color=fill;
+		if (fill == null) {
+			return;
+		}
+		this.fill=fill;
 	}
 
 }

@@ -27,6 +27,8 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import java.nio.file.Paths;
 
+import com.legba.notes.controllers.AppController;
+
 /**
  * MovieView is a wrapper around the JavaFX video playback tools with some extra functionality
  * (sliding transport controls, media controls, full-screen mode).
@@ -109,7 +111,7 @@ public class MovieView extends Region {
         // When the view is clicked, restart playback from beginning
         // Only do this on the mediaView to avoid problems with the toolbar
         mediaView.setOnMouseClicked(e -> {
-            mediaPlayer.seek(new Duration(0));
+            mediaPlayer.setStartTime(new Duration(0));
             mediaPlayer.play();
         });
 
@@ -154,6 +156,9 @@ public class MovieView extends Region {
         updateMutedState();
         updatePlayingState();
         updatePlaybackRateState();
+        
+        // Add media player to list of total
+        AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
     }
 
     /**
@@ -337,6 +342,7 @@ public class MovieView extends Region {
         // Adjust transport/seek slider
         seekSlider.valueProperty().addListener(ov -> {
             if (seekSlider.isValueChanging()) {
+            	mediaPlayer.setStartTime(new Duration(0));
                 mediaPlayer.seek(Duration.seconds(seekSlider.getValue()));
             }
         });
