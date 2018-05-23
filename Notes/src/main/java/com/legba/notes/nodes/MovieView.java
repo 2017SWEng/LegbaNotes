@@ -88,7 +88,7 @@ public class MovieView extends Region {
         getStyleClass().add("unlock--movieview");
 
         mediaPlayer = player;
-        player.setAutoPlay(true);
+        //player.setAutoPlay(true);
 
         // Inner nodes
         // Media

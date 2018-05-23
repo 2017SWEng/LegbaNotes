@@ -100,16 +100,19 @@ public class ViewingController {
 	 */
 	public void updateSlide() {
 		
+		//Storage for playback locations and status
 		ArrayList<Duration> currentPlayback = new ArrayList<Duration>();
-		
+		ArrayList<MediaPlayer.Status> currentStatus = new ArrayList<MediaPlayer.Status>();
+			
 		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
-		// Get all current playback locations for all media
+		// Get current playback locations and current status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
 			currentPlayback.add(m.getCurrentTime());
+			currentStatus.add(m.getStatus());
 		}
-				
+			
 		// Stop all current playing media and remove media player storage
 		stopAllMedia();
 		this.allMediaPlayers.clear();
@@ -124,13 +127,21 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		// Set playback locations for all media
+		// Set playback locations and status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
+			
+			// Set scroll to previous position
+			((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);	
+			
+			//If media player was playing, continue playing otherwise stop
+			if (currentStatus.get(allMediaPlayers.indexOf(m)) == MediaPlayer.Status.PLAYING)
+                m.play();
+            else 
+                m.stop();
+			
+			//Set playback position
 			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
 		}
-		
-		// Set scroll to previous position
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);		
 	}
 	
 	/**

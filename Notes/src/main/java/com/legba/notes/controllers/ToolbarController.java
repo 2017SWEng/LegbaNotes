@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -196,39 +195,54 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleAddItemAction(ActionEvent event) {
-		//Get combo box value
-		String SelectedItem = new String(addCombo.getValue());
-		
-		if(SelectedItem.equals("Shape")) {
-			//Default shape is ellipse
-			Shape s = new Shape("ellipse");
-			s.setX2(50f);
-			s.setY2(50f);
-			s.setFill(Color.WHITE);
-			s.setStroke(5);
-			s.setColor(Color.BLACK);
-			s.setX(10f);
-			s.setY(7f);
-			CurrentSlide.addShape(s);
+		//Get combo box value		
+		try {
+			String SelectedItem = addCombo.getValue();
 			
-		} else if(SelectedItem.equals("Text")) {
-			//TODO: Need text box editing code from luke
-			Text t = new Text();
-			CurrentSlide.addText(t);
+			if(SelectedItem.equals("Shape")) {
+				//Default shape is ellipse
+				Shape s = new Shape("ellipse");
+				s.setX2(50f);
+				s.setY2(50f);
+				s.setFill(Color.WHITE);
+				s.setStroke(5);
+				s.setColor(Color.BLACK);
+				s.setX(10f);
+				s.setY(7f);
+				CurrentSlide.addShape(s);
+				
+			} else if(SelectedItem.equals("Text")) {
+				//TODO: Need text box editing code from luke
+				Text t = new Text();
+				CurrentSlide.addText(t);
+				
+			} else if(SelectedItem.equals("Audio")) {
+				//Default audio file
+				Audio a = new Audio("testData/audioTest.wav");
+				CurrentSlide.addAudio(a);
+				
+			} else if(SelectedItem.equals("Video")) {
+				//Default video file
+				Video v = new Video("local_file.mp4", 10, 35, 500, 400);
+				CurrentSlide.addVideo(v);
+				
+			}	else if(SelectedItem.equals("Image")) {
+				//Default image file
+				Image i = new Image("local_file.jpg");
+				CurrentSlide.addImage(i);
+				
+			}
 			
-		} else if(SelectedItem.equals("Audio")) {
-			//Default audio file
-			Audio a = new Audio("testData/audioTest.wav");
-			CurrentSlide.addAudio(a);
+			//Add element to current slide / pane
+			AppController.getInstance().viewing.updateSlide();
 			
-		} else if(SelectedItem.equals("Video")) {
-			//Default video file
-			Video v = new Video("local_file.mp4", 10, 35, 100, 200);
-			CurrentSlide.addVideo(v);
+		} catch(Exception ex) {
+			//System.out.println("addCombo is null");
+			//Do nothing as the add combo box is always reset to null when selecting a slide
+			//So that you add multiple elements of the same type on one slide without having
+			//to select another type
 		}
-
-		//Add shape to current slide / pane
-		AppController.getInstance().viewing.updateSlide();
+		
 	}
 	
 	/**
@@ -311,7 +325,7 @@ public class ToolbarController {
 		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video");
+		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image");
 		
 		//Initially disable editing toolbar
 		initialStartup();
