@@ -1,5 +1,7 @@
 package com.legba.notes.controllers;
 
+import java.util.List;
+
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
@@ -26,8 +28,12 @@ public class ToolbarController {
 	
 	public Shape CurrentShape;
 	public Text CurrentText;
-	public Pane CurrentPane;
+	public Audio CurrentAudio;
+	public Video CurrentVideo;
+	public Image CurrentImage;
+	public String CurrentElement;
 	public Slide CurrentSlide;
+	public boolean AddElement;
 	
 	@FXML
 	private BorderPane toolbar_root;		//Toolbar borderpane
@@ -56,7 +62,7 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML 
-	public Button deleteShape;				//Delete current shape button
+	public Button deleteElement;			//Delete current shape button
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
 	
@@ -181,12 +187,50 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Button to delete currently selected shape 
+	 * Button to delete currently selected element 
 	 * @param event
 	 */
 	@FXML 
-	protected void handleDeleteShapeAction(ActionEvent event) {
-
+	protected void handleDeleteElementAction(ActionEvent event) {
+		//Delete selected element
+		try {
+			if(CurrentElement.equals("Shape")) {
+				//Delete shape
+				List<Shape> slideShapes = CurrentSlide.getShapes();
+				slideShapes.remove(CurrentShape);
+				CurrentSlide.setShapes(slideShapes);
+				
+			} else if(CurrentElement.equals("Text")) {
+				//Delete text
+				List<Text> slideTexts = CurrentSlide.getTexts();
+				slideTexts.remove(CurrentText);
+				CurrentSlide.setTexts(slideTexts);
+				
+			} else if(CurrentElement.equals("Audio")) {
+				//Delete Audio
+				List<Audio> slideAudios = CurrentSlide.getAudios();
+				slideAudios.remove(CurrentAudio);
+				CurrentSlide.setAudios(slideAudios);
+				
+			} else if(CurrentElement.equals("Video")) {
+				//Delete Video
+				List<Video> slideVideos = CurrentSlide.getVideos();
+				slideVideos.remove(CurrentVideo);
+				CurrentSlide.setVideos(slideVideos);
+				
+			} else if(CurrentElement.equals("Image")) {
+				//Delete Image
+				List<Image> slideImages = CurrentSlide.getImages();
+				slideImages.remove(CurrentImage);
+				CurrentSlide.setImages(slideImages);
+				
+			}
+		} catch(Exception ex) {
+			//Do nothing
+		}
+				
+		//Update presentation
+		AppController.getInstance().viewing.updateSlide();
 	}
 	
 	/**
@@ -220,29 +264,30 @@ public class ToolbarController {
 				//Default audio file
 				Audio a = new Audio("testData/audioTest.wav");
 				CurrentSlide.addAudio(a);
+				AddElement = true;
 				
 			} else if(SelectedItem.equals("Video")) {
 				//Default video file
 				Video v = new Video("local_file.mp4", 10, 35, 500, 400);
 				CurrentSlide.addVideo(v);
+				AddElement = true;
 				
 			}	else if(SelectedItem.equals("Image")) {
 				//Default image file
-				Image i = new Image("local_file.jpg");
+				Image i = new Image("local_file.jpg", 10, 35, 500, 400);
 				CurrentSlide.addImage(i);
 				
 			}
-			
-			//Add element to current slide / pane
-			AppController.getInstance().viewing.updateSlide();
-			
+
 		} catch(Exception ex) {
-			//System.out.println("addCombo is null");
 			//Do nothing as the add combo box is always reset to null when selecting a slide
 			//So that you add multiple elements of the same type on one slide without having
 			//to select another type
 		}
 		
+		//Add element to current slide
+		AppController.getInstance().viewing.updateSlide();
+		AddElement = false;
 	}
 	
 	/**
@@ -262,8 +307,6 @@ public class ToolbarController {
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
-		deleteShape.setDisable(false);
-		addCombo.setDisable(false);
 	}
 	
 	/**
@@ -283,8 +326,6 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
-		deleteShape.setDisable(true);
-		addCombo.setDisable(true);
 	}
 	
 	/**
@@ -292,6 +333,7 @@ public class ToolbarController {
 	 */
 	public void paneMode() {
 		addCombo.setDisable(false);
+		deleteElement.setDisable(false);
 	}
 	
 	/**
@@ -311,7 +353,7 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
-		deleteShape.setDisable(true);
+		deleteElement.setDisable(true);
 		addCombo.setDisable(true);
 	}
 

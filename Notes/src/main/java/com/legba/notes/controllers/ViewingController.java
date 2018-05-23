@@ -9,7 +9,6 @@ import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
@@ -25,7 +24,6 @@ import javafx.util.Duration;
  */
 public class ViewingController {
 	
-	public Node CurrentNode;
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
 	
 	@FXML
@@ -126,6 +124,12 @@ public class ViewingController {
 		// Display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
+		
+		//Add variable data for new media player
+		if(AppController.getInstance().toolbar.AddElement == true) {
+			currentPlayback.add(Duration.ZERO);
+			currentStatus.add(MediaPlayer.Status.STOPPED);
+		}
 		
 		// Set playback locations and status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
