@@ -54,7 +54,6 @@ public class Shape extends SlideElement implements Colorable{
 			throw new IllegalArgumentException("Invalid shape type");		
 			
 		}
-
 	}
 	
 	//Returns pixel width of border on shape

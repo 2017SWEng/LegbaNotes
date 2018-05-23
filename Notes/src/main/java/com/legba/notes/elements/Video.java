@@ -21,7 +21,16 @@ public class Video extends MultiMediaElement{
 		super();
 
 		this.setPath(path);
-		
+	}
+	
+	public Video(String path, float X, float Y, float X2, float Y2) {
+		super();
+
+		this.setPath(path);
+		this.setX(X);
+		this.setX2(X2);
+		this.setY(Y);
+		this.setY2(Y2);
 	}
 	/**
 	 * Boolean method that checks the filepath is 
