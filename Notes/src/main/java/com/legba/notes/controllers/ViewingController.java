@@ -130,9 +130,6 @@ public class ViewingController {
 		// Set playback locations and status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
 			
-			// Set scroll to previous position
-			((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);	
-			
 			//If media player was playing, continue playing otherwise stop
 			if (currentStatus.get(allMediaPlayers.indexOf(m)) == MediaPlayer.Status.PLAYING)
                 m.play();
@@ -142,6 +139,9 @@ public class ViewingController {
 			//Set playback position
 			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
 		}
+		
+		// Set scroll to previous position
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);	
 	}
 	
 	/**
