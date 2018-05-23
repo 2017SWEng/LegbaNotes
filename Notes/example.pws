@@ -48,7 +48,6 @@
    <Slide>
       <Video path="local_file.mp4" x="10" y="35" x2="500" y2="400" />
       <Audio path="testData/audioTest.wav" x="50" y="100" x2="10" y2="10" />
-      <Video path="../local_file.mp4" x="250" y="300" x2="500" y2="700" />
    </Slide>
    <Slide >
    		<Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#3482ED)" />

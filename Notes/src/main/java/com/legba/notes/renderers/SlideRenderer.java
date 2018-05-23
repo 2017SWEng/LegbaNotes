@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Image;
@@ -19,7 +20,6 @@ import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
 import com.legba.notes.elements.Video;
-import com.legba.notes.models.AppModel;
 
 /**
  * Takes an instance of a Slide and produces an javafx Node tree.
