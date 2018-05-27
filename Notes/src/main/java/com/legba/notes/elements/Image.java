@@ -29,6 +29,26 @@ public class Image extends MultiMediaElement {
 		this.setPath(path);
 		
 	}
+	
+	/**
+	 * Method sets image path plus coordinates. Used from Toolbar
+	 * Controller to create new images.
+	 * @param path FilePath
+	 * @param X coordinate
+	 * @param Y coordinate
+	 * @param X2 coordinate
+	 * @param Y2 coordinate
+	 */
+	public Image(String path, float X, float Y, float X2, float Y2) {
+		super();
+
+		this.setPath(path);
+		this.setX(X);
+		this.setX2(X2);
+		this.setY(Y);
+		this.setY2(Y2);
+	}
+	
 	/**
 	 * Boolean method that checks the filepath is 
 	 * in the correct format and that its length is

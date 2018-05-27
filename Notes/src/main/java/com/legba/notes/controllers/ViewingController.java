@@ -9,7 +9,6 @@ import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
@@ -25,7 +24,6 @@ import javafx.util.Duration;
  */
 public class ViewingController {
 	
-	public Node CurrentNode;
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
 	
 	@FXML
@@ -100,16 +98,19 @@ public class ViewingController {
 	 */
 	public void updateSlide() {
 		
+		//Storage for playback locations and status
 		ArrayList<Duration> currentPlayback = new ArrayList<Duration>();
-		
+		ArrayList<MediaPlayer.Status> currentStatus = new ArrayList<MediaPlayer.Status>();
+			
 		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
-		// Get all current playback locations for all media
+		// Get current playback locations and current status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
 			currentPlayback.add(m.getCurrentTime());
+			currentStatus.add(m.getStatus());
 		}
-				
+			
 		// Stop all current playing media and remove media player storage
 		stopAllMedia();
 		this.allMediaPlayers.clear();
@@ -124,13 +125,27 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		// Set playback locations for all media
+		//Add variable data for new media player
+		if(AppController.getInstance().toolbar.AddElement == true) {
+			currentPlayback.add(Duration.ZERO);
+			currentStatus.add(MediaPlayer.Status.STOPPED);
+		}
+		
+		// Set playback locations and status for all media
 		for(MediaPlayer m : this.allMediaPlayers) {
+			
+			//If media player was playing, continue playing otherwise stop
+			if (currentStatus.get(allMediaPlayers.indexOf(m)) == MediaPlayer.Status.PLAYING)
+                m.play();
+            else 
+                m.stop();
+			
+			//Set playback position
 			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
 		}
 		
 		// Set scroll to previous position
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);	
 	}
 	
 	/**

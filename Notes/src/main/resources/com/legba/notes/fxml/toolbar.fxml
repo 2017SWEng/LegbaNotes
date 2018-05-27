@@ -49,7 +49,7 @@
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
-						<Button text="Delete" fx:id="deleteShape" onAction="#handleDeleteShapeAction"  />
+						<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
 						<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
 					</HBox>				
 				</ToolBar>

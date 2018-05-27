@@ -69,8 +69,6 @@ public class AppModel{
 		
 		System.out.println("Setting veiw to " + viewMode.toString());
 		
-		//When leaving Viewing mode, stop all media
-		
 
 		// if were not in viewing mode we shouldn't have a presentation open
 		if (viewMode != ViewMode.Mode.VEIWING){

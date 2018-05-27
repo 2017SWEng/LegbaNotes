@@ -82,13 +82,13 @@ public class SlideRenderer extends Renderer<Slide> {
 				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
 				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
+				
 			}
 		});
 		//When mouse enters pane it puts border around it
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-				AppController.getInstance().toolbar.CurrentPane = pane;
 			}
 		});
 		
@@ -98,7 +98,8 @@ public class SlideRenderer extends Renderer<Slide> {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.EMPTY)));
 			}
 		});
-
+		
+		//Shape rendering
 		for(Shape shape : s.getShapes()){
 			Node n = this.vectorRenderer.render(shape);
 			
@@ -107,11 +108,11 @@ public class SlideRenderer extends Renderer<Slide> {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Enable shape mode
-						AppController.getInstance().toolbar.shapeMode();	
-						
+						AppController.getInstance().toolbar.shapeMode();
+
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
-						AppController.getInstance().viewing.CurrentNode = n;
+						AppController.getInstance().toolbar.CurrentElement = new String("Shape");
 						
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
@@ -147,18 +148,58 @@ public class SlideRenderer extends Renderer<Slide> {
 			pane.getChildren().add(n);
 		}
 		
+		//Audio rendering
 		for(Audio audio : s.getAudios()){
-			pane.getChildren().add(this.audioRenderer.render(audio));
+			Node n = this.audioRenderer.render(audio);
+			
+			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentAudio = audio;
+						AppController.getInstance().toolbar.CurrentElement = new String("Audio");
+					}
+				}
+			});
+			
+			pane.getChildren().add(n);
 		}
 		
+		//Video rendering
 		for(Video video : s.getVideos()){
-			pane.getChildren().add(this.videoRenderer.render(video));
+			Node n = this.videoRenderer.render(video);
+			
+			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentVideo = video;
+						AppController.getInstance().toolbar.CurrentElement = new String("Video");
+					}
+				}
+			});
+			
+			pane.getChildren().add(n);
 		}
 		
+		//Image rendering
 		for(Image image : s.getImages()){
-			pane.getChildren().add(this.imageRenderer.render(image));
+			Node n = this.imageRenderer.render(image);
+			
+			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentImage = image;
+						AppController.getInstance().toolbar.CurrentElement = new String("Image");
+					}
+				}
+			});
+			
+			pane.getChildren().add(n);
 		}
 		
+		//Text rendering
 		for(Text text : s.getTexts()){
 			Node n = this.textRenderer.render(text);
 			
@@ -171,7 +212,7 @@ public class SlideRenderer extends Renderer<Slide> {
 						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
-						AppController.getInstance().viewing.CurrentNode = n;
+						AppController.getInstance().toolbar.CurrentElement = new String("Text");
 						
 						
 						/*----------------------------------------------------------------------------------------------------------------------

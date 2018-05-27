@@ -29,7 +29,7 @@ public class AudioPlayer extends BorderPane {
 		Button playButton = new Button("Play");
 		
 		//Auto-play
-		mediaPlayer.play();
+		//mediaPlayer.play();
 		
 		// Setup play button
 		playButton.setOnAction((ActionEvent e) -> {
