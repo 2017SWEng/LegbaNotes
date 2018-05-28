@@ -128,13 +128,25 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setOffsetY(0.0);
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
+						
+						//Update element if it has moved
+						AppController.getInstance().viewing.moveElement(shape, n);	
+						
 					}
 				}
 			});
 			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX() - shape.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY() - shape.getY());
+				}
+			});	
+			
+			//Un-highlights selected shape when leaving shape
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
-					//Un-highlights selected shape
 					DropShadow dropShadow = new DropShadow();
 					dropShadow.setBlurType(BlurType.GAUSSIAN);
 					dropShadow.setColor(Color.TRANSPARENT);
@@ -142,9 +154,10 @@ public class SlideRenderer extends Renderer<Slide> {
 					dropShadow.setOffsetY(0.0);
 					dropShadow.setRadius(0.0);
 					n.setEffect(dropShadow);
+					
 				}
 			});
-			
+
 			pane.getChildren().add(n);
 		}
 		
@@ -158,9 +171,20 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentAudio = audio;
 						AppController.getInstance().toolbar.CurrentElement = new String("Audio");
+						
+						//Update element if it has moved
+						AppController.getInstance().viewing.moveElement(audio, n);
 					}
 				}
 			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			pane.getChildren().add(n);
 		}
@@ -175,9 +199,20 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentVideo = video;
 						AppController.getInstance().toolbar.CurrentElement = new String("Video");
+						
+						//Update element if it has moved
+						AppController.getInstance().viewing.moveElement(video, n);
 					}
 				}
 			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			pane.getChildren().add(n);
 		}
@@ -192,9 +227,20 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentImage = image;
 						AppController.getInstance().toolbar.CurrentElement = new String("Image");
+						
+						//Update element if it has moved
+						AppController.getInstance().viewing.moveElement(image, n);						
 					}
 				}
 			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			pane.getChildren().add(n);
 		}
@@ -239,9 +285,20 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setOffsetY(0.0);
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
+						
+						//Update element if it has moved
+						AppController.getInstance().viewing.moveElement(text, n);	
 					}
 				}
 			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {

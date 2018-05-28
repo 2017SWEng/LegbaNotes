@@ -23,6 +23,14 @@ public class Video extends MultiMediaElement{
 		this.setPath(path);
 	}
 	
+	/**
+	 * Further creation method
+	 * @param path
+	 * @param X
+	 * @param Y
+	 * @param X2
+	 * @param Y2
+	 */
 	public Video(String path, float X, float Y, float X2, float Y2) {
 		super();
 
@@ -32,6 +40,7 @@ public class Video extends MultiMediaElement{
 		this.setY(Y);
 		this.setY2(Y2);
 	}
+	
 	/**
 	 * Boolean method that checks the filepath is 
 	 * in the correct format and that its length is
