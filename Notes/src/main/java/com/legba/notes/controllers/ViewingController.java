@@ -27,8 +27,12 @@ import javafx.util.Duration;
 public class ViewingController {
 	
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
-	public double nodeX;
-	public double nodeY;
+	
+	private double nodeX;
+	private double nodeY;
+	private SlideElement nodeElement;
+	
+	
 	
 	@FXML
 	private SplitPane viewing_root;
@@ -169,9 +173,17 @@ public class ViewingController {
 	 * @param n
 	 */
 	public void moveElement(SlideElement s, Node n) {
+		//If this is a different element, re-calculate start point
+		if(s != nodeElement) {
+			nodeX = s.getX();
+			nodeY = s.getY();
+		}
+		
 		//Get current coordinates
 		nodeX = nodeX + n.getTranslateX();
 		nodeY = nodeY + n.getTranslateY();
+		
+		System.out.println(s);
 		
 		//Check that x is not negative
 		if(nodeX < 0) {
@@ -188,8 +200,9 @@ public class ViewingController {
 		s.setX((float) nodeX);
 		s.setY2((float) (nodeY + s.getHeight()));
 		s.setY((float) nodeY);	
-		
-		//Update slides
+
+		//Update slides and element variable
+		nodeElement = s;
 		updateSlide();
 	}
 	

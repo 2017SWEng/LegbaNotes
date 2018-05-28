@@ -104,7 +104,7 @@ public class SlideRenderer extends Renderer<Slide> {
 			Node n = this.vectorRenderer.render(shape);
 			
 			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Enable shape mode
@@ -130,8 +130,7 @@ public class SlideRenderer extends Renderer<Slide> {
 						n.setEffect(dropShadow);
 						
 						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(shape, n);	
-						
+						AppController.getInstance().viewing.moveElement(shape, n);							
 					}
 				}
 			});
@@ -165,7 +164,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Audio audio : s.getAudios()){
 			Node n = this.audioRenderer.render(audio);
 			
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Sets variables
@@ -193,7 +192,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Video video : s.getVideos()){
 			Node n = this.videoRenderer.render(video);
 			
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Sets variables
@@ -221,7 +220,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		for(Image image : s.getImages()){
 			Node n = this.imageRenderer.render(image);
 			
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Sets variables
@@ -250,7 +249,7 @@ public class SlideRenderer extends Renderer<Slide> {
 			Node n = this.textRenderer.render(text);
 			
 			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Enable shape mode
