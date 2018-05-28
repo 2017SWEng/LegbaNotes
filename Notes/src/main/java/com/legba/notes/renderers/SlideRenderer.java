@@ -33,6 +33,8 @@ public class SlideRenderer extends Renderer<Slide> {
 	TextRenderer textRenderer;
 	VideoRenderer videoRenderer;
 	ImageRenderer imageRenderer;
+	
+	boolean hasMoved;
 
 	/**
 	 * Default constructor, use default SlideElement renderers
@@ -129,8 +131,13 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
 						
-						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(shape, n);							
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(shape, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}						
 					}
 				}
 			});
@@ -171,8 +178,13 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentAudio = audio;
 						AppController.getInstance().toolbar.CurrentElement = new String("Audio");
 						
-						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(audio, n);
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(audio, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
 					}
 				}
 			});
@@ -199,8 +211,13 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentVideo = video;
 						AppController.getInstance().toolbar.CurrentElement = new String("Video");
 						
-						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(video, n);
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(video, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
 					}
 				}
 			});
@@ -227,8 +244,13 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentImage = image;
 						AppController.getInstance().toolbar.CurrentElement = new String("Image");
 						
-						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(image, n);						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(image, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
 					}
 				}
 			});
@@ -285,8 +307,13 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
 						
-						//Update element if it has moved
-						AppController.getInstance().viewing.moveElement(text, n);	
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(text, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
 					}
 				}
 			});

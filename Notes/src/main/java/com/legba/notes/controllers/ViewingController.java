@@ -167,23 +167,25 @@ public class ViewingController {
 	}
 	
 	/**
-	 * Gets the changed position of the element being dragged and sets the coordinates
-	 * to the new position. It then calls the update slide method.
+	 * Method that controls moving elements. If element hasn't been 
+	 * moved it returns false. Then gets the combination of the 
+	 * elements pre-existing coordinates and the node offset and checks
+	 * that neither the x or y components are negative. It then sets the
+	 * coordinates of the element to these new values.
+	 * 
 	 * @param s
 	 * @param n
+	 * @return boolean
 	 */
-	public void moveElement(SlideElement s, Node n) {
-		//If this is a different element, re-calculate start point
-		if(s != nodeElement) {
-			nodeX = s.getX();
-			nodeY = s.getY();
+	public boolean moveElement(SlideElement s, Node n) {		
+		//If element hasn't moved, exit out
+		if((n.getTranslateX() == 0) && (n.getTranslateY() == 0)) {
+			return false;
 		}
 		
 		//Get current coordinates
-		nodeX = nodeX + n.getTranslateX();
-		nodeY = nodeY + n.getTranslateY();
-		
-		System.out.println(s);
+		nodeX = s.getX() + n.getTranslateX();
+		nodeY = s.getY() + n.getTranslateY();
 		
 		//Check that x is not negative
 		if(nodeX < 0) {
@@ -201,9 +203,7 @@ public class ViewingController {
 		s.setY2((float) (nodeY + s.getHeight()));
 		s.setY((float) nodeY);	
 
-		//Update slides and element variable
-		nodeElement = s;
-		updateSlide();
+		return true;
 	}
 	
 	/**
