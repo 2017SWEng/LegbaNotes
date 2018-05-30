@@ -16,31 +16,17 @@ import java.io.File;
  */
 public class AudioRenderer extends Renderer<Audio> {
 	
-	/**Returns a hbox object which can then be painted on the screen.
-	 * The hbox contains 3 children; 
-	 * - Text which displays the retrieved file path
-	 * - Button which when pressed, plays the media
-	 * - Mediaviewer that views the player which plays the media
-	 * <p>
-	 *  The method always returns immediately, whether or not the audio
-	 *  path exists.
+	/**
+	 * Creates a media player object using the file specified and returns a rendered
+	 * audio player made from that media player.
 	 * 
-	 * @param 	audio	The Audio model class to be rendered.
-	 * @return 	hbox	GUI 
+	 *  @Param Audio audio
+	 *  @return audioPlayer
 	 */
-	
-	public Node render (Audio audio) {
-		
-		//Play, pause, stop, scrubbing bar
-		
-		// Setup text
-		//Text t = new Text();
-		//t.setFont(new Font(20));
-		//t.setText(audio.getPath()); 
-		
+	public Node render (Audio audio) {	
 		// Setup mediaplayer
 		Media media = new Media(new File(audio.getPath()).toURI().toString());        
-        AudioPlayer audioPlayer = new AudioPlayer(media);
+        AudioPlayer audioPlayer = new AudioPlayer(media, audio.getX(), audio.getY(), audio.getWidth(), audio.getHeight());
 
 		return audioPlayer;
 	}
