@@ -166,21 +166,21 @@ public class SlideRenderer extends Renderer<Slide> {
 		}
 		
 		//Video rendering
-		for(Video video : s.getVideos()){
-			Node n = this.videoRenderer.render(video);
+		//for(Video video : s.getVideos()){
+			//Node n = this.videoRenderer.render(video);
 			
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent mouseEvent) {								
-					if(n!=null) {
+			//n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+				//public void handle(MouseEvent mouseEvent) {								
+					//if(n!=null) {
 						//Sets variables
-						AppController.getInstance().toolbar.CurrentVideo = video;
-						AppController.getInstance().toolbar.CurrentElement = new String("Video");
-					}
-				}
-			});
+						//AppController.getInstance().toolbar.CurrentVideo = video;
+						//AppController.getInstance().toolbar.CurrentElement = new String("Video");
+					//}
+			//	}
+			//});
 			
-			pane.getChildren().add(n);
-		}
+			//pane.getChildren().add(n);
+		//}
 		
 		//Image rendering
 		for(Image image : s.getImages()){
