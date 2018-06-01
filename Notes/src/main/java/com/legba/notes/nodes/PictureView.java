@@ -52,6 +52,7 @@ public class PictureView extends Region {
 
         getChildren().addAll(imageView, maskView);
 
+        
         setLayoutX(x);
         setLayoutY(y);
         setWidth(width);
@@ -145,6 +146,14 @@ public class PictureView extends Region {
      */
     public double getLoupeScale() {
         return scale;
+    }
+    
+    /**
+     * Getter for the Image in imageView
+     * @return image 
+     */
+    public Image getImage() {
+    	return imageView.getImage();
     }
 
     /**

@@ -149,13 +149,13 @@ public class TextRenderer extends Renderer<Text> {
 		);
 		
 		//Checking Bold and Italic.
-		boolean isItalic = format.getItalic() == null ? textModel.getItalic() : format.getItalic();
-		boolean isBold = format.getBold() == null ? textModel.getBold() : format.getBold();
+		Boolean isItalic = (format.getItalic() == null) ? textModel.getItalic() : format.getItalic();
+		Boolean isBold = (format.getBold() == null) ? textModel.getBold() : format.getBold();
 
 		text.setFont(Font.font(
 				format.getFont() == null ? textModel.getFont() : format.getFont(), 
-				isBold == false ? FontWeight.NORMAL : FontWeight.BOLD,
-				isItalic == false ? FontPosture.REGULAR : FontPosture.ITALIC,
+				isBold == null ? FontWeight.NORMAL : FontWeight.BOLD,
+				isItalic == null ? FontPosture.REGULAR : FontPosture.ITALIC,
 				format.getTextsize() == null ? textModel.getTextsize() : format.getTextsize())
 			);
 		

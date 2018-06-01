@@ -69,7 +69,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 		this.images = images;
 	}
 
-	public void addAudio(Image image) {
+	public void addImage(Image image) {
 		this.images.add(image);
 	}
 
@@ -162,7 +162,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 
 	@Override
 	public void setFill(Color fill) {
-		this.color=fill;
+		this.fill=fill;
 	}
 	
 	@Override
@@ -174,8 +174,13 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 
 	@Override
 	public void setFont(String font) {
-		//TODO:: Check to make sure font is valid
-		this.font=font;		
+		if (font != null){
+			this.font=font;		
+		}
+		else {
+			System.out.println("Invalid font. Calibri Selected");
+			this.font= "Calibri";
+		}
 	}
 
 

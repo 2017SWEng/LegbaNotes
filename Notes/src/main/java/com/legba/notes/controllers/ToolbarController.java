@@ -1,14 +1,20 @@
 package com.legba.notes.controllers;
 
+import java.util.List;
+
+import com.legba.notes.elements.Audio;
+import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
+import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
 import com.legba.notes.app.HTMLConverter;
-
+import com.legba.notes.elements.Video;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -25,7 +31,12 @@ public class ToolbarController {
 	
 	public Shape CurrentShape;
 	public Text CurrentText;
-	public Pane CurrentPane;
+	public Audio CurrentAudio;
+	public Video CurrentVideo;
+	public Image CurrentImage;
+	public String CurrentElement;
+	public Slide CurrentSlide;
+	public boolean AddElement;
 	
 	@FXML
 	private BorderPane toolbar_root;		//Toolbar borderpane
@@ -45,8 +56,6 @@ public class ToolbarController {
 	public ComboBox<String> fontCombo;		//Font type list
 	@FXML
 	public ComboBox<Integer> sizeCombo;		//Font size list
-	@FXML 
-	public Button deleteText;				//Delete current text button
 	@FXML
 	public ComboBox<String> typeCombo;		//Shape type list
 	@FXML
@@ -61,6 +70,10 @@ public class ToolbarController {
 	public HTMLEditor insertText;			//HTML Input pane 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
+	@FXML
+	public Button deleteElement;			//Delete current shape button
+	@FXML 
+	public ComboBox<String> addCombo;		//Add element button
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -143,16 +156,6 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Button to delete currently selected text 
-	 * @param event
-	 */
-	@FXML 
-	protected void handleDeleteTextAction(ActionEvent event) {
-		CurrentPane.getChildren().remove(CurrentText);
-		AppController.getInstance().viewing.updateSlide();
-	}
-	
-	/**
 	 * Takes selected shape type and sets it to the selected shape
 	 * @param event
 	 */
@@ -193,12 +196,107 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Button to delete currently selected shape 
+	 * Button to delete currently selected element 
 	 * @param event
 	 */
 	@FXML 
-	protected void handleDeleteShapeAction(ActionEvent event) {
-		CurrentPane.getChildren().remove(CurrentShape);
+	protected void handleDeleteElementAction(ActionEvent event) {
+		//Delete selected element
+		try {
+			if(CurrentElement.equals("Shape")) {
+				//Delete shape
+				List<Shape> slideShapes = CurrentSlide.getShapes();
+				slideShapes.remove(CurrentShape);
+				CurrentSlide.setShapes(slideShapes);
+				
+			} else if(CurrentElement.equals("Text")) {
+				//Delete text
+				List<Text> slideTexts = CurrentSlide.getTexts();
+				slideTexts.remove(CurrentText);
+				CurrentSlide.setTexts(slideTexts);
+				
+			} else if(CurrentElement.equals("Audio")) {
+				//Delete Audio
+				List<Audio> slideAudios = CurrentSlide.getAudios();
+				slideAudios.remove(CurrentAudio);
+				CurrentSlide.setAudios(slideAudios);
+				
+			} else if(CurrentElement.equals("Video")) {
+				//Delete Video
+				List<Video> slideVideos = CurrentSlide.getVideos();
+				slideVideos.remove(CurrentVideo);
+				CurrentSlide.setVideos(slideVideos);
+				
+			} else if(CurrentElement.equals("Image")) {
+				//Delete Image
+				List<Image> slideImages = CurrentSlide.getImages();
+				slideImages.remove(CurrentImage);
+				CurrentSlide.setImages(slideImages);
+				
+			}
+		} catch(Exception ex) {
+			//Do nothing
+		}
+				
+		//Update presentation
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Button to add elements
+	 * @param event
+	 */
+	@FXML
+	protected void handleAddItemAction(ActionEvent event) {
+		//Get combo box value		
+		try {
+			String SelectedItem = addCombo.getValue();
+			
+			if(SelectedItem.equals("Shape")) {
+				//Default shape is ellipse
+				Shape s = new Shape("ellipse");
+				s.setX2(50f);
+				s.setY2(50f);
+				s.setFill(Color.WHITE);
+				s.setStroke(5);
+				s.setColor(Color.BLACK);
+				s.setX(10f);
+				s.setY(7f);
+				CurrentSlide.addShape(s);
+				
+			} else if(SelectedItem.equals("Text")) {
+				//TODO: Need text box editing code from luke
+				Text t = new Text();
+				CurrentSlide.addText(t);
+				
+			} else if(SelectedItem.equals("Audio")) {
+				//Default audio file
+				Audio a = new Audio("testData/audioTest.wav");
+				CurrentSlide.addAudio(a);
+				AddElement = true;
+				
+			} else if(SelectedItem.equals("Video")) {
+				//Default video file
+				Video v = new Video("local_file.mp4", 10, 35, 500, 400);
+				CurrentSlide.addVideo(v);
+				AddElement = true;
+				
+			}	else if(SelectedItem.equals("Image")) {
+				//Default image file
+				Image i = new Image("local_file.jpg", 10, 35, 500, 400);
+				CurrentSlide.addImage(i);
+				
+			}
+
+		} catch(Exception ex) {
+			//Do nothing as the add combo box is always reset to null when selecting a slide
+			//So that you add multiple elements of the same type on one slide without having
+			//to select another type
+		}
+		
+		//Add element to current slide
+		AppController.getInstance().viewing.updateSlide();
+		AddElement = false;
 	}
 	
 	/** Takes text typed into the HTML Editor and inserts it into the slide.
@@ -209,7 +307,7 @@ public class ToolbarController {
 		CurrentText.setContents(HTMLConverter.toPWS(insertText.getHtmlText()).getContents());
 		AppController.getInstance().viewing.updateSlide();
 	}
-	
+
 	/**
 	 * Enables editing tools for shapes and disables others
 	 */
@@ -222,13 +320,11 @@ public class ToolbarController {
 		pageBreak.setDisable(true);
 		textColor.setDisable(true);
 		textFill.setDisable(true);
-		deleteText.setDisable(true);
 		
 		typeCombo.setDisable(false);
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
-		deleteShape.setDisable(false);
 		
 		insertText.setHtmlText(null);
 		insertText.setDisable(true);
@@ -247,17 +343,23 @@ public class ToolbarController {
 		pageBreak.setDisable(false);
 		textColor.setDisable(false);
 		textFill.setDisable(false);
-		deleteText.setDisable(false);
 		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
-		deleteShape.setDisable(true);
 		
 		insertText.setDisable(false);
 		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
+	}
+	
+	/**
+	 * Enables addition of elements onto current pane
+	 */
+	public void paneMode() {
+		addCombo.setDisable(false);
+		deleteElement.setDisable(false);
 	}
 	
 	/**
@@ -280,6 +382,8 @@ public class ToolbarController {
 		
 		insertText.setDisable(true);
 		insertTextButton.setDisable(true);
+		deleteElement.setDisable(true);
+		addCombo.setDisable(true);
 	}
 
 	/**
@@ -292,6 +396,7 @@ public class ToolbarController {
 		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image");
 		
 		insertText.setPrefSize(400, 100);
 		hideHTMLEditorToolbars(insertText);

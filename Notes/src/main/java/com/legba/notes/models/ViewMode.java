@@ -17,6 +17,7 @@ public class ViewMode extends Observable{
 
 	public void setMode(Mode mode) {
 		
+		//Check if set to current mode
 		if (mode == this.mode){
 			System.out.println("Changed to the same mode");
 			return;

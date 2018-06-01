@@ -3,8 +3,6 @@ package com.legba.notes.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,11 +10,14 @@ import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
+import com.legba.notes.renderers.AudioRenderer;
+import com.legba.notes.renderers.VideoRenderer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
@@ -36,7 +37,13 @@ public class MenuController implements Observer{
 	MenuBar menuBar;
 	
 	@FXML
+	Menu notesMenu;
+	
+	@FXML
 	ImageView homeLogo;
+	
+	AudioRenderer audioRenderer;
+	VideoRenderer videoRenderer;
 	
 	@FXML public void handleManualNotesSave(){
 		

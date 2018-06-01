@@ -215,7 +215,7 @@ public class AppController implements Observer{
 		
 		return node;
  	}
- 	
+ 	 	
 	private void addMenu() {
 		
 		// load menu from fxml
@@ -262,9 +262,11 @@ public class AppController implements Observer{
 		
 		if (mode == Mode.HOMEPAGE){
 			path = AppController.homepagePath;
+			menu.notesMenu.setDisable(true);;
 		}
 		else if(mode == Mode.VEIWING){
 			path = AppController.viewingPath;
+			menu.notesMenu.setDisable(false);
 		}
 		else if (mode ==Mode.LOGIN){
 			path = AppController.loginPath;

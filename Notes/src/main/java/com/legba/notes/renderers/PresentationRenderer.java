@@ -23,7 +23,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 	 * Default constructor uses the default slide renderer
 	 */
 	public PresentationRenderer() {
-		this.slideRenderer = new SlideRenderer();
+		this.slideRenderer = new SlideRenderer();	
 	}
 	
 	/**
@@ -59,6 +59,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 		List<Slide> slide = pres.getSlide();
 		
 		for(Slide s : slide){
+			
 			vbox.getChildren().add(slideRenderer.render(s));
 		}
 		

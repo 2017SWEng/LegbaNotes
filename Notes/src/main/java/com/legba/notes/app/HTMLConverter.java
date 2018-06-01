@@ -7,8 +7,6 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
-import javafx.scene.paint.Color;
-
 public class HTMLConverter {
 	
 	/**
@@ -112,7 +110,7 @@ public class HTMLConverter {
 	}
 	
 	public static Text toPWS(String html) {
-		//TODO: Currently only returns plain text, all formatting removed
+		//TODO: Currently only returns plain text, most formating removed
 		Text pws = new Text();
 		Document doc = Jsoup.parse(html);
 		

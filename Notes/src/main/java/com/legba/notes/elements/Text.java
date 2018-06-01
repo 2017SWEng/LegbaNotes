@@ -2,7 +2,6 @@ package com.legba.notes.elements;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
@@ -12,7 +11,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.scene.paint.Color;
-
+/**
+ * Class is the text element and allows the formatting 
+ * of text elements parameters such as setting bold, italic etc...
+ * Class extends SlideElement and implements 
+ * Transitionable, Colorable and Formatable.
+ * If any parameter is set to null its state will not change.
+ * @author vc622
+ */
 //Rich text element
 public class Text extends SlideElement implements Transitionable,Colorable,Formatable{
 	
@@ -30,8 +36,23 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	private Boolean underline;
 	
 	private List<Object> contents;
-	
+
 	public Text() {
+		super();		
+		
+		//Default Values
+		this.color = javafx.scene.paint.Color.BLACK;
+		this.fill = javafx.scene.paint.Color.BLACK;
+		this.font = "Times New Roman";
+		this.italic = false;
+		this.bold = false;
+		this.underline = false;
+		this.textsize = 12;
+		this.contents = new ArrayList<Object>();
+
+	}
+	
+	public Text(String s) {
 		super();
 		
 		//Default Values
@@ -43,7 +64,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.underline = false;
 		this.textsize = 12;
 		this.contents = new ArrayList<Object>();
+		this.contents.add(s);
 	}
+	
+	
 	@XmlElementRefs({
     	@XmlElementRef(name="Format", type=Format.class),
     	@XmlElementRef(name="Br", type=Br.class)
@@ -52,11 +76,18 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public List<Object> getContents() {
 		return this.contents;
 	}
-
+	/**
+	 * Sets the contents of Text
+	 * @param List<Object> contents
+	 */
 	public void setContents(List<Object> contents) {
-		this.contents = contents;		
+
+		if (contents == null) {
+			return;
+		}
+		this.contents=contents;	
 	}
-	
+
 	public void addContents(Object content) {
 		this.contents.clear();
 		this.contents.add(content);
@@ -90,9 +121,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets Font of Text
+	 * @param font
+	 */
 	public void setFont(String font) {
-		//TODO:: Check to make sure font is valid
-		this.font = font;		
+		if (font == null) {
+			return;
+		}
+		this.font=font;		
 	}
 
 	@Override
@@ -102,7 +139,14 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets text to Italic
+	 * @param italic
+	 */
 	public void setItalic(Boolean italic) {
+		if (italic == null) {
+			return;
+		}
 		this.italic=italic;
 	}
 
@@ -113,8 +157,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets text to Bold
+	 * @param bold
+	 */
 	public void setBold(Boolean bold) {
-		this.bold = bold;
+		if (bold == null) {
+			return;
+		}
+		this.bold=bold;
 	}
 
 	@Override
@@ -124,8 +175,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Underlines Text
+	 * @param underline
+	 */
 	public void setUnderline(Boolean underline) {
-		this.underline = underline;		
+		if (underline == null) {
+			return;
+		}
+		this.underline=underline;		
 	}
 
 	@Override
@@ -135,8 +193,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 *Sets size of Text
+	 * @param underline
+	 */
 	public void setTextsize(Integer size) {
-		this.textsize = size;		
+		if (size == null) {
+			return;
+		}
+		this.textsize=size;		
 	}
 	
 	@Override
@@ -147,8 +212,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 	
 	@Override
+	/**
+	 * Sets color of Text
+	 * @param color
+	 */
 	public void setColor(Color col) {
-		this.color = col;
+		if (col == null) {
+			return;
+		}
+		this.color=col;
 	}
 
 	@Override
@@ -159,8 +231,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets color of Textfill
+	 * @param fill
+	 */
 	public void setFill(Color fill) {
-		this.color = fill;
+		if (fill == null) {
+			return;
+		}
+		this.fill=fill;
 	}
 
 	@Override
@@ -171,8 +250,15 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets the amount of time before text will appear
+	 * @param start time
+	 */
 	public void setStart(Integer start) {
-		this.start = start;
+		if (start == null) {
+			return;
+		}
+		this.start=start;
 	}
 
 	@Override
@@ -182,7 +268,14 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	@Override
+	/**
+	 * Sets the amount of time before text will disappear
+	 * @param duration time
+	 */
 	public void setDuration(Integer duration) {
-		this.duration = duration;
+		if (duration == null) {
+			return;
+		}
+		this.duration=duration;
 	}
 }
