@@ -164,7 +164,9 @@ public class MovieView extends Region {
         updatePlaybackRateState();
         
         // Add media player to list of total
+        if( AppController.getInstance().viewing != null ) {
         AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
+        }
     }
 
     /**
