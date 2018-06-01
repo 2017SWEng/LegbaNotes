@@ -26,7 +26,7 @@ public class AudioRenderer extends Renderer<Audio> {
 	public Node render (Audio audio) {	
 		// Setup mediaplayer
 		Media media = new Media(new File(audio.getPath()).toURI().toString());        
-        AudioPlayer audioPlayer = new AudioPlayer(media);
+        AudioPlayer audioPlayer = new AudioPlayer(media, audio.getX(), audio.getY(), audio.getWidth(), audio.getHeight());
 
 		return audioPlayer;
 	}
