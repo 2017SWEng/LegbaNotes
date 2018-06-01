@@ -10,7 +10,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
@@ -19,11 +18,18 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * Audio player that houses media player
+ * and controls.
+ * @author lm1370, tmm522
+ *
+ */
 public class AudioPlayer extends BorderPane {
 	
 	private MediaPlayer mediaPlayer;
 	private Duration duration;
 	private Slider timeSlider;
+	private Slider volumeSlider;
 	private Label label;
 	private Button playPauseButton;
 	private double labelTime;
@@ -31,13 +37,13 @@ public class AudioPlayer extends BorderPane {
 	
 	public AudioPlayer(Media media, double x, double y, double width, double height) {
 		
-		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer = new MediaPlayer(media);		
 		playPauseButton = new Button();
+		playPauseButton.setTranslateY(-3.5);
 		label = new Label();
 		
-		
+		//Get CSS style file
 		getStyleClass().add("unlock--movieview");
-		
 		playPauseButton.getStyleClass().add("button--playpause");
 		updatePlayingState();
 		
@@ -56,9 +62,14 @@ public class AudioPlayer extends BorderPane {
 		// Add time slider
 		timeSlider = new Slider();
 		HBox.setHgrow(timeSlider,Priority.ALWAYS);
-		timeSlider.setMinWidth(50);
 		timeSlider.setMaxWidth(Double.MAX_VALUE);
 		
+		// Add time slider
+		volumeSlider = new Slider(0, 1, 0.8);
+		HBox.setHgrow(volumeSlider,Priority.ALWAYS);
+		volumeSlider.setMaxWidth(50);
+		
+		//Seek listener
 		timeSlider.valueProperty().addListener(new InvalidationListener() {
 			public void invalidated(Observable ov) {
 				if (timeSlider.isValueChanging()) {
@@ -68,14 +79,19 @@ public class AudioPlayer extends BorderPane {
 		       	}
 		    }
 		});
+		
+		//Volume
+		mediaPlayer.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
 	   
+		//Update values for seek and label
 		mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() 
 		{
 			public void invalidated(Observable ov) {
 				updateValues();
 			}
 		});
-	 	   
+	 	
+		//On startup
 		mediaPlayer.setOnReady(new Runnable() {
 			public void run() {
 				duration = mediaPlayer.getMedia().getDuration();
@@ -83,6 +99,7 @@ public class AudioPlayer extends BorderPane {
 			}
 		});
 		
+		//When media has completed, reset to beginning 
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 			public void run() {
 				mediaPlayer.seek(new Duration(0));
@@ -95,13 +112,16 @@ public class AudioPlayer extends BorderPane {
 		
 		// Make horizontal box and add items to it
 		HBox hbox = new HBox(8); // spacing = 8
+		hbox.getStyleClass().add("controls");
+
+		hbox.setStyle("-fx-background-color: transparent;");
 		hbox.getChildren().add(playPauseButton);
-		hbox.getChildren().add(timeSlider);
 		hbox.getChildren().add(label);
+		hbox.getChildren().add(timeSlider);		
+		hbox.getChildren().add(volumeSlider);
 	    
 	    // Add the Hbox to this, which is a borderPane
 	    this.setLeft(hbox);
-	    this.setCenter(timeSlider);
 	    this.setTop(mediaView);
 	    
 	    //Set coordinates
@@ -116,13 +136,11 @@ public class AudioPlayer extends BorderPane {
 	/**
 	 * Updates the slider to run in real-time
 	 */
-	protected void updateValues() {
-		
+	protected void updateValues() {	
+		//Update current time
 		labelTime = Math.round((timeSlider.getValue() / 10) * 10d) / 10d;
         label.setText(Double.toString(labelTime));
         label.setTextFill(Color.WHITE);
-        label.setTranslateY(3.5);
-
         
 		Platform.runLater(new Runnable() {
 		    public void run() {
@@ -154,5 +172,4 @@ public class AudioPlayer extends BorderPane {
                 mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING
         );
     }
-
 } 
