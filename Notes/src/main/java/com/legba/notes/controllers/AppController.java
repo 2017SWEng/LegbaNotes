@@ -215,7 +215,7 @@ public class AppController implements Observer{
 		
 		return node;
  	}
- 	
+ 	 	
 	private void addMenu() {
 		
 		// load menu from fxml

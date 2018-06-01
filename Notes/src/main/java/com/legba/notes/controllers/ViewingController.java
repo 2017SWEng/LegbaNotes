@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.legba.notes.elements.Presentation;
+import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
@@ -25,6 +27,12 @@ import javafx.util.Duration;
 public class ViewingController {
 	
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
+	
+	private double nodeX;
+	private double nodeY;
+	private SlideElement nodeElement;
+	
+	
 	
 	@FXML
 	private SplitPane viewing_root;
@@ -156,6 +164,46 @@ public class ViewingController {
 		for(MediaPlayer m : this.allMediaPlayers) {
 			m.stop();
 		}
+	}
+	
+	/**
+	 * Method that controls moving elements. If element hasn't been 
+	 * moved it returns false. Then gets the combination of the 
+	 * elements pre-existing coordinates and the node offset and checks
+	 * that neither the x or y components are negative. It then sets the
+	 * coordinates of the element to these new values.
+	 * 
+	 * @param s
+	 * @param n
+	 * @return boolean
+	 */
+	public boolean moveElement(SlideElement s, Node n) {		
+		//If element hasn't moved, exit out
+		if((n.getTranslateX() == 0) && (n.getTranslateY() == 0)) {
+			return false;
+		}
+		
+		//Get current coordinates
+		nodeX = s.getX() + n.getTranslateX();
+		nodeY = s.getY() + n.getTranslateY();
+		
+		//Check that x is not negative
+		if(nodeX < 0) {
+			nodeX = 0;
+		}
+		
+		//Check that y is not negative
+		if(nodeY < 0) {
+			nodeY = 0;
+		}
+		
+		//Set coordinates
+		s.setX2((float) (nodeX + s.getWidth()));
+		s.setX((float) nodeX);
+		s.setY2((float) (nodeY + s.getHeight()));
+		s.setY((float) nodeY);	
+
+		return true;
 	}
 	
 	/**

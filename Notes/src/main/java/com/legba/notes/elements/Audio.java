@@ -45,7 +45,6 @@ public class Audio extends MultiMediaElement{
 		this.setY(Y);
 		this.setY2(Y2);
 	}
-
 	
 	/**
 	 * Boolean method that checks the filepath is 
