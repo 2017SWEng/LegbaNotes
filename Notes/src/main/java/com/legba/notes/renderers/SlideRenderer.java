@@ -136,6 +136,8 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Enable shape mode
 						AppController.getInstance().toolbar.shapeMode();
 						
+						System.out.println(shape);
+						
 						if (shape.getType().equals("line")) {
 							AppController.getInstance().toolbar.fillGradient.setDisable(true);
 							AppController.getInstance().toolbar.shapeFill.setDisable(true);
@@ -207,28 +209,40 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						//Enable shape mode
-						AppController.getInstance().toolbar.textMode();	
-						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().viewing.CurrentNode = n;
+						
+						//Enable text mode
+						AppController.getInstance().toolbar.textMode();	
+						
+						System.out.println(text);
 						
 						/*----------------------------------------------------------------------------------------------------------------------
 						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
 							  the identical method for shapes and they work. If text has been binded then i'll have a another 
 							  look at this, text can be set from the toolbar, but can't retrieve data from text to display on toolbar - lm1370
 						
-						//Displays selected shape variables on toolbar
-						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
-						AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
-						AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
-						AppController.getInstance().toolbar.textColor.setValue(text.getColor());
-						AppController.getInstance().toolbar.textFill.setValue(text.getFill());
-						AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
-						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+						//Displays selected shape variables on toolbar */
+						//AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
+						//AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
+						//AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
 						
-						-------------------------------------------------------------------------------------------------------------------------*/
+						//AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
+						//AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+						
+						//-------------------------------------------------------------------------------------------------------------------------*/
+						
+						//AppController.getInstance().toolbar.textColor.setValue(text.getColor());
+						//AppController.getInstance().toolbar.textFill.setValue(text.getFill());
+						
+						if (AppController.getInstance().toolbar.CurrentText.getFill() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.textFill2.setValue(((LinearGradient) text.getFill()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.textFill.setValue(((LinearGradient) text.getFill()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.textFill.setValue((Color) text.getFill());
+						}
 						
 						//Highlights selected text
 						DropShadow dropShadow = new DropShadow();

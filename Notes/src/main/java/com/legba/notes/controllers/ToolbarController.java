@@ -37,9 +37,11 @@ public class ToolbarController {
 	@FXML
 	public ToggleButton undFont;			//Underline button
 	@FXML
-	public ColorPicker textColor;			//Text colour wheel
-	@FXML
 	public ColorPicker textFill;			//Text highlighting wheel
+	@FXML
+	public CheckBox textFillGradient;		//Text fill gradient yes or no
+	@FXML
+	public ColorPicker textFill2;				//Text highlighting wheel 2
 	@FXML 
 	public Button pageBreak;				//Page break button
 	@FXML
@@ -66,6 +68,13 @@ public class ToolbarController {
 	public ColorPicker shapeFill2;			//Shape Fill colour 2 wheel for gradient
 	@FXML 
 	public Button deleteShape;				//Delete current shape button
+	
+	//<ColorPicker prefWidth="30" fx:id="textColor" onAction="#handleFontColorAction"/>
+	//<CheckBox fx:id="textColorGradient" onAction="#handleTextColorGradientAction"/>
+	//<ColorPicker prefWidth="30" fx:id="textColor2" onAction="#handleTextColor2Action"/>
+	//<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
+	//<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
+	//<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -97,15 +106,7 @@ public class ToolbarController {
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
-	/**
-	 * Sets text colour for the selected text
-	 * @param event
-	 */
-	@FXML 
-	protected void handleFontColorAction(ActionEvent event) {
-		CurrentText.setColor(strokeColor.getValue());
-		AppController.getInstance().viewing.updateSlide();
-	}
+
 	
 	/**
 	 * Sets text Fill for the selected text
@@ -113,7 +114,44 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleFontFillAction(ActionEvent event) {
-		CurrentText.setFill(strokeColor.getValue());
+		if (textFillGradient.isSelected()) {
+			CurrentText.setFill(new LinearGradient(CurrentText.getX(), CurrentText.getY(), CurrentText.getX2(), CurrentText.getY2(), false, CycleMethod.NO_CYCLE, getStops(textFill.getValue(), textFill2.getValue())));
+		}
+		else {
+			CurrentText.setFill(textFill.getValue());
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Whether there should be a gradient for fill colour
+	 * @param event
+	 */
+	@FXML
+	protected void handleTextFillGradientAction(ActionEvent event) {
+		if (textFillGradient.isSelected()) {
+			textFill2.setDisable(false);
+			CurrentText.setFill(new LinearGradient(CurrentText.getX(), CurrentText.getY(), CurrentText.getX2(), CurrentText.getY2(), false, CycleMethod.NO_CYCLE, getStops(textFill.getValue(), textFill2.getValue())));
+		}
+		else {
+			textFill2.setDisable(true);
+			CurrentText.setFill(textFill.getValue());
+		}
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Sets 2nd text colour for selected text
+	 * @param event
+	 */
+	@FXML
+	protected void handleTextFill2Action(ActionEvent event) {
+		if (textFillGradient.isSelected()) {
+			CurrentText.setFill(new LinearGradient(CurrentText.getX(), CurrentText.getY(), CurrentText.getX2(), CurrentText.getY2(), false, CycleMethod.NO_CYCLE, getStops(textFill.getValue(), textFill2.getValue())));
+		}
+		else {
+			CurrentText.setFill(textFill.getValue());
+		}
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
@@ -290,9 +328,10 @@ public class ToolbarController {
 		fontCombo.setDisable(true);
 		sizeCombo.setDisable(true);
 		pageBreak.setDisable(true);
-		textColor.setDisable(true);
 		textFill.setDisable(true);
 		deleteText.setDisable(true);
+		textFillGradient.setDisable(true);
+		textFill2.setDisable(true);
 		
 		typeCombo.setDisable(false);
 		strokeCombo.setDisable(false);
@@ -319,7 +358,7 @@ public class ToolbarController {
 			fillGradient.setSelected(false);
 			shapeFill2.setDisable(true);
 		}
-
+		
 	}
 	
 	/**
@@ -332,9 +371,9 @@ public class ToolbarController {
 		fontCombo.setDisable(false);
 		sizeCombo.setDisable(false);
 		pageBreak.setDisable(false);
-		textColor.setDisable(false);
 		textFill.setDisable(false);
 		deleteText.setDisable(false);
+		textFillGradient.setDisable(false);
 		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
@@ -345,6 +384,15 @@ public class ToolbarController {
 		fillGradient.setDisable(true);
 		strokeColor2.setDisable(true);
 		shapeFill2.setDisable(true);
+		
+		if (CurrentText.getFill() instanceof LinearGradient) {
+			textFillGradient.setSelected(true);
+			textFill2.setDisable(false);
+		}
+		else {
+			textFillGradient.setSelected(false);
+			textFill2.setDisable(true);
+		}
 	}
 	
 	/**
@@ -357,8 +405,9 @@ public class ToolbarController {
 		fontCombo.setDisable(true);
 		sizeCombo.setDisable(true);
 		pageBreak.setDisable(true);
-		textColor.setDisable(true);
 		textFill.setDisable(true);
+		textFillGradient.setDisable(true);
+		textFill2.setDisable(true);
 		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
