@@ -114,14 +114,29 @@ public class HTMLConverter {
 		Text pws = new Text();
 		Document doc = Jsoup.parse(html);
 		
-		pws.addContents(doc.body().text());
+		System.out.println("-----\n" + doc.body().getAllElements().first().attributes().get("style") + "\n-----");
 		
-		//This code is for checking output i.e. temp
-		System.out.println(doc.data());
+		String StyleString = doc.body().getAllElements().first().attributes().get("style");
+		
+		applyStyle(StyleString, pws);
+		
+		
+		
+		pws.addContents(doc.body().text());
 		
 		return pws;
 	}
 	
+	private static void applyStyle(String StyleString, Text text) {
+		String[] Styles = StyleString.split(";");
+		
+		for (int i = 0; i < Styles.length; i++) {
+			if(Styles[i].startsWith("font-size")) {
+				String size = Styles[i].split(":")[1].split("pt")[0];
+				text.setTextsize(Integer.parseInt(size));
+			}
+		}
+	}
 }
 
 

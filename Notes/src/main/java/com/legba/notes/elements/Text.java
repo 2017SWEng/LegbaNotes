@@ -81,11 +81,10 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	 * @param List<Object> contents
 	 */
 	public void setContents(List<Object> contents) {
-
 		if (contents == null) {
 			return;
 		}
-		this.contents=contents;	
+		this.contents = contents;	
 	}
 
 	public void addContents(Object content) {
@@ -129,7 +128,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (font == null) {
 			return;
 		}
-		this.font=font;		
+		this.font = font;		
 	}
 
 	@Override
@@ -147,7 +146,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (italic == null) {
 			return;
 		}
-		this.italic=italic;
+		this.italic = italic;
 	}
 
 	@Override
@@ -165,7 +164,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (bold == null) {
 			return;
 		}
-		this.bold=bold;
+		this.bold = bold;
 	}
 
 	@Override
@@ -183,7 +182,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (underline == null) {
 			return;
 		}
-		this.underline=underline;		
+		this.underline = underline;		
 	}
 
 	@Override
@@ -201,7 +200,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (size == null) {
 			return;
 		}
-		this.textsize=size;		
+		this.textsize = size;		
 	}
 	
 	@Override
@@ -220,7 +219,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (col == null) {
 			return;
 		}
-		this.color=col;
+		this.color = col;
 	}
 
 	@Override
@@ -239,7 +238,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (fill == null) {
 			return;
 		}
-		this.fill=fill;
+		this.fill = fill;
 	}
 
 	@Override
@@ -258,7 +257,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (start == null) {
 			return;
 		}
-		this.start=start;
+		this.start = start;
 	}
 
 	@Override
@@ -276,6 +275,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (duration == null) {
 			return;
 		}
-		this.duration=duration;
+		this.duration = duration;
 	}
 }
