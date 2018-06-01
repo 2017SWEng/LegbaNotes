@@ -29,6 +29,25 @@ public class Audio extends MultiMediaElement{
 	}
 	
 	/**
+	 * Further creation method
+	 * @param path
+	 * @param X
+	 * @param Y
+	 * @param X2
+	 * @param Y2
+	 */
+	public Audio(String path, float X, float Y, float X2, float Y2) {
+		super();
+
+		this.setPath(path);
+		this.setX(X);
+		this.setX2(X2);
+		this.setY(Y);
+		this.setY2(Y2);
+	}
+
+	
+	/**
 	 * Boolean method that checks the filepath is 
 	 * in the correct format and that its length is
 	 * larger than zero. If both these requirements

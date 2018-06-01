@@ -22,16 +22,12 @@ public class AudioPlayer extends BorderPane {
 	private Duration duration;
 	private Slider timeSlider;
 	
-	public AudioPlayer(Media media) {
+	public AudioPlayer(Media media, double x, double y, double width, double height) {
 		
 		mediaPlayer = new MediaPlayer(media);
-		
-		Button playButton = new Button("Play");
-		
-		//Auto-play
-		//mediaPlayer.play();
-		
+
 		// Setup play button
+		Button playButton = new Button("Play");
 		playButton.setOnAction((ActionEvent e) -> {
 			mediaPlayer.play();
 			System.out.println("Play");
@@ -39,7 +35,6 @@ public class AudioPlayer extends BorderPane {
 	
 		// Setup pause button
 		Button pauseButton = new Button("Pause");
-		
 		pauseButton.setOnAction((ActionEvent e) -> {
 			mediaPlayer.pause();
 			System.out.println("Pause");
@@ -82,11 +77,10 @@ public class AudioPlayer extends BorderPane {
 				updateValues();
 			}
 		});
-		
-	 	   
+		  
 		MediaView mediaView = new MediaView (mediaPlayer);
 		
-		// Make horozontal box and add items to it
+		// Make horizontal box and add items to it
 		HBox hbox = new HBox(8); // spacing = 8
 	    hbox.getChildren().add(playButton);
 	    hbox.getChildren().add(pauseButton);
@@ -96,6 +90,11 @@ public class AudioPlayer extends BorderPane {
 	    hbox.getChildren().add(timeSlider);
 	    this.setCenter(timeSlider);
 	    this.setTop(mediaView);
+	    
+	    //Set coordinates
+	    this.setLayoutX(x);
+	    this.setLayoutY(y);
+	    this.setPrefSize(width, height);
 	    
 	    // Add media player to list of total
         AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
