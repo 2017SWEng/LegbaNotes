@@ -15,7 +15,11 @@ import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-
+/**
+ * PDF viewer
+ * @author vc622 and rh1271 and hjew501
+ *
+ */
 public class PdfView extends BorderPane{
 	private WebEngine webEngine;
 	private Boolean pdfLoaded = false;
@@ -35,7 +39,7 @@ public class PdfView extends BorderPane{
 		
 		
 		//Navigation buttons for moving around PDF document
-		//When each button is clicked it carries out a function in pdf.html
+		//When each button is clicked it carries out a function in pdf.js
 
 		Button pageDown = new Button("Next Page");
 		pageDown.setOnAction(new EventHandler<ActionEvent>() {
@@ -47,7 +51,7 @@ public class PdfView extends BorderPane{
 					webEngine.executeScript("nextpage()");
 					int currentPage = getPageNumber();
 	    		
-					AppController.getInstance().viewing.scrollToSlide(currentPage);
+					AppController.getInstance().viewing.scrollToSlide(currentPage-1);
 				}
 	        	
 			}
@@ -132,6 +136,10 @@ public class PdfView extends BorderPane{
 	
 	public int getPageNumber(){
 		return (int) webEngine.executeScript("getPageNumber()");
+	}
+	
+	public int getNumberPages(){
+		return (int) webEngine.executeScript("getNumberPages()");
 	}
 	
 	public Button getPageUp(){
