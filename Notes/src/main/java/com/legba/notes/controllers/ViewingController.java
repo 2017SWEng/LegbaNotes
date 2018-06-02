@@ -31,9 +31,6 @@ public class ViewingController {
 	
 	private double nodeX;
 	private double nodeY;
-	private SlideElement nodeElement;
-	
-	
 	@FXML
 	private SplitPane viewing_root;
 	

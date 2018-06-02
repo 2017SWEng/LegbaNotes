@@ -1,23 +1,34 @@
 package com.legba.notes.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.swing.filechooser.FileSystemView;
 
 import com.legba.notes.elements.Audio;
 import com.legba.notes.elements.Image;
+import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
 import com.legba.notes.elements.Video;
+import com.legba.notes.models.AppModel;
+import com.legba.notes.models.ViewMode.Mode;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaException;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 
 /**
  * Controller for the toolbar
@@ -239,7 +250,8 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleAddItemAction(ActionEvent event) {
-		//Get combo box value		
+		//Get combo box value	
+		
 		try {
 			String SelectedItem = addCombo.getValue();
 			
@@ -261,20 +273,79 @@ public class ToolbarController {
 				CurrentSlide.addText(t);
 				
 			} else if(SelectedItem.equals("Audio")) {
-				//Default audio file
-				Audio a = new Audio("testData/audioTest.wav");
+				//Open and format the file viewer
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Audio");
+				fileChooser.getExtensionFilters().addAll(
+						new FileChooser.ExtensionFilter("Audio", "*.wav"),
+						new FileChooser.ExtensionFilter("Audio", "*.WAV"),
+						new FileChooser.ExtensionFilter("Audio", "*.aif"),
+						new FileChooser.ExtensionFilter("Audio", "*.AIF"),
+						new FileChooser.ExtensionFilter("Audio", "*.aiff"),
+						new FileChooser.ExtensionFilter("Audio", "*.AIFF"),
+						new FileChooser.ExtensionFilter("Audio", "*.m3u8"),
+						new FileChooser.ExtensionFilter("Audio", "*.M3U8"),
+						new FileChooser.ExtensionFilter("Audio", "*.mp3"),
+						new FileChooser.ExtensionFilter("Audio", "*.MP3")	
+				);
+				
+				//Get audio from file chooser
+				File audioToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
+				
+				//Create audio from chosen path from file chooser
+				Audio a = new Audio(audioToOpen.getName());
 				CurrentSlide.addAudio(a);
 				AddElement = true;
 				
 			} else if(SelectedItem.equals("Video")) {
-				//Default video file
-				Video v = new Video("local_file.mp4", 10, 35, 500, 400);
+				//Open and format the file viewer
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Video");
+				fileChooser.getExtensionFilters().addAll(
+						new FileChooser.ExtensionFilter("Video", "*.mp4"),
+						new FileChooser.ExtensionFilter("Video", "*.MP4"),
+						new FileChooser.ExtensionFilter("Video", "*.m4a"),
+						new FileChooser.ExtensionFilter("Video", "*.M4A"),
+						new FileChooser.ExtensionFilter("Video", "*.m4v"),
+						new FileChooser.ExtensionFilter("Video", "*.M4V"),
+						new FileChooser.ExtensionFilter("Video", "*.m3u8"),
+						new FileChooser.ExtensionFilter("Video", "*.M3U8"),
+						new FileChooser.ExtensionFilter("Video", "*.fxm"),
+						new FileChooser.ExtensionFilter("Video", "*.FXM"),
+						new FileChooser.ExtensionFilter("Video", "*.flv"),
+						new FileChooser.ExtensionFilter("Video", "*.FLV")	
+				);
+				
+				//Get video from file chooser
+				File videoToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
+				
+				//Create video from chosen path from file chooser
+				Video v = new Video(videoToOpen.getName(), 10, 35, 500, 400);
 				CurrentSlide.addVideo(v);
 				AddElement = true;
 				
 			}	else if(SelectedItem.equals("Image")) {
-				//Default image file
-				Image i = new Image("local_file.jpg", 10, 35, 500, 400);
+				//Open and format the file viewer
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open image");
+				fileChooser.getExtensionFilters().addAll(
+						new FileChooser.ExtensionFilter("Image", "*.jpeg"),
+						new FileChooser.ExtensionFilter("Image", "*.JPEG"),
+						new FileChooser.ExtensionFilter("Image", "*.jpg"),
+						new FileChooser.ExtensionFilter("Image", "*.JPG"),
+						new FileChooser.ExtensionFilter("Image", "*.gif"),
+						new FileChooser.ExtensionFilter("Image", "*.GIF"),
+						new FileChooser.ExtensionFilter("Image", "*.png"),
+						new FileChooser.ExtensionFilter("Image", "*.PNG"),
+						new FileChooser.ExtensionFilter("Image", "*.bmp"),
+						new FileChooser.ExtensionFilter("Image", "*.BMP")	
+				);
+				
+				//Get image from file chooser
+				File imageToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
+								
+				//Create image from chosen path from file chooser
+				Image i = new Image(imageToOpen.getName(), 10, 35, 500, 400);
 				CurrentSlide.addImage(i);
 				
 			}
@@ -287,6 +358,7 @@ public class ToolbarController {
 		
 		//Add element to current slide
 		AppController.getInstance().viewing.updateSlide();
+		
 		AddElement = false;
 	}
 	
