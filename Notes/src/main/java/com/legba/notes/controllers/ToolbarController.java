@@ -257,7 +257,7 @@ public class ToolbarController {
 				
 			} else if(SelectedItem.equals("Text")) {
 				//TODO: Need text box editing code from luke
-				Text t = new Text();
+				Text t = new Text("Example text");
 				CurrentSlide.addText(t);
 				
 			} else if(SelectedItem.equals("Audio")) {
