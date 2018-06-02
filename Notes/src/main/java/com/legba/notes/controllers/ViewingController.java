@@ -22,7 +22,7 @@ import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
- * @author vc622 and lm1370 
+ * @author vc622 and lm1370 and hjew501
  *
  */
 public class ViewingController {
@@ -32,8 +32,8 @@ public class ViewingController {
 	private double nodeX;
 	private double nodeY;
 	private SlideElement nodeElement;
-	
-	
+	public String pdfURL;
+		
 	@FXML
 	private SplitPane viewing_root;
 	
@@ -212,6 +212,7 @@ public class ViewingController {
 	public ViewingController(){
 		
 	}
+
 	
 	/**
 	 * Initialise method
@@ -231,12 +232,24 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		//PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
-		MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
+		String pdfURL = "https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf";
+		
+		PdfView pdfView = new PdfView(pdfURL);
+		//http://www.iupui.edu/~womrel/REL%20300%20Spirit/REL%20300_Spirit/Lwa.pdf
+		//https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf
+		//http://www.metaphysicspirit.com/books/The%20Voodoo%20Hoodoo%20Spellbook.pdf
+		
+		//MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(movieView);
+		reference_root.getChildren().add(pdfView);
 				
 	}
+ 	
+ 	public void refresh(String pdfURL){
+ 		PdfView pdfView = new PdfView(pdfURL);
+ 		reference_root.getChildren().clear();
+		reference_root.getChildren().add(pdfView); 		
+ 	};
  	
 // 	public void incrementSlide(){
 // 		curSlideIndex++;
