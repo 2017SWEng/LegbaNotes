@@ -10,6 +10,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 
 
 public class Shape extends SlideElement implements Colorable{
@@ -18,9 +22,9 @@ public class Shape extends SlideElement implements Colorable{
 	
 	private IntegerProperty stroke;
 	
-	private ObjectProperty<Color> color;
+	private ObjectProperty<Paint> paintColor;
 	
-	private ObjectProperty<Color> fill;
+	private ObjectProperty<Paint> paintFill;
 	
 	protected Shape() {
 		
@@ -32,8 +36,8 @@ public class Shape extends SlideElement implements Colorable{
 		//Required by Element 'Shape'
 		this.setType(type);
 		stroke = new SimpleIntegerProperty();
-		color = new SimpleObjectProperty<Color>();
-		fill = new SimpleObjectProperty<Color>();
+		paintColor = new SimpleObjectProperty<Paint>();
+		paintFill = new SimpleObjectProperty<Paint>();
 	}
 	
 	//Returns type of shape
@@ -85,54 +89,51 @@ public class Shape extends SlideElement implements Colorable{
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getColor() {
-		return (color == null) ? null : color.get();
+	public Paint getColor() {
+		return (paintColor == null) ? null : paintColor.get();
 	}
 	
-	//Creates a property for color
-	public ObjectProperty<Color> colorProperty() {
-		return this.color;
+	public ObjectProperty<Paint> paintColorProperty() {
+		return this.paintColor;	
 	}
 	
 	//Sets colour of outline if newColor is not null
 	@Override
-	public void setColor(Color newColor) {
+	public void setColor(Paint newColor) {
 		if(newColor == null){
-			color = null;
+			paintColor = null;
 			return;
 		}
-		else if (color == null){
-			color = new SimpleObjectProperty<Color>();
+		else if (paintColor == null){
+			paintColor = new SimpleObjectProperty<Paint>();
 		}
 		
-		color.set(newColor);
+		paintColor.set(newColor);	
 	}
 
 	//Returns the colour of the fill
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getFill() {
-		return (fill == null) ? null : fill.get();
+	public Paint getFill() {
+		return (paintFill == null) ? null : paintFill.get();
+	}
+	public ObjectProperty<Paint> paintFillProperty() {
+		return this.paintFill;	
 	}
 	
-	//Creates a property for fill
-	public ObjectProperty<Color> fillProperty() {
-		return this.fill;
-	}
-	
-	//Sets fill of shape if newColor is not null
+	//Sets colour of outline if newColor is not null
 	@Override
-	public void setFill(Color newColor) {
+	public void setFill(Paint newColor) {
 		if(newColor == null){
-			fill = null;
+			paintFill = null;
 			return;
 		}
-		else if (fill == null){
-			fill = new SimpleObjectProperty<Color>();
+		else if (paintFill == null){
+			paintFill = new SimpleObjectProperty<Paint>();
 		}
 		
-		fill.set(newColor);
+		paintFill.set(newColor);
 	}
 
 	/* (non-Javadoc)

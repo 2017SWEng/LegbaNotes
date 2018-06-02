@@ -16,6 +16,10 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 
 import com.legba.notes.elements.Shape;
 import javafx.scene.shape.*;
@@ -88,13 +92,26 @@ public class VectorRenderer extends Renderer<Shape> {
 		if (isLine(shape)) {
 			Line line = new Line();
 			
+			Paint color;
+				if (shape.getColor() == null) {
+					color = Paint.valueOf(DEFAULT_FG.toString());
+				}
+				else if (shape.getColor() instanceof LinearGradient) {
+					Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+					shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+					color = shape.getColor();
+				}
+				else {
+					color = shape.getColor();
+				}
+			
 			//Creates properties for binding to the values in shape 
 			FloatProperty startX = new SimpleFloatProperty();
 			FloatProperty endX = new SimpleFloatProperty();
 			FloatProperty startY = new SimpleFloatProperty();
 			FloatProperty endY = new SimpleFloatProperty();
 			DoubleProperty strokeWidth = new SimpleDoubleProperty();
-			ObjectProperty<Color> strokeColor = new SimpleObjectProperty<Color>();							
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			line.setStartX(shape.getX() == null ? DEFAULT_X : shape.getX());
@@ -102,7 +119,7 @@ public class VectorRenderer extends Renderer<Shape> {
 			line.setEndX(shape.getX2() == null ? DEFAULT_X2 : shape.getX2());
 			line.setEndY(shape.getY2() == null ? DEFAULT_Y2 : shape.getY2());
 			line.setStrokeWidth(shape.getStroke() == null ? DEFAULT_STROKE : shape.getStroke());
-			line.setStroke(shape.getColor() == null ? DEFAULT_FG : shape.getColor());
+			line.setStroke(color);
 			
 			//Binds the x value in the shape to the startX value in line if x is not null
 			if (shape.xProperty() != null) {
@@ -134,10 +151,12 @@ public class VectorRenderer extends Renderer<Shape> {
 			}
 			
 			//Binds the color value in the shape to the stroke value in line if color is not null
-			if (shape.colorProperty() != null) {
-				line.strokeProperty().bind(strokeColor);
-				strokeColor.bind(shape.colorProperty());
+			if (shape.paintColorProperty() != null) {
+				line.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
 			}
+			
+
 			return (Node) line;
 		}
 		return null;
@@ -154,10 +173,37 @@ public class VectorRenderer extends Renderer<Shape> {
 		if (isEllipse(shape)){
 			Ellipse ellipse = new Ellipse();
 			
+			Paint color;
+			if (shape.getColor() == null) {
+				color = Paint.valueOf(DEFAULT_FG.toString());
+			}
+			else if (shape.getColor() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+				shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				color = shape.getColor();
+			}
+			else {
+				color = shape.getColor();
+			}
+			
+			Paint fill;
+			if (shape.getFill() == null) {
+				fill = Paint.valueOf(DEFAULT_BG.toString());
+			}
+			else if (shape.getFill() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getFill()).getStops().get(1).getColor())};
+				shape.setFill(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				fill = shape.getFill();
+			}
+			else {
+				fill = shape.getFill();
+			}
+			
 			//Creates properties for binding to the values in shape 
 			DoubleProperty strokeWidth = new SimpleDoubleProperty();
-			ObjectProperty<Color> strokeColor = new SimpleObjectProperty<Color>();
-			ObjectProperty<Color> fill = new SimpleObjectProperty<Color>();
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
+			ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
+			
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			ellipse.setCenterX(shape.getX() == null ? (DEFAULT_X + DEFAULT_X2)/2: shape.getX()+shape.getWidth()/2);
@@ -165,8 +211,8 @@ public class VectorRenderer extends Renderer<Shape> {
 			ellipse.setRadiusX(shape.getX2() == null ? (DEFAULT_X2 - DEFAULT_X)/2 : shape.getWidth()/2);
 			ellipse.setRadiusY(shape.getY2() == null ? (DEFAULT_Y2 - DEFAULT_Y)/2 : shape.getHeight()/2);
 			ellipse.setStrokeWidth(shape.getStroke() == null ? DEFAULT_STROKE : shape.getStroke());
-			ellipse.setStroke(shape.getColor() == null ? DEFAULT_FG : shape.getColor());
-			ellipse.setFill(shape.getFill() == null ? DEFAULT_BG : shape.getFill());
+			ellipse.setStroke(color);
+			ellipse.setFill(fill);
 			
 			//Binds the x and x2 value in the shape to the centerX and radiusX value in ellipse if x and x2 are not null
 			if ((shape.xProperty()!= null) && (shape.x2Property() != null)) {
@@ -193,16 +239,18 @@ public class VectorRenderer extends Renderer<Shape> {
 			}
 			
 			//Binds the color value in the shape to the stroke value in ellipse if color is not null
-			if (shape.colorProperty() != null) {
-				ellipse.strokeProperty().bind(strokeColor);
-				strokeColor.bind(shape.colorProperty());
+			if (shape.paintColorProperty() != null) {
+				ellipse.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
 			}
 			
+			
 			//Binds the fill value in the shape to the fill value in ellipse if fill is not null
-			if (shape.fillProperty() != null) {
-				ellipse.fillProperty().bind(fill);
-				fill.bind(shape.fillProperty());
-			}			
+			if (shape.paintFillProperty() != null) {
+				ellipse.fillProperty().bind(paintFill);
+				paintFill.bind(shape.paintFillProperty());
+			}
+					
 			return (Node) ellipse;
 		}
 		return null;
@@ -218,13 +266,39 @@ public class VectorRenderer extends Renderer<Shape> {
 	private Node renderRectangle (Shape shape){
 		if (isRectangle(shape)){
 			
+			Paint color;
+			if (shape.getColor() == null) {
+				color = Paint.valueOf(DEFAULT_FG.toString());
+			}
+			else if (shape.getColor() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getColor()).getStops().get(1).getColor())};
+				shape.setColor(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				color = shape.getColor();
+			}
+			else {
+				color = shape.getColor();
+			}
+			
+			Paint fill;
+			if (shape.getFill() == null) {
+				fill = Paint.valueOf(DEFAULT_BG.toString());
+			}
+			else if (shape.getFill() instanceof LinearGradient) {
+				Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) shape.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) shape.getFill()).getStops().get(1).getColor())};
+				shape.setFill(new LinearGradient(shape.getX(), shape.getY(), shape.getX2(), shape.getY2(), false, CycleMethod.NO_CYCLE, stops));
+				fill = shape.getFill();
+			}
+			else {
+				fill = shape.getFill();
+			}
+			
 			//Creates properties for binding to the values in shape 
 			Rectangle rectangle = new Rectangle();
 			FloatProperty x = new SimpleFloatProperty();
 			FloatProperty y = new SimpleFloatProperty();
 			DoubleProperty strokeWidth = new SimpleDoubleProperty();
-			ObjectProperty<Color> strokeColor = new SimpleObjectProperty<Color>();
-			ObjectProperty<Color> fill = new SimpleObjectProperty<Color>();
+			ObjectProperty<Paint> paintColor = new SimpleObjectProperty<Paint>();
+			ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
 			
 			//Sets defaults if values are null otherwise sets JavaFX values to values that shape.java passed in. 
 			rectangle.setX(shape.getX() == null ? DEFAULT_X : shape.getX());
@@ -232,8 +306,8 @@ public class VectorRenderer extends Renderer<Shape> {
 			rectangle.setWidth(shape.getWidth() == null ? (DEFAULT_X2 - DEFAULT_X) : shape.getWidth());
 			rectangle.setHeight(shape.getHeight() == null ? (DEFAULT_Y2 - DEFAULT_Y) : shape.getHeight());
 			rectangle.setStrokeWidth(shape.getStroke() == null ? DEFAULT_STROKE : shape.getStroke());
-			rectangle.setStroke(shape.getColor() == null ? DEFAULT_FG : shape.getColor());
-			rectangle.setFill(shape.getFill() == null ? DEFAULT_BG : shape.getFill());
+			rectangle.setStroke(color);
+			rectangle.setFill(fill);
 			
 			//Binds the x value in the shape to the x value in rectangle if x is not null
 			if (shape.xProperty()!= null) {
@@ -266,15 +340,16 @@ public class VectorRenderer extends Renderer<Shape> {
 			}
 			
 			//Binds the color value in the shape to the stroke value in rectangle if color is not null
-			if (shape.colorProperty() != null) {
-				rectangle.strokeProperty().bind(strokeColor);
-				strokeColor.bind(shape.colorProperty());
+			if (shape.paintColorProperty() != null) {
+				rectangle.strokeProperty().bind(paintColor);
+				paintColor.bind(shape.paintColorProperty());
 			}
 			
+			
 			//Binds the fill value in the shape to the fill value in rectangle if fill is not null
-			if (shape.fillProperty() != null) {
-				rectangle.fillProperty().bind(fill);
-				fill.bind(shape.fillProperty());
+			if (shape.paintFillProperty() != null) {
+				rectangle.fillProperty().bind(paintFill);
+				paintFill.bind(shape.paintFillProperty());
 			}
 			
 			

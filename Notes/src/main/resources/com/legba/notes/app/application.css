@@ -42,7 +42,10 @@ Button {
 
 .element-slide{
 	
-	-fx-background-color: #fadffa;
 	-fx-padding: 10px;
 	
+}
+
+.forms{
+	-fx-spacing:8.0;
 }

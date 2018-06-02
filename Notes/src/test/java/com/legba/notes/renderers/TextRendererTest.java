@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import com.legba.notes.elements.*;
 
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
 
 import org.junit.Assume;
@@ -56,8 +57,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(true);
 		
-		textModel.setColor(javafx.scene.paint.Color.AZURE);
-		textModel.setFill(javafx.scene.paint.Color.RED);
+		textModel.setColor(Color.AZURE);
+		textModel.setFill(Color.RED);
 		
 		textModel.setTextsize(15);
 		
@@ -79,11 +80,11 @@ public class TextRendererTest {
 		// Can loop because is true for all contents
 		for(int i = 0; i<renderedText.getChildren().size(); i++){
 			assertTrue(renderedText.getChildren().get(i) instanceof javafx.scene.text.Text);
-			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Bold"));
-			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Italic"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("bold"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("italic"));
 			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).isUnderline());
-			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getFamily().contains("Verdana"));
-			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getSize(), 15f, 0.01f);
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("Verdana"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("15px"));
 			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getX(), 2f, 0.01f);
 			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getY(), 3f, 0.01f);
 		}
@@ -107,8 +108,8 @@ public class TextRendererTest {
 		textModel.setItalic(true);
 		textModel.setUnderline(false);
 		
-		textModel.setColor(javafx.scene.paint.Color.AZURE);
-		textModel.setFill(javafx.scene.paint.Color.BLUE);
+		textModel.setColor(Color.AZURE);
+		textModel.setFill(Color.BLUE);
 		
 		textModel.setTextsize(15);
 		
@@ -131,9 +132,9 @@ public class TextRendererTest {
 		// Can loop because is true for all contents
 		for(int i = 0; i<renderedText.getChildren().size(); i++){
 			assertTrue(renderedText.getChildren().get(i) instanceof javafx.scene.text.Text);
-			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getStyle().contains("Italic"));
-			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getFamily().contains("Times New Roman"));
-			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getFont().getSize(), 15f, 0.01f);
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("italic"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("Times New Roman"));
+			assertTrue(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getStyle().contains("15px"));
 			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getX(), 4f, 0.01f);
 			assertEquals(((javafx.scene.text.Text)renderedText.getChildren().get(i)).getY(), 5f, 0.01f);
 		}
