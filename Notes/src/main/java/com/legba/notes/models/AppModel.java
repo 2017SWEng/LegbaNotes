@@ -2,6 +2,7 @@ package com.legba.notes.models;
 
 import java.util.Observer;
 
+import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Presentation;
 
 public class AppModel{
@@ -54,17 +55,20 @@ public class AppModel{
 	public ViewMode.Mode getVeiwMode() {
 		return viewMode.getMode();
 	}
-
+	
 	public void setVeiwMode(ViewMode.Mode viewMode) {
-		
 		
 		// if null is passed default to the homepage
 		if (viewMode == null){
 			System.err.println("AppModel.setVeiwMode was passed null, defaulting to homepage");
 			viewMode = ViewMode.Mode.HOMEPAGE;
 		}
+		else if(this.viewMode.getMode() == ViewMode.Mode.VEIWING) {
+			AppController.getInstance().viewing.stopAllMedia();
+		}
 		
 		System.out.println("Setting veiw to " + viewMode.toString());
+		
 
 		// if were not in viewing mode we shouldn't have a presentation open
 		if (viewMode != ViewMode.Mode.VEIWING){
@@ -79,6 +83,7 @@ public class AppModel{
 		
 		this.viewMode.setMode(viewMode);
 	}
+	
 
 	public void addVeiwModeObserver(Observer observer) {
 		this.viewMode.addObserver(observer);		

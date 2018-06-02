@@ -19,11 +19,11 @@ import javafx.scene.paint.Stop;
 
 import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Audio;
+import com.legba.notes.elements.Image;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.Text;
 import com.legba.notes.elements.Video;
-import com.legba.notes.models.AppModel;
 
 /**
  * Takes an instance of a Slide and produces an javafx Node tree.
@@ -39,7 +39,9 @@ public class SlideRenderer extends Renderer<Slide> {
 	AudioRenderer audioRenderer;
 	TextRenderer textRenderer;
 	VideoRenderer videoRenderer;
-	//TODO: add other renders to this
+	ImageRenderer imageRenderer;
+	
+	boolean hasMoved;
 
 	/**
 	 * Default constructor, use default SlideElement renderers
@@ -49,7 +51,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		this.audioRenderer = new AudioRenderer();
 		this.textRenderer = new TextRenderer();
 		this.videoRenderer = new VideoRenderer();
-		//TODO: add other renders to this
+		this.imageRenderer = new ImageRenderer();
 	}
 	
 	/**
@@ -61,13 +63,14 @@ public class SlideRenderer extends Renderer<Slide> {
 			VectorRenderer vectorRenderer,
 			AudioRenderer audioRenderer,
 			TextRenderer textRenderer,
-			VideoRenderer videoRenderer
+			VideoRenderer videoRenderer,
+			ImageRenderer imageRenderer
 			){
 		this.vectorRenderer = vectorRenderer;
 		this.audioRenderer = audioRenderer;
 		this.textRenderer = textRenderer;
 		this.videoRenderer = videoRenderer;
-		//TODO: add other renders to this
+		this.imageRenderer = imageRenderer;
 	}
 	
 	/**
@@ -108,7 +111,17 @@ public class SlideRenderer extends Renderer<Slide> {
 			pane.setStyle("-fx-background-color: " + convertToHex((Color) s.getFill()));
 		}
 
-		//When mouse enters pane it puts border around it
+		//When mouse clicks on pane
+		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent mouseEvent) {
+				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
+				AppController.getInstance().toolbar.paneMode();
+				AppController.getInstance().toolbar.CurrentSlide = s;
+				
+			}
+		});
+
+        //When mouse enters pane it puts border around it
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -121,17 +134,22 @@ public class SlideRenderer extends Renderer<Slide> {
 				pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 			}
 		});
-
+		
+		//Shape rendering
 		for(Shape shape : s.getShapes()){
 			Node n = this.vectorRenderer.render(shape);
 			
 			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
+
+						//Enable shape mode
+						AppController.getInstance().toolbar.shapeMode();
+
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
-						AppController.getInstance().viewing.CurrentNode = n;
+						AppController.getInstance().toolbar.CurrentElement = new String("Shape");
 						
 						//Enable shape mode
 						AppController.getInstance().toolbar.shapeMode();
@@ -174,13 +192,29 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setOffsetY(0.0);
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
+						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(shape, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}						
 					}
 				}
 			});
 			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX() - shape.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY() - shape.getY());
+				}
+			});	
+			
+			//Un-highlights selected shape when leaving shape
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
-					//Un-highlights selected shape
 					DropShadow dropShadow = new DropShadow();
 					dropShadow.setBlurType(BlurType.GAUSSIAN);
 					dropShadow.setColor(Color.TRANSPARENT);
@@ -188,30 +222,124 @@ public class SlideRenderer extends Renderer<Slide> {
 					dropShadow.setOffsetY(0.0);
 					dropShadow.setRadius(0.0);
 					n.setEffect(dropShadow);
+					
 				}
 			});
+
+			pane.getChildren().add(n);
+		}
+		
+		//Audio rendering
+		for(Audio audio : s.getAudios()){
+			Node n = this.audioRenderer.render(audio);
+			
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentAudio = audio;
+						AppController.getInstance().toolbar.CurrentElement = new String("Audio");
+						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(audio, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
+					}
+				}
+			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			pane.getChildren().add(n);
 		}
 		
-		for(Audio audio : s.getAudios()){
-			pane.getChildren().add(this.audioRenderer.render(audio));
-		}
-		
+		//Video rendering
 		for(Video video : s.getVideos()){
-			pane.getChildren().add(this.videoRenderer.render(video));
+			Node n = this.videoRenderer.render(video);
+			
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentVideo = video;
+						AppController.getInstance().toolbar.CurrentElement = new String("Video");
+						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(video, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
+					}
+				}
+			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
+			
+			pane.getChildren().add(n);
 		}
 		
+		//Image rendering
+		for(Image image : s.getImages()){
+			Node n = this.imageRenderer.render(image);
+			
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {								
+					if(n!=null) {
+						//Sets variables
+						AppController.getInstance().toolbar.CurrentImage = image;
+						AppController.getInstance().toolbar.CurrentElement = new String("Image");
+						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(image, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
+					}
+				}
+			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
+			
+			pane.getChildren().add(n);
+		}
+		
+		//Text rendering
 		for(Text text : s.getTexts()){
 			Node n = this.textRenderer.render(text);
 			
 			//When mouse clicks on shape, selective editing enabled, current state displayed on toolbar
-			n.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
-						AppController.getInstance().viewing.CurrentNode = n;
+						AppController.getInstance().toolbar.CurrentElement = new String("Text");
+						
 						
 						//Enable text mode
 						AppController.getInstance().toolbar.textMode();	
@@ -252,9 +380,25 @@ public class SlideRenderer extends Renderer<Slide> {
 						dropShadow.setOffsetY(0.0);
 						dropShadow.setRadius(20.0);
 						n.setEffect(dropShadow);
+						
+						//Check if element has moved
+						hasMoved = AppController.getInstance().viewing.moveElement(text, n);	
+						
+						//If element has moved, update slides
+						if(hasMoved == true) {
+							AppController.getInstance().viewing.updateSlide();
+						}
 					}
 				}
 			});
+			
+			//Update node position whilst dragging
+			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent mouseEvent) {	
+					n.setTranslateX(n.getTranslateX() + mouseEvent.getX());
+					n.setTranslateY(n.getTranslateY() + mouseEvent.getY());
+				}
+			});	
 			
 			n.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
@@ -270,14 +414,8 @@ public class SlideRenderer extends Renderer<Slide> {
 			});
 			
 			pane.getChildren().add(n);
-			//AppController.getInstance().toolbar.CurrentPane = pane;
 			
 		}
-		
-		
-		
-		//TODO: repeat for other renderers
-		
 		
 		return pane;
 	}

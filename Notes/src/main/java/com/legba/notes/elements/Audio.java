@@ -5,7 +5,7 @@ import com.legba.notes.elements.base.*;
  * Class sets audio file path and checks if it is valid.
  * Class extends MultiMediaElement which contains the
  * get file path method.
- * @author lm1370 tmm522
+ * @author vc622 lm1370 tmm522
  *
  */
 public class Audio extends MultiMediaElement{
@@ -13,7 +13,7 @@ public class Audio extends MultiMediaElement{
 	/**
 	 * Constructor supers element
 	 */
-	protected Audio() {
+	public Audio() {
 		super();
 	}
 	
@@ -24,16 +24,35 @@ public class Audio extends MultiMediaElement{
 	 */
 	public Audio(String path) {
 		super();
+		this.setPath(path);
+
+	}
+	
+	/**
+	 * Further creation method
+	 * @param path
+	 * @param X
+	 * @param Y
+	 * @param X2
+	 * @param Y2
+	 */
+	public Audio(String path, float X, float Y, float X2, float Y2) {
+		super();
 
 		this.setPath(path);
+		this.setX(X);
+		this.setX2(X2);
+		this.setY(Y);
+		this.setY2(Y2);
 	}
 	
 	/**
 	 * Boolean method that checks the filepath is 
-	 * in the correct format and that is length is
+	 * in the correct format and that its length is
 	 * larger than zero. If both these requirements
 	 * are met, method returns TRUE.
 	 * If either are not met, returns FALSE.
+	 * Accepted formats referenced from javafx.scene.media
 	 * @param path Filepath
 	 */
 	@Override
@@ -41,7 +60,16 @@ public class Audio extends MultiMediaElement{
 		
 		if (
 			path.length() > 0 && 
-			path.endsWith(".wav")
+			path.endsWith(".wav") || //Waveform Audio Format
+			path.endsWith(".WAV") ||
+			path.endsWith(".aif") || //Audio Interchange File Format
+			path.endsWith(".AIF") ||
+			path.endsWith(".aiff")|| 
+			path.endsWith(".AIFF")||
+			path.endsWith(".m3u8")||//MP3 HTTP Live Streaming (audiovisual)
+			path.endsWith(".M3U8")||
+			path.endsWith(".mp3") ||//MPEG-1, 2, 2.5 raw audio stream possibly with ID3 metadata v2.3 or v2.4
+			path.endsWith(".MP3")
 		) {
 			return true;
 		}
