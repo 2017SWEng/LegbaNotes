@@ -130,7 +130,10 @@ public class AudioPlayer extends BorderPane {
 	    this.setPrefSize(width, height);
 	    
 	    // Add media player to list of total
-        AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
+	    if( AppController.getInstance().viewing != null ) {
+	    	
+	    	AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
+	    }
 	}
 	
 	/**

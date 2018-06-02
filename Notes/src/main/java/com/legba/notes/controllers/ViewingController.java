@@ -6,6 +6,7 @@ import java.util.List;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
+import com.legba.notes.nodes.MovieView;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
@@ -231,9 +232,11 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
+		//PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
+		MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView);
+		//reference_root.getChildren().add(pdfView);
+		reference_root.getChildren().add(movieView);
 		
 	}
 }
