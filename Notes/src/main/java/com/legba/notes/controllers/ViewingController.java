@@ -22,7 +22,7 @@ import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
- * @author lm1370 and ...
+ * @author vc622 and lm1370 
  *
  */
 public class ViewingController {
@@ -32,7 +32,6 @@ public class ViewingController {
 	private double nodeX;
 	private double nodeY;
 	private SlideElement nodeElement;
-	
 	
 	
 	@FXML
@@ -89,17 +88,17 @@ public class ViewingController {
 		VBox slideBox = ((VBox)((ScrollPane)notes_root.getChildren().get(0)).getContent());
 		double totalSlideSize = slideBox.getHeight();
 		
-		double nextSLideHeight = 0;
-		for(int i = 0; i <= slideIndex; i++){
-			nextSLideHeight+=slideLengths[i];
+		double nextSlideHeight = slideLengths[0];
+		for(int i = 1; i <= slideIndex+1; i++){
+			nextSlideHeight+=slideLengths[i];
 		}
 		
 		System.out.println("totalSlideSize: " + totalSlideSize);
-		System.out.println("nextSLideHeight: " + nextSLideHeight);
-		System.out.println("actual scroll size: " + nextSLideHeight/totalSlideSize);
+		System.out.println("nextSlideHeight: " + nextSlideHeight);
+		System.out.println("actual scroll size: " + nextSlideHeight/totalSlideSize);
+		System.out.println("actual scroll size: " + slideLengths.length);
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSLideHeight/totalSlideSize);
-		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSlideHeight/totalSlideSize);
 	}
 	
 	/**
@@ -235,8 +234,14 @@ public class ViewingController {
 		//PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
 		MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
 		reference_root.getChildren().clear();
-		//reference_root.getChildren().add(pdfView);
 		reference_root.getChildren().add(movieView);
-		
+				
 	}
+ 	
+// 	public void incrementSlide(){
+// 		curSlideIndex++;
+// 	}
+// 	public void decrementSlide(){
+// 		curSlideIndex--;
+// 	}
 }

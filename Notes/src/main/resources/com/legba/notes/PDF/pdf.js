@@ -1,4 +1,9 @@
-//variables created
+/**
+ * Works with the control of pdf viewer 
+ * @author: vc622 rh1271 hjew501
+ */
+
+//variables 
 var pageNumber = 1; 	//current page	 
 var PDF = null; 		//stores PDF
 var numOfPages = null;	//stores number of pages in PDF
@@ -88,6 +93,10 @@ var numOfPages = null;	//stores number of pages in PDF
  
  function getPageNumber(){
  	return pageNumber;
+ }
+ 
+function getNumberPages(){
+ 	return numOfPages;
  }
  
  function setPageNumber(newPageNumber){
