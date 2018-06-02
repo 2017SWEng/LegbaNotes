@@ -3,6 +3,8 @@ package com.legba.notes.app;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import javafx.scene.paint.Color;
+
 import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
@@ -16,6 +18,8 @@ public class HTMLConverter {
 	 */
 	public static String toHTML(Text text) {
 		StringBuilder html = new StringBuilder();
+		
+		System.out.println("\n-----" + text + "\n-----");
 		
 		html.append("<html dir=\"ltr\"><head></head><body contenteditable='true' style=\"" + 
 				"font-color:" + text.getColor() + ";font-family:" + text.getFont() + 
@@ -114,15 +118,14 @@ public class HTMLConverter {
 		Text pws = new Text();
 		Document doc = Jsoup.parse(html);
 		
-		System.out.println("-----\n" + doc.body().getAllElements().first().attributes().get("style") + "\n-----");
+		System.out.println("-----\n" + doc.body()/*.getElementsByTag("p")*/ + "\n-----");
 		
-		String StyleString = doc.body().getAllElements().first().attributes().get("style");
+		String StyleString = doc.body().getAllElements().attr("style");
 		
 		applyStyle(StyleString, pws);
 		
-		
-		
 		pws.addContents(doc.body().text());
+		System.out.println(pws);
 		
 		return pws;
 	}
@@ -132,8 +135,17 @@ public class HTMLConverter {
 		
 		for (int i = 0; i < Styles.length; i++) {
 			if(Styles[i].startsWith("font-size")) {
-				String size = Styles[i].split(":")[1].split("pt")[0];
-				text.setTextsize(Integer.parseInt(size));
+				String Size = Styles[i].split(":")[1].split("pt")[0];
+				text.setTextsize(Integer.parseInt(Size));
+			}
+			else if(Styles[i].startsWith("font-color")) {
+				String StringColor = Styles[i].split(":")[1];
+				Color color = Color.web(StringColor);
+				text.setColor(color);
+			}
+			else if(Styles[i].startsWith("font-family")) {
+				String Font = Styles[i].split(":")[1];
+				text.setFont(Font);
 			}
 		}
 	}

@@ -304,7 +304,7 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		CurrentText.setContents(HTMLConverter.toPWS(insertText.getHtmlText()).getContents());
+		CurrentText = HTMLConverter.toPWS(insertText.getHtmlText());
 		AppController.getInstance().viewing.updateSlide();
 	}
 
