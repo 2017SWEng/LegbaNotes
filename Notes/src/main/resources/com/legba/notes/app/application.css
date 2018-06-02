@@ -26,6 +26,8 @@
 
 .homeImage {
 	-fx-cursor: hand;
+	-fx-spacing:10px;
+	-fx-align-content: center;
 }
 
 Button {
