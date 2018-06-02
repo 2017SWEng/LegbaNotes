@@ -94,6 +94,7 @@ public class MovieView extends Region {
         getStyleClass().add("unlock--movieview");
 
         mediaPlayer = player;
+        label.setText("0.0");
 
         // Inner nodes
         // Media
@@ -309,7 +310,7 @@ public class MovieView extends Region {
         mediaPlayer.currentTimeProperty().addListener((ov, prev, val) -> {
             if (!seekSlider.isValueChanging()) {
                 seekSlider.setValue(val.toSeconds());
-                currentTime = seekSlider.getValue();
+                currentTime =  Math.round((seekSlider.getValue()) * 10d) / 10d;
                 label.setText(Double.toString(currentTime));
             }
         }); 
