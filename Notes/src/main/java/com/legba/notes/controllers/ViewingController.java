@@ -234,7 +234,7 @@ public class ViewingController {
 		//PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
 		MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView);
+		reference_root.getChildren().add(movieView);
 				
 	}
  	
