@@ -5,7 +5,7 @@ var numOfPages = null;	//stores number of pages in PDF
 
  function loadpdf(url)
  {
-   document.body.style.backgroundColor="#2F97C1";
+   document.body.style.backgroundColor="#535360";
 		   
    var pdfjs = window['pdfjs-dist/build/pdf'];
    

@@ -31,8 +31,9 @@ public class PdfView extends BorderPane{
 
 		WebView pdfViewer = new WebView();
 		webEngine = pdfViewer.getEngine();
-		webEngine.setJavaScriptEnabled(true);
+		webEngine.setJavaScriptEnabled(true);	
 		
+		pdfViewer.setPrefSize(2000, 2000);
 		
 		//Navigation buttons for moving around PDF document
 		//When each button is clicked it carries out a function in pdf.html
