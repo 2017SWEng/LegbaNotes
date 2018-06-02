@@ -144,8 +144,6 @@ public class SlideRenderer extends Renderer<Slide> {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
 
-						//Enable shape mode
-						AppController.getInstance().toolbar.shapeMode();
 
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;

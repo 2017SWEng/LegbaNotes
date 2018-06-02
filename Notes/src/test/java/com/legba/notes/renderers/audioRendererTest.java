@@ -58,7 +58,7 @@ public class audioRendererTest {
 		assertNotNull(n);
 		
 		// label,button,mediaview
-		assertEquals(3,n.getChildren().size());
+		assertEquals(2,n.getChildren().size());
 		
 					
 	}
