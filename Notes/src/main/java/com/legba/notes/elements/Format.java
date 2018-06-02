@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
 /**
  * Class is the format element and allows the formatting 
  * of the format elements parameters such as setting bold, italic etc...
@@ -54,6 +55,7 @@ public class Format extends Element implements Colorable,Formatable{
 		super();
 		
 		setStyle(createCSSStyle(this));
+
 	}
 	
 	@XmlValue
@@ -155,6 +157,7 @@ public class Format extends Element implements Colorable,Formatable{
 		
 		underline.set(newUnderline);
 		setStyle(createCSSStyle(this));
+
 	}
 
 
@@ -292,5 +295,4 @@ public class Format extends Element implements Colorable,Formatable{
 			return tempString;
 			
 		}
-
 }

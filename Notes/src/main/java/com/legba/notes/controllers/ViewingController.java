@@ -1,28 +1,38 @@
 package com.legba.notes.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.legba.notes.elements.Presentation;
+import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
+import com.legba.notes.nodes.MovieView;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
- * @author lm1370 and ...
+ * @author vc622 and lm1370 
  *
  */
 public class ViewingController {
 	
-	public Node CurrentNode;
+	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
+	
+	private double nodeX;
+	private double nodeY;
+	private SlideElement nodeElement;
+	
 	
 	@FXML
 	private SplitPane viewing_root;
@@ -78,59 +88,122 @@ public class ViewingController {
 		VBox slideBox = ((VBox)((ScrollPane)notes_root.getChildren().get(0)).getContent());
 		double totalSlideSize = slideBox.getHeight();
 		
-		double nextSLideHeight = 0;
-		for(int i = 0; i <= slideIndex; i++){
-			nextSLideHeight+=slideLengths[i];
+		double nextSlideHeight = slideLengths[0];
+		for(int i = 1; i <= slideIndex+1; i++){
+			nextSlideHeight+=slideLengths[i];
 		}
 		
 		System.out.println("totalSlideSize: " + totalSlideSize);
-		System.out.println("nextSLideHeight: " + nextSLideHeight);
-		System.out.println("actual scroll size: " + nextSLideHeight/totalSlideSize);
+		System.out.println("nextSlideHeight: " + nextSlideHeight);
+		System.out.println("actual scroll size: " + nextSlideHeight/totalSlideSize);
+		System.out.println("actual scroll size: " + slideLengths.length);
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSLideHeight/totalSlideSize);
-		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSlideHeight/totalSlideSize);
 	}
 	
 	/**
 	 * Updates all slides when changes are made from the toolbar controller
 	 */
 	public void updateSlide() {
-		/*-----------------------------------------------------------------------------------------
-		TODO: Currently this clears and rebuilds the entire presentation when are changes are made
-			  to the text or shapes (size, colour, font, etc.). There might be some way to update
-			  without having to rebuild the entire thing every time. - lm1370
-			  
-		------------------------------------------------------------------------------------------*/
-		//Get scroll
+		
+		//Storage for playback locations and status
+		ArrayList<Duration> currentPlayback = new ArrayList<Duration>();
+		ArrayList<MediaPlayer.Status> currentStatus = new ArrayList<MediaPlayer.Status>();
+			
+		//Get current scroll location
 		double currentScroll = ((ScrollPane)notes_root.getChildren().get(0)).getVvalue();
 		
-		// get the presentation from the model
+		// Get current playback locations and current status for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			currentPlayback.add(m.getCurrentTime());
+			currentStatus.add(m.getStatus());
+		}
+			
+		// Stop all current playing media and remove media player storage
+		stopAllMedia();
+		this.allMediaPlayers.clear();
+		
+		// Get the presentation from the model
 		Presentation pres = AppModel.getInstance().getPres();
 		
-		// render the presentation
+		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
 		
-		// display the presentation
+		// Display the presentation
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);
+		//Add variable data for new media player
+		if(AppController.getInstance().toolbar.AddElement == true) {
+			currentPlayback.add(Duration.ZERO);
+			currentStatus.add(MediaPlayer.Status.STOPPED);
+		}
 		
-		/*-----------------------------------------------------------------------------------------
-		TODO: Fix highlighting issue, when you click on any object it updates the presentation
-			  therefore removing the highlighting. Tried to implement it then after updating 
-			  but still not working. Not major issue so have left for now - lm1370
+		// Set playback locations and status for all media
+		for(MediaPlayer m : this.allMediaPlayers) {
+			
+			//If media player was playing, continue playing otherwise stop
+			if (currentStatus.get(allMediaPlayers.indexOf(m)) == MediaPlayer.Status.PLAYING)
+                m.play();
+            else 
+                m.stop();
+			
+			//Set playback position
+			m.setStartTime(currentPlayback.get(allMediaPlayers.indexOf(m)));
+		}
 		
-		//Highlight shape when clicked
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setBlurType(BlurType.GAUSSIAN);
-		dropShadow.setColor(Color.BLACK);
-		dropShadow.setOffsetX(0.0);
-		dropShadow.setOffsetY(0.0);
-		dropShadow.setRadius(20.0);
-		CurrentNode.setEffect(dropShadow);
+		// Set scroll to previous position
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(currentScroll);	
+	}
+	
+	/**
+	 * Sets all media currently playing to "stop"
+	 */
+	public void stopAllMedia() {
+		//For all mediaPlayers rendered, apply stop method
+		for(MediaPlayer m : this.allMediaPlayers) {
+			m.stop();
+		}
+	}
+	
+	/**
+	 * Method that controls moving elements. If element hasn't been 
+	 * moved it returns false. Then gets the combination of the 
+	 * elements pre-existing coordinates and the node offset and checks
+	 * that neither the x or y components are negative. It then sets the
+	 * coordinates of the element to these new values.
+	 * 
+	 * @param s
+	 * @param n
+	 * @return boolean
+	 */
+	public boolean moveElement(SlideElement s, Node n) {		
+		//If element hasn't moved, exit out
+		if((n.getTranslateX() == 0) && (n.getTranslateY() == 0)) {
+			return false;
+		}
 		
-		------------------------------------------------------------------------------------------*/
+		//Get current coordinates
+		nodeX = s.getX() + n.getTranslateX();
+		nodeY = s.getY() + n.getTranslateY();
+		
+		//Check that x is not negative
+		if(nodeX < 0) {
+			nodeX = 0;
+		}
+		
+		//Check that y is not negative
+		if(nodeY < 0) {
+			nodeY = 0;
+		}
+		
+		//Set coordinates
+		s.setX2((float) (nodeX + s.getWidth()));
+		s.setX((float) nodeX);
+		s.setY2((float) (nodeY + s.getHeight()));
+		s.setY((float) nodeY);	
+
+		return true;
 	}
 	
 	/**
@@ -158,9 +231,17 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
+		//PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
+		MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
 		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView);
-		
+		reference_root.getChildren().add(movieView);
+				
 	}
+ 	
+// 	public void incrementSlide(){
+// 		curSlideIndex++;
+// 	}
+// 	public void decrementSlide(){
+// 		curSlideIndex--;
+// 	}
 }

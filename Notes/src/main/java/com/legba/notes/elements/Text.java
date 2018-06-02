@@ -66,7 +66,21 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.contents = new ArrayList<Object>();
 
 		setStyle(createCSSStyle(this));
+
+
 	}
+	
+	public Text(String s) {
+		super();
+		
+		this.contents = new ArrayList<Object>();
+		this.contents.add(s);
+		
+		setStyle(createCSSStyle(this));
+
+	}
+	
+	
 	@XmlElementRefs({
     	@XmlElementRef(name="Format", type=Format.class),
     	@XmlElementRef(name="Br", type=Br.class)
@@ -245,6 +259,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			paintFill.set(newColor);
 			setStyle(createCSSStyle(this));
 		}
+
 
 	@Override
 	@XmlAttribute

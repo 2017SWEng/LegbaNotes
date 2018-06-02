@@ -1,11 +1,16 @@
-//variables created
+/**
+ * Works with the control of pdf viewer 
+ * @author: vc622 rh1271 hjew501
+ */
+
+//variables 
 var pageNumber = 1; 	//current page	 
 var PDF = null; 		//stores PDF
 var numOfPages = null;	//stores number of pages in PDF
 
  function loadpdf(url)
  {
-   document.body.style.backgroundColor="#2F97C1";
+   document.body.style.backgroundColor="#535360";
 		   
    var pdfjs = window['pdfjs-dist/build/pdf'];
    
@@ -88,6 +93,10 @@ var numOfPages = null;	//stores number of pages in PDF
  
  function getPageNumber(){
  	return pageNumber;
+ }
+ 
+function getNumberPages(){
+ 	return numOfPages;
  }
  
  function setPageNumber(newPageNumber){

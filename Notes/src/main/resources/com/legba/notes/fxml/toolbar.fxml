@@ -45,7 +45,7 @@
 						<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
 						<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
 						<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
-						<Button text="Delete" fx:id="deleteText" onAction="#handleDeleteTextAction"  />
+
 						
 						<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
@@ -55,7 +55,8 @@
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
 						<CheckBox fx:id="fillGradient" onAction="#handleFillGradientAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill2" onAction="#handleShapeFill2Action"/>
-						<Button text="Delete" fx:id="deleteShape" onAction="#handleDeleteShapeAction"  />
+						<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
+						<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
 					</HBox>				
 				</ToolBar>
 			</top>	
