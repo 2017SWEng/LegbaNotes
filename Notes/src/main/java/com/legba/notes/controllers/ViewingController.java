@@ -22,12 +22,18 @@ import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
+<<<<<<< HEAD
  * @author vc622 and lm1370 and hjew501
+=======
+ * @author vc622 and lm1370 
+>>>>>>> ruth.herd/SWEng-gradient
  *
  */
 public class ViewingController {
 	
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
+
+	
 	
 	private double nodeX;
 	private double nodeY;
@@ -250,7 +256,7 @@ public class ViewingController {
  		reference_root.getChildren().clear();
 		reference_root.getChildren().add(pdfView); 		
  	};
- 	
+
 // 	public void incrementSlide(){
 // 		curSlideIndex++;
 // 	}

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 public class PresentationTest {
 
 
@@ -85,17 +89,19 @@ public class PresentationTest {
 	@Test	//Tests Color is correctly set.
 	public void ColorTest() {
 		Presentation pres_parameters = new Presentation();
-		pres_parameters.setColor(Color.DODGERBLUE);
+		pres_parameters.setColor((Paint)Color.DODGERBLUE);
 		
 		assertEquals(Color.DODGERBLUE, (Color)pres_parameters.getColor());
 	}
 	
 	@Test	//Tests Fill Color is correctly set.
 	public void FillTest() {
-		Presentation pres_parameters = new Presentation();
-		pres_parameters.setFill(Color.ALICEBLUE);		
+		Presentation pres_parameters = new Presentation();	
 		
-		assertEquals(Color.ALICEBLUE, (Color)pres_parameters.getFill());
+		Stop[] stops = new Stop[] {new Stop(0, Color.ALICEBLUE), new Stop(1, Color.BLANCHEDALMOND)};
+		pres_parameters.setFill(new LinearGradient(0, 0, 1, 1, false, CycleMethod.NO_CYCLE, stops));
+		
+		assertEquals(new LinearGradient(0, 0, 1, 1, false, CycleMethod.NO_CYCLE, stops), pres_parameters.getFill());
 	}		
 	
 	@Test	//Tests font is correctly set.

@@ -66,23 +66,7 @@ public class PdfView extends BorderPane{
 			}
 		});
 		
-//		Button pdfURL = new Button("Find PDF");
-//		pdfURL.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent e) {
-//				if (pdfLoaded == true) {
-//					
-//					webEngine.executeScript("nextpage()");
-//					int currentPage = getPageNumber();
-//	    		
-//					AppController.getInstance().viewing.scrollToSlide(currentPage-1);
-//				}
-//	        	
-//			}
-//		});
-		
-		
+
 		Button pageDown = new Button("Next Page");
 		pageDown.setOnAction(new EventHandler<ActionEvent>() {
 			

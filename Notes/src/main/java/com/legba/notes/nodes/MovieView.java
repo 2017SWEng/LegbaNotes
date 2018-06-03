@@ -96,6 +96,7 @@ public class MovieView extends Region {
         mediaPlayer = player;
         label.setText("0.0");
 
+
         // Inner nodes
         // Media
         mediaView = new MediaView(mediaPlayer);
@@ -311,6 +312,7 @@ public class MovieView extends Region {
             if (!seekSlider.isValueChanging()) {
                 seekSlider.setValue(val.toSeconds());
                 currentTime =  Math.round((seekSlider.getValue()) * 10d) / 10d;
+
                 label.setText(Double.toString(currentTime));
             }
         }); 
