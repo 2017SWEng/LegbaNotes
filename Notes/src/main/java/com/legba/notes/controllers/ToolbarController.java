@@ -5,25 +5,14 @@ import com.legba.notes.elements.Text;
 import com.legba.notes.app.HTMLConverter;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-
-import javax.swing.filechooser.FileSystemView;
 
 import com.legba.notes.elements.*;
-
-import java.util.List;
-
 import com.legba.notes.models.AppModel;
-import com.legba.notes.models.ViewMode.Mode;
-
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
-import javafx.scene.media.MediaException;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -34,13 +23,15 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * Controller for the toolbar
- * @author lm1370, tmm522
+ * @author lm1370, tmm522, ruth.herd
  *
  */
 public class ToolbarController {
@@ -52,6 +43,7 @@ public class ToolbarController {
 	public Image CurrentImage;
 	public String CurrentElement;
 	public Slide CurrentSlide;
+	public Presentation CurrentPres;
 	public boolean AddElement;
 	
 	@FXML
@@ -67,9 +59,7 @@ public class ToolbarController {
 	@FXML
 	public CheckBox textFillGradient;		//Text fill gradient yes or no
 	@FXML
-	public ColorPicker textFill2;				//Text highlighting wheel 2
-	@FXML 
-	public Button pageBreak;				//Page break button
+	public ColorPicker textFill2;			//Text highlighting wheel 2
 	@FXML
 	public ComboBox<String> fontCombo;		//Font type list
 	@FXML
@@ -130,8 +120,6 @@ public class ToolbarController {
 		AppController.getInstance().viewing.updateSlide();
 	}
 	
-
-	
 	/**
 	 * Sets text Fill for the selected text
 	 * @param event
@@ -177,16 +165,6 @@ public class ToolbarController {
 			CurrentText.setFill(textFill.getValue());
 		}
 		AppController.getInstance().viewing.updateSlide();
-	}
-	
-	/**
-	 * Button to insert a page break 
-	 * @param event
-	 */
-	@FXML 
-	protected void handlePageBreakAction(ActionEvent event) {
-		System.out.println("Page Break");	
-		//TODO: Functionality code....
 	}
 	
 	/**
@@ -402,17 +380,13 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Audio");
 				fileChooser.getExtensionFilters().addAll(
-						new FileChooser.ExtensionFilter("Audio", "*.wav"),
-						new FileChooser.ExtensionFilter("Audio", "*.WAV"),
-						new FileChooser.ExtensionFilter("Audio", "*.aif"),
-						new FileChooser.ExtensionFilter("Audio", "*.AIF"),
-						new FileChooser.ExtensionFilter("Audio", "*.aiff"),
-						new FileChooser.ExtensionFilter("Audio", "*.AIFF"),
-						new FileChooser.ExtensionFilter("Audio", "*.m3u8"),
-						new FileChooser.ExtensionFilter("Audio", "*.M3U8"),
-						new FileChooser.ExtensionFilter("Audio", "*.mp3"),
-						new FileChooser.ExtensionFilter("Audio", "*.MP3")	
+						new ExtensionFilter("Audio Files", "*.wav", "*.WAV", "*.aif", "*.AIF", "*.aiff", "*.AIFF", "*.m3u8", "*.M3U8", "*.mp3", "*.MP3")
 				);
+				
+				//Set Directory to workspace
+				String userDirectoryString = System.getProperty("user.dir");
+				File userDirectory = new File(userDirectoryString);
+				fileChooser.setInitialDirectory(userDirectory);
 				
 				//Get audio from file chooser
 				File audioToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
@@ -427,19 +401,13 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Video");
 				fileChooser.getExtensionFilters().addAll(
-						new FileChooser.ExtensionFilter("Video", "*.mp4"),
-						new FileChooser.ExtensionFilter("Video", "*.MP4"),
-						new FileChooser.ExtensionFilter("Video", "*.m4a"),
-						new FileChooser.ExtensionFilter("Video", "*.M4A"),
-						new FileChooser.ExtensionFilter("Video", "*.m4v"),
-						new FileChooser.ExtensionFilter("Video", "*.M4V"),
-						new FileChooser.ExtensionFilter("Video", "*.m3u8"),
-						new FileChooser.ExtensionFilter("Video", "*.M3U8"),
-						new FileChooser.ExtensionFilter("Video", "*.fxm"),
-						new FileChooser.ExtensionFilter("Video", "*.FXM"),
-						new FileChooser.ExtensionFilter("Video", "*.flv"),
-						new FileChooser.ExtensionFilter("Video", "*.FLV")	
+						new ExtensionFilter("Audio Files", "*.mp4", "*.MP4", "*.m4a", "*.M4A", "*.m4v", "*.M4V", "*.m3u8", "*.M3U8", "*.fxm", "*.FXM", "*.flv", "*.FLV")	
 				);
+				
+				//Set Directory to workspace
+				String userDirectoryString = System.getProperty("user.dir");
+				File userDirectory = new File(userDirectoryString);
+				fileChooser.setInitialDirectory(userDirectory);
 				
 				//Get video from file chooser
 				File videoToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
@@ -454,17 +422,13 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open image");
 				fileChooser.getExtensionFilters().addAll(
-						new FileChooser.ExtensionFilter("Image", "*.jpeg"),
-						new FileChooser.ExtensionFilter("Image", "*.JPEG"),
-						new FileChooser.ExtensionFilter("Image", "*.jpg"),
-						new FileChooser.ExtensionFilter("Image", "*.JPG"),
-						new FileChooser.ExtensionFilter("Image", "*.gif"),
-						new FileChooser.ExtensionFilter("Image", "*.GIF"),
-						new FileChooser.ExtensionFilter("Image", "*.png"),
-						new FileChooser.ExtensionFilter("Image", "*.PNG"),
-						new FileChooser.ExtensionFilter("Image", "*.bmp"),
-						new FileChooser.ExtensionFilter("Image", "*.BMP")	
+						new ExtensionFilter("Audio Files", "*.jpeg", "*.JPEG", "*.jpg", "*.JPG", "*.gif", "*.GIF", "*.png", "*.PNG", "*.bmp", "*.BMP")	
 				);
+				
+				//Set Directory to workspace
+				String userDirectoryString = System.getProperty("user.dir");
+				File userDirectory = new File(userDirectoryString);
+				fileChooser.setInitialDirectory(userDirectory);
 				
 				//Get image from file chooser
 				File imageToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
@@ -473,6 +437,10 @@ public class ToolbarController {
 				Image i = new Image(imageToOpen.getName(), 10, 35, 500, 400);
 				CurrentSlide.addImage(i);
 				
+			}	else if(SelectedItem.equals("Slide")) {
+				CurrentPres = AppModel.getInstance().getPres();
+				Slide newSlide = new Slide();
+				CurrentPres.addSlide(newSlide);
 			}
 
 		} catch(Exception ex) {
@@ -482,13 +450,11 @@ public class ToolbarController {
 		}
 		
 		//Add element to current slide
-
 		AppController.getInstance().viewing.updateSlide();
 		
 		AddElement = false;
 	}
-	
-	
+
 	/**
 	 * Takes text typed into the text area and inserts it into the slide.
 	 * @param event
@@ -508,12 +474,10 @@ public class ToolbarController {
 		undFont.setDisable(true);
 		fontCombo.setDisable(true);
 		sizeCombo.setDisable(true);
-		pageBreak.setDisable(true);
 		textFill.setDisable(true);
 
 		textFillGradient.setDisable(true);
 		textFill2.setDisable(true);
-
 		
 		typeCombo.setDisable(false);
 		strokeCombo.setDisable(false);
@@ -545,8 +509,6 @@ public class ToolbarController {
 			fillGradient.setSelected(false);
 			shapeFill2.setDisable(true);
 		}
-		
-
 	}
 	
 	/**
@@ -558,12 +520,9 @@ public class ToolbarController {
 		undFont.setDisable(false);
 		fontCombo.setDisable(false);
 		sizeCombo.setDisable(false);
-		pageBreak.setDisable(false);
 		textFill.setDisable(false);
 
 		textFillGradient.setDisable(false);
-
-		
 		typeCombo.setDisable(true);
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
@@ -605,7 +564,6 @@ public class ToolbarController {
 		undFont.setDisable(true);
 		fontCombo.setDisable(true);
 		sizeCombo.setDisable(true);
-		pageBreak.setDisable(true);
 		textFill.setDisable(true);
 		textFillGradient.setDisable(true);
 		textFill2.setDisable(true);
@@ -626,6 +584,155 @@ public class ToolbarController {
 		deleteElement.setDisable(true);
 		addCombo.setDisable(true);
 	}
+	
+	/**
+	 * Sets all the tooltips for all the options on the toolbar
+	 */
+	protected void buttonTooltips() {
+		//Bold Font
+		final Tooltip boldFontTT = new Tooltip();
+		boldFontTT.setText(
+			"Toggles the selected text\n" +
+		    "bold status on and off.\n" 
+		);
+		boldFont.setTooltip(boldFontTT);
+		
+		//Italic Font
+		final Tooltip italicFontTT = new Tooltip();
+		italicFontTT.setText(
+			"Toggles the selected text\n" +
+		    "italic status on and off.\n" 
+		);
+		italicFont.setTooltip(italicFontTT);
+		
+		//Underline Font
+		final Tooltip undFontTT = new Tooltip();
+		undFontTT.setText(
+			"Toggles the selected text\n" +
+		    "underline status on and off.\n" 
+		);
+		undFont.setTooltip(undFontTT);
+		
+		//Font Combo
+		final Tooltip fontComboTT = new Tooltip();
+		fontComboTT.setText(
+			"Sets the font of the\n" +
+		    "selected text.\n" 
+		);
+		fontCombo.setTooltip(fontComboTT);
+		
+		//Size Combo
+		final Tooltip sizeComboTT = new Tooltip();
+		sizeComboTT.setText(
+			"Sets the size of the\n" +
+		    "selected text.\n" 
+		);
+		sizeCombo.setTooltip(sizeComboTT);
+		
+		//Text Fill
+		final Tooltip textFillTT = new Tooltip();
+		textFillTT.setText(
+			"Sets the primary colour\n" +
+		    "of the selected text.\n" 
+		);
+		textFill.setTooltip(textFillTT);
+		
+		//Text Fill Gradient
+		final Tooltip textFillGradientTT = new Tooltip();
+		textFillGradientTT.setText(
+			"Enable to allow the selected\n" +
+		    "text color to gradiented.\n" 
+		);
+		textFillGradient.setTooltip(textFillGradientTT);
+		
+		//Text Fill 2
+		final Tooltip textFill2TT = new Tooltip();
+		textFill2TT.setText(
+			"Sets the secondary colour\n" +
+		    "of the selected text.\n"  
+		);
+		textFill2.setTooltip(textFill2TT);
+		
+		//Type Combo
+		final Tooltip typeComboTT = new Tooltip();
+		typeComboTT.setText(
+			"Sets the type of\n" +
+		    "the selected shape.\n"
+		);
+		typeCombo.setTooltip(typeComboTT);
+		
+		//Stroke Combo
+		final Tooltip strokeComboTT = new Tooltip();
+		strokeComboTT.setText(
+			"Sets the size of the border\n" +
+		    "for the selected shape.\n"
+		);
+		strokeCombo.setTooltip(strokeComboTT);
+		
+		//Stroke Color
+		final Tooltip strokeColorTT = new Tooltip();
+		strokeColorTT.setText(
+			"Sets the primary colour\n" +
+		    "of the selected shape's border.\n"  
+		);
+		strokeColor.setTooltip(strokeColorTT);
+		
+		//Shape Fill
+		final Tooltip shapeFillTT = new Tooltip();
+		shapeFillTT.setText(
+			"Sets the primary colour\n" +
+		    "of the selected shape.\n"
+		);
+		shapeFill.setTooltip(shapeFillTT);
+		
+		//Stroke Gradient
+		final Tooltip strokeGradientTT = new Tooltip();
+		strokeGradientTT.setText(
+			"Enable to allow the selected\n" +
+		    "shape's border to gradiented.\n" 
+		);
+		strokeGradient.setTooltip(strokeGradientTT);
+		
+		//Shape Fill Gradient
+		final Tooltip shapeFillGradientTT = new Tooltip();
+		shapeFillGradientTT.setText(
+			"Enable to allow the selected\n" +
+		    "shape color to gradiented.\n" 
+		);
+		fillGradient.setTooltip(shapeFillGradientTT);
+		
+		//Stroke Color 2
+		final Tooltip strokeColor2TT = new Tooltip();
+		strokeColor2TT.setText(
+			"Sets the secondary colour\n" +
+		    "of the selected shape's border.\n"
+		);
+		strokeColor2.setTooltip(strokeColor2TT);
+		
+		//Shape Fill 2
+		final Tooltip shapeFill2TT = new Tooltip();
+		shapeFill2TT.setText(
+			"Sets the secondary colour\n" +
+		    "of the selected shape.\n"
+		);
+		shapeFill2.setTooltip(shapeFill2TT);
+		
+		//Delete element
+		final Tooltip deleteElementTP = new Tooltip();
+		deleteElementTP.setText(
+			"Deletes the selected \n" +
+		    "element from the slide.\n" 
+		);
+		deleteElement.setTooltip(deleteElementTP);
+		
+		//Add Combo
+		final Tooltip addComboTP = new Tooltip();
+		addComboTP.setText(
+			"Choose an element from the list\n" +
+		    "to add to the selected slide.\n" 
+		);
+		addCombo.setTooltip(addComboTP);			
+	}
 
 	/**
 	 * Initialise method
@@ -637,7 +744,10 @@ public class ToolbarController {
 		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image");
+		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image", "Slide");
+		
+		//Set listeners on all buttons to display tooltips
+		buttonTooltips();
 		
 		//Initially disable editing toolbar
 		initialStartup();

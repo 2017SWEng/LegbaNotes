@@ -118,7 +118,6 @@ public class SlideRenderer extends Renderer<Slide> {
 			}
 		});
 		//When mouse enters pane it puts border around it
-
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -140,16 +139,13 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
 						AppController.getInstance().toolbar.CurrentElement = new String("Shape");
 
-						
 						//Enable shape mode
 						AppController.getInstance().toolbar.shapeMode();
-						
-						System.out.println(shape);
+						//System.out.println(shape);
 						
 						if (shape.getType().equals("line")) {
 							AppController.getInstance().toolbar.fillGradient.setDisable(true);

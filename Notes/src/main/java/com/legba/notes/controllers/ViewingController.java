@@ -6,7 +6,6 @@ import java.util.List;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
-import com.legba.notes.nodes.MovieView;
 import com.legba.notes.nodes.PdfView;
 import com.legba.notes.renderers.PresentationRenderer;
 
@@ -37,7 +36,6 @@ public class ViewingController {
 	
 	private double nodeX;
 	private double nodeY;
-	private SlideElement nodeElement;
 	public String pdfURL;
 		
 	@FXML
@@ -130,7 +128,7 @@ public class ViewingController {
 		this.allMediaPlayers.clear();
 		
 		// Get the presentation from the model
-		Presentation pres = AppModel.getInstance().getPres();
+		Presentation pres = AppController.getInstance().toolbar.CurrentPres;
 		
 		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
@@ -219,7 +217,6 @@ public class ViewingController {
 		
 	}
 
-	
 	/**
 	 * Initialise method
 	 */
