@@ -24,12 +24,12 @@
 		<VBox>
 			<padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
 			<Text StyleClass="listTitle">Recent Documents</Text>	
-			<ListView fx:id="recentsList" onMouseClicked="#handleListClick"/>
+			<ListView fx:id="recentsList" onMouseClicked="#handleRecentsListClick"/>
 		</VBox>
 		<VBox fx:id="documentInterface">
 		<padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
 			<Text StyleClass="listTitle">Resources</Text>
-			<ListView fx:id="contentList" onMouseClicked="#handleListClick"/>
+			<ListView fx:id="contentList" onMouseClicked="#handleContentListClick"/>
 			<HBox>
 			<padding><Insets top="5" right="0" bottom="5" left="0"/></padding>
 				<Button fx:id="fileChooserBtn" text="Open other..." onAction="#handleFileChooserBtn"/>

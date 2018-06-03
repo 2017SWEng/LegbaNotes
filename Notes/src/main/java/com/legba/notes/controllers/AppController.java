@@ -1,8 +1,11 @@
 package com.legba.notes.controllers;
 
 
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -363,12 +368,36 @@ public class AppController implements Observer{
 		//we now have everything we need
 		//append to the file
 		//!! add checking to this !!
-		FileWriter fw = new FileWriter(recentsDoc, true);
-	    BufferedWriter bw = new BufferedWriter(fw);
-	    bw.write(openedFile.getAbsolutePath());
-	    bw.newLine();
-	    bw.flush();
-	    bw.close();
+		
+		
+		List<String> listItems = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader(recentsDoc.toString()));
+		try {
+		    String line = br.readLine();
+		    while (line != null) {
+		    	listItems.add(line.trim());
+		        line = br.readLine();
+		    }
+		} finally {
+		    br.close();
+		}
+		
+		boolean containsFileAlready = false;
+		
+		for(int i = 0; i < listItems.size(); i++){
+			if(listItems.get(i).equals(openedFile.getAbsolutePath())){
+				containsFileAlready = true;
+			}
+		}
+		
+		if(!containsFileAlready){
+			FileWriter fw = new FileWriter(recentsDoc, true);
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    bw.write(openedFile.getAbsolutePath());
+		    bw.newLine();
+		    bw.flush();
+		    bw.close();
+		}
 	    
 	    //testing purposes
 	    System.out.println("recents updated");

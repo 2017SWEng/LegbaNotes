@@ -1,8 +1,10 @@
 package com.legba.notes.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
@@ -238,17 +240,47 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		String pdfURL = "https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf";
+		//String pdfURL = "https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf"
+		Presentation presentation = AppModel.getInstance().getPres();
+		String pdfAddress = null;
+		File videoAddress = null;
+		Boolean showPDF = false;
+		for (Meta metaStuff: presentation.getMeta()){
+			if (metaStuff.getKey().equals("associated:pdf")) {
+				pdfAddress = metaStuff.getValue();
+				System.out.println("got PDF: " + pdfAddress);
+				showPDF = true;
+			} else if(metaStuff.getKey().equals("associated:video")){
+				videoAddress = new File(metaStuff.getValue());
+				System.out.println("got Video: " + videoAddress.getName());
+				showPDF = false;
+			}
+		}
 		
-		PdfView pdfView = new PdfView(pdfURL);
+		if (pdfAddress == null && videoAddress == null){
+			pdfAddress = "http://www.iupui.edu/~womrel/REL%20300%20Spirit/REL%20300_Spirit/Lwa.pdf";
+			System.out.println("No associated PDF/Video found; default selected: " + pdfAddress);
+			PdfView pdfView = new PdfView(pdfAddress);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(pdfView);
+		} else if(showPDF){
+			PdfView pdfView = new PdfView(pdfAddress);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(pdfView);
+		} else {
+			MovieView movieView = new MovieView(videoAddress.getName(), 0, 0, 500, 400);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(movieView);
+		}
+		
+		//PdfView pdfView = new PdfView(pdfURL);
 		//http://www.iupui.edu/~womrel/REL%20300%20Spirit/REL%20300_Spirit/Lwa.pdf
 		//https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf
 		//http://www.metaphysicspirit.com/books/The%20Voodoo%20Hoodoo%20Spellbook.pdf
 		
 		//MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
-		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView);
-				
+		
+		
 	}
  	
  	public void refresh(String pdfURL){
@@ -257,10 +289,4 @@ public class ViewingController {
 		reference_root.getChildren().add(pdfView); 		
  	};
 
-// 	public void incrementSlide(){
-// 		curSlideIndex++;
-// 	}
-// 	public void decrementSlide(){
-// 		curSlideIndex--;
-// 	}
 }
