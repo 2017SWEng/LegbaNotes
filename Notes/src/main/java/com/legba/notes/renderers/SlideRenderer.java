@@ -112,13 +112,13 @@ public class SlideRenderer extends Renderer<Slide> {
 		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
-				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
+				
+				AppController.getInstance().toolbar.slideMode();
 				
 			}
 		});
 		//When mouse enters pane it puts border around it
-
 		pane.onMouseEnteredProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -140,16 +140,13 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
 						AppController.getInstance().toolbar.CurrentElement = new String("Shape");
 
-						
 						//Enable shape mode
 						AppController.getInstance().toolbar.shapeMode();
-						
-						System.out.println(shape);
+						//System.out.println(shape);
 						
 						if (shape.getType().equals("line")) {
 							AppController.getInstance().toolbar.fillGradient.setDisable(true);
@@ -279,6 +276,7 @@ public class SlideRenderer extends Renderer<Slide> {
 				}
 			});
 			
+			
 			//Update node position whilst dragging
 			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {	
@@ -335,15 +333,8 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");
 						
-						//Enable text mode
+						//Enable Text mode
 						AppController.getInstance().toolbar.textMode();	
-						
-						System.out.println(text);
-						
-						/*----------------------------------------------------------------------------------------------------------------------
-						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
-							  the identical method for shapes and they work. If text has been binded then i'll have a another 
-							  look at this, text can be set from the toolbar, but can't retrieve data from text to display on toolbar - lm1370
 						
 						//Displays selected shape variables on toolbar */
 						//AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());

@@ -2,14 +2,16 @@ package com.legba.notes.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
+import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
-import com.legba.notes.nodes.MovieView;
 import com.legba.notes.nodes.PdfView;
+import com.legba.notes.nodes.MovieView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
@@ -24,11 +26,7 @@ import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
-<<<<<<< HEAD
  * @author vc622 and lm1370 and hjew501
-=======
- * @author vc622 and lm1370 
->>>>>>> ruth.herd/SWEng-gradient
  *
  */
 public class ViewingController {
@@ -39,7 +37,6 @@ public class ViewingController {
 	
 	private double nodeX;
 	private double nodeY;
-	private SlideElement nodeElement;
 	public String pdfURL;
 		
 	@FXML
@@ -53,6 +50,19 @@ public class ViewingController {
 	
 	@FXML 
 	public Text actiontarget;
+	
+	public Double getReferenceRootTime() {
+		
+		Duration duration = null;
+		Double durationInt;
+		for(Node nodeIn:reference_root.getChildren()){
+            if(nodeIn instanceof MovieView){
+                duration = ((MovieView)nodeIn).getMediaPlayer().getCurrentTime();
+            }
+        }
+		durationInt = duration.toSeconds();
+		return durationInt;
+	}
 	
 	/**
 	 * Returns slide size index
@@ -93,7 +103,10 @@ public class ViewingController {
 			slideIndex = slideLengths.length -1;
 		}
 
+		//slideIndex = 0;
+		
 		VBox slideBox = ((VBox)((ScrollPane)notes_root.getChildren().get(0)).getContent());
+		ScrollPane scrollPane = (ScrollPane)notes_root.getChildren().get(0);
 		double totalSlideSize = slideBox.getHeight();
 		
 		double nextSlideHeight = slideLengths[0];
@@ -101,12 +114,22 @@ public class ViewingController {
 			nextSlideHeight+=slideLengths[i];
 		}
 		
+		System.out.println("slideIndex: " + slideIndex);
+		System.out.println("slideLengths: " + Arrays.toString(slideLengths));
 		System.out.println("totalSlideSize: " + totalSlideSize);
 		System.out.println("nextSlideHeight: " + nextSlideHeight);
 		System.out.println("actual scroll size: " + nextSlideHeight/totalSlideSize);
 		System.out.println("actual scroll size: " + slideLengths.length);
+		System.out.println("vvalue: " + ((ScrollPane)notes_root.getChildren().get(0)).getVvalue());
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSlideHeight/totalSlideSize);
+		Double h = slideBox.getBoundsInLocal().getHeight();
+		Double v = scrollPane.getViewportBounds().getHeight();
+		
+		Double value = scrollPane.getVmax() * ((nextSlideHeight)/(h - v));
+		
+		System.out.println(value);
+		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(value);
 	}
 	
 	/**
@@ -174,6 +197,51 @@ public class ViewingController {
 		}
 	}
 	
+	
+	public void scrollToDuration(Duration duration) {
+		
+		List<Slide> slides = AppModel.getInstance().getPres().getSlide();
+		List<Integer> slidesDuration = new ArrayList<Integer>();
+		List<Integer> slidesIndex = new ArrayList<Integer>();
+		for (int i = 0; i < slides.size(); i++) {
+			if (slides.get(i).getDuration() != null) {
+				slidesDuration.add(slides.get(i).getDuration());
+				slidesIndex.add(i);
+			}
+		};
+		
+		int temp = 0;
+		if (slidesDuration != null) {
+				for (int i = 0; i < slidesDuration.size(); i++) {
+					for(int j = 1; j < (slidesDuration.size() - i); j++) {
+						if (slidesDuration.get(j - 1) > slidesDuration.get(j)) {
+							temp = slidesDuration.get(j - 1);
+							slidesDuration.set(j - 1, slidesDuration.get(j));
+							slidesDuration.set(j, temp);
+							temp = slidesIndex.get(j - 1);
+							slidesIndex.set(j - 1, slidesIndex.get(j));
+							slidesIndex.set(j, temp);
+						}
+					}
+				}
+		}		
+		
+		int slideToMoveTo = -1;
+		
+		for (int i= 0; i < slidesDuration.size(); i++) {
+			if (duration.toSeconds() > slidesDuration.get(i)) {
+				slideToMoveTo = slidesIndex.get(i);
+			}
+		}
+		if (slideToMoveTo == -1) {
+			slideToMoveTo = 0;
+		}
+		
+		scrollToSlide(slideToMoveTo);
+		
+		System.out.println("Duration: " + slidesDuration + ". Slides: " + slidesIndex);
+	}
+	
 	/**
 	 * Method that controls moving elements. If element hasn't been 
 	 * moved it returns false. Then gets the combination of the 
@@ -221,7 +289,6 @@ public class ViewingController {
 		
 	}
 
-	
 	/**
 	 * Initialise method
 	 */

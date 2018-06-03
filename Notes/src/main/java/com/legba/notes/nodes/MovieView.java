@@ -95,7 +95,7 @@ public class MovieView extends Region {
 
         mediaPlayer = player;
         label.setText("0.0");
-
+        label.setTextFill(Color.WHITE);
 
         // Inner nodes
         // Media
@@ -315,7 +315,12 @@ public class MovieView extends Region {
 
                 label.setText(Double.toString(currentTime));
             }
+            if (AppController.getInstance().toolbar.scrollVideo.isSelected() == false) {
+            	AppController.getInstance().viewing.scrollToDuration(val);
+            }
+            
         }); 
+        
         
         // Volume
         mediaPlayer.volumeProperty().bindBidirectional(volumeSlider.valueProperty());

@@ -26,8 +26,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
@@ -66,6 +68,13 @@ public class AppController implements Observer{
 
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
+		
+		//Set stage to boundaries of monitor
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		this.mainStage.setWidth(1000);
+		this.mainStage.setHeight(primaryScreenBounds.getHeight());
+		this.mainStage.setMinWidth(1000);
+		this.mainStage.setMinHeight(primaryScreenBounds.getHeight());
 		
 		//Different view modes equal different exit messages			
 		mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {	
