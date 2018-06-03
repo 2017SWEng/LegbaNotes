@@ -46,7 +46,6 @@
 						<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
 						<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
 
-						
 						<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
 						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>

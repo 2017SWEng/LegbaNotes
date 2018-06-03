@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import com.legba.notes.elements.*;
+import com.legba.notes.models.AppModel;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,7 +19,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -38,6 +37,7 @@ public class ToolbarController {
 	public Image CurrentImage;
 	public String CurrentElement;
 	public Slide CurrentSlide;
+	public Presentation CurrentPres;
 	public boolean AddElement;
 	
 	@FXML
@@ -427,6 +427,10 @@ public class ToolbarController {
 				Image i = new Image(imageToOpen.getName(), 10, 35, 500, 400);
 				CurrentSlide.addImage(i);
 				
+			}	else if(SelectedItem.equals("Slide")) {
+				CurrentPres = AppModel.getInstance().getPres();
+				Slide newSlide = new Slide();
+				CurrentPres.addSlide(newSlide);
 			}
 
 		} catch(Exception ex) {
@@ -707,7 +711,7 @@ public class ToolbarController {
 		sizeCombo.getItems().setAll(6, 8, 10, 12, 14, 16, 18, 20, 22, 24);
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image");
+		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image", "Slide");
 		
 		//Set listeners on all buttons to display tooltips
 		buttonTooltips();
