@@ -24,11 +24,23 @@
 	fx:controller="com.legba.notes.controllers.MenuController" >
 	
 	<top>
-		<ImageView fx:id="homeLogo" StyleClass="homeImage" fitHeight="60" preserveRatio="true" onMouseClicked="#handleHomeButtonAction">
-			<image>
-				<Image url="@Images/Logo-Horizontal2-line.png" />
-			</image>
-		</ImageView>
+		<VBox>
+			<HBox alignment="CENTER">
+				<ImageView fx:id="mainLogo" fitHeight="60" preserveRatio="true">
+					<image>
+						<Image url="@Images/Logo-Horizontal2-line.png" />
+					</image>
+				</ImageView>
+			</HBox>
+			<HBox>
+				<padding><Insets top="0" right="5" bottom="5" left="5"/></padding>
+				<ImageView fx:id="homeLogo" StyleClass="homeImage" fitHeight="20" preserveRatio="true" onMouseClicked="#handleHomeButtonAction">
+					<image>
+						<Image url="@Images/Home.png" />
+					</image>
+				</ImageView>
+			</HBox>
+		</VBox>
 	</top>
 	<center>
 		<MenuBar fx:id="menuBar" pickOnBounds="true">
@@ -43,9 +55,9 @@
 				</Menu>
 				<Menu text="Help">
 				</Menu>
-				<Menu text="Notes">
+				<Menu text="Notes" fx:id="notesMenu">
 					<items>
-						<MenuItem text="Save notes" onAction="#handleManualNotesSave"/>
+						<MenuItem  text="Save notes" onAction="#handleManualNotesSave"/>
 					</items>
 				</Menu>
 			</menus>

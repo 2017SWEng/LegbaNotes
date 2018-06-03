@@ -6,8 +6,20 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -38,6 +50,7 @@ public class TextRenderer extends Renderer<Text> {
 		//Create an Array of JavaFX Text objects that our text.
 		//objects will be stored into
 		ArrayList<javafx.scene.text.Text> lines = new ArrayList<javafx.scene.text.Text>();
+		
 	
 		//For each line in the text model apply the correct renderer
 		for (int i=0; i<textModel.getContents().size(); i++) {
@@ -51,6 +64,7 @@ public class TextRenderer extends Renderer<Text> {
 			else if (textModel.getContents().get(i) instanceof Format){
 				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i));
 				lines.add(renderedFormat);
+				
 			}
 			else if (textModel.getContents().get(i) instanceof Br){
 				javafx.scene.text.Text renderedBreak = breakRenderer((Br)textModel.getContents().get(i));
@@ -59,9 +73,9 @@ public class TextRenderer extends Renderer<Text> {
 			else {
 				System.err.println("Passed unknown class in text model renderer");
 			}
+
 		}
-		
-	
+
 		TextFlow flow = new TextFlow();
 		flow.getChildren().addAll(lines);
 		
@@ -71,7 +85,8 @@ public class TextRenderer extends Renderer<Text> {
 		flow.setMinWidth(textModel.getWidth() == null ? DEFAULT_WIDTH : textModel.getWidth());
 		flow.setMinHeight(textModel.getHeight() == null ? DEFAULT_HEIGHT : textModel.getHeight());
 		
-		System.out.println(flow.getLayoutBounds());
+		//System.out.println(flow.getLayoutBounds());
+		//System.out.println(flow.getChildren().toString());
 		
 		return flow;
 		
@@ -91,38 +106,62 @@ public class TextRenderer extends Renderer<Text> {
 			return null;
 		}
 		
+		Paint fill;
+		if (textModel.getFill() == null) {
+			fill = Paint.valueOf(DEFAULT_Fill.toString());
+		}
+		else if (textModel.getFill() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) textModel.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) textModel.getFill()).getStops().get(1).getColor())};
+			textModel.setFill(new LinearGradient(text.getX(), text.getY(), text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight(), false, CycleMethod.NO_CYCLE, stops));
+			fill = textModel.getFill();
+		}
+		else {
+			fill = textModel.getFill();
+		}
+		
+		StringProperty style = new SimpleStringProperty();
+		BooleanProperty underline = new SimpleBooleanProperty();
+		FloatProperty x = new SimpleFloatProperty();
+		FloatProperty y = new SimpleFloatProperty();
+		ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
+		
 		text.setText(string.trim());
-				
-		text.setFont(Font.font(
-			// Checking font type
-			textModel.getFont() == null ? DEFAULT_Font : textModel.getFont(), 
-			textModel.getTextsize() == null ? DEFAULT_Textsize : textModel.getTextsize())
-		);
+
+		text.setStyle(textModel.getStyle());
 		
-		//Color of text 
-		text.setFill(
-			textModel.getFill() == null ? DEFAULT_Fill : textModel.getFill()
-		);//Can only test fill since color is background not foreground.
+		text.setUnderline(textModel.getUnderline() == null ? DEFAULT_Underline : textModel.getUnderline());
 		
+		text.setFill(fill);
 		
-		text.setUnderline(
-			textModel.getUnderline() == null ? DEFAULT_Underline : textModel.getUnderline()
-		);
-		
-		// Checking Bold and Italic.
-		boolean isItalic = textModel.getItalic() == null ? DEFAULT_Italic : textModel.getItalic();
-		boolean isBold = textModel.getBold() == null ? DEFAULT_Bold : textModel.getBold();
-		
-		text.setFont(Font.font(
-			textModel.getFont() == null ? DEFAULT_Font : textModel.getFont(), 
-			isBold == false ? FontWeight.NORMAL : FontWeight.BOLD,
-			isItalic == false ? FontPosture.REGULAR : FontPosture.ITALIC,
-			textModel.getTextsize() == null ? DEFAULT_Textsize : textModel.getTextsize())
-		);
 		
 		//Position
 		text.setX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
 		text.setY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
+		
+		if (textModel.styleProperty()!= null) {
+			text.styleProperty().bind(style);
+			style.bind(textModel.styleProperty());
+		}
+		
+		if (textModel.xProperty()!= null) {
+			text.xProperty().bind(x);
+			x.bind(textModel.xProperty());
+		}
+		
+		if (textModel.yProperty() != null) {
+			text.yProperty().bind(y);
+			y.bind(textModel.yProperty());
+		}
+		
+		if (textModel.underlineProperty() != null) {
+			text.underlineProperty().bind(underline);
+			underline.bind(textModel.underlineProperty());
+		}
+		
+		if (textModel.paintFillProperty() != null) {
+			text.fillProperty().bind(paintFill);
+			paintFill.bind(textModel.paintFillProperty());
+		}
 		
 		return text;
 	
@@ -135,34 +174,51 @@ public class TextRenderer extends Renderer<Text> {
 	 */
 	private javafx.scene.text.Text formatRenderer(Format format){
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
+		
+		Paint fill;
+		if (format.getFill() == null) {
+			fill = Paint.valueOf(DEFAULT_Fill.toString());
+		}
+		else if (format.getFill() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) format.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) format.getFill()).getStops().get(1).getColor())};
+			format.setFill(new LinearGradient(text.getX(), text.getY(), text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight(), false, CycleMethod.NO_CYCLE, stops));
+			fill = format.getFill();
+		}
+		else {
+			fill = format.getFill();
+		}
+		
+		
+		
 		text.setText(format.getText());
 		
-		text.setFont(Font.font(
-			// Checking font type
-			format.getFont() == null ? DEFAULT_Font : format.getFont(), 
-			format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
-		);
+		text.setStyle(format.createCSSStyle(format));
 		
-		//Color of text  
-		text.setFill(
-			format.getFill() == null ? DEFAULT_Fill : format.getFill()
-		);//Can only test fill since color is background not foreground.
+		text.setFill(fill);
 		
+		text.setUnderline(format.getUnderline() == null ? DEFAULT_Underline : format.getUnderline());
 		
-		text.setUnderline(
-			format.getUnderline() == null ? DEFAULT_Underline : format.getUnderline()
-		);
+		StringProperty style = new SimpleStringProperty();
+		ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
+		BooleanProperty underline = new SimpleBooleanProperty();
 		
-		//Checking Bold and Italic.
-		boolean isItalic = format.getItalic() == null ? DEFAULT_Italic : format.getItalic();
-		boolean isBold = format.getBold() == null ? DEFAULT_Bold : format.getBold();
 
-		text.setFont(Font.font(
-				format.getFont() == null ? DEFAULT_Font : format.getFont(), 
-				isBold == false ? FontWeight.NORMAL : FontWeight.BOLD,
-				isItalic == false ? FontPosture.REGULAR : FontPosture.ITALIC,
-				format.getTextsize() == null ? DEFAULT_Textsize : format.getTextsize())
-			);
+		
+		if (format.styleProperty()!= null) {
+			text.styleProperty().bind(style);
+			style.bind(format.styleProperty());
+		}
+		
+		if (format.underlineProperty() != null) {
+			text.underlineProperty().bind(underline);
+			underline.bind(format.underlineProperty());
+		}
+		
+		if (format.paintFillProperty() != null) {
+			text.fillProperty().bind(paintFill);
+			paintFill.bind(format.paintFillProperty());
+		}
+		
 		
 		return text;
 	}

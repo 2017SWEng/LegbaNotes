@@ -44,25 +44,25 @@
 }
 
 .button--playpause {
-    -fx-background-image: url('/icons/play.png');
+    -fx-background-image: url('../icons/play.png');
 }
 
 .button--rate {
-    -fx-background-image: url('/icons/fastforward.png');
+    -fx-background-image: url('../icons/fastforward.png');
 }
 
 .button--mute {
-    -fx-background-image: url('/icons/volume_up.png');
+    -fx-background-image: url('../icons/volume_up.png');
 }
 
 .button--fullscreen {
-    -fx-background-image: url('/icons/fullscreen.png');
+    -fx-background-image: url('../icons/fullscreen.png');
 }
 
 .unlock--movieview:playing .button--playpause {
-    -fx-background-image: url('/icons/pause.png');
+    -fx-background-image: url('../icons/pause.png');
 }
 
 .unlock--movieview:muted .button--mute {
-    -fx-background-image: url('/icons/volume_off.png');
+    -fx-background-image: url('../icons/volume_off.png');
 }

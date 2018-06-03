@@ -3,8 +3,6 @@ package com.legba.notes.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,16 +10,20 @@ import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.models.ViewMode;
 import com.legba.notes.models.ViewMode.Mode;
+import com.legba.notes.renderers.AudioRenderer;
+import com.legba.notes.renderers.VideoRenderer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.scene.input.MouseEvent;
+
 
 public class MenuController implements Observer{
 
@@ -36,43 +38,59 @@ public class MenuController implements Observer{
 	MenuBar menuBar;
 	
 	@FXML
+	Menu notesMenu;
+	
+	@FXML
 	ImageView homeLogo;
+	
+	AudioRenderer audioRenderer;
+	VideoRenderer videoRenderer;
 	
 	@FXML public void handleManualNotesSave(){
 		
 		if(AppModel.getInstance().getVeiwMode() == ViewMode.Mode.VEIWING)
 		{
-			//get the presentation to save
-			Presentation pres = AppModel.getInstance().getPres();
-			
-			//get the user to select the file path
-			FileChooser fileChooser = new FileChooser();
-	        fileChooser.setTitle("Save New Note File");
-	        fileChooser.getExtensionFilters().addAll(
-	        		new FileChooser.ExtensionFilter("Text file", "*.pws")
-	        );
-	        
-	        //get the file path
-	        File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
-	        
-	        //call the xml saver
-	        AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
-		
-	        //update recents
-	        try {
-				AppController.getInstance().updateRecents(file);
-			} catch (IOException e) {
-				System.out.println("Unable to update Recent Docs");
-				e.printStackTrace();
-			}
+			externalSaveFile();
 		}
-		
 			
 	}
 	
 	private final static String toolbarPath = "com/legba/notes/fxml/toolbar.fxml";
-
+	
+	public boolean externalSaveFile() {
+		//get the presentation to save
+		Presentation pres = AppModel.getInstance().getPres();
+		
+		//get the user to select the file path
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save New Note File");
+        fileChooser.getExtensionFilters().addAll(
+        		new FileChooser.ExtensionFilter("Text file", "*.pws")
+        );
+        
+        //get the file path
+        File file = fileChooser.showSaveDialog(AppController.getInstance().getMainStage());
+        
+        if(file == null) {
+        	return false;
+        }
+        
+        //call the xml saver
+        AppController.getInstance().fileSystemController.saveXmlFile(file.getAbsolutePath(), pres);
+	
+        //update recents
+        try {
+			AppController.getInstance().updateRecents(file);
+		} catch (IOException e) {
+			System.out.println("Unable to update Recent Docs");
+			e.printStackTrace();
+		}
+        
+        return true;
+	}
+	
 	public MenuController(){
+		AppController.getInstance().menu = this;
 	}
 	
 	@FXML
@@ -98,6 +116,12 @@ public class MenuController implements Observer{
 		else if (mode == Mode.HOMEPAGE){
 			switchToHomepage();
 		}
+		else if (mode == Mode.LOGIN){
+			switchtoLogin();
+		}
+		else if (mode == Mode.MODULE_MANAGEMENT){
+			switchToModuleManagement();
+		}
 		else{
 			System.err.println(this.toString() +" : uknown viewmode bailing to homepage" );
 			switchToHomepage();
@@ -106,10 +130,17 @@ public class MenuController implements Observer{
 	}
 
 	
+	private void switchtoLogin() {
+		// TODO Auto-generated method stub
+		topbar_root.setVisible(false);
+	}
+
 	private void switchToHomepage(){
 		topbar_root.setBottom(null);
 	}
-	
+	private void switchToModuleManagement(){
+		topbar_root.setBottom(null);
+	}
 	private void switchToViewing(){
 		topbar_root.setBottom(loadFXML( getClass().getClassLoader().getResource(toolbarPath)));
 	}

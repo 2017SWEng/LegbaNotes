@@ -10,12 +10,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Slide extends Element implements Transitionable,Colorable,Formatable{
 	
-	private Color color;
+	private Paint color;
 	
-	private Color fill;
+	private Paint fill;
 	
 	private String font;
 	
@@ -69,7 +70,7 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 		this.images = images;
 	}
 
-	public void addAudio(Image image) {
+	public void addImage(Image image) {
 		this.images.add(image);
 	}
 
@@ -141,13 +142,13 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getColor() {
+	public Paint getColor() {
 		return this.color;
 	}
 
 
 	@Override
-	public void setColor(Color col) {
+	public void setColor(Paint col) {
 		this.color=col;
 	}
 
@@ -155,14 +156,14 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 	@Override
     @XmlJavaTypeAdapter(ColorAdapter.class)
 	@XmlAttribute
-	public Color getFill() {
+	public Paint getFill() {
 		return this.fill;
 	}
 
 
 	@Override
-	public void setFill(Color fill) {
-		this.color=fill;
+	public void setFill(Paint fill) {
+		this.fill=fill;
 	}
 	
 	@Override
@@ -174,8 +175,13 @@ public class Slide extends Element implements Transitionable,Colorable,Formatabl
 
 	@Override
 	public void setFont(String font) {
-		//TODO:: Check to make sure font is valid
-		this.font=font;		
+		if (font != null){
+			this.font=font;		
+		}
+		else {
+			System.out.println("Invalid font. Calibri Selected");
+			this.font= "Calibri";
+		}
 	}
 
 

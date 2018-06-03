@@ -10,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -25,7 +26,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+
 import java.nio.file.Paths;
+
+import com.legba.notes.controllers.AppController;
 
 /**
  * MovieView is a wrapper around the JavaFX video playback tools with some extra functionality
@@ -33,6 +37,7 @@ import java.nio.file.Paths;
  *
  * @author Unlock (lt696@york.ac.uk)
  */
+
 public class MovieView extends Region {
     // The node that displays the media player
     private MediaView mediaView;
@@ -60,6 +65,9 @@ public class MovieView extends Region {
     private Slider seekSlider = new Slider(0, 1, 0);
     private Slider rateSlider = new Slider(0.5, 2.0, 1);
     private Slider volumeSlider = new Slider(0, 1, 0.8);
+    private double currentTime;
+    private Label label = new Label();
+    
 
     /**
      * Constructor which takes a filepath
@@ -86,7 +94,8 @@ public class MovieView extends Region {
         getStyleClass().add("unlock--movieview");
 
         mediaPlayer = player;
-        player.setAutoPlay(true);
+        label.setText("0.0");
+
 
         // Inner nodes
         // Media
@@ -109,7 +118,7 @@ public class MovieView extends Region {
         // When the view is clicked, restart playback from beginning
         // Only do this on the mediaView to avoid problems with the toolbar
         mediaView.setOnMouseClicked(e -> {
-            mediaPlayer.seek(new Duration(0));
+            mediaPlayer.setStartTime(new Duration(0));
             mediaPlayer.play();
         });
 
@@ -154,6 +163,11 @@ public class MovieView extends Region {
         updateMutedState();
         updatePlayingState();
         updatePlaybackRateState();
+        
+        // Add media player to list of total
+        if( AppController.getInstance().viewing != null ) {
+        AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
+        }
     }
 
     /**
@@ -178,8 +192,7 @@ public class MovieView extends Region {
             );
             // Rebind the new windows fullscreen action to re-invoke this method on this window
             // (which will close the child window)
-            movieView.setOnFullScreenAction(e -> setFullScreen());
-
+            movieView.setOnFullScreenAction(e -> setFullScreen());          
             // Create the new window/scene
             fullscreenWindow = new Stage(StageStyle.UNDECORATED);
             Scene scene = new Scene(movieView, Color.BLACK);
@@ -287,20 +300,23 @@ public class MovieView extends Region {
 
         // Mute
         mediaPlayer.muteProperty().addListener(ob -> updateMutedState());
-
+        
         // Max length
         mediaPlayer.totalDurationProperty().addListener((ov, prev, val) ->
             seekSlider.setMax(val.toSeconds()));
         if (mediaPlayer.getTotalDuration() != null)
             seekSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
-
+      
         // Current time
         mediaPlayer.currentTimeProperty().addListener((ov, prev, val) -> {
             if (!seekSlider.isValueChanging()) {
                 seekSlider.setValue(val.toSeconds());
-            }
-        });
+                currentTime =  Math.round((seekSlider.getValue()) * 10d) / 10d;
 
+                label.setText(Double.toString(currentTime));
+            }
+        }); 
+        
         // Volume
         mediaPlayer.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
 
@@ -337,9 +353,11 @@ public class MovieView extends Region {
         // Adjust transport/seek slider
         seekSlider.valueProperty().addListener(ov -> {
             if (seekSlider.isValueChanging()) {
+            	mediaPlayer.setStartTime(new Duration(0));
                 mediaPlayer.seek(Duration.seconds(seekSlider.getValue()));
             }
         });
+        
         seekSlider.setOnMousePressed(e ->
             mediaPlayer.seek(Duration.seconds(seekSlider.getValue())));
 
@@ -366,12 +384,14 @@ public class MovieView extends Region {
         // Add icons to toolbar
         toolbar.getChildren().addAll(
                 playPauseButton,
+                label,
                 seekSlider,
                 rateButton,
                 muteButton,
                 volumeSlider,
                 fullscreenButton
         );
+        
     }
 
     /**

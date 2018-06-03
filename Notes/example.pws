@@ -4,9 +4,9 @@
    <Slide duration="12">
       <Text x="100" y="10" textsize="18" underline="true" font="Times New Roman">
  This is the schema of the
-         <Format bold="true" color="#F341DE">PWS</Format>
+         <Format bold="true" fill="gradient(#F6FF33,#33F9FF)">PWS</Format>
  file fromat agreed between
-         <Format bold="true" color="#F314DE">SWEng</Format>
+         <Format bold="true" fill="gradient(#F6FF33,#33F9FF)">SWEng</Format>
  groups.
       </Text>
       <Text x="10" y="400">
@@ -20,16 +20,16 @@
       </Text>
    </Slide>
    <Slide duration="12">
-      <Text underline="true" textsize="18" color="#F341DE" font="Times New Roman">
+      <Text underline="true" textsize="18" fill="#F341DE" font="Times New Roman">
          The Schema also defines
          <Format underline="false" textsize="24">Shapes</Format>
          !
       </Text>
-      <Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="70" y="123" type="rectangle" x2="120" y2="150" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="150" y="0" type="line" x2="300" y2="100" fill="#382345" />
+      <Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#ee82ED)" color="gradient(#F6FF33,#33F9FF)"/>
+      <Shape x="70" y="123" type="line" x2="120" y2="150" color="gradient(#FFAEDE,#382345)" />
+      <Shape x="150" y="0" type="rectangle" x2="300" y2="100" fill="#ff2345" />
    </Slide>
-   <Slide fill="#023211" color="#F341DE" duration="20">
+   <Slide fill="#023211" color="gradient(#F6FF33,#33F9FF)" duration="20">
       <Text bold="true" underline="true" textsize="10" duration="12" start="trigger">
          Some text on one line
          <Br />
@@ -41,13 +41,14 @@
       </Text>
       <Shape x="103" y="123" type="ellipse" x2="5" y2="101" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
    </Slide>
-   <Slide fill="#FEDDFE" color="#032222">
-      <Image path="../local_file.jpg" x="10" y="35" x2="100" y2="200" />
+   <Slide color="#08F9F9" fill="gradient(#F6FF33,#33F9FF)">
+      <Image path="local_file.jpg" x="10" y="35" x2="100" y2="200" />
       <Shape x="400" y="50" type="ellipse" x2="450" y2="75" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
    </Slide>
    <Slide>
-      <Video path="../local_file.mp4" x="10" y="35" x2="100" y2="200" />
-      <Audio path="testData/audioTest.wav" x="50" y="100" x2="10" y2="10" />
+      <Video path="local_file.mp4" x="10" y="35" x2="500" y2="400" />
+      <Audio path="audioTest.wav" x="50" y="1" x2="250" y2="10" />
+
    </Slide>
    <Slide >
    		<Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#3482ED)" />
