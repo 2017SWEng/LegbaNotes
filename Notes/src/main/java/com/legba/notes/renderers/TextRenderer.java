@@ -47,7 +47,7 @@ public class TextRenderer extends Renderer<Text> {
 	 */
 	public Node render(Text textModel) {
 		
-		//Create an Array of JavaFX Text objects that our text .
+		//Create an Array of JavaFX Text objects that our text.
 		//objects will be stored into
 		ArrayList<javafx.scene.text.Text> lines = new ArrayList<javafx.scene.text.Text>();
 		

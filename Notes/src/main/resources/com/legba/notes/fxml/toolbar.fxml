@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.web.HTMLEditor?>
 
 <BorderPane 
 	fx:id="toolbar_root"
@@ -28,8 +29,9 @@
 	
 	
 	<!-- Menu bar to be applied across all screens, apart from login screen -->
-	<!-- Coded by: jjds502, lm1370, tmm522, 1st iteration 22/02/2018 -->
-	<!-- Slight Re-arrangement of layout and seperated text and shape editing tools, lm1370 , 21/03/2018 --> 
+	<!-- Coded by: jjds502, lm1370, tmm522, lr870, 1st iteration 22/02/2018 -->
+	<!-- Slight Re-arrangement of layout and separated text and shape editing tools, lm1370 , 21/03/2018 --> 
+	<!-- Text Area and button created by lr870 26/04/2018 -->
 	
 	<top>
 		<BorderPane  fx:id="toolbar">
@@ -54,6 +56,10 @@
 						<CheckBox fx:id="strokeGradient" onAction="#handleStrokeGradientAction"/>
 						<ColorPicker prefWidth="30" fx:id="strokeColor2" onAction="#handleStrokeColor2Action"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
+						<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
+					</HBox>
+					<HBox>
+						<HTMLEditor fx:id="insertText"></HTMLEditor>
 
 						<CheckBox fx:id="fillGradient" onAction="#handleFillGradientAction"/>
 						<ColorPicker prefWidth="30" fx:id="shapeFill2" onAction="#handleShapeFill2Action"/>

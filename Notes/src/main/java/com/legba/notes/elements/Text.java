@@ -72,6 +72,13 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Text(String s) {
 		super();
 		
+		this.setColor(javafx.scene.paint.Color.BLACK);
+		this.setFill(javafx.scene.paint.Color.LIGHTGREY);
+		this.font = "Times New Roman";
+		this.italic = false;
+		this.bold = false;
+		this.setUnderline(false);
+		this.textsize = 10;
 		this.contents = new ArrayList<Object>();
 		this.contents.add(s);
 		
@@ -97,6 +104,32 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			return;
 		}
 		this.contents=contents;		
+	}
+	
+	public void addContents(Object content) {
+		this.contents.clear();
+		this.contents.add(content);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (int i=0; i<this.getContents().size(); i++) {
+			
+			if (this.getContents().get(i) instanceof String){
+				sb.append(this.getContents().get(i));
+			}
+			else if (this.getContents().get(i) instanceof Format){
+				sb.append(((Format)this.getContents().get(i)).getText());
+			}
+			else if (this.getContents().get(i) instanceof Br){
+				sb.append("\n");
+			}
+			else {
+				System.err.println("Error");
+			}
+		}
+		return sb.toString();
 	}
 	
 	@Override

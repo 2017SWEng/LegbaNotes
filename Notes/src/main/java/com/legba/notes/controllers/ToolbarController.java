@@ -1,5 +1,9 @@
 package com.legba.notes.controllers;
 
+import com.legba.notes.elements.Shape;
+import com.legba.notes.elements.Text;
+import com.legba.notes.app.HTMLConverter;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,8 +32,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Font;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 
 /**
@@ -81,6 +87,10 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML
+	public HTMLEditor insertText;				//Text field for text input 
+	@FXML
+	public Button insertTextButton;			//Button for submitting text changes
+	@FXML
 	public CheckBox fillGradient;			//Shape fill gradient yes or no
 	@FXML
 	public ColorPicker shapeFill2;			//Shape Fill colour 2 wheel for gradient
@@ -89,7 +99,7 @@ public class ToolbarController {
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
 
-	
+
 	/**
 	 * Toggles bold font for the selected text
 	 * @param event
@@ -298,8 +308,6 @@ public class ToolbarController {
 	}
 	
 	/**
-<<<<<<< HEAD
-=======
 	 * Takes selected shape fill colour 2 and sets it to the selected shape
 	 * @param event
 	 */
@@ -315,7 +323,6 @@ public class ToolbarController {
 	}
 	
 	/**
->>>>>>> ruth.herd/SWEng-gradient
 	 * Button to delete currently selected element 
 	 * @param event
 	 */
@@ -483,6 +490,16 @@ public class ToolbarController {
 	
 	
 	/**
+	 * Takes text typed into the text area and inserts it into the slide.
+	 * @param event
+	 */
+	@FXML
+	protected void handleInsertTextAction(ActionEvent event) {
+		CurrentText.addContents(insertText.getHtmlText());
+		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
 	 * Enables editing tools for shapes and disables others
 	 */
 	public void shapeMode() {
@@ -502,6 +519,10 @@ public class ToolbarController {
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
+
+		insertText.setHtmlText(null);
+		insertText.setDisable(true);
+		insertTextButton.setDisable(true);
 
 
 		strokeGradient.setDisable(false);
@@ -548,6 +569,10 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 
+		insertText.setDisable(false);
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
+		insertTextButton.setDisable(false);
+
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
 		strokeColor2.setDisable(true);
@@ -590,6 +615,10 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 
+		insertText.setDisable(true);
+		insertText.setPrefSize(200, 100);
+		insertTextButton.setDisable(true);
+
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
 		strokeColor2.setDisable(true);
@@ -614,6 +643,7 @@ public class ToolbarController {
 		initialStartup();
 	}
 	
+
 	public Stop[] getStops(Color color1, Color color2) {
 		Stop[] stops = new Stop[] {new Stop(0, color1), new Stop(1, color2)};
 		return stops;
