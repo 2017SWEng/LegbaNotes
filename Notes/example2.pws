@@ -1,62 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman">
-   <Meta key="author" value="Stuart Porter" />
-   <Slide duration="12">
-      <Text textsize="18" underline="true" font="Times New Roman">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bold="false" color="#F341DE" font="Times New Roman" italic="false" textsize="12" underline="false" xsi:schemaLocation="pws schema.xsd">
+    <Meta key="author" value="Stuart Porter"/>
+    <Meta key="associated:pdf" value="https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf"/>
+    <Slide duration="12">
+        <Text font="Times New Roman" textsize="18" underline="true" x="21.0" x2="21.0" y="63.0" y2="63.0">
          This is the schema of the
          <Format bold="true" color="#F341DE">PWS</Format>
          file fromat agreed between
          <Format bold="true" color="#F314DE">SWEng</Format>
          groups.
-      </Text>
-      <Text>
+      <style>-fx-font-weight: normal; -fx-font-style: normal; -fx-font-size: 18px; -fx-font-family: "Times New Roman", serif; </style>
+        </Text>
+        <Text x="228.0" x2="228.0" y="24.0" y2="24.0">
          Text can contain
          <Format font="comic sans">Format</Format>
          tags that change how it is
          <Format italic="true">rendered</Format>
          .
-         <Br />
+         <Br/>
          This slide is an example of that.
-      </Text>
-   </Slide>
-   <Slide duration="12">
-      <Text underline="true" textsize="18" color="#F341DE" font="Times New Roman">
+      <style>-fx-font-weight: normal; -fx-font-style: normal; -fx-font-size: 10px; -fx-font-family: "Times New Roman", serif; </style>
+        </Text>
+    </Slide>
+    <Slide duration="12">
+        <Shape fill="gradient(#38AEDE,#3482ED)" type="ellipse" x="10.0" x2="60.0" y="123.0" y2="200.0"/>
+        <Shape fill="gradient(#38AEDE,#3482ED)" type="rectangle" x="70.0" x2="120.0" y="123.0" y2="150.0"/>
+        <Shape fill="#382345" type="line" x="150.0" x2="300.0" y="0.0" y2="100.0"/>
+        <Text color="#F341DE" font="Times New Roman" textsize="18" underline="true" x="0.0" x2="0.0" y="0.0" y2="0.0">
          The Schema also defines
-         <Format underline="false" textsize="24">Shapes</Format>
+         <Format textsize="24" underline="false">Shapes</Format>
          !
-      </Text>
-      <Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="70" y="123" type="rectangle" x2="120" y2="150" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="150" y="0" type="line" x2="300" y2="100" fill="#382345" />
-   </Slide>
-   <Slide duration="12">
-      <Text underline="true" textsize="18" color="#F341DE" font="Times New Roman">
+      <style>-fx-font-weight: normal; -fx-font-style: normal; -fx-font-size: 18px; -fx-font-family: "Times New Roman", serif; </style>
+        </Text>
+    </Slide>
+    <Slide duration="12">
+        <Shape fill="gradient(#38AEDE,#3482ED)" type="ellipse" x="10.0" x2="60.0" y="123.0" y2="200.0"/>
+        <Shape fill="gradient(#38AEDE,#3482ED)" type="rectangle" x="70.0" x2="120.0" y="123.0" y2="150.0"/>
+        <Shape fill="#382345" type="line" x="150.0" x2="300.0" y="0.0" y2="100.0"/>
+        <Text color="#F341DE" font="Times New Roman" textsize="18" underline="true" x="0.0" x2="0.0" y="0.0" y2="0.0">
          The Schema also defines
-         <Format underline="false" textsize="24">Shapes</Format>
+         <Format textsize="24" underline="false">Shapes</Format>
          !
-      </Text>
-      <Shape x="10" y="123" type="ellipse" x2="60" y2="200" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="70" y="123" type="rectangle" x2="120" y2="150" fill="gradient(#38AEDE,#3482ED)" />
-      <Shape x="150" y="0" type="line" x2="300" y2="100" fill="#382345" />
-   </Slide>
-   <Slide fill="#023211" color="#F341DE" duration="20">
-      <Text bold="true" underline="true" textsize="10" duration="12" start="trigger">
+      <style>-fx-font-weight: normal; -fx-font-style: normal; -fx-font-size: 18px; -fx-font-family: "Times New Roman", serif; </style>
+        </Text>
+    </Slide>
+    <Slide color="#F341DE" duration="20" fill="#023211">
+        <Shape color="#000000" fill="gradient(#38AEDE,#3482ED)" stroke="2" type="ellipse" x="103.0" x2="5.0" y="123.0" y2="101.0"/>
+        <Text bold="true" duration="12" textsize="10" underline="true" x="0.0" x2="0.0" y="0.0" y2="0.0">
          Some text on one line
-         <Br />
-         <Format italic="true" bold="false" textsize="12" color="#F341DE" font="Helvetica">Some</Format>
+         <Br/>
+         <Format bold="false" color="#F341DE" font="Helvetica" italic="true" textsize="12">Some</Format>
          text
-         <Br />
-         <Br />
+         <Br/>
+         <Br/>
          Some more text
-      </Text>
-      <Shape x="103" y="123" type="ellipse" x2="5" y2="101" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
-   </Slide>
-   <Slide fill="#FEDDFE" color="#032222">
-      <Image path="local_file.jpg" x="10" y="35" x2="100" y2="200" />
-      <Shape x="400" y="50" type="ellipse" x2="450" y2="75" stroke="2" color="#000000" fill="gradient(#38AEDE,#3482ED)" />
-   </Slide>
-   <Slide>
-      <Video path="local_file.mp4" x="10" y="35" x2="100" y2="200" />
-      <Audio path="testData/audioTest.wav" x="50" y="100" x2="10" y2="10" />
-   </Slide>
+      <style>-fx-font-weight: bold; -fx-font-style: normal; -fx-font-size: 10px; -fx-font-family: "Times New Roman", serif; </style>
+        </Text>
+    </Slide>
+    <Slide color="#032222" fill="#FEDDFE">
+        <Image path="local_file.jpg" x="177.0" x2="267.0" y="16.0" y2="181.0"/>
+        <Shape color="#000000" fill="gradient(#38AEDE,#3482ED)" stroke="2" type="ellipse" x="400.0" x2="450.0" y="50.0" y2="75.0"/>
+    </Slide>
+    <Slide>
+        <Video path="local_file.mp4" x="10.0" x2="100.0" y="35.0" y2="200.0"/>
+    </Slide>
 </Presentation>

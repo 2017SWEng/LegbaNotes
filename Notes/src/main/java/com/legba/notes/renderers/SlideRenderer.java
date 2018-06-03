@@ -112,8 +112,9 @@ public class SlideRenderer extends Renderer<Slide> {
 		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
-				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
+				
+				AppController.getInstance().toolbar.slideMode();
 				
 			}
 		});
@@ -274,6 +275,7 @@ public class SlideRenderer extends Renderer<Slide> {
 					}
 				}
 			});
+			
 			
 			//Update node position whilst dragging
 			n.setOnMouseDragged(new EventHandler<MouseEvent>() {
