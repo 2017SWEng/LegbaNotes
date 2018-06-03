@@ -9,6 +9,7 @@ import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
+import com.legba.notes.nodes.MovieView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
@@ -18,7 +19,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -35,7 +35,6 @@ public class ViewingController {
 	
 	private double nodeX;
 	private double nodeY;
-	private SlideElement nodeElement;
 	public String pdfURL;
 		
 	@FXML
@@ -154,7 +153,7 @@ public class ViewingController {
 		this.allMediaPlayers.clear();
 		
 		// Get the presentation from the model
-		Presentation pres = AppController.getInstance().toolbar.CurrentPres;
+		Presentation pres = AppModel.getInstance().getPres();
 		
 		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();

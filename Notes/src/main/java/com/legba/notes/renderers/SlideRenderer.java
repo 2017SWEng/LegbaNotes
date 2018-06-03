@@ -112,7 +112,6 @@ public class SlideRenderer extends Renderer<Slide> {
 		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
 				AppController.getInstance().toolbar.addCombo.getSelectionModel().clearSelection();
-				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
 				
 				AppController.getInstance().toolbar.slideMode();
@@ -333,11 +332,6 @@ public class SlideRenderer extends Renderer<Slide> {
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");
-						
-						//Enable text mode
-						AppController.getInstance().toolbar.textMode();	
-						
-						System.out.println(text);
 						
 						//Enable Text mode
 						AppController.getInstance().toolbar.textMode();	

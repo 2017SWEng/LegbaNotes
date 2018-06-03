@@ -512,9 +512,6 @@ public class ToolbarController {
 		shapeFill.setDisable(false);
 
 		syncSlide.setDisable(true);
-		
-		paneMode();
-
 
 		insertText.setHtmlText(null);
 		insertText.setDisable(true);
@@ -560,38 +557,11 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 
-		syncSlide.setDisable(true);
-		
-		paneMode();
-	}
-	
-	/**
-	 * Enables editing tools for slides and disables others
-	 */
-	public void slideMode() {
-		boldFont.setDisable(true);
-		italicFont.setDisable(true);
-		undFont.setDisable(true);
-		fontCombo.setDisable(true);
-		sizeCombo.setDisable(true);
-		pageBreak.setDisable(true);
-		textColor.setDisable(true);
-		textFill.setDisable(true);
-		
-		typeCombo.setDisable(true);
-		strokeCombo.setDisable(true);
-		strokeColor.setDisable(true);
-		shapeFill.setDisable(true);
-		
-		syncSlide.setDisable(false);
-		
-		addCombo.setDisable(true);
-		deleteElement.setDisable(true);
-
-
 		insertText.setDisable(false);
 		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
+		
+		
 
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
@@ -606,15 +576,34 @@ public class ToolbarController {
 			textFillGradient.setSelected(false);
 			textFill2.setDisable(true);
 		}
+
 	}
 	
 	/**
-	 * Enables addition of elements onto current pane
+	 * Enables editing tools for slides and disables others
 	 */
-	public void paneMode() {
+	public void slideMode() {
+		boldFont.setDisable(true);
+		italicFont.setDisable(true);
+		undFont.setDisable(true);
+		fontCombo.setDisable(true);
+		sizeCombo.setDisable(true);
+
+		textFill.setDisable(true);
+		typeCombo.setDisable(true);
+		strokeCombo.setDisable(true);
+		strokeColor.setDisable(true);
+		shapeFill.setDisable(true);
+		
+		syncSlide.setDisable(false);
+		
 		addCombo.setDisable(false);
 		deleteElement.setDisable(false);
+
+
+	
 	}
+
 	
 	/**
 	 * On Start up disable all editing tools
