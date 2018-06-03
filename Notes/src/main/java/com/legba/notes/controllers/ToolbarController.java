@@ -83,6 +83,8 @@ public class ToolbarController {
 	protected void handleBoldFontAction(ActionEvent event) {
 		CurrentText.setBold(boldFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -93,6 +95,8 @@ public class ToolbarController {
 	protected void handleItalicFontAction(ActionEvent event) {
 		CurrentText.setItalic(italicFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -103,6 +107,8 @@ public class ToolbarController {
 	protected void handleUndFontAction(ActionEvent event) {
 		CurrentText.setUnderline(undFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -113,6 +119,8 @@ public class ToolbarController {
 	protected void handleFontColorAction(ActionEvent event) {
 		CurrentText.setColor(textColor.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -123,6 +131,8 @@ public class ToolbarController {
 	protected void handleFontFillAction(ActionEvent event) {
 		CurrentText.setFill(textFill.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -133,6 +143,8 @@ public class ToolbarController {
 	protected void handlePageBreakAction(ActionEvent event) {
 		System.out.println("Page Break");	
 		//TODO: Functionality code....
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -143,6 +155,8 @@ public class ToolbarController {
 	protected void handleFontAction(ActionEvent event) {
 		CurrentText.setFont(fontCombo.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -153,6 +167,8 @@ public class ToolbarController {
 	protected void handleSizeAction(ActionEvent event) {
 		CurrentText.setTextsize(sizeCombo.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -304,7 +320,7 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		CurrentText = HTMLConverter.toPWS(insertText.getHtmlText());
+		CurrentText.overwrite(HTMLConverter.toPWS(insertText.getHtmlText()));
 		AppController.getInstance().viewing.updateSlide();
 	}
 

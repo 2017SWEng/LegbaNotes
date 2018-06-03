@@ -69,8 +69,6 @@ public class TextRenderer extends Renderer<Text> {
 		flow.setMinWidth(textModel.getWidth() == null ? DEFAULT_WIDTH : textModel.getWidth());
 		flow.setMinHeight(textModel.getHeight() == null ? DEFAULT_HEIGHT : textModel.getHeight());
 		
-		System.out.println(flow.getLayoutBounds());
-		
 		return flow;
 	}
 

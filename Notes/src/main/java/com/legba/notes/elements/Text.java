@@ -277,4 +277,41 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		}
 		this.duration = duration;
 	}
+	
+	/**
+	 * Overwrites the current text
+	 * @param newText
+	 */
+	public void overwrite(Text newText) {
+		if(newText.getContents() != null) {
+			this.setContents(newText.getContents());
+		}
+		if(newText.getBold() != null){
+			this.setBold(newText.getBold());
+		}
+		if(newText.getItalic() != null) {
+			this.setItalic(newText.getItalic());
+		}
+		if(newText.getUnderline() != null) {
+			this.setUnderline(newText.getUnderline());
+		}
+		if(newText.getTextsize() != null) {
+			this.setTextsize(newText.getTextsize());
+		}
+		if(newText.getColor() != null) {
+			this.setColor(newText.getColor());
+		}
+		if(newText.getFill() != null) {
+			this.setFill(newText.getFill());
+		}
+		if(newText.getDuration() != null) {
+			this.setDuration(newText.getDuration());
+		}
+		if(newText.getFont() != null) {
+			this.setFont(newText.getFont());
+		}
+		if(newText.getStart() != null) {
+			this.setStart(newText.getStart());
+		}
+	}
 }
