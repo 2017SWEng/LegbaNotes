@@ -312,7 +312,12 @@ public class MovieView extends Region {
                 currentTime = seekSlider.getValue();
                 label.setText(Double.toString(currentTime));
             }
+            if (AppController.getInstance().toolbar.scrollVideo.isSelected() == false) {
+            	AppController.getInstance().viewing.scrollToDuration(val);
+            }
+            
         }); 
+        
         
         // Volume
         mediaPlayer.volumeProperty().bindBidirectional(volumeSlider.valueProperty());

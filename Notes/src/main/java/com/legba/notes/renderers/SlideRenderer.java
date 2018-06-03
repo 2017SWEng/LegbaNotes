@@ -85,6 +85,8 @@ public class SlideRenderer extends Renderer<Slide> {
 				AppController.getInstance().toolbar.paneMode();
 				AppController.getInstance().toolbar.CurrentSlide = s;
 				
+				AppController.getInstance().toolbar.slideMode();
+				
 			}
 		});
 		//When mouse enters pane it puts border around it
@@ -221,6 +223,7 @@ public class SlideRenderer extends Renderer<Slide> {
 					}
 				}
 			});
+			
 			
 			//Update node position whilst dragging
 			n.setOnMouseDragged(new EventHandler<MouseEvent>() {

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
@@ -65,6 +66,10 @@ public class ToolbarController {
 	public Button deleteElement;			//Delete current shape button
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
+	@FXML
+	public Button syncSlide;				//Synce slide to time
+	@FXML
+	public CheckBox scrollVideo;			//Scroll with video
 	
 	/**
 	 * Toggles bold font for the selected text
@@ -184,6 +189,28 @@ public class ToolbarController {
 	protected void handleShapeFillAction(ActionEvent event) {
 		CurrentShape.setFill(shapeFill.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	}
+	
+	/**
+	 * Takes selected shape fill colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handlescrollVideoAction(ActionEvent event) {
+
+	}
+	
+	/**
+	 * Takes selected shape fill colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handlesyncSlideAction(ActionEvent event) {
+		Double duration = AppController.getInstance().viewing.getReferenceRootTime();
+		if (duration != null) {
+			CurrentSlide.setDuration((int)Math.round(duration));
+			AppController.getInstance().viewing.updateSlide();
+		}
 	}
 	
 	/**
@@ -307,6 +334,10 @@ public class ToolbarController {
 		strokeCombo.setDisable(false);
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
+		
+		syncSlide.setDisable(true);
+		
+		paneMode();
 	}
 	
 	/**
@@ -326,6 +357,34 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		syncSlide.setDisable(true);
+		
+		paneMode();
+	}
+	
+	/**
+	 * Enables editing tools for slides and disables others
+	 */
+	public void slideMode() {
+		boldFont.setDisable(true);
+		italicFont.setDisable(true);
+		undFont.setDisable(true);
+		fontCombo.setDisable(true);
+		sizeCombo.setDisable(true);
+		pageBreak.setDisable(true);
+		textColor.setDisable(true);
+		textFill.setDisable(true);
+		
+		typeCombo.setDisable(true);
+		strokeCombo.setDisable(true);
+		strokeColor.setDisable(true);
+		shapeFill.setDisable(true);
+		
+		syncSlide.setDisable(false);
+		
+		addCombo.setDisable(true);
+		deleteElement.setDisable(true);
 	}
 	
 	/**
@@ -355,8 +414,11 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 		deleteElement.setDisable(true);
 		addCombo.setDisable(true);
+		
+		syncSlide.setDisable(true);
+		scrollVideo.setDisable(false);
 	}
-
+ 
 	/**
 	 * Initialise method
 	 */
