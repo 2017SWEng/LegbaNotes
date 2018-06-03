@@ -37,7 +37,6 @@ public class ViewingController {
 	
 	private double nodeX;
 	private double nodeY;
-	private SlideElement nodeElement;
 	public String pdfURL;
 		
 	@FXML

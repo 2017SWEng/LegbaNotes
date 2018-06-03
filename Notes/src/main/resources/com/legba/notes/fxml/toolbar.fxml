@@ -41,7 +41,6 @@
 						<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
 						<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
 						<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
-						<Button text="Br" fx:id="pageBreak" onAction="#handlePageBreakAction"  />
 						<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
 
 						<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>

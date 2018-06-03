@@ -95,7 +95,7 @@ public class MovieView extends Region {
 
         mediaPlayer = player;
         label.setText("0.0");
-
+        label.setTextFill(Color.WHITE);
 
         // Inner nodes
         // Media
