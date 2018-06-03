@@ -3,6 +3,10 @@ package com.legba.notes.renderers;
 import static org.junit.Assert.*;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.*;
 
 import org.junit.Test;
@@ -24,7 +28,7 @@ public class VectorRendererTest {
 		line.setX2(50f);
 		line.setY2(100f);
 		line.setStroke(2);
-		line.setColor(new Color(0.36, 0.86, 0.9, 0.7));
+		line.setColor(Color.SEAGREEN);
 		Line n = (Line) vr.render(line);
 		
 		/**
@@ -36,7 +40,8 @@ public class VectorRendererTest {
 		assertEquals((double)line.getX2(), n.getEndX(),0.01f);
 		assertEquals((double)line.getY2(), n.getEndY(),0.01f);
 		assertEquals((double)line.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(line.getColor(), n.getStroke());				
+		assertEquals(line.getColor(), n.getStroke());	
+		
 	}
 	
 	@Test
@@ -48,7 +53,7 @@ public class VectorRendererTest {
 		line.setX2(500f);
 		line.setY2(100f);
 		line.setStroke(2);
-		line.setColor(new Color(0.36, 0.86, 0.9, 0.7));
+		line.setColor(Color.PAPAYAWHIP);
 		Line n = (Line) vr.render(line);
 		
 		//Change line values
@@ -57,7 +62,8 @@ public class VectorRendererTest {
 		line.setY(333f);
 		line.setY2(666f);
 		line.setStroke(7);
-		line.setColor(new Color(0.5, 0.5, 0.5, 0.5));
+		line.setColor(Color.SNOW);
+		System.out.println(line.getColor());;
 		
 		/**
 		 * Tests that new shape parameters are rendered correctly
@@ -68,7 +74,8 @@ public class VectorRendererTest {
 		assertEquals((double)line.getX2(), n.getEndX(),0.01f);
 		assertEquals((double)line.getY2(), n.getEndY(),0.01f);
 		assertEquals((double)line.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(line.getColor(), n.getStroke());
+		//The binding for colour was removed
+		//assertEquals(line.getColor()[0], n.getStroke());
 	}
 	
 	/**
@@ -83,8 +90,12 @@ public class VectorRendererTest {
 		ellipse.setX2(50f);
 		ellipse.setY2(100f);
 		ellipse.setStroke(2);
-		ellipse.setColor(new Color(0.36, 0.86, 0.9, 0.7));
-		ellipse.setFill(new Color(0.5, 0.6, 0.7, 0.8));
+		ellipse.setColor(Color.LIGHTGOLDENRODYELLOW);
+		
+		LinearGradient lg = new LinearGradient(ellipse.getX(), ellipse.getY(), ellipse.getX2(), ellipse.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, Color.HONEYDEW), new Stop(1, Color.BROWN)});
+		
+		ellipse.setFill(lg);
+		
 		Ellipse n = (Ellipse) vr.render(ellipse);
 		
 		/**
@@ -110,8 +121,8 @@ public class VectorRendererTest {
 		ellipse.setX2(500f);
 		ellipse.setY2(100f);
 		ellipse.setStroke(2);
-		ellipse.setColor(new Color(0.36, 0.86, 0.9, 0.7));
-		ellipse.setFill(new Color(0.1, 0.1, 0.1, 0.2));
+		ellipse.setColor(Color.LIGHTSALMON);
+		ellipse.setFill(Color.NAVAJOWHITE);
 		Ellipse n = (Ellipse) vr.render(ellipse);
 		
 		//Change ellipse values
@@ -122,8 +133,8 @@ public class VectorRendererTest {
 		ellipse.setY2(666f);
 		
 		ellipse.setStroke(20);
-		ellipse.setColor(new Color(0.5, 0.5, 0.5, 0.5));
-		ellipse.setFill(new Color(0.6, 0.6, 0.6, 0.6));
+		ellipse.setColor(Color.CHARTREUSE);
+		ellipse.setFill(Color.CHOCOLATE);
 				
 		/**
 		 * Tests that new shape parameters are rendered correctly
@@ -133,6 +144,7 @@ public class VectorRendererTest {
 		assertEquals((double)(ellipse.getX2() - ellipse.getX())/2, n.getRadiusX(),0.01f);
 		assertEquals((double)(ellipse.getY2() - ellipse.getY())/2, n.getRadiusY(),0.01f);
 		assertEquals((double)ellipse.getStroke(), n.getStrokeWidth(),0.01f);
+		//The binding for color was removed
 		assertEquals(ellipse.getColor(), n.getStroke());
 		assertEquals(ellipse.getFill(), n.getFill());
 	}
@@ -149,8 +161,11 @@ public class VectorRendererTest {
 		rectangle.setX2(50f);
 		rectangle.setY2(100f);
 		rectangle.setStroke(2);
-		rectangle.setColor(new Color(0.36, 0.86, 0.9, 0.7));
-		rectangle.setFill(new Color(0.5, 0.6, 0.7, 0.8));
+		rectangle.setColor(Color.OLIVEDRAB);
+		
+		LinearGradient lg = new LinearGradient(rectangle.getX(), rectangle.getY(), rectangle.getX2(), rectangle.getY2(), false, CycleMethod.NO_CYCLE, new Stop[] { new Stop(0, Color.NAVAJOWHITE), new Stop(1, Color.ROYALBLUE)});
+		rectangle.setFill(lg);
+		
 		
 		Rectangle n = (Rectangle) vr.render(rectangle);
 		
@@ -177,8 +192,8 @@ public class VectorRendererTest {
 		rectangle.setX2(500f);
 		rectangle.setY2(100f);
 		rectangle.setStroke(2);
-		rectangle.setColor(new Color(0.36, 0.86, 0.9, 0.7));
-		rectangle.setFill(new Color(0.5, 0.6, 0.7, 0.8));
+		rectangle.setColor(Color.PLUM);
+		rectangle.setFill(Color.HOTPINK);
 		Rectangle n = (Rectangle) vr.render(rectangle);
 		
 		/**
@@ -201,8 +216,8 @@ public class VectorRendererTest {
 		
 		rectangle.setStroke(20);
 		
-		rectangle.setColor(new Color(0.5, 0.5, 0.5, 0.5));
-		rectangle.setFill(new Color(0.6, 0.6, 0.6, 0.6));
+		rectangle.setColor(Color.TOMATO);
+		rectangle.setFill(Color.BISQUE);
 				
 		/**
 		 * Tests that shape parameters are rendered correctly
@@ -212,8 +227,9 @@ public class VectorRendererTest {
 		assertEquals((double)rectangle.getWidth(), n.getWidth(),0.01f);
 		assertEquals((double)rectangle.getHeight(), n.getHeight(),0.01f);
 		assertEquals((double)rectangle.getStroke(), n.getStrokeWidth(),0.01f);
-		assertEquals(rectangle.getColor(), n.getStroke());
-		assertEquals(rectangle.getFill(), n.getFill());
+		//The binding for color was removed
+		//assertEquals(rectangle.getColor()[0], n.getStroke());
+		//assertEquals(rectangle.getFill()[0], n.getFill());
 	}
 	
 }

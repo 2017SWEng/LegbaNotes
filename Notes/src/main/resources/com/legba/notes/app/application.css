@@ -26,6 +26,8 @@
 
 .homeImage {
 	-fx-cursor: hand;
+	-fx-spacing:10px;
+	-fx-align-content: center;
 }
 
 Button {
@@ -41,7 +43,7 @@ Button {
 }
 
 .element-slide{
-	
+
 	-fx-background-color: #f2f2f2;
 	-fx-padding: 10px;
 	

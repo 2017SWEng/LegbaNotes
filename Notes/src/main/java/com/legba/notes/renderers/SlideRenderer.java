@@ -13,13 +13,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
+
 import com.legba.notes.controllers.AppController;
-import com.legba.notes.elements.Audio;
-import com.legba.notes.elements.Image;
-import com.legba.notes.elements.Shape;
-import com.legba.notes.elements.Slide;
-import com.legba.notes.elements.Text;
-import com.legba.notes.elements.Video;
+import com.legba.notes.elements.*;
 
 /**
  * Takes an instance of a Slide and produces an javafx Node tree.
@@ -27,6 +27,9 @@ import com.legba.notes.elements.Video;
  *
  */
 public class SlideRenderer extends Renderer<Slide> {
+	
+	public static final Color DEFAULT_BG = Color.WHITESMOKE;
+	public static final Color DEFAULT_FG = Color.DIMGREY;
 
 	VectorRenderer vectorRenderer;
 	AudioRenderer audioRenderer;
@@ -78,6 +81,33 @@ public class SlideRenderer extends Renderer<Slide> {
 		Pane pane =  new Pane();
 		pane.getStyleClass().add("element-slide");
 		
+
+		Paint color;
+		if (s.getColor() == null) {
+			color = Paint.valueOf(DEFAULT_FG.toString());
+		}
+		else if (s.getColor() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) s.getColor()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) s.getColor()).getStops().get(1).getColor())};
+			s.setColor(new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops));
+			color = s.getColor();
+		}
+		else {
+			color = s.getColor();
+		}
+		pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+		if (s.getFill() == null) {
+			pane.setStyle("-fx-background-color: " + convertToHex(DEFAULT_BG));
+		}
+		else if (s.getFill() instanceof LinearGradient) {
+			Stop[] stops = new Stop[] {new Stop(0, ((LinearGradient) s.getFill()).getStops().get(0).getColor()), new Stop(1, ((LinearGradient) s.getFill()).getStops().get(1).getColor())};
+			s.setFill(new LinearGradient(pane.getLayoutBounds().getMinX(), pane.getLayoutBounds().getMinY(), pane.getLayoutBounds().getMaxX(), pane.getLayoutBounds().getMaxY(), false, CycleMethod.NO_CYCLE, stops));
+			pane.setStyle("-fx-background-color: " + convertToGradient(s.getFill()));
+		}
+		else {
+			pane.setStyle("-fx-background-color: " + convertToHex((Color) s.getFill()));
+		}
+
 		//When mouse clicks on pane
 		pane.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
@@ -99,7 +129,7 @@ public class SlideRenderer extends Renderer<Slide> {
 		//When mouse exits pane it removes the border
 		pane.onMouseExitedProperty().set(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
-				pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.EMPTY)));
+				pane.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 			}
 		});
 		
@@ -111,18 +141,41 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						//Enable shape mode
-						AppController.getInstance().toolbar.shapeMode();
-
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentShape = shape;
 						AppController.getInstance().toolbar.CurrentElement = new String("Shape");
+
+						//Enable shape mode
+						AppController.getInstance().toolbar.shapeMode();
+						//System.out.println(shape);
+						
+						if (shape.getType().equals("line")) {
+							AppController.getInstance().toolbar.fillGradient.setDisable(true);
+							AppController.getInstance().toolbar.shapeFill.setDisable(true);
+						}
 						
 						//Displays selected shape variables on toolbar
 						AppController.getInstance().toolbar.typeCombo.setValue(shape.getType());	
 						AppController.getInstance().toolbar.strokeCombo.setValue(shape.getStroke());
-						AppController.getInstance().toolbar.strokeColor.setValue(shape.getColor());
-						AppController.getInstance().toolbar.shapeFill.setValue(shape.getFill());
+						
+						if (AppController.getInstance().toolbar.CurrentShape.getColor() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.strokeColor2.setValue(((LinearGradient) shape.getColor()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.strokeColor.setValue(((LinearGradient) shape.getColor()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
+						}
+						//System.out.println("box : " + AppController.getInstance().toolbar.strokeColor2.getValue());
+						//System.out.println("actual : " + shape.getColor());
+						//AppController.getInstance().toolbar.strokeColor.setValue((Color) shape.getColor());
+						
+						if (AppController.getInstance().toolbar.CurrentShape.getFill() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.shapeFill2.setValue(((LinearGradient) shape.getFill()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.shapeFill.setValue(((LinearGradient) shape.getFill()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.shapeFill.setValue((Color) shape.getFill());
+						}
 						
 						//Highlights selected shape
 						DropShadow dropShadow = new DropShadow();
@@ -277,29 +330,38 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						//Enable shape mode
-						AppController.getInstance().toolbar.textMode();	
-						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");
 						
+						//Enable text mode
+						AppController.getInstance().toolbar.textMode();	
 						
-						/*----------------------------------------------------------------------------------------------------------------------
-						TODO: I'm not sure if binding has been completed for text yet but this code should work as it is
-							  the identical method for shapes and they work. If text has been binded then i'll have a another 
-							  look at this, text can be set from the toolbar, but can't retrieve data from text to display on toolbar - lm1370
+						System.out.println(text);
 						
-						//Displays selected shape variables on toolbar
-						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
-						AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
-						AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
-						AppController.getInstance().toolbar.textColor.setValue(text.getColor());
-						AppController.getInstance().toolbar.textFill.setValue(text.getFill());
-						AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
-						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+						//Enable Text mode
+						AppController.getInstance().toolbar.textMode();	
 						
-						-------------------------------------------------------------------------------------------------------------------------*/
+						//Displays selected shape variables on toolbar */
+						//AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
+						//AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
+						//AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
+						
+						//AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
+						//AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+						
+						//-------------------------------------------------------------------------------------------------------------------------*/
+						
+						//AppController.getInstance().toolbar.textColor.setValue(text.getColor());
+						//AppController.getInstance().toolbar.textFill.setValue(text.getFill());
+						
+						if (AppController.getInstance().toolbar.CurrentText.getFill() instanceof LinearGradient) {
+							AppController.getInstance().toolbar.textFill2.setValue(((LinearGradient) text.getFill()).getStops().get(1).getColor());
+							AppController.getInstance().toolbar.textFill.setValue(((LinearGradient) text.getFill()).getStops().get(0).getColor());
+						}
+						else {
+							AppController.getInstance().toolbar.textFill.setValue((Color) text.getFill());
+						}
 						
 						//Highlights selected text
 						DropShadow dropShadow = new DropShadow();
@@ -347,6 +409,28 @@ public class SlideRenderer extends Renderer<Slide> {
 		}
 		
 		return pane;
+
+	}
+	
+	public String convertToHex(Color color) {
+		
+		String string =  String.format( "#%02X%02X%02X",
+				(int)( color.getRed()	* 255 ),
+				(int)( color.getGreen() * 255 ),
+				(int)( color.getBlue()	* 255 ) 
+			);
+		
+		return string;
+		
+	}
+	
+	public String convertToGradient(Paint color) {
+		Color color1 = ((LinearGradient) color).getStops().get(0).getColor();
+		Color color2 = ((LinearGradient) color).getStops().get(1).getColor();
+		String string = ("linear-gradient(" + convertToHex(color1) + ", " + convertToHex(color2) + ")");
+		
+		return string;
+		
 	}
 
 }
