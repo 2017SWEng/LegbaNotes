@@ -88,6 +88,11 @@ public class ToolbarController {
 	public Button deleteElement;			//Delete current shape button
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
+	@FXML
+	public Button syncSlide;				//Synce slide to time
+	@FXML
+	public CheckBox scrollVideo;			//Scroll with video
+	
 
 
 	/**
@@ -301,6 +306,28 @@ public class ToolbarController {
 	}
 	
 	/**
+	 * Takes selected shape fill colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handlescrollVideoAction(ActionEvent event) {
+
+	}
+	
+	/**
+	 * Takes selected shape fill colour and sets it to the selected shape
+	 * @param event
+	 */
+	@FXML
+	protected void handlesyncSlideAction(ActionEvent event) {
+		Double duration = AppController.getInstance().viewing.getReferenceRootTime();
+		if (duration != null) {
+			CurrentSlide.setDuration((int)Math.round(duration));
+			AppController.getInstance().viewing.updateSlide();
+		}
+	}
+	
+	/**
 	 * Button to delete currently selected element 
 	 * @param event
 	 */
@@ -484,6 +511,8 @@ public class ToolbarController {
 		strokeColor.setDisable(false);
 		shapeFill.setDisable(false);
 
+		syncSlide.setDisable(true);
+
 		insertText.setHtmlText(null);
 		insertText.setDisable(true);
 		insertTextButton.setDisable(true);
@@ -531,6 +560,8 @@ public class ToolbarController {
 		insertText.setDisable(false);
 		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
+		
+		
 
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
@@ -545,15 +576,34 @@ public class ToolbarController {
 			textFillGradient.setSelected(false);
 			textFill2.setDisable(true);
 		}
+
 	}
 	
 	/**
-	 * Enables addition of elements onto current pane
+	 * Enables editing tools for slides and disables others
 	 */
-	public void paneMode() {
+	public void slideMode() {
+		boldFont.setDisable(true);
+		italicFont.setDisable(true);
+		undFont.setDisable(true);
+		fontCombo.setDisable(true);
+		sizeCombo.setDisable(true);
+
+		textFill.setDisable(true);
+		typeCombo.setDisable(true);
+		strokeCombo.setDisable(true);
+		strokeColor.setDisable(true);
+		shapeFill.setDisable(true);
+		
+		syncSlide.setDisable(false);
+		
 		addCombo.setDisable(false);
 		deleteElement.setDisable(false);
+
+
+	
 	}
+
 	
 	/**
 	 * On Start up disable all editing tools
@@ -583,7 +633,11 @@ public class ToolbarController {
 		shapeFill2.setDisable(true);
 		deleteElement.setDisable(true);
 		addCombo.setDisable(true);
+		
+		syncSlide.setDisable(true);
+		scrollVideo.setDisable(false);
 	}
+
 	
 	/**
 	 * Sets all the tooltips for all the options on the toolbar

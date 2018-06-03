@@ -63,6 +63,9 @@
 						<ColorPicker prefWidth="30" fx:id="shapeFill2" onAction="#handleShapeFill2Action"/>
 						<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
 						<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
+						
+						<CheckBox fx:id="scrollVideo" onAction="#handlescrollVideoAction"/>
+						<Button text="Sync" fx:id="syncSlide" onAction="#handlesyncSlideAction"/>
 					</HBox>				
 				</ToolBar>
 			</top>	

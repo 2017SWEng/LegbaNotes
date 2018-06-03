@@ -15,13 +15,13 @@ public class HTMLConverter {
 		StringBuilder html = new StringBuilder();
 		html.append("<html dir='ltr'><head></head><body contenteditable='true' style=\""+"font-color:"+text.getColor()+
 				";font-family:"+text.getFont()+"\">");
-		if(text.getItalic() == true) {
+		if(text.getItalic() !=null && text.getItalic() == true) {
 			html.append("<i>");
 		}
-		if(text.getBold() == true) {
+		if(text.getBold() != null && text.getBold() == true) {
 			html.append("<b>");
 		}
-		if(text.getUnderline() == true) {
+		if(text.getUnderline() != null && text.getUnderline() == true) {
 			html.append("<u>");
 		}
 		for (int i=0; i<text.getContents().size(); i++) {
@@ -39,13 +39,13 @@ public class HTMLConverter {
 				System.err.println("Error");
 			}
 		}
-		if(text.getUnderline() == true) {
+		if(text.getUnderline() != null && text.getUnderline() == true) {
 			html.append("</u>");
 		}
-		if(text.getBold() == true) {
+		if(text.getBold() != null && text.getBold() == true) {
 			html.append("</b>");
 		}
-		if(text.getItalic() == true) {
+		if(text.getItalic() !=null && text.getItalic() == true) {
 			html.append("</i>");
 		}
 		html.append("</body></html>");
