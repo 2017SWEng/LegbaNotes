@@ -332,25 +332,18 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");
 						
 						//Enable text mode
-						AppController.getInstance().toolbar.textMode();	
-						
-						System.out.println(text);
-						
-						//Enable Text mode
-						AppController.getInstance().toolbar.textMode();	
+						AppController.getInstance().toolbar.textMode();							
 						
 						//Displays selected shape variables on toolbar */
-						//AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
-						//AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
-						//AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
+						/*AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
+						AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
+						AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
 						
-						//AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
-						//AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
-						
-						//-------------------------------------------------------------------------------------------------------------------------*/
-						
-						//AppController.getInstance().toolbar.textColor.setValue(text.getColor());
-						//AppController.getInstance().toolbar.textFill.setValue(text.getFill());
+						AppController.getInstance().toolbar.fontCombo.setValue(text.getFont());
+						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
+												
+						AppController.getInstance().toolbar.textFill.setValue((Color) text.getColor());
+						AppController.getInstance().toolbar.textFill.setValue((Color) text.getFill());*/
 						
 						if (AppController.getInstance().toolbar.CurrentText.getFill() instanceof LinearGradient) {
 							AppController.getInstance().toolbar.textFill2.setValue(((LinearGradient) text.getFill()).getStops().get(1).getColor());

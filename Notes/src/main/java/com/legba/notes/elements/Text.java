@@ -73,7 +73,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		super();
 		
 		this.setColor(javafx.scene.paint.Color.BLACK);
-		this.setFill(javafx.scene.paint.Color.LIGHTGREY);
+		this.setFill(javafx.scene.paint.Color.BLACK);
 		this.font = "Times New Roman";
 		this.italic = false;
 		this.bold = false;
@@ -157,7 +157,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Boolean getItalic() {
 		return this.italic;
 	}
-
 
 	@Override
 	/**

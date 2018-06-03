@@ -21,10 +21,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -77,7 +77,7 @@ public class ToolbarController {
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
 	@FXML
-	public HTMLEditor insertText;				//Text field for text input 
+	public HTMLEditor insertText;			//Text field for text input 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
 	@FXML
@@ -461,8 +461,21 @@ public class ToolbarController {
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		CurrentText.addContents(insertText.getHtmlText());
-		AppController.getInstance().viewing.updateSlide();
+		//Get HTML text
+		String htmlText = insertText.getHtmlText();
+		
+		List<Text> slideTexts = CurrentSlide.getTexts();
+		slideTexts.remove(CurrentText);
+		
+		Text t = HTMLConverter.toPWS(htmlText);
+		
+		if (t != null){
+			slideTexts.add(t);
+			CurrentSlide.setTexts(slideTexts);
+		
+			//Update slides
+			AppController.getInstance().viewing.updateSlide();
+		}
 	}
 	
 	/**
@@ -487,7 +500,6 @@ public class ToolbarController {
 		insertText.setHtmlText(null);
 		insertText.setDisable(true);
 		insertTextButton.setDisable(true);
-
 
 		strokeGradient.setDisable(false);
 		fillGradient.setDisable(false);
@@ -529,7 +541,9 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 
 		insertText.setDisable(false);
-		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
+		if(CurrentText != null) {
+			insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
+		}
 		insertTextButton.setDisable(false);
 
 		strokeGradient.setDisable(true);

@@ -1,8 +1,15 @@
 package com.legba.notes.app;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
+
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class HTMLConverter {
 	
@@ -13,15 +20,18 @@ public class HTMLConverter {
 		}
 		
 		StringBuilder html = new StringBuilder();
-		html.append("<html dir='ltr'><head></head><body contenteditable='true' style=\""+"font-color:"+text.getColor()+
-				";font-family:"+text.getFont()+"\">");
-		if(text.getItalic() == true) {
+		
+		html.append("<html dir='ltr'><head></head><body contenteditable='true' style=\""+"font-color:"+text.getFill()+"\">");
+		if((text.getFont() != null)) {
+			html.append("<font>");
+		}		
+		if((text.getItalic() != null) && (text.getItalic() == true)) {
 			html.append("<i>");
 		}
-		if(text.getBold() == true) {
+		if((text.getBold() != null) && (text.getBold() == true)) {
 			html.append("<b>");
 		}
-		if(text.getUnderline() == true) {
+		if((text.getUnderline() != null) && (text.getUnderline() == true)) {
 			html.append("<u>");
 		}
 		for (int i=0; i<text.getContents().size(); i++) {
@@ -39,13 +49,16 @@ public class HTMLConverter {
 				System.err.println("Error");
 			}
 		}
-		if(text.getUnderline() == true) {
+		if((text.getFont() != null)) {
+			html.append("</font>");
+		}
+		if((text.getUnderline() != null) && (text.getUnderline() == true)) {
 			html.append("</u>");
 		}
-		if(text.getBold() == true) {
+		if((text.getBold() != null) && (text.getBold() == true)) {
 			html.append("</b>");
 		}
-		if(text.getItalic() == true) {
+		if((text.getItalic() != null) && (text.getItalic() == true)) {
 			html.append("</i>");
 		}
 		html.append("</body></html>");
@@ -54,8 +67,73 @@ public class HTMLConverter {
 	}
 	
 	public static Text toPWS(String html) {
-		Text pws = new Text();
-		System.out.println("");
+		
+		if(html == null || html.trim().length() == 0){
+			return null;
+		}
+		
+		Document doc = Jsoup.parse(html);
+		Element bodyTag = doc.getElementsByTag("body").get(0);
+		System.out.println(bodyTag);
+		
+		Text pws = new Text(bodyTag.text());
+		String stylesText = bodyTag.attr("style").toString();
+		String[] styles = stylesText.split(";");
+		
+		pws.setTextsize(32);
+		
+		for(int i = 0; i < styles.length; i++){
+			String HTMLkey = styles[i].split(":")[0];
+			String value = styles[i].split(":")[1];
+			
+			if(HTMLkey.equals("font-family")){
+				if(!value.trim().equals("null")) {
+					pws.setFont(value);
+				}
+				else {
+					pws.setFont("Ariel");
+				}
+
+			} else if(HTMLkey.equals("font-color")){
+				if(!value.trim().equals("null")) {
+					pws.setFill(Color.web(value));
+				}
+				else {
+					pws.setFill(Color.BLACK);
+				}
+			}
+		}
+		
+		//Font
+		Element fontTag = doc.getElementsByTag("font").get(0);
+		
+		
+		
+		
+		pws.setFont(fontTag.attr("face"));
+		
+		//let's have a bodge of the sizings
+		switch (Integer.parseInt(fontTag.attr("size"))){
+		case 1: pws.setTextsize(8);
+		break;
+		case 2: pws.setTextsize(10);
+		break;
+		case 3: pws.setTextsize(12);
+		break;
+		case 4: pws.setTextsize(14);
+		break;
+		case 5: pws.setTextsize(18);
+		break;
+		case 6: pws.setTextsize(24);
+		break;
+		case 7: pws.setTextsize(36);
+		break;
+		}
+		
+		pws.setFill(Color.web(fontTag.attr("color")));
+		
+		//Bold
+		
 		return pws;
 	}
 	

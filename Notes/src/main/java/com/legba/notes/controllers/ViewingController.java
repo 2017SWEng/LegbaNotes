@@ -128,7 +128,7 @@ public class ViewingController {
 		this.allMediaPlayers.clear();
 		
 		// Get the presentation from the model
-		Presentation pres = AppController.getInstance().toolbar.CurrentPres;
+		Presentation pres = AppModel.getInstance().getPres();
 		
 		// Re-render the presentation
 		PresentationRenderer pr = new PresentationRenderer();
