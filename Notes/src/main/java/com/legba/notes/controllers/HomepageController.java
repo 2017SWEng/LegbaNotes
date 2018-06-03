@@ -235,6 +235,10 @@ public class HomepageController {
 		
 		System.out.println("Home Page Initialised");
 		
+		//AppController.getInstance().getMainStage().addEventHandler(eventType, eventHandler);
+		//setup list views
+		//this.contentList.resize(AppController.getInstance().getMainStage().getWidth()/2, AppController.getInstance().getMainStage().getHeight()/2);
+		
 	}
 	
 	

@@ -46,8 +46,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 		if (pres == null){
 			System.err.println("Attempted to render a null presentation");
 		}
-		
-		
+
 		VBox vbox = new VBox();
 		vbox.getStyleClass().add("element-presentation");
 		
