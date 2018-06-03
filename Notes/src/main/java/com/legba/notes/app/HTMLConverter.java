@@ -7,6 +7,11 @@ import com.legba.notes.elements.Text;
 public class HTMLConverter {
 	
 	public static String toHTML(Text text) {
+		
+		if (text == null) {
+			return null;
+		}
+		
 		StringBuilder html = new StringBuilder();
 		html.append("<html dir='ltr'><head></head><body contenteditable='true' style=\""+"font-color:"+text.getColor()+
 				";font-family:"+text.getFont()+"\">");

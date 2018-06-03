@@ -72,12 +72,12 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	public Text(String s) {
 		super();
 		
-		this.color = javafx.scene.paint.Color.BLACK;
-		this.fill = javafx.scene.paint.Color.BLACK;
+		this.setColor(javafx.scene.paint.Color.BLACK);
+		this.setFill(javafx.scene.paint.Color.LIGHTGREY);
 		this.font = "Times New Roman";
 		this.italic = false;
 		this.bold = false;
-		this.underline = false;
+		this.setUnderline(false);
 		this.textsize = 10;
 		this.contents = new ArrayList<Object>();
 		this.contents.add(s);
