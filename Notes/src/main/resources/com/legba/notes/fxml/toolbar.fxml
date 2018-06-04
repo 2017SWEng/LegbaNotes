@@ -64,6 +64,11 @@
 									<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
 									<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
 								</HBox>
+								<HBox>
+									<CheckBox fx:id="scrollVideo" onAction="#handlescrollVideoAction"/>
+									<Button text="Sync" fx:id="syncSlide" onAction="#handlesyncSlideAction"/>
+								
+								</HBox>
 							</VBox>
 							
 							<HBox><padding><Insets top="0" right="5" bottom="0" left="5"/></padding>

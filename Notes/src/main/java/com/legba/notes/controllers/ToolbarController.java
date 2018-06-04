@@ -813,6 +813,7 @@ public class ToolbarController {
 		typeCombo.getItems().setAll("ellipse", "rectangle", "line");
 		strokeCombo.getItems().setAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		addCombo.getItems().setAll("Shape", "Text", "Audio", "Video", "Image", "Slide");
+		scrollVideo.setSelected(true);
 		
 		//Set listeners on all buttons to display tooltips
 		buttonTooltips();
