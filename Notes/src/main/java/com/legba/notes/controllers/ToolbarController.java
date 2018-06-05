@@ -428,7 +428,7 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Video");
 				fileChooser.getExtensionFilters().addAll(
-						new ExtensionFilter("Audio Files", "*.mp4", "*.MP4", "*.m4a", "*.M4A", "*.m4v", "*.M4V", "*.m3u8", "*.M3U8", "*.fxm", "*.FXM", "*.flv", "*.FLV")	
+						new ExtensionFilter("Video Files", "*.mp4", "*.MP4", "*.m4a", "*.M4A", "*.m4v", "*.M4V", "*.m3u8", "*.M3U8", "*.fxm", "*.FXM", "*.flv", "*.FLV")	
 				);
 				
 				//Set Directory to workspace
@@ -449,7 +449,7 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open image");
 				fileChooser.getExtensionFilters().addAll(
-						new ExtensionFilter("Audio Files", "*.jpeg", "*.JPEG", "*.jpg", "*.JPG", "*.gif", "*.GIF", "*.png", "*.PNG", "*.bmp", "*.BMP")	
+						new ExtensionFilter("Image Files", "*.jpeg", "*.JPEG", "*.jpg", "*.JPG", "*.gif", "*.GIF", "*.png", "*.PNG", "*.bmp", "*.BMP")	
 				);
 				
 				//Set Directory to workspace
