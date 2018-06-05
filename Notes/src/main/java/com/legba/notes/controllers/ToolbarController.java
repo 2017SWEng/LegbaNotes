@@ -568,7 +568,6 @@ public class ToolbarController {
 	 * Enables editing tools for text and disables others
 	 */
 	public void textMode() {
-		System.out.println("======\nTEXT MODE\n\n");
 		boldFont.setDisable(false);
 		italicFont.setDisable(false);
 		undFont.setDisable(false);
