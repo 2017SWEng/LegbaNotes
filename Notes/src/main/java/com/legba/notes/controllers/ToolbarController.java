@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
@@ -89,10 +90,9 @@ public class ToolbarController {
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
 	@FXML
-	public Button syncSlide;				//Synce slide to time
+	public Button syncSlide;				//Sync slide to time
 	@FXML
 	public CheckBox scrollVideo;			//Scroll with video
-	
 
 
 	/**
@@ -573,6 +573,8 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		
 
 		insertText.setDisable(false);
 		if(CurrentText != null) {
@@ -613,6 +615,11 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		strokeGradient.setDisable(true);
+		fillGradient.setDisable(true);
+		strokeColor2.setDisable(true);
+		shapeFill2.setDisable(true);
 		
 		syncSlide.setDisable(false);
 		
