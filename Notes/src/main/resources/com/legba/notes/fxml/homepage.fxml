@@ -20,26 +20,49 @@
 	
 	<!-- Central list content -->
 	<center>
-	<HBox>
-		<VBox>
-			<padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
-			<Text StyleClass="listTitle">Recent Documents</Text>	
-			<ListView fx:id="recentsList" onMouseClicked="#handleRecentsListClick"/>
+	<HBox alignment="CENTER">	
+		<VBox alignment="CENTER">
+			<HBox alignment="CENTER">
+				<VBox alignment="CENTER">
+						<padding><Insets top="0" right="50" bottom="5" left="5"/></padding>
+						<Text StyleClass="listTitle">Recent Documents</Text>	
+						<ListView fx:id="recentsList" onMouseClicked="#handleRecentsListClick"/>
+				</VBox >
+				
+				<VBox alignment="CENTER">
+					<VBox>
+						<HBox alignment="CENTER">
+							<ImageView fx:id="mainLogo" fitHeight="300" preserveRatio="true">
+								<image>
+									<Image url="@Images/legba_center_round.png" />
+								</image>
+							</ImageView>
+						</HBox>
+					</VBox>
+						
+					<VBox>
+						<VBox alignment="CENTER">
+							<padding><Insets top="30" right="0" bottom="0" left="0"/></padding>
+							<Button fx:id="formsBtn" text="Go to forms" onAction="#GoToForm"/>
+							<!-- <Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/> -->
+						</VBox>
+					</VBox>
+				</VBox>
+		
+				<VBox>
+					<padding><Insets top="30" right="5" bottom="5" left="50"/></padding>
+					<Text StyleClass="listTitle">Resources</Text>
+					<ListView fx:id="contentList" onMouseClicked="#handleContentListClick"/>
+					<HBox>
+						<padding><Insets top="5" right="0" bottom="5" left="0"/></padding>
+						<Button fx:id="fileChooserBtn" text="Open other..." onAction="#handleFileChooserBtn"/>
+						<Button fx:id="fileNewBtn" text="New Document..." onAction="#handleNewFileBtn"/>
+					</HBox>	
+				</VBox>
+				
+				
+			</HBox>
 		</VBox>
-		<VBox fx:id="documentInterface">
-		<padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
-			<Text StyleClass="listTitle">Resources</Text>
-			<ListView fx:id="contentList" onMouseClicked="#handleContentListClick"/>
-			<HBox>
-			<padding><Insets top="5" right="0" bottom="5" left="0"/></padding>
-				<Button fx:id="fileChooserBtn" text="Open other..." onAction="#handleFileChooserBtn"/>
-				<Button fx:id="fileNewBtn" text="New Document..." onAction="#handleNewFileBtn"/>
-			</HBox>	
-		</VBox>
-		<!-- <Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/>
-		<Button fx:id="formsBtn" text="Go to forms" onAction="#GoToForm"/> -->
-
-	</HBox>	
-	</center> 
-
+	</HBox>
+	</center>
 </BorderPane>

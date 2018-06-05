@@ -8,7 +8,7 @@ public class ViewMode extends Observable{
 	
 	ViewMode(){
 		super();
-		setMode(Mode.HOMEPAGE);
+		setMode(Mode.LOGIN);
 	}
 	
 	public Mode getMode() {

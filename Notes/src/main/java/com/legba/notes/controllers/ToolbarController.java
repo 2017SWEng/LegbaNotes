@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
@@ -89,10 +90,9 @@ public class ToolbarController {
 	@FXML 
 	public ComboBox<String> addCombo;		//Add element button
 	@FXML
-	public Button syncSlide;				//Synce slide to time
+	public Button syncSlide;				//Sync slide to time
 	@FXML
 	public CheckBox scrollVideo;			//Scroll with video
-	
 
 
 	/**
@@ -306,16 +306,16 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Scroll to slide
 	 * @param event
 	 */
 	@FXML
-	protected void handlescrollVideoAction(ActionEvent event) {
-
+	protected void handlescrollVideoAction(ActionEvent event) {	
+		//Controls if statement in MovieView.java line 318
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Sync slide to current point in video
 	 * @param event
 	 */
 	@FXML
@@ -487,22 +487,27 @@ public class ToolbarController {
 	 * @param event
 	 */
 	@FXML
-	protected void handleInsertTextAction(ActionEvent event) {
+	protected void handleInsertTextAction(ActionEvent event) {	
 		//Get HTML text
 		String htmlText = insertText.getHtmlText();
 		
+		//Remove old text
 		List<Text> slideTexts = CurrentSlide.getTexts();
-		slideTexts.remove(CurrentText);
 		
+		//Get pws text and replace old text if new text is valid
 		Text t = HTMLConverter.toPWS(htmlText);
-		
 		if (t != null){
+			slideTexts.remove(CurrentText);
 			slideTexts.add(t);
 			CurrentSlide.setTexts(slideTexts);
 		
 			//Update slides
 			AppController.getInstance().viewing.updateSlide();
 		}
+		
+		//Disable submit button to add repeated text objects
+		insertTextButton.setDisable(false);
+		
 	}
 	
 	/**
@@ -568,6 +573,8 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
+		
+		
 
 		insertText.setDisable(false);
 		if(CurrentText != null) {
@@ -609,13 +616,15 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		
+		strokeGradient.setDisable(true);
+		fillGradient.setDisable(true);
+		strokeColor2.setDisable(true);
+		shapeFill2.setDisable(true);
+		
 		syncSlide.setDisable(false);
 		
 		addCombo.setDisable(false);
 		deleteElement.setDisable(false);
-
-
-	
 	}
 
 	
@@ -638,7 +647,7 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 
 		insertText.setDisable(true);
-		insertText.setPrefSize(200, 100);
+		insertText.setPrefSize(500, 100);
 		insertTextButton.setDisable(true);
 
 		strokeGradient.setDisable(true);
@@ -794,12 +803,28 @@ public class ToolbarController {
 		deleteElement.setTooltip(deleteElementTP);
 		
 		//Add Combo
-		final Tooltip addComboTP = new Tooltip();
-		addComboTP.setText(
+		final Tooltip addComboTT = new Tooltip();
+		addComboTT.setText(
 			"Choose an element from the list\n" +
 		    "to add to the selected slide.\n" 
 		);
-		addCombo.setTooltip(addComboTP);			
+		addCombo.setTooltip(addComboTT);	
+		
+		//Scroll slides
+		final Tooltip scrollVideoTT = new Tooltip();
+		scrollVideoTT.setText(
+			"Enable to scroll slides automatically\n" +
+		    "with multimedia element in left hand pane.\n" 
+		);
+		scrollVideo.setTooltip(scrollVideoTT);	
+		
+		//Sync slide
+		final Tooltip syncSlideTT = new Tooltip();
+		syncSlideTT.setText(
+			"Sync selected slide to\n" +
+		    "current point in video.\n" 
+		);
+		syncSlide.setTooltip(syncSlideTT);	
 	}
 
 	/**
