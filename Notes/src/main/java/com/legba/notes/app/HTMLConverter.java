@@ -227,6 +227,7 @@ public class HTMLConverter {
 		
 		Text tempText = new Text(pwsString.toString());
 		pws.setContents(tempText.getContents());
+
 	}
 }
 

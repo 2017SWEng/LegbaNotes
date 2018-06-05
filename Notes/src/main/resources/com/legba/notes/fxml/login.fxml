@@ -40,14 +40,14 @@
 					<Button fx:id="loginBtn" text="Login" onAction="#handleLoginBtnAction"/>
 				</HBox>
 				<Text fx:id="errorText"/>
-				<HBox alignment="CENTER">
+			<!--	<HBox alignment="CENTER">
 					<ImageView fx:id="homeLogo" StyleClass="homeImage" fitHeight="20" preserveRatio="true" onMouseClicked="#handleHomeButtonAction">
 						<image>
 							<Image url="@Images/Home.png" />
 						</image>
 					</ImageView>
 					<Text> Login Functionality coming soon... </Text>
-				</HBox>
+				</HBox> -->
 			</VBox>	
 	</center> 
 

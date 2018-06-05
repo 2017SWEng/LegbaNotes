@@ -332,16 +332,16 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Scroll to slide
 	 * @param event
 	 */
 	@FXML
-	protected void handlescrollVideoAction(ActionEvent event) {
-
+	protected void handlescrollVideoAction(ActionEvent event) {	
+		//Controls if statement in MovieView.java line 318
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Sync slide to current point in video
 	 * @param event
 	 */
 	@FXML
@@ -651,6 +651,9 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 
 		insertText.setDisable(true);
+
+		insertText.setPrefSize(500, 100);
+
 		insertTextButton.setDisable(true);
 		deleteElement.setDisable(true);
 		addCombo.setDisable(true);
@@ -808,12 +811,28 @@ public class ToolbarController {
 		deleteElement.setTooltip(deleteElementTP);
 		
 		//Add Combo
-		final Tooltip addComboTP = new Tooltip();
-		addComboTP.setText(
+		final Tooltip addComboTT = new Tooltip();
+		addComboTT.setText(
 			"Choose an element from the list\n" +
 		    "to add to the selected slide.\n" 
 		);
-		addCombo.setTooltip(addComboTP);			
+		addCombo.setTooltip(addComboTT);	
+		
+		//Scroll slides
+		final Tooltip scrollVideoTT = new Tooltip();
+		scrollVideoTT.setText(
+			"Enable to scroll slides automatically\n" +
+		    "with multimedia element in left hand pane.\n" 
+		);
+		scrollVideo.setTooltip(scrollVideoTT);	
+		
+		//Sync slide
+		final Tooltip syncSlideTT = new Tooltip();
+		syncSlideTT.setText(
+			"Sync selected slide to\n" +
+		    "current point in video.\n" 
+		);
+		syncSlide.setTooltip(syncSlideTT);	
 	}
 	
 	/**
