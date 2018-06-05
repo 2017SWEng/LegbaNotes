@@ -34,6 +34,7 @@ public class AppModel{
 	}
 
 	public void setFile(String file) {
+		System.out.println("Setting base file location to : " + file);
 		this.file = file;
 	}
 

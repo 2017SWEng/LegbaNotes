@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.models.AppModel;
@@ -18,6 +19,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import java.io.FileNotFoundException;
+
 
 public class HomepageController {
 
@@ -46,6 +49,12 @@ public class HomepageController {
 	@FXML public void handleContentListClick(MouseEvent event) {
 		
 		try{
+			
+			
+			String s = contentList.getSelectionModel().getSelectedItem();
+			System.out.println("selected " + s);
+    		AppModel.getInstance().setFile(s.substring(0,s.lastIndexOf("\\")+1));
+    		
 			//Change view to viewer and render the selected Object(s)
 			FileSystemController fsc = new FileSystemController();
 			//get the file selected from the list
@@ -53,13 +62,14 @@ public class HomepageController {
 			//if chosen the file should be rendered in the view mode
 			AppModel.getInstance().setPres(pres);
 			AppModel.getInstance().setVeiwMode(Mode.VEIWING);
+
 			
 			//Output to console
 			System.out.println("selected " + contentList.getSelectionModel().getSelectedItem());
 			
 			try {
 				File file = new File(contentList.getSelectionModel().getSelectedItem());
-				AppController.getInstance().updateRecents(file);
+				AppController.getInstance().fileSystemController.addFileToRecents(file);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Unable to update Recent Docs");
@@ -75,6 +85,12 @@ public class HomepageController {
 @FXML public void handleRecentsListClick(MouseEvent event) {
 		
 		try{
+			
+			//Output to console
+			String s = recentsList.getSelectionModel().getSelectedItem();
+			System.out.println("selected " + s);
+    		AppModel.getInstance().setFile(s.substring(0,s.lastIndexOf("\\")+1));
+    		
 			//Change view to viewer and render the selected Object(s)
 			FileSystemController fsc = new FileSystemController();
 			//get the file selected from the list
@@ -83,12 +99,12 @@ public class HomepageController {
 			AppModel.getInstance().setPres(pres);
 			AppModel.getInstance().setVeiwMode(Mode.VEIWING);
 			
-			//Output to console
-			System.out.println("selected " + recentsList.getSelectionModel().getSelectedItem());
+	
+
 			
 			try {
 				File file = new File(recentsList.getSelectionModel().getSelectedItem());
-				AppController.getInstance().updateRecents(file);
+				AppController.getInstance().fileSystemController.addFileToRecents(file);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Unable to update Recent Docs");
@@ -165,16 +181,23 @@ public class HomepageController {
 		
 		File fileToOpen = fileChooser.showOpenDialog(AppController.getInstance().getMainStage());
         if (fileToOpen != null) {
+        	
+			String s = fileToOpen.toString();
+			System.out.println("selected " + s);
+    		AppModel.getInstance().setFile(s.substring(0,s.lastIndexOf("\\")+1));
+        	
         	//Change view to viewer and render the selected Object(s)
     		FileSystemController fsc = new FileSystemController();
     		Presentation pres = fsc.loadXmlFile(fileToOpen.toString());
     		AppModel.getInstance().setPres(pres);
     		AppModel.getInstance().setVeiwMode(Mode.VEIWING);
     		
+
+    		
     		//!!!! place ^^^^^^^ into its own module of code
     		//add to recent documents
     		try {
-				AppController.getInstance().updateRecents(fileToOpen);
+				AppController.getInstance().fileSystemController.addFileToRecents(fileToOpen);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Unable to update Recent Docs");
@@ -188,58 +211,49 @@ public class HomepageController {
 	}
 	
 	public void initialize() {
+
+
 		
-		//load some list example documents
-		
-		//----------------------------------------------------------//
-		// Will need to check for a Legba Notes directory and then  //
-		// create one if there is not one present.					//
-		// Written by jjds502											//
-		//----------------------------------------------------------//
-		
-		//lets put some things in our documents list
-		ArrayList<File> files = new ArrayList<File>();
-		files.add(new File("example.pws"));
-		files.add(new File("example2.pws"));
-		files.add(new File("/Notes/src/main/resources/com/legba/notes/PDF/pdf.html"));
+		updateRecents();
+		updateScanned();
+	
+		System.out.println("Home Page Initialised");
 		
 
-		ObservableList<String> fileItems = contentList.getItems();
+		
+	}
+	
+	private void updateRecents(){
 
-		for(int i = 0; i < files.size(); i++ ){
-			fileItems.add(files.get(i).toString());
-		}	
+		System.out.println("Adding list of recent files to homepage");
 		
 		//initialise the recents list also
 		ObservableList<String> recentItems = recentsList.getItems();
 		
 		//check to see if file exists
 		try{
-			File recentsFile = new File(System.getProperty("user.home") + File.separator + "Legba" + File.separator + "RecentDocs");
-			BufferedReader br = new BufferedReader(new FileReader(recentsFile.toString()));
+			List<String> recents = AppController.getInstance().fileSystemController.loadRecentDocsFile();
 			
-			try {
-			    String line = br.readLine();
-			    while (line != null) {
-			    	recentItems.add(line);
-			        line = br.readLine();
-			    }
-			} finally {
-			    br.close();
+			if (recents != null && recents.size() > 0){
+				recentItems.addAll(recents);
 			}
 		}
-		catch(IOException ioe){
-			recentItems.add("No Recent Files");
+		catch(FileNotFoundException e){
+			recentItems.add("No Recent Files Added");
 		}
-		
-		
-		System.out.println("Home Page Initialised");
-		
-		//AppController.getInstance().getMainStage().addEventHandler(eventType, eventHandler);
-		//setup list views
-		//this.contentList.resize(AppController.getInstance().getMainStage().getWidth()/2, AppController.getInstance().getMainStage().getHeight()/2);
-		
 	}
+	
+	private void updateScanned(){
+
+		System.out.println("Adding list of recent files to homepage");
+		
+		//initialise the recents list also
+		ObservableList<String> recentItems = contentList.getItems();
+		
+		List<String> scanned = AppController.getInstance().fileSystemController.loadScannedFiles();
+		recentItems.addAll(scanned);
+	}
+
 	
 	
 }
