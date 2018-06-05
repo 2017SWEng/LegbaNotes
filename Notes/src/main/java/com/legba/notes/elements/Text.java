@@ -11,16 +11,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.legba.notes.elements.base.*;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
+
 /**
  * Class is the text element and allows the formatting 
  * of text elements parameters such as setting bold, italic etc...
@@ -40,10 +39,8 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private Integer start;
 	private Integer duration;
-	
 
 	private ObjectProperty<Paint> paintColor;
-	
 	private ObjectProperty<Paint> paintFill;
 	
 	private String font;
@@ -57,7 +54,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	
 	private StringProperty style;
 	
-
 	private List<Object> contents;
 
 	public Text() {
@@ -75,7 +71,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.contents = new ArrayList<Object>();
 
 		setStyle(createCSSStyle(this));
-
 	}
 	
 	public Text(String s) {
@@ -93,9 +88,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		this.contents.add(s);
 		
 		setStyle(createCSSStyle(this));
-
 	}
-	
 	
 	@XmlElementRefs({
     	@XmlElementRef(name="Format", type=Format.class),
@@ -158,7 +151,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			return;
 		}
 
-		this.font=font;		
+		this.font = font;		
 		setStyle(createCSSStyle(this));
 	}
 
@@ -178,7 +171,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			return;
 		}
 
-		this.italic=italic;
+		this.italic = italic;
 		setStyle(createCSSStyle(this));
 	}
 
@@ -197,7 +190,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		if (bold == null) {
 			return;
 		}
-		this.bold=bold;
+		this.bold = bold;
 		setStyle(createCSSStyle(this));
 	}
 	
@@ -250,58 +243,57 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 	}
 
 	//Returns the colour of the outline
-		@Override
-	    @XmlJavaTypeAdapter(ColorAdapter.class)
-		@XmlAttribute
-		public Paint getColor() {
-			return (paintColor == null) ? null : paintColor.get();
-		}
+	@Override
+	@XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Paint getColor() {
+		return (paintColor == null) ? null : paintColor.get();
+	}
 		
-		public ObjectProperty<Paint> paintColorProperty() {
-			return this.paintColor;	
-		}
+	public ObjectProperty<Paint> paintColorProperty() {
+		return this.paintColor;	
+	}
 		
-		//Sets colour of outline if newColor is not null
-		@Override
-		public void setColor(Paint newColor) {
-			if(newColor == null){
-				paintColor = null;
-				return;
-			}
-			else if (paintColor == null){
-				paintColor = new SimpleObjectProperty<Paint>();
-			}
+	//Sets colour of outline if newColor is not null
+	@Override
+	public void setColor(Paint newColor) {
+		if(newColor == null){
+			paintColor = null;
+			return;
+		}
+		else if (paintColor == null){
+			paintColor = new SimpleObjectProperty<Paint>();
+		}
 			
-			paintColor.set(newColor);	
-			setStyle(createCSSStyle(this));
-		}
+		paintColor.set(newColor);	
+		setStyle(createCSSStyle(this));
+	}
 
-		//Returns the colour of the fill
-		@Override
-	    @XmlJavaTypeAdapter(ColorAdapter.class)
-		@XmlAttribute
-		public Paint getFill() {
-			return (paintFill == null) ? null : paintFill.get();
-		}
-		public ObjectProperty<Paint> paintFillProperty() {
-			return this.paintFill;	
-		}
+	//Returns the colour of the fill
+	@Override
+	@XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Paint getFill() {
+		return (paintFill == null) ? null : paintFill.get();
+	}
+	public ObjectProperty<Paint> paintFillProperty() {
+		return this.paintFill;	
+	}
 		
-		//Sets colour of outline if newColor is not null
-		@Override
-		public void setFill(Paint newColor) {
-			if(newColor == null){
-				paintFill = null;
-				return;
-			}
-			else if (paintFill == null){
-				paintFill = new SimpleObjectProperty<Paint>();
-			}
-			
-			paintFill.set(newColor);
-			setStyle(createCSSStyle(this));
+	//Sets colour of outline if newColor is not null
+	@Override
+	public void setFill(Paint newColor) {
+		if(newColor == null){
+			paintFill = null;
+			return;
 		}
-
+		else if (paintFill == null){
+			paintFill = new SimpleObjectProperty<Paint>();
+		}
+			
+		paintFill.set(newColor);
+		setStyle(createCSSStyle(this));
+	}
 
 	@Override
 	@XmlAttribute
@@ -310,11 +302,11 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		return this.start;
 	}
 
-	@Override
 	/**
 	 * Sets the amount of time before text will appear
 	 * @param start time
 	 */
+	@Override
 	public void setStart(Integer start) {
 		if (start == null) {
 			return;
@@ -436,8 +428,7 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			tempString = tempString + "-fx-font-family: \"" + text.getFont() + "\", serif; ";
 		}
 		
-		return tempString;
-		
+		return tempString;	
 	}
 	
 	public String convertToHex(Color color) {
@@ -449,7 +440,6 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 			);
 		
 		return string;
-		
 	}
 	
 	public String convertToGradient(Paint color) {
@@ -458,8 +448,5 @@ public class Text extends SlideElement implements Transitionable,Colorable,Forma
 		String string = ("linear-gradient(" + convertToHex(color1) + ", " + convertToHex(color2) + ")");
 		
 		return string;
-		
 	}
-
-
 }

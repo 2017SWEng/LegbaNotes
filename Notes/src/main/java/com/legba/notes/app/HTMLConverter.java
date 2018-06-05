@@ -10,8 +10,6 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
-import javafx.scene.paint.Paint;
-
 public class HTMLConverter {
 	
 	/**
@@ -20,7 +18,6 @@ public class HTMLConverter {
 	 * @return html.toString() which is the converted text
 	 */
 	public static String toHTML(Text text) {
-		
 		if (text == null) {
 			return null;
 		}
@@ -123,21 +120,18 @@ public class HTMLConverter {
 	}
 	
 	public static Text toPWS(String html) {
-		//TODO: Currently only returns plain text, most formating removed
 		Text pws = new Text();
 		Document doc = Jsoup.parse(html);
 		String StyleString = doc.body().getAllElements().attr("style");
 		
-		//Print out for testing purposes only
-		System.out.println("-----\n" + doc.body()/*.getElementsByTag("p")*/ + "\n-----");
-		
+		//Would Implement the preservation of format tags if we had the time
 		//buildString(doc.body(), pws);
+		
 		pws.addContents(doc.body().text());
 		applyStyle(StyleString, pws);
 		
 		System.out.println("Current PWS file contents: " + pws);
 
-		
 		return pws;
 	}
 	
@@ -227,7 +221,6 @@ public class HTMLConverter {
 		
 		Text tempText = new Text(pwsString.toString());
 		pws.setContents(tempText.getContents());
-
 	}
 }
 

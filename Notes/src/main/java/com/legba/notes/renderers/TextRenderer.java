@@ -51,7 +51,6 @@ public class TextRenderer extends Renderer<Text> {
 		//objects will be stored into
 		ArrayList<javafx.scene.text.Text> lines = new ArrayList<javafx.scene.text.Text>();
 		
-	
 		//For each line in the text model apply the correct renderer
 		for (int i=0; i<textModel.getContents().size(); i++) {
 			
@@ -73,7 +72,6 @@ public class TextRenderer extends Renderer<Text> {
 			else {
 				System.err.println("Passed unknown class in text model renderer");
 			}
-
 		}
 
 		TextFlow flow = new TextFlow();
@@ -84,7 +82,6 @@ public class TextRenderer extends Renderer<Text> {
 		flow.setMinWidth(textModel.getWidth() == null ? DEFAULT_WIDTH : textModel.getWidth());
 		flow.setMinHeight(textModel.getHeight() == null ? DEFAULT_HEIGHT : textModel.getHeight());
 		
-
 		return flow;
 	}
 
@@ -128,7 +125,6 @@ public class TextRenderer extends Renderer<Text> {
 		text.setUnderline(textModel.getUnderline() == null ? DEFAULT_Underline : textModel.getUnderline());
 		
 		text.setFill(fill);
-		
 		
 		//Position
 		text.setX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
@@ -183,8 +179,6 @@ public class TextRenderer extends Renderer<Text> {
 			fill = format.getFill();
 		}
 		
-		
-		
 		text.setText(format.getText());
 		
 		//Color of text  
@@ -192,7 +186,6 @@ public class TextRenderer extends Renderer<Text> {
 			format.getFill() == null ? textModel.getFill() : format.getFill()
 		);//Can only test fill since color is background not foreground.
 		text.setStyle(format.createCSSStyle(format));
-		
 		
 		text.setUnderline(format.getUnderline() == null ? DEFAULT_Underline : format.getUnderline());
 				
@@ -211,8 +204,6 @@ public class TextRenderer extends Renderer<Text> {
 		ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
 		BooleanProperty underline = new SimpleBooleanProperty();
 		
-
-		
 		if (format.styleProperty()!= null) {
 			text.styleProperty().bind(style);
 			style.bind(format.styleProperty());
@@ -227,7 +218,6 @@ public class TextRenderer extends Renderer<Text> {
 			text.fillProperty().bind(paintFill);
 			paintFill.bind(format.paintFillProperty());
 		}
-		
 		
 		return text;
 	}

@@ -22,7 +22,6 @@ import javafx.util.Duration;
  * Audio player that houses media player
  * and controls.
  * @author lm1370, tmm522
- *
  */
 public class AudioPlayer extends BorderPane {
 	
@@ -133,7 +132,6 @@ public class AudioPlayer extends BorderPane {
         if(AppController.getInstance().viewing != null) {
         	AppController.getInstance().viewing.allMediaPlayers.add(mediaPlayer);
         }
-
 	}
 	
 	/**
@@ -155,7 +153,6 @@ public class AudioPlayer extends BorderPane {
 		    	}       
 	    	}
 		});
-	  
 	}
 	
     /**
