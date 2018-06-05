@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import java.net.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -31,29 +30,14 @@
 	<!-- Menu bar to be applied across all screens, apart from login screen -->
 	<!-- Coded by: jjds502, lm1370, tmm522, lr870, 1st iteration 22/02/2018 -->
 	<!-- Slight Re-arrangement of layout and separated text and shape editing tools, lm1370 , 21/03/2018 --> 
-	<!-- Text Area and button created by lr870 26/04/2018 -->
+	<!-- HTML Text Editor and Insert Text button created by lr870 26/04/2018 -->
 	
 	<top>
 		<BorderPane  fx:id="toolbar">
 			<top>
 				<ToolBar>
-				
 						<HBox>
 							<VBox prefHeight="150">
-								<HBox>
-									<Label text="Text"/>
-								</HBox>
-								<HBox>
-									<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
-									<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
-									<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
-									<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
-									<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
-									<Label text="Colour"/>
-									<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
-									<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
-									<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
-								</HBox>
 								<HBox>
 									<Label text="Shape"/>
 								</HBox>
@@ -76,15 +60,31 @@
 									<CheckBox fx:id="scrollVideo" onAction="#handlescrollVideoAction"/>
 									<Button text="Sync" fx:id="syncSlide" onAction="#handlesyncSlideAction"/>
 								</HBox>
+							</VBox>
+							<VBox>
+								<padding><Insets right="50" left="50"/></padding>
+							</VBox>
+							<VBox>
 								<HBox>
+									<Label text="Text"/>
+								</HBox>
+								<HBox>
+									<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
+									<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
+									<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
+									<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
+									<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
+									<Label text="Colour"/>
+									<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
+									<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
+									<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
 									<Button text="Update Text" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
 								</HBox>
+								<HBox>
+									<HTMLEditor  fx:id="insertText"></HTMLEditor>
+								</HBox>
 							</VBox>
-							<HBox ><padding><Insets top="0" right="5" bottom="0" left="5"/></padding>
-								<HTMLEditor  fx:id="insertText"></HTMLEditor>
-							</HBox>
 						</HBox>	
-									
 				</ToolBar>
 			</top>	
 		</BorderPane>

@@ -17,5 +17,4 @@ public class VideoRenderer extends Renderer<Video>{
 		MovieView movieView = new MovieView(video.getPath(), video.getX(), video.getY(), video.getWidth(), video.getHeight());
         return movieView;
 	}
-
 }

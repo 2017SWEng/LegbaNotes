@@ -34,6 +34,7 @@ public class ViewingController {
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
 	private double nodeX;
 	private double nodeY;
+
 	public String pdfURL;
 		
 	@FXML

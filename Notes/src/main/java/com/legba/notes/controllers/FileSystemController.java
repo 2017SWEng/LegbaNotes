@@ -1,7 +1,6 @@
 package com.legba.notes.controllers;
 
 import java.util.List;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -51,7 +51,6 @@ public class TextRenderer extends Renderer<Text> {
 		//objects will be stored into
 		ArrayList<javafx.scene.text.Text> lines = new ArrayList<javafx.scene.text.Text>();
 		
-	
 		//For each line in the text model apply the correct renderer
 		for (int i=0; i<textModel.getContents().size(); i++) {
 			
@@ -62,7 +61,7 @@ public class TextRenderer extends Renderer<Text> {
 				}
 			}
 			else if (textModel.getContents().get(i) instanceof Format){
-				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i));
+				javafx.scene.text.Text renderedFormat = formatRenderer((Format)textModel.getContents().get(i), textModel);
 				lines.add(renderedFormat);
 				
 			}
@@ -73,23 +72,17 @@ public class TextRenderer extends Renderer<Text> {
 			else {
 				System.err.println("Passed unknown class in text model renderer");
 			}
-
 		}
 
 		TextFlow flow = new TextFlow();
 		flow.getChildren().addAll(lines);
-		
 		
 		flow.setLayoutX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
 		flow.setLayoutY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
 		flow.setMinWidth(textModel.getWidth() == null ? DEFAULT_WIDTH : textModel.getWidth());
 		flow.setMinHeight(textModel.getHeight() == null ? DEFAULT_HEIGHT : textModel.getHeight());
 		
-		//System.out.println(flow.getLayoutBounds());
-		//System.out.println(flow.getChildren().toString());
-		
 		return flow;
-		
 	}
 
 	/**
@@ -133,7 +126,6 @@ public class TextRenderer extends Renderer<Text> {
 		
 		text.setFill(fill);
 		
-		
 		//Position
 		text.setX(textModel.getX() == null ? DEFAULT_X : textModel.getX());
 		text.setY(textModel.getY() == null ? DEFAULT_Y : textModel.getY());
@@ -164,7 +156,6 @@ public class TextRenderer extends Renderer<Text> {
 		}
 		
 		return text;
-	
 	}
 	
 	/**
@@ -172,7 +163,7 @@ public class TextRenderer extends Renderer<Text> {
 	 * @param format Formatted text model
 	 * @return a javafx Text element that represents a subsection of formatted text 
 	 */
-	private javafx.scene.text.Text formatRenderer(Format format){
+	private javafx.scene.text.Text formatRenderer(Format format, Text textModel){
 		javafx.scene.text.Text text = new javafx.scene.text.Text();
 		
 		Paint fill;
@@ -188,21 +179,30 @@ public class TextRenderer extends Renderer<Text> {
 			fill = format.getFill();
 		}
 		
-		
-		
 		text.setText(format.getText());
 		
+		//Color of text  
+		text.setFill(
+			format.getFill() == null ? textModel.getFill() : format.getFill()
+		);//Can only test fill since color is background not foreground.
 		text.setStyle(format.createCSSStyle(format));
 		
-		text.setFill(fill);
-		
 		text.setUnderline(format.getUnderline() == null ? DEFAULT_Underline : format.getUnderline());
-		
+				
+		//Checking Bold and Italic.
+		Boolean isItalic = (format.getItalic() == null) ? textModel.getItalic() : format.getItalic();
+		Boolean isBold = (format.getBold() == null) ? textModel.getBold() : format.getBold();
+
+		text.setFont(Font.font(
+				format.getFont() == null ? textModel.getFont() : format.getFont(), 
+				isBold == null ? FontWeight.NORMAL : FontWeight.BOLD,
+				isItalic == null ? FontPosture.REGULAR : FontPosture.ITALIC,
+				format.getTextsize() == null ? textModel.getTextsize() : format.getTextsize())
+			);
+
 		StringProperty style = new SimpleStringProperty();
 		ObjectProperty<Paint> paintFill = new SimpleObjectProperty<Paint>();
 		BooleanProperty underline = new SimpleBooleanProperty();
-		
-
 		
 		if (format.styleProperty()!= null) {
 			text.styleProperty().bind(style);
@@ -218,7 +218,6 @@ public class TextRenderer extends Renderer<Text> {
 			text.fillProperty().bind(paintFill);
 			paintFill.bind(format.paintFillProperty());
 		}
-		
 		
 		return text;
 	}
