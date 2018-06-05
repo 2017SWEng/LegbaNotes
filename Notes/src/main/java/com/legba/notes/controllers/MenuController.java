@@ -100,7 +100,7 @@ public class MenuController implements Observer{
 		AppModel.getInstance().addVeiwModeObserver(this);
 		
 		// force updateMode to load default page
-		updateMode(ViewMode.Mode.HOMEPAGE);
+		updateMode(AppModel.getInstance().getVeiwMode());
 	}
 	
 	@FXML
@@ -151,7 +151,7 @@ public class MenuController implements Observer{
 	// Loads fxml file
  	private Node loadFXML(URL path){
  		System.out.println("[+] Loading " + path);
-		FileSystemController fsc = AppController.getInstance().fileSystemController;
+		//FileSystemController fsc = AppController.getInstance().fileSystemController;
 		
  		Node node = null;
 		try {

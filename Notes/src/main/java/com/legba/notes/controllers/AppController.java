@@ -207,7 +207,7 @@ public class AppController implements Observer{
 		AppModel.getInstance().addVeiwModeObserver(this);
 		
 		// force updateMode to load default page
-		updateMode(ViewMode.Mode.HOMEPAGE);
+		updateMode(ViewMode.Mode.LOGIN);
 
 	}
 	
@@ -286,6 +286,7 @@ public class AppController implements Observer{
 		else if (mode ==Mode.LOGIN){
 			path = AppController.loginPath;
 			menu.notesMenu.setDisable(true);
+			
 		}
 		else if (mode ==Mode.MODULE_MANAGEMENT){
 			path = AppController.moduleManagePath;
