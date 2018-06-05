@@ -137,12 +137,15 @@ public class MenuController implements Observer{
 
 	private void switchToHomepage(){
 		topbar_root.setBottom(null);
+		topbar_root.setVisible(true);
 	}
 	private void switchToModuleManagement(){
 		topbar_root.setBottom(null);
+		topbar_root.setVisible(true);
 	}
 	private void switchToViewing(){
 		topbar_root.setBottom(loadFXML( getClass().getClassLoader().getResource(toolbarPath)));
+		topbar_root.setVisible(true);
 	}
 	
 	// Loads fxml file

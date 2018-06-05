@@ -72,7 +72,7 @@
 							</VBox>
 							
 							<HBox ><padding><Insets top="0" right="5" bottom="0" left="5"/></padding>
-								<HTMLEditor  fx:id="insertText"></HTMLEditor>
+								<HTMLEditor fx:id="insertText"></HTMLEditor>
 								<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
 							</HBox>
 						</HBox>	

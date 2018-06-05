@@ -276,7 +276,7 @@ public class AppController implements Observer{
 		
 		if (mode == Mode.HOMEPAGE){
 			path = AppController.homepagePath;
-			this.addMenu();
+			//this.addMenu();
 			menu.notesMenu.setDisable(true);
 		}
 		else if(mode == Mode.VEIWING){
@@ -285,11 +285,12 @@ public class AppController implements Observer{
 		}
 		else if (mode ==Mode.LOGIN){
 			path = AppController.loginPath;
+			menu.notesMenu.setDisable(true);
 		}
 		else if (mode ==Mode.MODULE_MANAGEMENT){
 			path = AppController.moduleManagePath;
 			menu.notesMenu.setDisable(true);
-			this.addMenu();
+			//this.addMenu();
 		}
 		
 		
