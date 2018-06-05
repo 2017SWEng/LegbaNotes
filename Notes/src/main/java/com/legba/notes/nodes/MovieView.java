@@ -315,7 +315,7 @@ public class MovieView extends Region {
 
                 label.setText(Double.toString(currentTime));
             }
-            if (AppController.getInstance().toolbar.scrollVideo.isSelected() == false) {
+            if (AppController.getInstance().toolbar.scrollVideo.isSelected() == true) {
             	AppController.getInstance().viewing.scrollToDuration(val);
             }
             

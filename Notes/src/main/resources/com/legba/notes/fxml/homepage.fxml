@@ -44,7 +44,7 @@
 						<VBox alignment="CENTER">
 							<padding><Insets top="30" right="0" bottom="0" left="0"/></padding>
 							<Button fx:id="formsBtn" text="Go to forms" onAction="#GoToForm"/>
-							<Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/>
+							<!-- <Button fx:id="LoginTest" text="Go to login screen" onAction="#GoToLogin"/> -->
 						</VBox>
 					</VBox>
 				</VBox>

@@ -104,36 +104,44 @@ public class HTMLConverter {
 			}
 		}
 		
-		//Font
 		Element fontTag = doc.getElementsByTag("font").get(0);
 		
-		
-		
-		
-		pws.setFont(fontTag.attr("face"));
-		
-		//let's have a bodge of the sizings
-		switch (Integer.parseInt(fontTag.attr("size"))){
-		case 1: pws.setTextsize(8);
-		break;
-		case 2: pws.setTextsize(10);
-		break;
-		case 3: pws.setTextsize(12);
-		break;
-		case 4: pws.setTextsize(14);
-		break;
-		case 5: pws.setTextsize(18);
-		break;
-		case 6: pws.setTextsize(24);
-		break;
-		case 7: pws.setTextsize(36);
-		break;
+		//Font
+		if(fontTag.attr("face").equals("")) {
+			//No font selected
+		} else {
+			pws.setFont(fontTag.attr("face"));
 		}
 		
-		pws.setFill(Color.web(fontTag.attr("color")));
+		//Size
+		if(fontTag.attr("size").equals("")) {
+			//No size selected
+		} else {
+			switch (Integer.parseInt(fontTag.attr("size"))){
+				case 1: pws.setTextsize(8);
+					break;
+				case 2: pws.setTextsize(10);
+					break;
+				case 3: pws.setTextsize(12);
+					break;
+				case 4: pws.setTextsize(14);
+					break;
+				case 5: pws.setTextsize(18);
+					break;
+				case 6: pws.setTextsize(24);
+					break;
+				case 7: pws.setTextsize(36);
+					break;
+			}
+		}
 		
-		//Bold
-		
+		//Fill
+		if(fontTag.attr("color").equals("")) {
+			//No color selected
+		} else {
+			pws.setFill(Color.web(fontTag.attr("color")));
+		}
+
 		return pws;
 	}
 	
