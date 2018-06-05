@@ -24,11 +24,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Rotate;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -581,8 +579,6 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		
-		
-
 		insertText.setDisable(false);
 		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);

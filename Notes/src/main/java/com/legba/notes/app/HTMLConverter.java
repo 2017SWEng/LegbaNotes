@@ -30,7 +30,7 @@ public class HTMLConverter {
 		System.out.println("\n-----" + text + "\n-----");
 		
 		html.append("<html dir=\"ltr\"><head></head><body contenteditable='true' style=\"" + 
-				"font-color:" + text.getColor() + ";font-family:" + text.getFont() + 
+				"color:#" + text.getFill().toString().substring(2) + ";font-family:" + text.getFont() + 
 				";font-size:" + text.getTextsize() + "pt");
 		if(text.getItalic() == true) {
 			html.append(";font-style:italic");
@@ -149,10 +149,10 @@ public class HTMLConverter {
 				String Size = Styles[i].split(":")[1].split("pt")[0];
 				text.setTextsize(Integer.parseInt(Size));
 			}
-			else if(Styles[i].startsWith("font-color")) {
-				String StringColor = Styles[i].split(":")[1];
+			else if(Styles[i].startsWith("color")) {
+				String StringColor = "0x" + Styles[i].split("#")[1];
 				Color color = Color.web(StringColor);
-				text.setColor(color);
+				text.setFill(color);
 			}
 			else if(Styles[i].startsWith("font-family")) {
 				String Font = Styles[i].split(":")[1];
