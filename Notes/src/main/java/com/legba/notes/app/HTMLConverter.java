@@ -121,7 +121,8 @@ public class HTMLConverter {
 		//Print out for testing purposes only
 		System.out.println("-----\n" + doc.body()/*.getElementsByTag("p")*/ + "\n-----");
 		
-		buildString(doc.body(), pws);
+		//buildString(doc.body(), pws);
+		pws.addContents(doc.body().text());
 		applyStyle(StyleString, pws);
 		
 		System.out.println("Current PWS file contents: " + pws);
