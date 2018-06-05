@@ -36,28 +36,54 @@
 		<BorderPane  fx:id="toolbar">
 			<top>
 				<ToolBar>
-					<HBox>
-						<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
-						<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
-						<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
-						<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
-						<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
-						<Button text="Br" fx:id="pageBreak" onAction="#handlePageBreakAction"  />
-						<ColorPicker prefWidth="30" fx:id="textColor" onAction="#handleFontColorAction"/>
-						<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
-						
-						<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
-						<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
-						<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
-						<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
-						<Button text="Submit" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
-					</HBox>
-					<HBox>
-						<HTMLEditor fx:id="insertText"></HTMLEditor>
-						<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
-						<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
-					</HBox>				
-				</ToolBar>
+
+						<HBox>
+							<VBox prefHeight="150">
+								<HBox>
+									<Label text="Text"/>
+								</HBox>
+								<HBox>
+									<ToggleButton text="B" fx:id="boldFont" onAction="#handleBoldFontAction"/>
+									<ToggleButton text="I" fx:id="italicFont" onAction="#handleItalicFontAction"/>
+									<ToggleButton text="U" fx:id="undFont" onAction="#handleUndFontAction"/>
+									<ComboBox fx:id="sizeCombo" promptText="Size" onAction="#handleSizeAction"/>
+									<ComboBox fx:id="fontCombo" promptText="Font" onAction="#handleFontAction"/>
+									<Label text="Colour"/>
+									<ColorPicker prefWidth="30" fx:id="textFill" onAction="#handleFontFillAction"/>
+									<CheckBox fx:id="textFillGradient" onAction="#handleTextFillGradientAction"/>
+									<ColorPicker prefWidth="30" fx:id="textFill2" onAction="#handleTextFill2Action"/>
+								</HBox>
+								<HBox>
+									<Label text="Shape"/>
+								</HBox>
+								<HBox>
+									<ComboBox fx:id="typeCombo" promptText="Shape" onAction="#handleShapeTypeAction"/>
+									<ComboBox fx:id="strokeCombo" promptText="Stroke" onAction="#handleStrokeTypeAction"/>
+									<Label text="Stroke Colour"/>
+									<ColorPicker prefWidth="30" fx:id="strokeColor" onAction="#handleStrokeColorAction"/>
+									<CheckBox fx:id="strokeGradient" onAction="#handleStrokeGradientAction"/>
+									<ColorPicker prefWidth="30" fx:id="strokeColor2" onAction="#handleStrokeColor2Action"/>
+									<Label text="Fill Colour"/>
+									<ColorPicker prefWidth="30" fx:id="shapeFill" onAction="#handleShapeFillAction"/>
+									<CheckBox fx:id="fillGradient" onAction="#handleFillGradientAction"/>
+									<ColorPicker prefWidth="30" fx:id="shapeFill2" onAction="#handleShapeFill2Action"/>
+								</HBox>
+								<HBox>
+									<Button text="Delete" fx:id="deleteElement" onAction="#handleDeleteElementAction"  />
+									<ComboBox fx:id="addCombo" promptText="Add" onAction="#handleAddItemAction"/>
+									<Label text="Scroll with Slides"/>
+									<CheckBox fx:id="scrollVideo" onAction="#handlescrollVideoAction"/>
+									<Button text="Sync" fx:id="syncSlide" onAction="#handlesyncSlideAction"/>
+								</HBox>
+								<HBox>
+									<Button text="Update Text" fx:id="insertTextButton" onAction="#handleInsertTextAction"/>
+								</HBox>
+							</VBox>
+							<HBox ><padding><Insets top="0" right="5" bottom="0" left="5"/></padding>
+								<HTMLEditor  fx:id="insertText"></HTMLEditor>
+							</HBox>
+						</HBox>	
+													</ToolBar>
 				
 			</top>	
 		</BorderPane>

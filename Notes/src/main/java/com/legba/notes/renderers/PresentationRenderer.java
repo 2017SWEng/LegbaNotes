@@ -2,6 +2,7 @@ package com.legba.notes.renderers;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
@@ -44,8 +45,7 @@ public class PresentationRenderer extends Renderer<Presentation>{
 		if (pres == null){
 			System.err.println("Attempted to render a null presentation");
 		}
-		
-		
+
 		VBox vbox = new VBox();
 		vbox.getStyleClass().add("element-presentation");
 		
@@ -67,6 +67,8 @@ public class PresentationRenderer extends Renderer<Presentation>{
 		scroller.setFitToWidth(true);
 		
 		return scroller;
+		
+		
 	}
 
 

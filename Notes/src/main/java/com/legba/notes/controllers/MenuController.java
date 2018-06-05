@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.scene.input.MouseEvent;
 
+
 public class MenuController implements Observer{
 
 	
@@ -118,6 +119,9 @@ public class MenuController implements Observer{
 		else if (mode == Mode.LOGIN){
 			switchtoLogin();
 		}
+		else if (mode == Mode.MODULE_MANAGEMENT){
+			switchToModuleManagement();
+		}
 		else{
 			System.err.println(this.toString() +" : uknown viewmode bailing to homepage" );
 			switchToHomepage();
@@ -134,7 +138,9 @@ public class MenuController implements Observer{
 	private void switchToHomepage(){
 		topbar_root.setBottom(null);
 	}
-	
+	private void switchToModuleManagement(){
+		topbar_root.setBottom(null);
+	}
 	private void switchToViewing(){
 		topbar_root.setBottom(loadFXML( getClass().getClassLoader().getResource(toolbarPath)));
 	}

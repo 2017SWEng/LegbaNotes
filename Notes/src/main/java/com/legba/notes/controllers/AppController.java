@@ -1,8 +1,11 @@
 package com.legba.notes.controllers;
 
 
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -10,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,8 +26,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
@@ -61,6 +68,13 @@ public class AppController implements Observer{
 
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
+		
+		//Set stage to boundaries of monitor
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		this.mainStage.setWidth(1000);
+		this.mainStage.setHeight(primaryScreenBounds.getHeight());
+		this.mainStage.setMinWidth(1000);
+		this.mainStage.setMinHeight(primaryScreenBounds.getHeight());
 		
 		//Different view modes equal different exit messages			
 		mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {	
@@ -262,7 +276,8 @@ public class AppController implements Observer{
 		
 		if (mode == Mode.HOMEPAGE){
 			path = AppController.homepagePath;
-			menu.notesMenu.setDisable(true);;
+			this.addMenu();
+			menu.notesMenu.setDisable(true);
 		}
 		else if(mode == Mode.VEIWING){
 			path = AppController.viewingPath;
@@ -273,6 +288,8 @@ public class AppController implements Observer{
 		}
 		else if (mode ==Mode.MODULE_MANAGEMENT){
 			path = AppController.moduleManagePath;
+			menu.notesMenu.setDisable(true);
+			this.addMenu();
 		}
 		
 		
@@ -363,12 +380,36 @@ public class AppController implements Observer{
 		//we now have everything we need
 		//append to the file
 		//!! add checking to this !!
-		FileWriter fw = new FileWriter(recentsDoc, true);
-	    BufferedWriter bw = new BufferedWriter(fw);
-	    bw.write(openedFile.getAbsolutePath());
-	    bw.newLine();
-	    bw.flush();
-	    bw.close();
+		
+		
+		List<String> listItems = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader(recentsDoc.toString()));
+		try {
+		    String line = br.readLine();
+		    while (line != null) {
+		    	listItems.add(line.trim());
+		        line = br.readLine();
+		    }
+		} finally {
+		    br.close();
+		}
+		
+		boolean containsFileAlready = false;
+		
+		for(int i = 0; i < listItems.size(); i++){
+			if(listItems.get(i).equals(openedFile.getAbsolutePath())){
+				containsFileAlready = true;
+			}
+		}
+		
+		if(!containsFileAlready){
+			FileWriter fw = new FileWriter(recentsDoc, true);
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    bw.write(openedFile.getAbsolutePath());
+		    bw.newLine();
+		    bw.flush();
+		    bw.close();
+		}
 	    
 	    //testing purposes
 	    System.out.println("recents updated");

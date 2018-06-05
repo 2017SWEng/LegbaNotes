@@ -1,12 +1,17 @@
 package com.legba.notes.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
+import com.legba.notes.elements.Slide;
 import com.legba.notes.elements.base.SlideElement;
 import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.PdfView;
+import com.legba.notes.nodes.MovieView;
 import com.legba.notes.renderers.PresentationRenderer;
 
 import javafx.fxml.FXML;
@@ -21,16 +26,20 @@ import javafx.util.Duration;
 
 /**
  * Controller for the viewing screen containing notes and PDF viewer
- * @author lm1370 and ...
+ * @author vc622 and lm1370 and hjew501
  *
  */
 public class ViewingController {
 	
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
+
+	
 	
 	private double nodeX;
 	private double nodeY;
-	
+
+	public String pdfURL;
+		
 	@FXML
 	private SplitPane viewing_root;
 	
@@ -42,6 +51,19 @@ public class ViewingController {
 	
 	@FXML 
 	public Text actiontarget;
+	
+	public Double getReferenceRootTime() {
+		
+		Duration duration = null;
+		Double durationInt;
+		for(Node nodeIn:reference_root.getChildren()){
+            if(nodeIn instanceof MovieView){
+                duration = ((MovieView)nodeIn).getMediaPlayer().getCurrentTime();
+            }
+        }
+		durationInt = duration.toSeconds();
+		return durationInt;
+	}
 	
 	/**
 	 * Returns slide size index
@@ -82,20 +104,33 @@ public class ViewingController {
 			slideIndex = slideLengths.length -1;
 		}
 
+		//slideIndex = 0;
+		
 		VBox slideBox = ((VBox)((ScrollPane)notes_root.getChildren().get(0)).getContent());
+		ScrollPane scrollPane = (ScrollPane)notes_root.getChildren().get(0);
 		double totalSlideSize = slideBox.getHeight();
 		
-		double nextSLideHeight = 0;
-		for(int i = 0; i <= slideIndex; i++){
-			nextSLideHeight+=slideLengths[i];
+		double nextSlideHeight = slideLengths[0];
+		for(int i = 1; i <= slideIndex+1; i++){
+			nextSlideHeight+=slideLengths[i];
 		}
 		
+		System.out.println("slideIndex: " + slideIndex);
+		System.out.println("slideLengths: " + Arrays.toString(slideLengths));
 		System.out.println("totalSlideSize: " + totalSlideSize);
-		System.out.println("nextSLideHeight: " + nextSLideHeight);
-		System.out.println("actual scroll size: " + nextSLideHeight/totalSlideSize);
+		System.out.println("nextSlideHeight: " + nextSlideHeight);
+		System.out.println("actual scroll size: " + nextSlideHeight/totalSlideSize);
+		System.out.println("actual scroll size: " + slideLengths.length);
+		System.out.println("vvalue: " + ((ScrollPane)notes_root.getChildren().get(0)).getVvalue());
 		
-		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(nextSLideHeight/totalSlideSize);
+		Double h = slideBox.getBoundsInLocal().getHeight();
+		Double v = scrollPane.getViewportBounds().getHeight();
 		
+		Double value = scrollPane.getVmax() * ((nextSlideHeight)/(h - v));
+		
+		System.out.println(value);
+		
+		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(value);
 	}
 	
 	/**
@@ -163,6 +198,51 @@ public class ViewingController {
 		}
 	}
 	
+	
+	public void scrollToDuration(Duration duration) {
+		
+		List<Slide> slides = AppModel.getInstance().getPres().getSlide();
+		List<Integer> slidesDuration = new ArrayList<Integer>();
+		List<Integer> slidesIndex = new ArrayList<Integer>();
+		for (int i = 0; i < slides.size(); i++) {
+			if (slides.get(i).getDuration() != null) {
+				slidesDuration.add(slides.get(i).getDuration());
+				slidesIndex.add(i);
+			}
+		};
+		
+		int temp = 0;
+		if (slidesDuration != null) {
+				for (int i = 0; i < slidesDuration.size(); i++) {
+					for(int j = 1; j < (slidesDuration.size() - i); j++) {
+						if (slidesDuration.get(j - 1) > slidesDuration.get(j)) {
+							temp = slidesDuration.get(j - 1);
+							slidesDuration.set(j - 1, slidesDuration.get(j));
+							slidesDuration.set(j, temp);
+							temp = slidesIndex.get(j - 1);
+							slidesIndex.set(j - 1, slidesIndex.get(j));
+							slidesIndex.set(j, temp);
+						}
+					}
+				}
+		}		
+		
+		int slideToMoveTo = -1;
+		
+		for (int i= 0; i < slidesDuration.size(); i++) {
+			if (duration.toSeconds() > slidesDuration.get(i)) {
+				slideToMoveTo = slidesIndex.get(i);
+			}
+		}
+		if (slideToMoveTo == -1) {
+			slideToMoveTo = 0;
+		}
+		
+		scrollToSlide(slideToMoveTo);
+		
+		System.out.println("Duration: " + slidesDuration + ". Slides: " + slidesIndex);
+	}
+	
 	/**
 	 * Method that controls moving elements. If element hasn't been 
 	 * moved it returns false. Then gets the combination of the 
@@ -209,7 +289,7 @@ public class ViewingController {
 	public ViewingController(){
 		
 	}
-	
+
 	/**
 	 * Initialise method
 	 */
@@ -228,9 +308,53 @@ public class ViewingController {
 		notes_root.getChildren().clear();
 		notes_root.getChildren().add(pr.render(pres));
 		
-		PdfView pdfView = new PdfView("https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf".toString());
-		reference_root.getChildren().clear();
-		reference_root.getChildren().add(pdfView);
+		//String pdfURL = "https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf"
+		Presentation presentation = AppModel.getInstance().getPres();
+		String pdfAddress = null;
+		File videoAddress = null;
+		Boolean showPDF = false;
+		for (Meta metaStuff: presentation.getMeta()){
+			if (metaStuff.getKey().equals("associated:pdf")) {
+				pdfAddress = metaStuff.getValue();
+				System.out.println("got PDF: " + pdfAddress);
+				showPDF = true;
+			} else if(metaStuff.getKey().equals("associated:video")){
+				videoAddress = new File(metaStuff.getValue());
+				System.out.println("got Video: " + videoAddress.getName());
+				showPDF = false;
+			}
+		}
+		
+		if (pdfAddress == null && videoAddress == null){
+			pdfAddress = "http://www.iupui.edu/~womrel/REL%20300%20Spirit/REL%20300_Spirit/Lwa.pdf";
+			System.out.println("No associated PDF/Video found; default selected: " + pdfAddress);
+			PdfView pdfView = new PdfView(pdfAddress);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(pdfView);
+		} else if(showPDF){
+			PdfView pdfView = new PdfView(pdfAddress);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(pdfView);
+		} else {
+			MovieView movieView = new MovieView(videoAddress.getName(), 0, 0, 500, 400);
+			reference_root.getChildren().clear();
+			reference_root.getChildren().add(movieView);
+		}
+		
+		//PdfView pdfView = new PdfView(pdfURL);
+		//http://www.iupui.edu/~womrel/REL%20300%20Spirit/REL%20300_Spirit/Lwa.pdf
+		//https://courses.physics.illinois.edu/phys580/fa2013/uncertainty.pdf
+		//http://www.metaphysicspirit.com/books/The%20Voodoo%20Hoodoo%20Spellbook.pdf
+		
+		//MovieView movieView = new MovieView ("local_file.mp4",40,65,600,500);
+		
 		
 	}
+ 	
+ 	public void refresh(String pdfURL){
+ 		PdfView pdfView = new PdfView(pdfURL);
+ 		reference_root.getChildren().clear();
+		reference_root.getChildren().add(pdfView); 		
+ 	};
+
 }

@@ -43,7 +43,7 @@ public class HomepageController {
 	@FXML public void GoToForm(ActionEvent event){
 		AppModel.getInstance().setVeiwMode(Mode.MODULE_MANAGEMENT);
 	}
-	@FXML public void handleListClick(MouseEvent event) {
+	@FXML public void handleContentListClick(MouseEvent event) {
 		
 		try{
 			//Change view to viewer and render the selected Object(s)
@@ -59,6 +59,35 @@ public class HomepageController {
 			
 			try {
 				File file = new File(contentList.getSelectionModel().getSelectedItem());
+				AppController.getInstance().updateRecents(file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Unable to update Recent Docs");
+				e.printStackTrace();
+			}
+		}
+		catch (NullPointerException e) {
+			//if it fails, ramain in the homepage mode and then ask for a file
+			System.out.println("Please select a file...");
+		}
+		
+	}
+@FXML public void handleRecentsListClick(MouseEvent event) {
+		
+		try{
+			//Change view to viewer and render the selected Object(s)
+			FileSystemController fsc = new FileSystemController();
+			//get the file selected from the list
+			Presentation pres = fsc.loadXmlFile(recentsList.getSelectionModel().getSelectedItem());	
+			//if chosen the file should be rendered in the view mode
+			AppModel.getInstance().setPres(pres);
+			AppModel.getInstance().setVeiwMode(Mode.VEIWING);
+			
+			//Output to console
+			System.out.println("selected " + recentsList.getSelectionModel().getSelectedItem());
+			
+			try {
+				File file = new File(recentsList.getSelectionModel().getSelectedItem());
 				AppController.getInstance().updateRecents(file);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -205,6 +234,10 @@ public class HomepageController {
 		
 		
 		System.out.println("Home Page Initialised");
+		
+		//AppController.getInstance().getMainStage().addEventHandler(eventType, eventHandler);
+		//setup list views
+		//this.contentList.resize(AppController.getInstance().getMainStage().getWidth()/2, AppController.getInstance().getMainStage().getHeight()/2);
 		
 	}
 	

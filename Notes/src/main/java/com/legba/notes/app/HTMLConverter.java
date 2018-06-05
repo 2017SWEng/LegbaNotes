@@ -10,6 +10,8 @@ import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
+import javafx.scene.paint.Paint;
+
 public class HTMLConverter {
 	
 	/**
@@ -18,6 +20,11 @@ public class HTMLConverter {
 	 * @return html.toString() which is the converted text
 	 */
 	public static String toHTML(Text text) {
+		
+		if (text == null) {
+			return null;
+		}
+		
 		StringBuilder html = new StringBuilder();
 		
 		System.out.println("\n-----" + text + "\n-----");
@@ -98,13 +105,16 @@ public class HTMLConverter {
 				System.err.println("Error");
 			}
 		}
-		if(text.getUnderline() == true) {
+		if((text.getFont() != null)) {
+			html.append("</font>");
+		}
+		if((text.getUnderline() != null) && (text.getUnderline() == true)) {
 			html.append("</u>");
 		}
-		if(text.getBold() == true) {
+		if((text.getBold() != null) && (text.getBold() == true)) {
 			html.append("</b>");
 		}
-		if(text.getItalic() == true) {
+		if((text.getItalic() != null) && (text.getItalic() == true)) {
 			html.append("</i>");
 		}
 		html.append("</body></html>");
@@ -126,6 +136,7 @@ public class HTMLConverter {
 		applyStyle(StyleString, pws);
 		
 		System.out.println("Current PWS file contents: " + pws);
+
 		
 		return pws;
 	}
