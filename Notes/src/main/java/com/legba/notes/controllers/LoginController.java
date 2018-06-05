@@ -40,11 +40,19 @@ public class LoginController {
 		}
 	}
 	
+	@FXML
+	public void onEnter(ActionEvent ae){
+		if( usernameField.getText().equals("legba") && passwordField.getText().equals("password") ){
+			AppModel.getInstance().setVeiwMode(Mode.HOMEPAGE);
+		}
+	}
+	
 	public LoginController(){
 		
 	}
 	
 	public void initialize() {
+		
 		
 	}
 }
