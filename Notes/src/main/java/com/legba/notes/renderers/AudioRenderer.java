@@ -1,6 +1,7 @@
 package com.legba.notes.renderers;
 
 import com.legba.notes.elements.Audio;
+import com.legba.notes.models.AppModel;
 import com.legba.notes.nodes.AudioPlayer;
 
 import javafx.scene.Node;
@@ -25,7 +26,7 @@ public class AudioRenderer extends Renderer<Audio> {
 	 */
 	public Node render (Audio audio) {	
 		// Setup mediaplayer
-		Media media = new Media(new File(audio.getPath()).toURI().toString());        
+		Media media = new Media(new File(AppModel.getInstance().getFile() + audio.getPath()).toURI().toString());        
         AudioPlayer audioPlayer = new AudioPlayer(media, audio.getX(), audio.getY(), audio.getWidth(), audio.getHeight());
 
 		return audioPlayer;

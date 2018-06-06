@@ -1,6 +1,7 @@
 package com.legba.notes.controllers;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +11,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.FilenameFilter;
+import java.io.BufferedWriter;
+import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -26,7 +37,9 @@ public class FileSystemController {
 	Unmarshaller unmarshaller;
 	
 	JAXBContext context;
-	
+	private final String recentDocsFileName = ".recentdocs";
+
+
 	public FileSystemController(){
 		
 
@@ -206,13 +219,6 @@ public class FileSystemController {
 	}
 
 	
-	protected List<Module> readModuleFile(){
-		/**
-		 * @author jjds502
-		 */
-		return null;
-	}
-	
 	protected List<Course> readCourseFile(){
 		/**
 		 * @author jjds502
@@ -234,5 +240,142 @@ public class FileSystemController {
 	}
 	
 	
+	public Path getLegbaPath() {
+ 		//append to the recents file
+		Path path = Paths.get(System.getProperty("user.home") + File.separator + "Legba");
+		
+		
+		if(!Files.exists(path))
+		{
+			//create the directory
+			try{
+				File LegbaDir = path.toFile();
+				LegbaDir.mkdir();
+				System.out.println("Legba directory created...");
+			}
+			catch(SecurityException se){
+				se.printStackTrace();
+				System.err.println("Unable to create legba folder in home directory");
+				return null;
+			}
+		}
+		
+ 		return path;
+ 	}
+
 	
+	public List<String> loadScannedFiles() {
+		
+		System.out.println("Adding list of items from ~/Legba to homepage");
+		
+		File[] files = scanDirectoryForNotes(getLegbaPath().toFile());
+		
+		List<String> fileItems = new ArrayList<String>();
+
+		for(int i = 0; i < files.length; i++ ){
+			fileItems.add(files[i].toString());
+		}	
+		
+		System.out.println("Added " + fileItems.size() + " items from ~/Legba to homepage");
+		return fileItems;
+	}
+
+		protected List<Module> readModuleFile(){
+		/**
+		 * @author jjds502
+		 */
+		return null;
+	}
+
+	public File[] scanDirectoryForNotes(File dir) {
+ 		
+		System.out.println(dir.getAbsolutePath());
+		System.out.println(dir.isDirectory());
+		
+		if (dir.isDirectory()) {
+ 			
+ 			FilenameFilter valid = new FilenameFilter() {
+				public boolean accept(File dir, String filename) {
+					return filename.endsWith(".pws");
+				}
+			};
+ 			
+ 			return dir.listFiles(valid);
+ 		}
+ 		return null;
+ 	}
+
+public List<String> loadRecentDocsFile() throws FileNotFoundException {
+ 		
+ 		System.out.println("Loading recent docs file");
+		Path legbaPath = getLegbaPath();
+		if (legbaPath == null) {
+			return null;
+		}
+		
+		File recentsDoc = new File(legbaPath.toString() + File.separator + recentDocsFileName);
+		if(Files.exists(Paths.get(recentsDoc.getPath()))) {
+			Scanner sc = new Scanner(recentsDoc);
+			Set<String> lines = new HashSet<String>();
+			while (sc.hasNextLine()) {
+			  lines.add(sc.nextLine().trim());
+			}
+			sc.close();
+			System.out.println("Loaded " + lines.size() + " recent docs");
+			
+			List<String> recents = new ArrayList<String>();
+			recents.addAll(lines);
+			
+			return recents;
+		}
+		else {
+			System.out.println("No recent docuemnts file");
+			return null;
+		}
+		
+ 	}
+ 	
+ 	public void saveRecentDocsFile(List<String> lines) throws IOException {
+ 		
+ 		System.out.println("Saving recent docs file");
+
+		Path legbaPath = getLegbaPath();
+		if (legbaPath == null) {
+			return;
+		}
+		
+		File recentsDoc = new File(legbaPath.toString() + File.separator + recentDocsFileName);
+
+		FileWriter fw = new FileWriter(recentsDoc);
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    for(String l : lines) {
+		    bw.write(l);
+		    bw.newLine();
+		    System.out.println(l);
+	    }
+	    bw.flush();
+	    bw.close();
+	    
+		System.out.println("Saved " + lines.size() + " recent docs");
+
+ 	}
+ 	
+ 	public void addFileToRecents(File openedFile) throws IOException{
+		 		
+ 		List<String> recents = loadRecentDocsFile();
+ 		
+ 		if (recents == null) {
+ 			recents = new ArrayList<String>();
+ 		}
+ 		
+ 		if (!recents.contains(openedFile.getAbsolutePath())) {
+ 	 		recents.add(openedFile.getAbsolutePath());
+ 		}
+ 		
+ 		saveRecentDocsFile(recents);
+ 		
+	    //testing purposes
+	    System.out.println("recents updated");
+	}
+
 }

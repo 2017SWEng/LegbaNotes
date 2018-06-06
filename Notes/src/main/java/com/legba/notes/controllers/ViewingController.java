@@ -323,7 +323,7 @@ public class ViewingController {
 			reference_root.getChildren().clear();
 			reference_root.getChildren().add(pdfView);
 		} else {
-			MovieView movieView = new MovieView(videoAddress.getName(), 0, 0, 500, 400);
+			MovieView movieView = new MovieView(AppModel.getInstance().getFile() + videoAddress.getName(), 0, 0, 500, 400);
 			reference_root.getChildren().clear();
 			reference_root.getChildren().add(movieView);
 		}
