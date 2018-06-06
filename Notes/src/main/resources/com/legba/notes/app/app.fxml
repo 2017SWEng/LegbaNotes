@@ -16,7 +16,7 @@
 	fx:id="root"
 	xmlns:fx="http://javafx.com/fxml/1"
 	stylesheets="@application.css"
-	prefWidth="800"
+	prefWidth="1000"
 	prefHeight="600">
 	
 	<fx:define>

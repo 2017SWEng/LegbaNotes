@@ -69,7 +69,7 @@ public class AppController implements Observer{
 		
 		//Set stage to boundaries of monitor
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		this.mainStage.setWidth(1000);
+		this.mainStage.setWidth(1200);
 		this.mainStage.setHeight(primaryScreenBounds.getHeight());
 		this.mainStage.setMinWidth(1000);
 		this.mainStage.setMinHeight(primaryScreenBounds.getHeight());
