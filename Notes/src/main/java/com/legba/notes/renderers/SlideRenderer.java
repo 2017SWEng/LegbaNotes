@@ -329,7 +329,6 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
-						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");

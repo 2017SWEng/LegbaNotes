@@ -603,11 +603,11 @@ public class ToolbarController {
 	 * Enables editing tools for slides and disables others
 	 */
 	public void slideMode() {
-		boldFont.setDisable(true);
+		/*boldFont.setDisable(true);
 		italicFont.setDisable(true);
 		undFont.setDisable(true);
 		fontCombo.setDisable(true);
-		sizeCombo.setDisable(true);
+		sizeCombo.setDisable(true);*/
 
 		textFill.setDisable(true);
 		typeCombo.setDisable(true);
