@@ -602,24 +602,7 @@ public class ToolbarController {
 	/**
 	 * Enables editing tools for slides and disables others
 	 */
-	public void slideMode() {
-		/*boldFont.setDisable(true);
-		italicFont.setDisable(true);
-		undFont.setDisable(true);
-		fontCombo.setDisable(true);
-		sizeCombo.setDisable(true);*/
-
-		textFill.setDisable(true);
-		typeCombo.setDisable(true);
-		strokeCombo.setDisable(true);
-		strokeColor.setDisable(true);
-		shapeFill.setDisable(true);
-		
-		strokeGradient.setDisable(true);
-		fillGradient.setDisable(true);
-		strokeColor2.setDisable(true);
-		shapeFill2.setDisable(true);
-		
+	public void slideMode() {	
 		syncSlide.setDisable(false);
 		
 		addCombo.setDisable(false);
