@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 /**
@@ -36,33 +35,29 @@ public class Format extends Element implements Colorable,Formatable{
 	private String font;
 	
 	private Boolean italic;
-	
 	private Boolean bold;
-	
+
 	private BooleanProperty underline;
 	
 	private Integer size;
 	
 	private ObjectProperty<Paint> paintColor;
-	
 	private ObjectProperty<Paint> paintFill;
 	
 	private String text;
-	
 	private StringProperty style;
 	
 	public Format() {
 		super();
-
 		
 		setStyle(createCSSStyle(this));
-
 	}
 	
 	@XmlValue
 	public String getText() {
 		return this.text;
 	}
+	
 	/**
 	 * Sets text of Format Element
 	 * @param text
@@ -71,6 +66,7 @@ public class Format extends Element implements Colorable,Formatable{
 		if (text == null) {
 			return;
 		}
+		
 		this.text=text;		
 	}
 	
@@ -79,7 +75,6 @@ public class Format extends Element implements Colorable,Formatable{
 	public String getFont() {
 		return this.font;
 	}
-
 
 	@Override
 	/**
@@ -95,14 +90,12 @@ public class Format extends Element implements Colorable,Formatable{
 		setStyle(createCSSStyle(this));
 	}
 
-
 	@Override
 	@XmlAttribute
 
 	public Boolean getItalic() {
 		return this.italic;
 	}
-
 
 	@Override
 	/**
@@ -136,7 +129,6 @@ public class Format extends Element implements Colorable,Formatable{
 		setStyle(createCSSStyle(this));
 	}
 
-
 	@XmlAttribute
 	public Boolean getUnderline() {
 		return (underline == null) ? null : underline.get();
@@ -163,18 +155,13 @@ public class Format extends Element implements Colorable,Formatable{
 		
 		underline.set(newUnderline);
 		setStyle(createCSSStyle(this));
-
-
-
 	}
-
 
 	@Override
 	@XmlAttribute
 	public Integer getTextsize() {
 		return this.size;
 	}
-
 
 	@Override
 	/**
@@ -191,117 +178,109 @@ public class Format extends Element implements Colorable,Formatable{
 
 
 	//Returns the colour of the outline
-		@Override
-	    @XmlJavaTypeAdapter(ColorAdapter.class)
-		@XmlAttribute
-		public Paint getColor() {
-			return (paintColor == null) ? null : paintColor.get();
-		}
+	@Override
+    @XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Paint getColor() {
+		return (paintColor == null) ? null : paintColor.get();
+	}
 		
-		public ObjectProperty<Paint> paintColorProperty() {
-			return this.paintColor;	
-		}
+	public ObjectProperty<Paint> paintColorProperty() {
+		return this.paintColor;	
+	}
 		
-		//Sets colour of outline if newColor is not null
-		@Override
-		public void setColor(Paint newColor) {
-			if(newColor == null){
-				paintColor = null;
-				return;
-			}
-			else if (paintColor == null){
-				paintColor = new SimpleObjectProperty<Paint>();
-			}
-			
+	//Sets colour of outline if newColor is not null
+	@Override
+	public void setColor(Paint newColor) {
+		if(newColor == null){
+			paintColor = null;
+			return;
+		}
+		else if (paintColor == null){
+			paintColor = new SimpleObjectProperty<Paint>();
+		}		
 			paintColor.set(newColor);	
-		}
+	}
 
-		//Returns the colour of the fill
-		@Override
-	    @XmlJavaTypeAdapter(ColorAdapter.class)
-		@XmlAttribute
-		public Paint getFill() {
-			return (paintFill == null) ? null : paintFill.get();
-		}
-		public ObjectProperty<Paint> paintFillProperty() {
-			return this.paintFill;	
-		}
+	//Returns the colour of the fill
+	@Override
+	@XmlJavaTypeAdapter(ColorAdapter.class)
+	@XmlAttribute
+	public Paint getFill() {
+		return (paintFill == null) ? null : paintFill.get();
+	}
+	public ObjectProperty<Paint> paintFillProperty() {
+		return this.paintFill;	
+	}
 		
-		//Sets colour of outline if newColor is not null
-		@Override
-		public void setFill(Paint newColor) {
-			if(newColor == null){
-				paintFill = null;
-				return;
-			}
-			else if (paintFill == null){
-				paintFill = new SimpleObjectProperty<Paint>();
-			}
-			
-			paintFill.set(newColor);
+	//Sets colour of outline if newColor is not null
+	@Override
+	public void setFill(Paint newColor) {
+		if(newColor == null){
+			paintFill = null;
+			return;
 		}
+		else if (paintFill == null){
+			paintFill = new SimpleObjectProperty<Paint>();
+		}		
+		paintFill.set(newColor);
+	}
 		
-		//public String getStyle() {
-			//return (style == null) ? null : style.get();
-		//}
+	//Creates a property for style
+	public StringProperty styleProperty() {
+		return this.style;
+	}
 		
-		//Creates a property for style
-		public StringProperty styleProperty() {
-			return this.style;
+	//Sets style if not null
+	public void setStyle(String newStyle) {
+		if(newStyle == null){
+			style = null;
+			return;
 		}
-		
-		//Sets style if not null
-		public void setStyle(String newStyle) {
-			if(newStyle == null){
-				style = null;
-				return;
-			}
-			else if (style == null){
-				style = new SimpleStringProperty();
-			}
-			
-			style.set(newStyle);
+		else if (style == null){
+			style = new SimpleStringProperty();
 		}
+			
+		style.set(newStyle);
+	}
 		
-		public String createCSSStyle(Format format) {
-			String tempString = null;
-			
-			boolean isBold = format.getBold() == null ? DEFAULT_Bold : format.getBold();
-			if (isBold == true) {
-				tempString = "-fx-font-weight: bold; ";
-			}
-			else
-			{
-				tempString = "-fx-font-weight: normal; ";
-			}
-			
-			boolean isItalic = format.getItalic() == null ? DEFAULT_Italic : format.getItalic();
-			if (isItalic == true) {
-				tempString = tempString + "-fx-font-style: italic; ";
-			}
-			else
-			{
-				tempString = tempString + "-fx-font-style: normal; ";
-			}
-			
-			if (format.getTextsize() == null) {
-				tempString = tempString + "-fx-font-size: " + DEFAULT_Textsize + "px; ";
-			}
-			else
-			{
-				tempString = tempString + "-fx-font-size: " + format.getTextsize() + "px; ";
-			}
-			
-			if (format.getFont() == null) {
-				tempString = tempString + "-fx-font-family: \"" + DEFAULT_Font + "\", serif; ";
-			}
-			else
-			{
-				tempString = tempString + "-fx-font-family: \"" + format.getFont() + "\", serif; ";
-			}
-			
-			
-			return tempString;
-			
+	public String createCSSStyle(Format format) {
+		String tempString = null;
+		
+		boolean isBold = format.getBold() == null ? DEFAULT_Bold : format.getBold();
+		if (isBold == true) {
+			tempString = "-fx-font-weight: bold; ";
 		}
+		else
+		{
+			tempString = "-fx-font-weight: normal; ";
+		}
+			
+		boolean isItalic = format.getItalic() == null ? DEFAULT_Italic : format.getItalic();
+		if (isItalic == true) {
+			tempString = tempString + "-fx-font-style: italic; ";
+		}
+		else
+		{
+			tempString = tempString + "-fx-font-style: normal; ";
+		}
+			
+		if (format.getTextsize() == null) {
+			tempString = tempString + "-fx-font-size: " + DEFAULT_Textsize + "px; ";
+		}
+		else
+		{
+			tempString = tempString + "-fx-font-size: " + format.getTextsize() + "px; ";
+		}
+			
+		if (format.getFont() == null) {
+			tempString = tempString + "-fx-font-family: \"" + DEFAULT_Font + "\", serif; ";
+		}
+		else
+		{
+			tempString = tempString + "-fx-font-family: \"" + format.getFont() + "\", serif; ";
+		}
+			
+		return tempString;			
+	}
 }

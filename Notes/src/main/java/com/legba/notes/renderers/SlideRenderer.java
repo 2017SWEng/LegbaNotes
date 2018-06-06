@@ -329,15 +329,19 @@ public class SlideRenderer extends Renderer<Slide> {
 			n.onMouseReleasedProperty().set(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {								
 					if(n!=null) {
+						
 						//Sets variables
 						AppController.getInstance().toolbar.CurrentText = text;
 						AppController.getInstance().toolbar.CurrentElement = new String("Text");
 						
-						//Enable text mode
-						AppController.getInstance().toolbar.textMode();							
+						//Enable Text mode
+						AppController.getInstance().toolbar.textMode();	
+						
+						//Displays selected shape variables on toolbar
+						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
 						
 						//Displays selected shape variables on toolbar */
-						/*AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
+						AppController.getInstance().toolbar.boldFont.setSelected(text.getBold());
 						AppController.getInstance().toolbar.italicFont.setSelected(text.getItalic());
 						AppController.getInstance().toolbar.undFont.setSelected(text.getUnderline());
 						
@@ -345,7 +349,7 @@ public class SlideRenderer extends Renderer<Slide> {
 						AppController.getInstance().toolbar.sizeCombo.setValue(text.getTextsize());
 												
 						AppController.getInstance().toolbar.textFill.setValue((Color) text.getColor());
-						AppController.getInstance().toolbar.textFill.setValue((Color) text.getFill());*/
+						AppController.getInstance().toolbar.textFill.setValue((Color) text.getFill());
 						
 						if (AppController.getInstance().toolbar.CurrentText.getFill() instanceof LinearGradient) {
 							AppController.getInstance().toolbar.textFill2.setValue(((LinearGradient) text.getFill()).getStops().get(1).getColor());

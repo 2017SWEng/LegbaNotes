@@ -1,7 +1,5 @@
 package com.legba.notes.controllers;
 
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -115,7 +113,6 @@ public class AppController implements Observer{
 		                		System.out.println("File not chosen");
 		                		dialog.close();
 		                	}
-		                	
 		                }
 		            });
 		            
@@ -207,8 +204,7 @@ public class AppController implements Observer{
 		AppModel.getInstance().addVeiwModeObserver(this);
 		
 		// force updateMode to load default page
-		updateMode(ViewMode.Mode.HOMEPAGE);
-
+		updateMode(ViewMode.Mode.LOGIN);
 	}
 	
  	
@@ -225,13 +221,11 @@ public class AppController implements Observer{
 		}
 		
 		System.out.println("[-] Loaded " + path);
-
 		
 		return node;
  	}
  	 	
 	private void addMenu() {
-		
 		// load menu from fxml
 		Node menu = loadFXML( getClass().getClassLoader().getResource(menuPath));
 		
@@ -240,8 +234,6 @@ public class AppController implements Observer{
 			root.setTop(menu);
 			System.out.println("\t[ OK ] Set Menu");
 		}
-		
-
 	}
 
 	@Override
@@ -258,10 +250,6 @@ public class AppController implements Observer{
 				System.err.println("[err!] Veiw mode passed unexpected object type to observers");
 			}
 		}
-		
-		//for debugging
-		//logNodes(root,0);
-
 	}
 
 	private void updateMode(Mode mode) {
@@ -276,7 +264,8 @@ public class AppController implements Observer{
 		
 		if (mode == Mode.HOMEPAGE){
 			path = AppController.homepagePath;
-			menu.notesMenu.setDisable(true);;
+			//this.addMenu();
+			menu.notesMenu.setDisable(true);
 		}
 		else if(mode == Mode.VEIWING){
 			path = AppController.viewingPath;
@@ -284,11 +273,14 @@ public class AppController implements Observer{
 		}
 		else if (mode ==Mode.LOGIN){
 			path = AppController.loginPath;
+			menu.notesMenu.setDisable(true);
+			
 		}
 		else if (mode ==Mode.MODULE_MANAGEMENT){
 			path = AppController.moduleManagePath;
+			menu.notesMenu.setDisable(true);
+			//this.addMenu();
 		}
-		
 		
 		// make sure we set a path
 		if (path == null){
@@ -303,8 +295,7 @@ public class AppController implements Observer{
 		if (n != null){
 			root.setCenter(n);
 			System.out.println("\t[ OK ] Set Veiw to " + mode.toString());
-		}
-		
+		}	
 	}
 	
  	// TODO: move this to some kind of logger class
@@ -332,16 +323,13 @@ public class AppController implements Observer{
 			for(Node n : ((Parent)root).getChildrenUnmodifiable()) {
 				logNodes(n,depth+1);
 			}
-
-		} 
-				
+		} 		
 	}
 	
  	
  	public void updateRecents(File openedFile) throws IOException{
 		//append to the recents file
 		Path legbaPath = Paths.get(System.getProperty("user.home") + File.separator + "Legba");
-		
 		
 		if(!Files.exists(legbaPath, LinkOption.NOFOLLOW_LINKS))
 		{
@@ -377,7 +365,6 @@ public class AppController implements Observer{
 		//we now have everything we need
 		//append to the file
 		//!! add checking to this !!
-		
 		
 		List<String> listItems = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader(recentsDoc.toString()));

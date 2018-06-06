@@ -3,6 +3,8 @@ package com.legba.notes.controllers;
 import com.legba.notes.elements.Shape;
 import com.legba.notes.elements.Text;
 import com.legba.notes.app.HTMLConverter;
+import com.legba.notes.elements.Video;
+import javafx.application.Platform;
 
 import java.io.File;
 import java.util.List;
@@ -13,6 +15,7 @@ import com.legba.notes.models.AppModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -24,7 +27,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Rotate;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -76,23 +78,24 @@ public class ToolbarController {
 	public ColorPicker strokeColor2;		//Shape stroke colour 2 wheel for gradient
 	@FXML
 	public ColorPicker shapeFill;			//Shape Fill colour wheel
+	@FXML 
+	public Button deleteShape;				//Delete current shape button
 	@FXML
-	public HTMLEditor insertText;			//Text field for text input 
+	public HTMLEditor insertText;			//HTML Input pane 
 	@FXML
 	public Button insertTextButton;			//Button for submitting text changes
+	@FXML 
+	public ComboBox<String> addCombo;		//Add element button
 	@FXML
 	public CheckBox fillGradient;			//Shape fill gradient yes or no
 	@FXML
 	public ColorPicker shapeFill2;			//Shape Fill colour 2 wheel for gradient
 	@FXML 
 	public Button deleteElement;			//Delete current shape button
-	@FXML 
-	public ComboBox<String> addCombo;		//Add element button
 	@FXML
-	public Button syncSlide;				//Synce slide to time
+	public Button syncSlide;				//Sync slide to time
 	@FXML
 	public CheckBox scrollVideo;			//Scroll with video
-	
 
 
 	/**
@@ -103,6 +106,8 @@ public class ToolbarController {
 	protected void handleBoldFontAction(ActionEvent event) {
 		CurrentText.setBold(boldFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -113,6 +118,8 @@ public class ToolbarController {
 	protected void handleItalicFontAction(ActionEvent event) {
 		CurrentText.setItalic(italicFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -123,6 +130,8 @@ public class ToolbarController {
 	protected void handleUndFontAction(ActionEvent event) {
 		CurrentText.setUnderline(undFont.isSelected());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -138,6 +147,8 @@ public class ToolbarController {
 			CurrentText.setFill(textFill.getValue());
 		}
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -155,12 +166,21 @@ public class ToolbarController {
 			CurrentText.setFill(textFill.getValue());
 		}
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
 	 * Sets 2nd text colour for selected text
 	 * @param event
 	 */
+	@FXML 
+	protected void handlePageBreakAction(ActionEvent event) {
+		System.out.println("Page Break");	
+		//TODO: Functionality code....
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
+	}
 	@FXML
 	protected void handleTextFill2Action(ActionEvent event) {
 		if (textFillGradient.isSelected()) {
@@ -180,6 +200,8 @@ public class ToolbarController {
 	protected void handleFontAction(ActionEvent event) {
 		CurrentText.setFont(fontCombo.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -190,6 +212,8 @@ public class ToolbarController {
 	protected void handleSizeAction(ActionEvent event) {
 		CurrentText.setTextsize(sizeCombo.getValue());
 		AppController.getInstance().viewing.updateSlide();
+	
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 	}
 	
 	/**
@@ -306,16 +330,16 @@ public class ToolbarController {
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Scroll to slide
 	 * @param event
 	 */
 	@FXML
-	protected void handlescrollVideoAction(ActionEvent event) {
-
+	protected void handlescrollVideoAction(ActionEvent event) {	
+		//Controls if statement in MovieView.java line 318
 	}
 	
 	/**
-	 * Takes selected shape fill colour and sets it to the selected shape
+	 * Sync slide to current point in video
 	 * @param event
 	 */
 	@FXML
@@ -428,7 +452,7 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Video");
 				fileChooser.getExtensionFilters().addAll(
-						new ExtensionFilter("Audio Files", "*.mp4", "*.MP4", "*.m4a", "*.M4A", "*.m4v", "*.M4V", "*.m3u8", "*.M3U8", "*.fxm", "*.FXM", "*.flv", "*.FLV")	
+						new ExtensionFilter("Video Files", "*.mp4", "*.MP4", "*.m4a", "*.M4A", "*.m4v", "*.M4V", "*.m3u8", "*.M3U8", "*.fxm", "*.FXM", "*.flv", "*.FLV")	
 				);
 				
 				//Set Directory to workspace
@@ -449,7 +473,7 @@ public class ToolbarController {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open image");
 				fileChooser.getExtensionFilters().addAll(
-						new ExtensionFilter("Audio Files", "*.jpeg", "*.JPEG", "*.jpg", "*.JPG", "*.gif", "*.GIF", "*.png", "*.PNG", "*.bmp", "*.BMP")	
+						new ExtensionFilter("Image Files", "*.jpeg", "*.JPEG", "*.jpg", "*.JPG", "*.gif", "*.GIF", "*.png", "*.PNG", "*.bmp", "*.BMP")	
 				);
 				
 				//Set Directory to workspace
@@ -481,30 +505,16 @@ public class ToolbarController {
 		
 		AddElement = false;
 	}
-
-	/**
-	 * Takes text typed into the text area and inserts it into the slide.
+	
+	/** Takes text typed into the HTML Editor and inserts it into the slide.
 	 * @param event
 	 */
 	@FXML
 	protected void handleInsertTextAction(ActionEvent event) {
-		//Get HTML text
-		String htmlText = insertText.getHtmlText();
-		
-		List<Text> slideTexts = CurrentSlide.getTexts();
-		slideTexts.remove(CurrentText);
-		
-		Text t = HTMLConverter.toPWS(htmlText);
-		
-		if (t != null){
-			slideTexts.add(t);
-			CurrentSlide.setTexts(slideTexts);
-		
-			//Update slides
-			AppController.getInstance().viewing.updateSlide();
-		}
+		CurrentText.overwrite(HTMLConverter.toPWS(insertText.getHtmlText()));
+		AppController.getInstance().viewing.updateSlide();
 	}
-	
+
 	/**
 	 * Enables editing tools for shapes and disables others
 	 */
@@ -568,15 +578,11 @@ public class ToolbarController {
 		strokeCombo.setDisable(true);
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
-
+		
 		insertText.setDisable(false);
-		if(CurrentText != null) {
-			insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
-		}
+		insertText.setHtmlText(HTMLConverter.toHTML(CurrentText));
 		insertTextButton.setDisable(false);
 		
-		
-
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
 		strokeColor2.setDisable(true);
@@ -609,13 +615,15 @@ public class ToolbarController {
 		strokeColor.setDisable(true);
 		shapeFill.setDisable(true);
 		
+		strokeGradient.setDisable(true);
+		fillGradient.setDisable(true);
+		strokeColor2.setDisable(true);
+		shapeFill2.setDisable(true);
+		
 		syncSlide.setDisable(false);
 		
 		addCombo.setDisable(false);
 		deleteElement.setDisable(false);
-
-
-	
 	}
 
 	
@@ -638,8 +646,12 @@ public class ToolbarController {
 		shapeFill.setDisable(true);
 
 		insertText.setDisable(true);
-		insertText.setPrefSize(200, 100);
+
+		insertText.setPrefSize(500, 100);
+
 		insertTextButton.setDisable(true);
+		deleteElement.setDisable(true);
+		addCombo.setDisable(true);
 
 		strokeGradient.setDisable(true);
 		fillGradient.setDisable(true);
@@ -794,12 +806,36 @@ public class ToolbarController {
 		deleteElement.setTooltip(deleteElementTP);
 		
 		//Add Combo
-		final Tooltip addComboTP = new Tooltip();
-		addComboTP.setText(
+		final Tooltip addComboTT = new Tooltip();
+		addComboTT.setText(
 			"Choose an element from the list\n" +
 		    "to add to the selected slide.\n" 
 		);
-		addCombo.setTooltip(addComboTP);			
+		addCombo.setTooltip(addComboTT);	
+		
+		//Scroll slides
+		final Tooltip scrollVideoTT = new Tooltip();
+		scrollVideoTT.setText(
+			"Enable to scroll slides automatically\n" +
+		    "with multimedia element in left hand pane.\n" 
+		);
+		scrollVideo.setTooltip(scrollVideoTT);	
+		
+		//Sync slide
+		final Tooltip syncSlideTT = new Tooltip();
+		syncSlideTT.setText(
+			"Sync selected slide to\n" +
+		    "current point in video.\n" 
+		);
+		syncSlide.setTooltip(syncSlideTT);	
+	}
+	
+	/**
+	 * Enables addition of elements onto current pane
+	 */
+	public void paneMode() {
+		addCombo.setDisable(false);
+		deleteElement.setDisable(false);
 	}
 
 	/**
@@ -818,11 +854,38 @@ public class ToolbarController {
 		//Set listeners on all buttons to display tooltips
 		buttonTooltips();
 		
+		insertText.setPrefSize(400, 100);
+		hideHTMLEditorToolbars(insertText);
+		
 		//Initially disable editing toolbar
 		initialStartup();
 	}
 	
-
+	
+	//Referenced from: https://stackoverflow.com/a/25388790
+	/**
+	 * Removes additonal toolbar elements from the HTMLEditor element
+	 * @param editor
+	 */
+	public static void hideHTMLEditorToolbars(final HTMLEditor editor)
+	{
+	    editor.setVisible(false);
+	    Platform.runLater(new Runnable()
+	    {
+	        @Override
+	        public void run()
+	        {
+	            Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
+	            for(Node node : nodes)
+	            {
+	                node.setVisible(false);
+	                node.setManaged(false);
+	            }
+	            editor.setVisible(true);
+	        }
+	    });
+	}
+	
 	public Stop[] getStops(Color color1, Color color2) {
 		Stop[] stops = new Stop[] {new Stop(0, color1), new Stop(1, color2)};
 		return stops;

@@ -32,11 +32,9 @@ import javafx.util.Duration;
 public class ViewingController {
 	
 	public List<MediaPlayer> allMediaPlayers = new ArrayList<>();
-
-	
-	
 	private double nodeX;
 	private double nodeY;
+
 	public String pdfURL;
 		
 	@FXML
@@ -85,7 +83,6 @@ public class ViewingController {
 				slideSizeIndex[i] = Slide.getLayoutBounds().getHeight();
 			}
 			slideSizeIndex[i] += 10;
-			//System.out.println("Slide Height is: " + Slide.getLayoutBounds().getHeight());
 		}
 		return slideSizeIndex;
 		
@@ -114,20 +111,10 @@ public class ViewingController {
 			nextSlideHeight+=slideLengths[i];
 		}
 		
-		System.out.println("slideIndex: " + slideIndex);
-		System.out.println("slideLengths: " + Arrays.toString(slideLengths));
-		System.out.println("totalSlideSize: " + totalSlideSize);
-		System.out.println("nextSlideHeight: " + nextSlideHeight);
-		System.out.println("actual scroll size: " + nextSlideHeight/totalSlideSize);
-		System.out.println("actual scroll size: " + slideLengths.length);
-		System.out.println("vvalue: " + ((ScrollPane)notes_root.getChildren().get(0)).getVvalue());
-		
 		Double h = slideBox.getBoundsInLocal().getHeight();
 		Double v = scrollPane.getViewportBounds().getHeight();
 		
 		Double value = scrollPane.getVmax() * ((nextSlideHeight)/(h - v));
-		
-		System.out.println(value);
 		
 		((ScrollPane)notes_root.getChildren().get(0)).setVvalue(value);
 	}
@@ -197,7 +184,10 @@ public class ViewingController {
 		}
 	}
 	
-	
+	/**
+	 * Scroll to slide start points in conjunction with video
+	 * @param duration
+	 */
 	public void scrollToDuration(Duration duration) {
 		
 		List<Slide> slides = AppModel.getInstance().getPres().getSlide();
@@ -238,8 +228,6 @@ public class ViewingController {
 		}
 		
 		scrollToSlide(slideToMoveTo);
-		
-		System.out.println("Duration: " + slidesDuration + ". Slides: " + slidesIndex);
 	}
 	
 	/**

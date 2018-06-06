@@ -4,43 +4,96 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import javafx.scene.paint.Color;
+
 import com.legba.notes.elements.Br;
 import com.legba.notes.elements.Format;
 import com.legba.notes.elements.Text;
 
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-
 public class HTMLConverter {
 	
+	/**
+	 * Converts a Text element into HTML code
+	 * @param text that needs to be converted to HTML code
+	 * @return html.toString() which is the converted text
+	 */
 	public static String toHTML(Text text) {
-		
 		if (text == null) {
 			return null;
 		}
 		
 		StringBuilder html = new StringBuilder();
 		
-		html.append("<html dir='ltr'><head></head><body contenteditable='true' style=\""+"font-color:"+text.getFill()+"\">");
-		if((text.getFont() != null)) {
-			html.append("<font>");
-		}		
-		if((text.getItalic() != null) && (text.getItalic() == true)) {
-			html.append("<i>");
+		System.out.println("\n-----" + text + "\n-----");
+		
+		html.append("<html dir=\"ltr\"><head></head><body contenteditable='true' style=\"" + 
+				"color:#" + text.getFill().toString().substring(2) + ";font-family:" + text.getFont() + 
+				";font-size:" + text.getTextsize() + "pt");
+		if(text.getItalic() == true) {
+			html.append(";font-style:italic");
 		}
-		if((text.getBold() != null) && (text.getBold() == true)) {
-			html.append("<b>");
+		if(text.getBold() == true) {
+			html.append(";font-weight:bold");
 		}
-		if((text.getUnderline() != null) && (text.getUnderline() == true)) {
-			html.append("<u>");
+		if(text.getUnderline() == true) {
+			html.append(";text-decoration:underline");
 		}
+		html.append("\">");
+		
 		for (int i=0; i<text.getContents().size(); i++) {
 			
 			if (text.getContents().get(i) instanceof String){
 				html.append(text.getContents().get(i));
 			}
 			else if (text.getContents().get(i) instanceof Format){
+				if (((Format)text.getContents().get(i)).getBold() != null) {
+					if(((Format)text.getContents().get(i)).getBold() == true) {
+						html.append("<b>");
+					}
+				}
+				if (((Format)text.getContents().get(i)).getItalic() != null) {
+					if(((Format)text.getContents().get(i)).getItalic() == true) {
+						html.append("<i>");
+					}
+				}
+				if (((Format)text.getContents().get(i)).getUnderline() != null) {
+					if (((Format)text.getContents().get(i)).getUnderline() == true) {
+						html.append("<u>");
+					}
+				}
+				
+				html.append("<p style=\"");
+				
+				if (((Format)text.getContents().get(i)).getColor() != null) {
+					html.append("color" + ((Format)text.getContents().get(i)).getColor());
+				}	
+				if (((Format)text.getContents().get(i)).getTextsize() != null) { 
+					html.append(";font-size:" + ((Format)text.getContents().get(i)).getTextsize() + "pt"); 
+				}
+				if (((Format)text.getContents().get(i)).getFont() != null) {
+					html.append(";font-family:" + ((Format)text.getContents().get(i)).getFont());
+				}
+				html.append("\">");
+
 				html.append(((Format)text.getContents().get(i)).getText());
+				
+				html.append("</p>");
+				
+				if (((Format)text.getContents().get(i)).getBold() != null) {
+					if(((Format)text.getContents().get(i)).getBold() == true) {
+						html.append("</b>");
+					}
+				}
+				if (((Format)text.getContents().get(i)).getItalic() != null) {
+					if(((Format)text.getContents().get(i)).getItalic() == true) {
+						html.append("</i>");
+					}
+				}
+				if (((Format)text.getContents().get(i)).getUnderline() != null) {
+					if (((Format)text.getContents().get(i)).getUnderline() == true) {
+						html.append("</u>");
+					}
+				}
 			}
 			else if (text.getContents().get(i) instanceof Br){
 				html.append("\n");
@@ -67,76 +120,108 @@ public class HTMLConverter {
 	}
 	
 	public static Text toPWS(String html) {
-		
-		if(html == null || html.trim().length() == 0){
-			return null;
-		}
-		
+		Text pws = new Text();
 		Document doc = Jsoup.parse(html);
-		Element bodyTag = doc.getElementsByTag("body").get(0);
-		System.out.println(bodyTag);
+		String StyleString = doc.body().getAllElements().attr("style");
 		
-		Text pws = new Text(bodyTag.text());
-		String stylesText = bodyTag.attr("style").toString();
-		String[] styles = stylesText.split(";");
+		//Would Implement the preservation of format tags if we had the time
+		//buildString(doc.body(), pws);
 		
-		pws.setTextsize(32);
+		pws.addContents(doc.body().text());
+		applyStyle(StyleString, pws);
 		
-		for(int i = 0; i < styles.length; i++){
-			String HTMLkey = styles[i].split(":")[0];
-			String value = styles[i].split(":")[1];
-			
-			if(HTMLkey.equals("font-family")){
-				if(!value.trim().equals("null")) {
-					pws.setFont(value);
-				}
-				else {
-					pws.setFont("Ariel");
-				}
+		System.out.println("Current PWS file contents: " + pws);
 
-			} else if(HTMLkey.equals("font-color")){
-				if(!value.trim().equals("null")) {
-					pws.setFill(Color.web(value));
-				}
-				else {
-					pws.setFill(Color.BLACK);
-				}
-			}
-		}
-		
-		//Font
-		Element fontTag = doc.getElementsByTag("font").get(0);
-		
-		
-		
-		
-		pws.setFont(fontTag.attr("face"));
-		
-		//let's have a bodge of the sizings
-		switch (Integer.parseInt(fontTag.attr("size"))){
-		case 1: pws.setTextsize(8);
-		break;
-		case 2: pws.setTextsize(10);
-		break;
-		case 3: pws.setTextsize(12);
-		break;
-		case 4: pws.setTextsize(14);
-		break;
-		case 5: pws.setTextsize(18);
-		break;
-		case 6: pws.setTextsize(24);
-		break;
-		case 7: pws.setTextsize(36);
-		break;
-		}
-		
-		pws.setFill(Color.web(fontTag.attr("color")));
-		
-		//Bold
-		
 		return pws;
 	}
 	
+	private static void applyStyle(String StyleString, Text text) {
+		String[] Styles = StyleString.split(";");
+		
+		for (int i = 0; i < Styles.length; i++) {
+			if(Styles[i].startsWith("font-size")) {
+				String Size = Styles[i].split(":")[1].split("pt")[0];
+				text.setTextsize(Integer.parseInt(Size));
+			}
+			else if(Styles[i].startsWith("color")) {
+				String StringColor = "0x" + Styles[i].split("#")[1];
+				Color color = Color.web(StringColor);
+				text.setFill(color);
+			}
+			else if(Styles[i].startsWith("font-family")) {
+				String Font = Styles[i].split(":")[1];
+				text.setFont(Font);
+			}
+			else if(Styles[i].startsWith("font-weight")) {
+				text.setBold(true);
+			}
+			else if(Styles[i].startsWith("font-style")) {
+				text.setItalic(true);	
+			}
+			else if(Styles[i].startsWith("text-decoration")) {
+				text.setUnderline(true);
+			}
+		}	
+	}
+	
+	private static void buildString(Element body, Text pws) {
+		String[] content = body.toString().split(">|\\n");
+		StringBuilder pwsString = new StringBuilder();
+		
+		for(int i = 1; i< content.length - 1; i++) {
+			System.out.println(content[i]);
+			if(content[i].contains("<u")) {
+				pwsString.append("<Format underline=\"true\">");
+				System.out.println("Added Undeline opener");
+			}
+			else if(content[i].contains("<b")) {
+				pwsString.append("<Format bold =\"true\">");
+				System.out.println("Added Bold opener");
+			}
+			else if(content[i].contains("<i")) {
+				pwsString.append("<Format italic =\"true\">");
+				System.out.println("Added Italic opener");
+			}
+			else if(content[i].contains("<p")) {
+				if(content[i].contains("color")) {
+					pwsString.append("<Format color=\"#"+ content[i].split("color0x")[1] +">");
+					System.out.println("Added Color opener");
+				}
+				else if(content[i].contains("family")) {
+					pwsString.append("<Format font=\""+ content[i].split(":")[1] +">");
+					System.out.println("Added Font opener");
+				}
+				else if(content[i].contains("size")) {
+					pwsString.append("<Format textsize=\""+ content[i].split(":")[1] +">");
+					System.out.println("Added size opener");
+				}
+			}
+			else if(content[i].contains("</u")) {
+				pwsString.append(content[i].split("<")[0] + "</Format>");
+				System.out.println("Added Undeline closer");
+			}
+			else if(content[i].contains("</b")) {
+				pwsString.append(content[i].split("<")[0] + "</Format>");
+				System.out.println("Added bold closer");
+			}
+			else if(content[i].contains("</i")) {
+				pwsString.append(content[i].split("<")[0] + "</Format>");
+				System.out.println("Added italic closer");
+			}
+			else if(content[i].contains("</p")) {
+				pwsString.append(content[i].split("<")[0] + "</Format>");
+				System.out.println("Added P closer");
+			}
+			else {
+				pwsString.append(content[i]);
+				System.out.println("Added Text");
+			}
+		}
+		System.out.println(pwsString);
+		
+		Text tempText = new Text(pwsString.toString());
+		pws.setContents(tempText.getContents());
+	}
 }
 
 

@@ -2,13 +2,11 @@ package com.legba.notes.renderers;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
 import java.util.List;
 
-import com.legba.notes.controllers.AppController;
 import com.legba.notes.elements.Meta;
 import com.legba.notes.elements.Presentation;
 import com.legba.notes.elements.Slide;
@@ -56,11 +54,9 @@ public class PresentationRenderer extends Renderer<Presentation>{
 			vbox.getChildren().add(new Text(m.getKey() + " : " + m.getValue()));
 		}
 		
-		
 		List<Slide> slide = pres.getSlide();
 		
 		for(Slide s : slide){
-			
 			vbox.getChildren().add(slideRenderer.render(s));
 		}
 		

@@ -22,23 +22,23 @@ public class Meta extends Element {
 		
 	}
 
-	@XmlAttribute(required=true)
+	@XmlAttribute(required = true)
 	public String getKey() {
 		return (String)this.key;
 
 	}
 
 	public void setKey(String key) {
-		this.key=key;
+		this.key = key;
 	}
 	
-	@XmlAttribute(required=true)
+	@XmlAttribute(required = true)
 	public String getValue() {
 		return this.value;
 
 	}
 
 	public void setValue(String value) {
-		this.value=value;
+		this.value = value;
 	}
 }

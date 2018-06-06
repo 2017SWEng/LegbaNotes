@@ -34,12 +34,20 @@
 				</HBox>
 				<HBox alignment="center" spacing="8.0">
 					<Text>Password</Text>
-					<PasswordField fx:id="passwordField"/>
+					<PasswordField fx:id="passwordField" onAction="#onEnter"/>
 				</HBox>
 				<HBox alignment="center">
 					<Button fx:id="loginBtn" text="Login" onAction="#handleLoginBtnAction"/>
 				</HBox>
 				<Text fx:id="errorText"/>
+			<!--	<HBox alignment="CENTER">
+					<ImageView fx:id="homeLogo" StyleClass="homeImage" fitHeight="20" preserveRatio="true" onMouseClicked="#handleHomeButtonAction">
+						<image>
+							<Image url="@Images/Home.png" />
+						</image>
+					</ImageView>
+					<Text> Login Functionality coming soon... </Text>
+				</HBox> -->
 			</VBox>	
 	</center> 
 

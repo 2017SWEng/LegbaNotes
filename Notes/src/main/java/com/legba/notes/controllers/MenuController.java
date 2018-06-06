@@ -100,7 +100,7 @@ public class MenuController implements Observer{
 		AppModel.getInstance().addVeiwModeObserver(this);
 		
 		// force updateMode to load default page
-		updateMode(ViewMode.Mode.HOMEPAGE);
+		updateMode(AppModel.getInstance().getVeiwMode());
 	}
 	
 	@FXML
@@ -137,18 +137,21 @@ public class MenuController implements Observer{
 
 	private void switchToHomepage(){
 		topbar_root.setBottom(null);
+		topbar_root.setVisible(true);
 	}
 	private void switchToModuleManagement(){
 		topbar_root.setBottom(null);
+		topbar_root.setVisible(true);
 	}
 	private void switchToViewing(){
 		topbar_root.setBottom(loadFXML( getClass().getClassLoader().getResource(toolbarPath)));
+		topbar_root.setVisible(true);
 	}
 	
 	// Loads fxml file
  	private Node loadFXML(URL path){
  		System.out.println("[+] Loading " + path);
-		FileSystemController fsc = AppController.getInstance().fileSystemController;
+		//FileSystemController fsc = AppController.getInstance().fileSystemController;
 		
  		Node node = null;
 		try {
